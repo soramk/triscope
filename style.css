@@ -1,0 +1,236 @@
+:root {
+    --bg-color: #0d0d12;
+    --sidebar-bg: rgba(20, 20, 30, 0.8);
+    --card-bg: rgba(30, 30, 45, 0.6);
+    --accent-primary: #8a2be2;
+    --accent-secondary: #4b0082;
+    --accent-gold: #ffd700;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --glass-border: rgba(255, 255, 255, 0.1);
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    line-height: 1.6;
+    overflow-x: hidden;
+    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d12 100%);
+    min-height: 100vh;
+}
+
+/* Layout */
+.app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 280px;
+    background: var(--sidebar-bg);
+    backdrop-filter: blur(15px);
+    border-right: 1px solid var(--glass-border);
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    z-index: 100;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+}
+
+.logo-icon {
+    width: 40px;
+    height: 40px;
+    background-image: url('triscope_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    border-radius: 8px;
+    filter: drop-shadow(0 0 8px var(--accent-primary));
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(to right, #fff, #a0a0a0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.nav-list {
+    list-style: none;
+}
+
+.nav-item {
+    margin-bottom: 0.5rem;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background: rgba(138, 43, 226, 0.15);
+    color: #fff;
+    box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.1);
+}
+
+.nav-link.active::before {
+    content: '';
+    width: 4px;
+    height: 20px;
+    background: var(--accent-gold);
+    position: absolute;
+    left: 0;
+    border-radius: 0 4px 4px 0;
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    margin-left: 280px;
+    padding: 2rem 4rem;
+    max-width: 1200px;
+}
+
+/* Content Styles */
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to bottom, #fff, #bdbdbd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+h2 {
+    font-size: 1.8rem;
+    margin: 2.5rem 0 1.2rem;
+    color: var(--accent-gold);
+    border-bottom: 1px solid var(--glass-border);
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    font-size: 1.3rem;
+    margin: 1.5rem 0 1rem;
+    color: #fff;
+}
+
+p {
+    margin-bottom: 1.2rem;
+    color: var(--text-main);
+    opacity: 0.9;
+}
+
+.section-card {
+    background: var(--card-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Tool styles */
+.tool-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.input-group {
+    margin-bottom: 1.5rem;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--accent-gold);
+    font-size: 0.9rem;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    color: #fff;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+input:focus {
+    border-color: var(--accent-primary);
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, var(--accent-primary), var(--accent-secondary));
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+}
+
+/* Charts */
+#horoscope-chart {
+    width: 100%;
+    aspect-ratio: 1;
+    margin: 2rem 0;
+    background: radial-gradient(circle, #1a1a2e 0%, #0d0d12 100%);
+    border-radius: 50%;
+    border: 1px solid var(--glass-border);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .sidebar {
+        width: 80px;
+        padding: 2rem 0.5rem;
+    }
+
+    .logo-text,
+    .nav-text {
+        display: none;
+    }
+
+    .main-content {
+        margin-left: 80px;
+        padding: 2rem;
+    }
+}
