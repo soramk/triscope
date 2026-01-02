@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>タロット占いの世界：総合レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Zen+Antique&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background-color: #fdfbf7;
+            /* Warm paper-like background */
+            color: #2c2c2c;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif-font {
+            font-family: 'Zen Antique', serif;
+        }
+
+        .card-container {
+            perspective: 1000px;
+        }
+
+        .tarot-card {
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .tarot-card.flipped {
+            transform: rotateY(180deg);
+        }
+
+        .card-face {
+            backface-visibility: hidden;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+        }
+
+        .card-front {
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            border: 2px solid #fbbf24;
+        }
+
+        .card-back {
+            background: repeating-linear-gradient(45deg,
+                    #1e1b4b,
+                    #1e1b4b 10px,
+                    #312e81 10px,
+                    #312e81 20px);
+            border: 4px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        .nav-link.active {
+            border-bottom: 2px solid #8b5cf6;
+            color: #5b21b6;
+        }
+
+        .step-line::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background-color: #e5e7eb;
+            z-index: 0;
+            transform: translateX(-50%);
+        }
+    </style>
+    <!-- Chosen Palette: Mystical Scholar. Warm neutrals (fdfbf7) for background, Deep Indigo (1e1b4b) for depth, Amber/Gold (fbbf24) for accents, and Soft Violet (8b5cf6) for interaction highlights. Designed to feel like a modern grimoire or academic study. -->
+
+    <!-- Application Structure Plan:
+        1. Hero Section: "Experience Tarot". Immediate interaction (Draw a card) to demonstrate the core mechanism (Synchronicity/Randomness) before explaining it.
+        2. Dashboard "The Nature of Tarot":
+           - Comparative Analysis: Interactive tabs comparing Tarot (Bokujutsu) to Astrology/Face Reading to define its category.
+           - Capabilities Radar: A Chart.js radar chart visualizing "What it can/cannot do" clearly.
+        3. The Theory Section (Logic & History):
+           - Interactive Flow: How Synchronicity works.
+           - Timeline: Vertical interactive timeline of Tarot's evolution.
+        4. Practical Guide: Step-by-step interactive wizard showing how a reading is performed.
+        5. Synthesis: Conclusion.
+        Rationale: Start with engagement (the draw), then move to analytical understanding (what is it?), then theoretical depth (why?), and finally practical application (how?). This flows from "Experience" to "Knowledge".
+    -->
+
+    <!-- Visualization & Content Choices:
+        - Hero: CSS-only flip card. Goal: Engagement/Demo. Method: HTML/CSS transform.
+        - Overview: Tabbed interface for text content. Goal: Compare definitions.
+        - Capabilities: Chart.js Radar Chart. Goal: Visualize the strengths/weaknesses spectrum (e.g., strong in 'feelings', weak in 'fixed fate'). 
+        - History: Vertical Layout with flex items. Goal: Chronological clarity.
+        - Method: JS-driven Stepper. Goal: Process visualization.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-indigo-100 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl mr-2">🔮</span>
+                    <span class="font-bold text-xl tracking-tight text-indigo-950 serif-font">タロット解析レポート</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('hero')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-3 py-2 text-sm font-medium transition-colors">体験</button>
+                    <button onclick="scrollToSection('overview')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-3 py-2 text-sm font-medium transition-colors">概要と特性</button>
+                    <button onclick="scrollToSection('capabilities')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-3 py-2 text-sm font-medium transition-colors">得意分野</button>
+                    <button onclick="scrollToSection('logic')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-3 py-2 text-sm font-medium transition-colors">理論と歴史</button>
+                    <button onclick="scrollToSection('method')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-3 py-2 text-sm font-medium transition-colors">実践手法</button>
+                </div>
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-600 hover:text-indigo-700 focus:outline-none">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="scrollToSection('hero'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">体験</button>
+                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">概要と特性</button>
+                <button onclick="scrollToSection('capabilities'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">得意分野</button>
+                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">理論と歴史</button>
+                <button onclick="scrollToSection('method'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">実践手法</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow">
+        <!-- Hero / Experience Section -->
+        <section id="hero" class="relative pt-12 pb-20 overflow-hidden">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-indigo-950 mb-6 tracking-tight">偶然が生み出す必然の物語</h1>
+                <p class="mt-4 max-w-2xl mx-auto text-lg text-gray-600 leading-relaxed">
+                    タロット占いは、78枚のカードを通じて潜在意識を可視化する「卜術（ぼくじゅつ）」の一種です。<br>
+                    まずは一枚引いて、その仕組みを体感してください。
+                </p>
+
+                <!-- Interactive Card Draw -->
+                <div class="mt-12 flex justify-center perspective-container h-80">
+                    <div id="demo-card" class="relative w-56 h-80 cursor-pointer card-container" onclick="drawCard()">
+                        <div class="tarot-card w-full h-full relative duration-700">
+                            <!-- Back -->
+                            <div class="card-face card-back shadow-xl">
+                                <span class="text-4xl opacity-50">✨</span>
+                            </div>
+                            <!-- Front (Dynamic Content) -->
+                            <div class="card-face card-front shadow-xl p-4 text-center">
+                                <div
+                                    class="border border-yellow-400/50 w-full h-full p-2 flex flex-col justify-between items-center rounded">
+                                    <div class="text-yellow-400 font-serif text-sm">MAJOR ARCANA</div>
+                                    <div class="flex flex-col items-center">
+                                        <div id="card-number" class="text-xl font-bold mb-2 font-serif text-yellow-200">
+                                        </div>
+                                        <div id="card-icon" class="text-5xl mb-2"></div>
+                                        <h3 id="card-name"
+                                            class="text-xl font-bold tracking-widest uppercase mb-1 font-serif"></h3>
+                                        <p id="card-keyword" class="text-xs text-indigo-200 mt-2 font-medium"></p>
+                                    </div>
+                                    <div class="text-[10px] text-indigo-300">Click to Reshuffle</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-6">
+                    <p id="instruction-text" class="text-sm text-indigo-500 animate-pulse">カードをクリックして運命の1枚を引く</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 1: Overview & Characteristics -->
+        <section id="overview" class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">1. 概要と特性</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">
+                        タロット占いは、占星術や手相とは根本的に異なる原理で動いています。<br>
+                        その最大の特徴は「偶然性」を扱うことにあります。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Comparison Tabs Logic -->
+                    <div class="lg:col-span-1 bg-slate-50 rounded-xl p-6 shadow-sm border border-slate-100">
+                        <h3 class="text-lg font-bold text-indigo-800 mb-4 border-b pb-2">占いの3大分類</h3>
+                        <div class="space-y-3">
+                            <button onclick="showTab('boku')" id="btn-boku"
+                                class="w-full text-left px-4 py-3 rounded-lg bg-indigo-600 text-white shadow-md transition-all flex justify-between items-center">
+                                <span>🃏 卜術 (ぼくじゅつ)</span>
+                                <span class="text-xs bg-white/20 px-2 py-1 rounded">タロット</span>
+                            </button>
+                            <button onclick="showTab('mei')" id="btn-mei"
+                                class="w-full text-left px-4 py-3 rounded-lg bg-white hover:bg-indigo-50 text-gray-700 border border-gray-200 transition-all flex justify-between items-center">
+                                <span>⭐ 命術 (めいじゅつ)</span>
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded">占星術</span>
+                            </button>
+                            <button onclick="showTab('so')" id="btn-so"
+                                class="w-full text-left px-4 py-3 rounded-lg bg-white hover:bg-indigo-50 text-gray-700 border border-gray-200 transition-all flex justify-between items-center">
+                                <span>✋ 相術 (そうじゅつ)</span>
+                                <span class="text-xs bg-gray-100 px-2 py-1 rounded">手相</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Dynamic Content Area -->
+                    <div class="lg:col-span-2 bg-indigo-50 rounded-xl p-8 border border-indigo-100 relative">
+                        <div id="content-boku" class="tab-content transition-opacity duration-300">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-3 serif-font">卜術 (タロット) の本質</h4>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                「偶然」の中に「必然」を見出す占術です。計算や観察ではなく、その瞬間に現れた結果（シンクロニシティ）を重視します。
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                        class="text-sm font-bold text-gray-800">主軸：</span><span
+                                        class="text-sm text-gray-600">偶然性、共時性、直感</span></li>
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                        class="text-sm font-bold text-gray-800">時間軸：</span><span
+                                        class="text-sm text-gray-600">「今」この瞬間から近い未来（3ヶ月〜半年程度）</span></li>
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                        class="text-sm font-bold text-gray-800">強み：</span><span
+                                        class="text-sm text-gray-600">揺れ動く人の気持ちや、具体的な選択肢の吉凶判断</span></li>
+                            </ul>
+                        </div>
+                        <div id="content-mei" class="tab-content hidden transition-opacity duration-300">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-3 serif-font">命術 (比較対象)</h4>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                生年月日や生まれた時間など、不変の情報に基づく統計的な占術です（四柱推命、西洋占星術など）。
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">ℹ</span><span
+                                        class="text-sm font-bold text-gray-800">違い：</span><span
+                                        class="text-sm text-gray-600">タロットが「流動的な状況」を見るのに対し、命術は「生まれ持った宿命や才能」を見ます。</span>
+                                </li>
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">ℹ</span><span
+                                        class="text-sm font-bold text-gray-800">弱点：</span><span
+                                        class="text-sm text-gray-600">相手の今の具体的な気持ちや、明日の詳細な出来事を占うのは苦手です。</span></li>
+                            </ul>
+                        </div>
+                        <div id="content-so" class="tab-content hidden transition-opacity duration-300">
+                            <h4 class="text-2xl font-bold text-indigo-900 mb-3 serif-font">相術 (比較対象)</h4>
+                            <p class="text-gray-700 leading-relaxed mb-4">
+                                物の形や姿を観察して吉凶を判断する占術です（手相、人相、風水など）。
+                            </p>
+                            <ul class="space-y-2">
+                                <li class="flex items-start"><span class="text-indigo-500 mr-2">ℹ</span><span
+                                        class="text-sm font-bold text-gray-800">違い：</span><span
+                                        class="text-sm text-gray-600">環境や身体に現れる影響を見ます。「開運のために環境を変える」などのアプローチが得意ですが、タロットのような心理分析とは異なります。</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Capabilities (Data Viz) -->
+        <section id="capabilities" class="py-16 bg-gradient-to-b from-slate-50 to-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+                    <div>
+                        <h2 class="text-3xl font-bold text-indigo-900 mb-6 serif-font">2. 得意・不得意の分析</h2>
+                        <p class="text-gray-600 mb-6 leading-relaxed">
+                            タロットは万能ではありません。その特性上、非常に得意な領域と、構造的に苦手な領域が明確に分かれています。<br>
+                            このレーダーチャートは、相談内容に対するタロットの適性を示しています。
+                        </p>
+
+                        <div class="space-y-4">
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-indigo-50 hover:border-indigo-200 transition-colors cursor-default group">
+                                <h4 class="font-bold text-indigo-800 flex items-center">
+                                    <span class="bg-green-100 text-green-700 p-1 rounded text-xs mr-2">得意</span>
+                                    相手の気持ち・心理
+                                </h4>
+                                <p class="text-sm text-gray-600 mt-1">言葉にされない本音や潜在意識を映し出すのが最も得意です。</p>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-indigo-50 hover:border-indigo-200 transition-colors cursor-default group">
+                                <h4 class="font-bold text-indigo-800 flex items-center">
+                                    <span class="bg-green-100 text-green-700 p-1 rounded text-xs mr-2">得意</span>
+                                    近未来 (1〜3ヶ月)
+                                </h4>
+                                <p class="text-sm text-gray-600 mt-1">現状の延長線上にある、直近の未来予測に高い精度を持ちます。</p>
+                            </div>
+                            <div
+                                class="bg-white p-4 rounded-lg shadow-sm border border-red-50 hover:border-red-200 transition-colors cursor-default group">
+                                <h4 class="font-bold text-gray-500 flex items-center">
+                                    <span class="bg-red-100 text-red-700 p-1 rounded text-xs mr-2">苦手</span>
+                                    長期的な運勢・絶対的な宿命
+                                </h4>
+                                <p class="text-sm text-gray-600 mt-1">「10年後の自分」や「寿命」など、遠い未来や変えられない事実は苦手です。</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl p-6 shadow-lg border border-slate-100">
+                        <div class="text-center mb-4">
+                            <h3 class="text-sm font-bold text-gray-500 tracking-wider uppercase">適性スコア分析</h3>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="capabilityChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Logic & History -->
+        <section id="logic" class="py-16 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+
+                    <!-- Logic Column -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-indigo-900 mb-6 serif-font">3. 根拠とロジック</h2>
+                        <div class="prose prose-indigo text-gray-600">
+                            <p class="mb-4">
+                                タロット占いが当たる根拠として、現代では心理学者カール・ユングが提唱した概念が多く引用されます。
+                            </p>
+                        </div>
+
+                        <div class="mt-8 space-y-6">
+                            <div class="bg-white p-6 rounded-xl border-l-4 border-indigo-500 shadow-sm">
+                                <h4 class="font-bold text-lg text-indigo-900 mb-2">シンクロニシティ (共時性)</h4>
+                                <p class="text-sm text-gray-600">
+                                    「意味のある偶然の一致」。心の中で思っていること（内面）と、偶然引いたカード（外面）が呼応するという考え方です。偶然は無意味ではなく、必然的なメッセージを含んでいると捉えます。
+                                </p>
+                            </div>
+                            <div class="bg-white p-6 rounded-xl border-l-4 border-violet-500 shadow-sm">
+                                <h4 class="font-bold text-lg text-indigo-900 mb-2">元型 (アーキタイプ)</h4>
+                                <p class="text-sm text-gray-600">
+                                    人類共通の無意識のイメージ。「愚者」「女帝」「死神」などのカードは、誰もが直感的に理解できる象徴（シンボル）であり、これが相談者の潜在意識を刺激し、気づきを与えます。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- History Column -->
+                    <div>
+                        <h2 class="text-3xl font-bold text-indigo-900 mb-6 serif-font">4. 歴史と起源</h2>
+                        <div class="relative pl-8 border-l-2 border-indigo-200 space-y-10">
+
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[41px] bg-indigo-100 border-4 border-white h-6 w-6 rounded-full flex items-center justify-center">
+                                    <div class="h-2 w-2 bg-indigo-500 rounded-full"></div>
+                                </div>
+                                <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">15th
+                                    Century</span>
+                                <h4 class="text-lg font-bold text-indigo-900">発祥：イタリアの貴族の遊び</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    現在の最古のタロット「ヴィスコンティ・スフォルツァ版」が制作される。当時は占いではなく「トリオンフィ（後のトランプ）」という貴族のカードゲームとして誕生しました。
+                                </p>
+                            </div>
+
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[41px] bg-indigo-100 border-4 border-white h-6 w-6 rounded-full flex items-center justify-center">
+                                    <div class="h-2 w-2 bg-indigo-500 rounded-full"></div>
+                                </div>
+                                <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">18th
+                                    Century</span>
+                                <h4 class="text-lg font-bold text-indigo-900">転換：占術への進化 (フランス)</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    フランス革命期、「マルセイユ版」が普及。神秘主義者たちがカードにエジプト起源説などの意味付けを行い、占いの道具として体系化され始めました。
+                                </p>
+                            </div>
+
+                            <div class="relative">
+                                <div
+                                    class="absolute -left-[41px] bg-indigo-100 border-4 border-white h-6 w-6 rounded-full flex items-center justify-center">
+                                    <div class="h-2 w-2 bg-indigo-500 rounded-full"></div>
+                                </div>
+                                <span class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Early 20th
+                                    Century</span>
+                                <h4 class="text-lg font-bold text-indigo-900">現代：ウェイト版の誕生 (イギリス)</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    秘密結社「黄金の夜明け団」のアーサー・ウェイトが、パメラ・コールマン・スミスに描かせた「ウェイト版（ライダー版）」が出版。数札にも絵を描くことで初心者にも分かりやすくなり、世界標準となりました。
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Methodology (Interactive) -->
+        <section id="method" class="py-16 bg-indigo-900 text-white">
+            <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-white mb-4 serif-font">5. 基本的なやり方</h2>
+                    <p class="text-indigo-200">
+                        タロット占いは、特別な霊能力がなくても手順を踏めば誰でも実践できます。<br>
+                        ここでは最も基本的な「ワンオラクル（1枚引き）」の手順をシミュレーションします。
+                    </p>
+                </div>
+
+                <!-- Wizard UI -->
+                <div class="bg-indigo-800 rounded-2xl p-8 shadow-2xl border border-indigo-700">
+                    <!-- Progress -->
+                    <div class="flex justify-between mb-8 relative">
+                        <div class="absolute top-1/2 left-0 w-full h-1 bg-indigo-900 -z-0"></div>
+                        <div id="step-dot-1"
+                            class="w-8 h-8 rounded-full bg-yellow-400 text-indigo-900 font-bold flex items-center justify-center relative z-10">
+                            1</div>
+                        <div id="step-dot-2"
+                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            2</div>
+                        <div id="step-dot-3"
+                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            3</div>
+                        <div id="step-dot-4"
+                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            4</div>
+                    </div>
+
+                    <!-- Step Content -->
+                    <div id="step-content" class="min-h-[200px] flex flex-col items-center justify-center text-center">
+                        <!-- Dynamic JS Content -->
+                    </div>
+
+                    <!-- Controls -->
+                    <div class="flex justify-between mt-8 pt-4 border-t border-indigo-700">
+                        <button id="prev-btn" onclick="changeStep(-1)"
+                            class="px-4 py-2 rounded text-indigo-300 hover:text-white disabled:opacity-0"
+                            disabled>戻る</button>
+                        <button id="next-btn" onclick="changeStep(1)"
+                            class="px-6 py-2 bg-yellow-500 hover:bg-yellow-400 text-indigo-900 font-bold rounded shadow-lg transition-transform transform active:scale-95">次へ</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-indigo-950 text-indigo-300 py-8 border-t border-indigo-900">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p class="mb-2 serif-font">タロット解析レポート</p>
+            <p class="text-xs text-indigo-500">
+                本レポートは教育的デモンストレーションを目的としたインタラクティブ・ドキュメントです。<br>
+                実際の鑑定結果を保証するものではありません。
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // --- DATA & STATE ---
+        const majorArcana = [
+            { number: "0", name: "The Fool", jpName: "愚者", icon: "🤡", keywords: "自由、始まり、無邪気、可能性", meaning: "何も持たずに崖っぷちを歩く若者。常識に縛られない新しいスタートを示唆します。" },
+            { number: "I", name: "The Magician", jpName: "魔術師", icon: "🪄", keywords: "創造、自信、スキル、意思", meaning: "テーブルの上に全ての道具が揃っています。準備は完了し、あなたの意志で何でも生み出せる状態です。" },
+            { number: "II", name: "The High Priestess", jpName: "女教皇", icon: "📜", keywords: "直感、知性、静寂、神秘", meaning: "白と黒の柱の間に座る女性。論理よりも直感や内なる声を信じるべき時です。" },
+            { number: "III", name: "The Empress", jpName: "女帝", icon: "👑", keywords: "豊穣、母性、繁栄、愛", meaning: "豊かな自然の中で座る女性。物質的・精神的な満足や、愛を受け取る喜びを表します。" },
+            { number: "IV", name: "The Emperor", jpName: "皇帝", icon: "🏛️", keywords: "権威、安定、責任、リーダーシップ", meaning: "社会的な成功や安定した基盤。論理的な思考と実行力が鍵となります。" },
+            { number: "V", name: "The Hierophant", jpName: "教皇", icon: "🙏", keywords: "伝統、慈悲、助言、精神性", meaning: "ルールや伝統を守ることの重要性。信頼できる人からのアドバイスが助けになります。" },
+            { number: "VI", name: "The Lovers", jpName: "恋人", icon: "💕", keywords: "選択、調和、愛、直感的な決断", meaning: "単なる恋愛だけでなく、人生の重要な岐路での「心に従った選択」を意味します。" },
+            { number: "VII", name: "The Chariot", jpName: "戦車", icon: "🐎", keywords: "勝利、前進、克服、意志力", meaning: "困難を乗り越えて突き進むエネルギー。迷わずにコントロールの手綱を握りましょう。" },
+            { number: "VIII", name: "Strength", jpName: "力", icon: "🦁", keywords: "忍耐、勇気、受容、内なる力", meaning: "ライオンを手なずける女性。力ずくではなく、精神的な強さと優しさで困難を克服します。" },
+            { number: "IX", name: "The Hermit", jpName: "隠者", icon: "🔦", keywords: "内省、孤独、探求、導き", meaning: "世俗を離れて内面を見つめる時。答えは外ではなく、自分自身の内側にあります。" },
+            { number: "X", name: "Wheel of Fortune", jpName: "運命の輪", icon: "🎡", keywords: "チャンス、変化、一時的、周期", meaning: "自分ではコントロールできない運命の流れ。チャンスが来たら迷わず乗るべきです。" }
+        ];
+
+        let currentStep = 1;
+        const steps = [
+            {
+                title: "1. 準備とシャッフル",
+                icon: "🌪️",
+                desc: "まず、カードを裏向きにしてテーブルに広げます。質問内容を心の中で唱えながら、両手で時計回りにカードを混ぜ合わせます（シャッフル）。この行為は「カオス（混沌）」を作り出し、自我を離れる儀式です。"
+            },
+            {
+                title: "2. カットとまとめ",
+                icon: "✂️",
+                desc: "心が落ち着いたらシャッフルを止め、カードを一つにまとめます。左手で山を2つか3つに分け（カット）、再び好きな順序で一つの山に戻します。これによりカードにあなたの「気」を通します。"
+            },
+            {
+                title: "3. 展開 (スプレッド)",
+                icon: "🃏",
+                desc: "決められた配置法（スプレッド）に従ってカードを並べます。今回は最もシンプルな「ワンオラクル」。山の一番上、あるいは直感で気になった1枚を引いて場に置きます。"
+            },
+            {
+                title: "4. リーディング",
+                icon: "👁️",
+                desc: "カードを表に返し、絵柄からメッセージを読み取ります。解説書の意味だけでなく、絵を見て「何を感じたか（明るい？暗い？）」という第一印象も重要です。それがあなたの潜在意識の声です。"
+            }
+        ];
+
+        // --- FUNCTIONS ---
+
+        // 1. Interactive Card Draw
+        function drawCard() {
+            const card = document.querySelector('.tarot-card');
+            const instruction = document.getElementById('instruction-text');
+
+            // If already flipped, reset first
+            if (card.classList.contains('flipped')) {
+                card.classList.remove('flipped');
+                setTimeout(randomizeAndFlip, 600);
+            } else {
+                randomizeAndFlip();
+            }
+
+            function randomizeAndFlip() {
+                const randomCard = majorArcana[Math.floor(Math.random() * majorArcana.length)];
+
+                document.getElementById('card-number').textContent = randomCard.number;
+                document.getElementById('card-icon').textContent = randomCard.icon;
+                document.getElementById('card-name').textContent = randomCard.name;
+                document.getElementById('card-keyword').textContent = randomCard.jpName + ": " + randomCard.keywords;
+
+                // Add click listener to show modal or detailed text (simplified here to tooltip/subtext)
+                instruction.textContent = `"${randomCard.jpName}" のカードが出ました。${randomCard.meaning}`;
+                instruction.classList.remove('animate-pulse');
+
+                card.classList.add('flipped');
+            }
+        }
+
+        // 2. Tab System
+        function showTab(tabName) {
+            // Hide all contents
+            ['boku', 'mei', 'so'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                document.getElementById(`btn-${t}`).classList.add('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
+
+                // Reset badges
+                const badge = document.getElementById(`btn-${t}`).querySelector('span:last-child');
+                badge.classList.remove('bg-white/20');
+                badge.classList.add('bg-gray-100');
+            });
+
+            // Show selected
+            const selectedContent = document.getElementById(`content-${tabName}`);
+            selectedContent.classList.remove('hidden');
+            // Small delay for fade effect
+            setTimeout(() => selectedContent.classList.remove('opacity-0'), 10);
+
+            const selectedBtn = document.getElementById(`btn-${tabName}`);
+            selectedBtn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
+            selectedBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+
+            const selectedBadge = selectedBtn.querySelector('span:last-child');
+            selectedBadge.classList.remove('bg-gray-100');
+            selectedBadge.classList.add('bg-white/20');
+        }
+
+        // 3. Wizard System
+        function renderStep() {
+            const stepData = steps[currentStep - 1];
+            const contentDiv = document.getElementById('step-content');
+
+            // Fade out
+            contentDiv.style.opacity = '0';
+
+            setTimeout(() => {
+                contentDiv.innerHTML = `
+                    <div class="text-6xl mb-4 animate-bounce">${stepData.icon}</div>
+                    <h3 class="text-2xl font-bold mb-4">${stepData.title}</h3>
+                    <p class="text-indigo-200 leading-relaxed max-w-lg">${stepData.desc}</p>
+                `;
+                // Fade in
+                contentDiv.style.opacity = '1';
+                contentDiv.style.transition = 'opacity 0.3s ease-in-out';
+            }, 200);
+
+            // Update dots
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (i < currentStep) {
+                    dot.className = "w-8 h-8 rounded-full bg-indigo-500 text-indigo-300 font-bold flex items-center justify-center relative z-10";
+                    dot.innerHTML = "✓";
+                } else if (i === currentStep) {
+                    dot.className = "w-8 h-8 rounded-full bg-yellow-400 text-indigo-900 font-bold flex items-center justify-center relative z-10 shadow-lg scale-110 transition-transform";
+                    dot.innerHTML = i;
+                } else {
+                    dot.className = "w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-500 font-bold flex items-center justify-center relative z-10";
+                    dot.innerHTML = i;
+                }
+            }
+
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentStep === 1;
+            document.getElementById('prev-btn').style.opacity = currentStep === 1 ? '0' : '1';
+
+            const nextBtn = document.getElementById('next-btn');
+            if (currentStep === 4) {
+                nextBtn.textContent = "最初に戻る";
+                nextBtn.onclick = () => { currentStep = 1; renderStep(); };
+            } else {
+                nextBtn.textContent = "次へ";
+                nextBtn.onclick = () => changeStep(1);
+            }
+        }
+
+        function changeStep(delta) {
+            currentStep += delta;
+            renderStep();
+        }
+
+        // 4. Smooth Scroll
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // 5. Chart.js Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStep();
+
+            const ctx = document.getElementById('capabilityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        '相手の気持ち',
+                        '近未来 (3ヶ月)',
+                        '具体的な対策',
+                        '現状の分析',
+                        '絶対的な宿命',
+                        '長期的な運勢 (年単位)'
+                    ],
+                    datasets: [{
+                        label: 'タロットの適合度',
+                        data: [100, 90, 95, 100, 20, 40],
+                        fill: true,
+                        backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo-500 with opacity
+                        borderColor: 'rgb(79, 70, 229)', // Indigo-600
+                        pointBackgroundColor: 'rgb(251, 191, 36)', // Amber-400
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(79, 70, 229)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Noto Sans JP', sans-serif", weight: 'bold' },
+                                color: '#4b5563'
+                            },
+                            ticks: { display: false, max: 100, min: 0 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 27, 75, 0.9)',
+                            titleFont: { family: "'Noto Sans JP', sans-serif" },
+                            bodyFont: { family: "'Noto Sans JP', sans-serif" },
+                            padding: 12,
+                            callbacks: {
+                                label: function (context) {
+                                    const val = context.raw;
+                                    if (val >= 90) return `適合度: 高 (得意)`;
+                                    if (val >= 50) return `適合度: 中 (条件による)`;
+                                    return `適合度: 低 (苦手)`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+
+</html>
