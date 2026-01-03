@@ -1050,49 +1050,34 @@
 
         function addLineToHexagram(value) {
             const container = document.getElementById('hexagram-container');
-            const lineDiv = document.createElement('div');
-            lineDiv.style.position = 'relative'; // Wrapper for markers
+            const lineWrapper = document.createElement('div');
+            lineWrapper.className = "w-full flex items-center relative fade-in group mb-1";
 
-            // Logic for visual representation
-            // 9 = Old Yang (Active) -> ———— (Changing to Yin)
-            // 8 = Young Yin (Passive)-> —— ——
-            // 7 = Young Yang (Active)-> ————
-            // 6 = Old Yin (Passive) -> —— —— (Changing to Yang)
+            const lineContent = document.createElement('div');
+            lineContent.className = "flex-grow relative px-8"; // Add padding to make space for absolute markers
 
             let lineHTML = '';
+            let markerHTML = '';
             let lineLabel = '';
 
-            // NOTE: Using pure CSS/HTML for lines as per constraints (No SVG)
             if (value === 9 || value === 7) {
-                // Yang Base (Solid)
-                lineHTML = `<div class="hex-line yang bg-stone-900 h-3 w-full rounded-sm shadow-sm relative">`;
-                if (value === 9) {
-                    lineHTML += `<span class="absolute -right-6 top-[-4px] text-red-600 text-lg font-bold">○</span></div>`; // Change marker
-                    lineLabel = "老陽 (変)";
-                } else {
-                    lineHTML += `</div>`;
-                    lineLabel = "少陽";
-                }
+                lineHTML = `<div class="hex-line yang bg-stone-900 h-3 w-full rounded-sm shadow-sm transition-all group-hover:bg-red-900"></div>`;
+                lineLabel = (value === 9) ? "老陽 (変)" : "少陽";
+                if (value === 9) markerHTML = `<span class="absolute right-0 top-[-6px] text-red-600 text-xl font-bold">○</span>`;
             } else {
-                // Yin Base (Broken)
                 lineHTML = `<div class="hex-line yin flex justify-between w-full h-3">
-                    <div class="hex-line-segment shadow-sm"></div>
-                    <div class="hex-line-segment shadow-sm relative">`;
-                if (value === 6) {
-                    lineHTML += `<span class="absolute -right-10 top-[-4px] text-red-600 text-lg font-bold">✕</span></div></div>`; // Change marker
-                    lineLabel = "老陰 (変)";
-                } else {
-                    lineHTML += `</div></div>`;
-                    lineLabel = "少陰";
-                }
+                    <div class="hex-line-segment shadow-sm transition-all group-hover:bg-red-900"></div>
+                    <div class="hex-line-segment shadow-sm transition-all group-hover:bg-red-900"></div>
+                </div>`;
+                lineLabel = (value === 6) ? "老陰 (変)" : "少陰";
+                if (value === 6) markerHTML = `<span class="absolute right-0 top-[-6px] text-red-600 text-xl font-bold">✕</span>`;
             }
 
-            lineDiv.innerHTML = lineHTML;
-            lineDiv.classList.add('w-full', 'mb-1', 'fade-in');
-            lineDiv.title = lineLabel;
+            lineContent.innerHTML = lineHTML + markerHTML;
+            lineWrapper.appendChild(lineContent);
+            lineWrapper.title = lineLabel;
 
-            container.appendChild(lineDiv); // Adds to bottom visually because of flex-col-reverse
-
+            container.appendChild(lineWrapper);
             hexagramLines.push(value);
         }
 
@@ -1106,39 +1091,126 @@
             btn.classList.add('hidden');
             resetBtn.classList.remove('hidden');
 
-            // Dictionary for Trigrams based on binary representation (Yang=0, Yin=1 for bitwise logic here)
-            // But we can just use the sums of 3 lines for a rough "Upper/Lower" identification
-            const getTrigramName = (lines) => {
-                const pattern = lines.map(l => (l === 7 || l === 9) ? "Y" : "y").join("");
-                const trigrams = {
-                    "YYY": "乾（天）",
-                    "yyy": "坤（地）",
-                    "yyY": "震（雷）",
-                    "YYy": "巽（風）",
-                    "yYy": "坎（水）",
-                    "YyY": "離（火）",
-                    "yYY": "艮（山）",
-                    "Yyy": "兌（沢）"
-                };
-                return trigrams[pattern] || "不明";
+            const trigramSymbols = {
+                "YYY": { name: "天", symbol: "乾" },
+                "yyy": { name: "地", symbol: "坤" },
+                "yyY": { name: "雷", symbol: "震" },
+                "YYy": { name: "風", symbol: "巽" },
+                "yYy": { name: "水", symbol: "坎" },
+                "YyY": { name: "火", symbol: "離" },
+                "yYY": { name: "山", symbol: "艮" },
+                "Yyy": { name: "沢", symbol: "兌" }
             };
 
-            const lowerTrigram = getTrigramName(hexagramLines.slice(0, 3));
-            const upperTrigram = getTrigramName(hexagramLines.slice(3, 6));
+            const getTrigramInfo = (lines) => {
+                const pattern = lines.map(l => (l === 7 || l === 9) ? "Y" : "y").join("");
+                return trigramSymbols[pattern];
+            };
 
-            hexName.innerText = "易占の結果：変化の兆し";
+            const lower = getTrigramInfo(hexagramLines.slice(0, 3));
+            const upper = getTrigramInfo(hexagramLines.slice(3, 6));
 
-            let interpretation = `あなたの無意識と偶然が交差し、この形が生まれました。<br>
-                                 <span class="text-xs bg-stone-100 px-2 py-1 rounded text-stone-500 inline-block mt-2">構成：上卦 [${upperTrigram}] / 下卦 [${lowerTrigram}]</span>`;
+            // 64 Hexagram simple titles logic
+            const hexMap = {
+                "天天": "乾為天: 強力な前進、創造の最高潮",
+                "地地": "坤為地: 柔順、受容、大地のような調和",
+                "水雷": "水雷屯: 産みの苦しみ、慎重な出発",
+                "山水": "山水蒙: 啓蒙、教育、未熟さからの学び",
+                "水天": "水天需: 待機、忍耐、好機を待つ",
+                "天水": "天水訟: 争い、訴訟、衝突の回避が吉",
+                "地水": "地水師: 統率、組織、困難に挑む軍隊",
+                "水地": "水地比: 親和、協力、人との絆",
+                "風天": "風天小畜: 小さな蓄え、足踏み状態",
+                "天沢": "天沢履: 危険を伴う歩み、誠実さ",
+                "地天": "地天泰: 安泰、平和、萬事順調",
+                "天地": "天地否: 閉塞、不一致、衰退の兆し",
+                "天火": "天同人: 協力、志を同じくする者",
+                "火天": "火天大有: 豊穣、繁栄、大いなる所有",
+                "地山": "地山謙: 謙虚、慎み、徳を積む",
+                "雷地": "雷地予: 予感、喜び、準備と計画",
+                "沢雷": "沢雷随: 追従、柔軟性、流れに任せる",
+                "山風": "山風蠱: 腐敗、刷新、立て直し",
+                "地臨": "地臨: 到来、臨む、成長の初期",
+                "風地": "風地観: 観察、熟考、洞察力",
+                "火雷": "火雷噬嗑: 障害の除去、断固たる決断",
+                "山火": "山火賁: 装飾、外面の美、内実の伴い",
+                "山地": "山地剥: 崩壊、剥落、今は耐える時",
+                "地雷": "地雷復: 回復、復活、再び始まる",
+                "天雷": "天雷无妄: 自然体、作為のない誠実",
+                "山天": "山天大畜: 大いなる蓄積、実力の涵養",
+                "山雷": "山雷頤: 養生、口、栄養と節制",
+                "沢風": "沢風大過: 重荷、過剰、思い切った処置",
+                "水水": "坎為水: 重なる困難、知略での突破",
+                "火火": "離為火: 明晰、知性、情熱の持続",
+                "沢山": "沢山咸: 感応、共鳴、惹かれ合う心",
+                "雷風": "雷風恒: 永続、恒常、変わらぬ信念",
+                "天山": "天山遯: 隠遁、退避、身を守る智慧",
+                "雷天": "雷天大壮: 盛大、勢い、行き過ぎに注意",
+                "火地": "火地晋: 進出、昇進、輝かしい発展",
+                "地火": "地火明夷: 苦難、隠れる、暗闇での忍耐",
+                "風火": "風火家人: 家庭、内面の秩序、誠意",
+                "火沢": "火沢睽: 背離、違和感、異質な融合",
+                "水山": "水山蹇: 足踏み、困難、止まって熟考",
+                "雷水": "雷水解: 解消、解放、問題の解決",
+                "山沢": "山沢損: 減少、奉仕、まず与えること",
+                "風雷": "風雷益: 利益、増加、積極的な進歩",
+                "沢天": "沢天夬: 決断、突破、断固たる態度",
+                "天風": "天風姤: 出会い、偶然、予期せぬ誘惑",
+                "沢地": "沢地萃: 集合、繁栄、人々が集まる",
+                "地風": "地風升: 上昇、昇進、地道な努力",
+                "沢水": "沢水困: 困窮、行き詰まり、精神の鍛錬",
+                "水風": "水風井: 生命の源、井戸、普遍的な価値",
+                "沢火": "沢火革: 変革、改革、古いものを捨てる",
+                "火風": "火風鼎: 安定、三者の協力、新たな確立",
+                "雷雷": "震為雷: 衝撃、変革の予兆、落ち着き",
+                "山山": "艮為山: 停止、不動、自己を律する",
+                "風山": "風山漸: 漸進、着実な歩み、順序",
+                "雷沢": "雷沢帰妹: 順序の誤り、無理な進展",
+                "雷火": "雷火豊: 豊盛、頂点、盛者必衰の戒め",
+                "火山": "火山旅: 孤独、不安定、旅路の教訓",
+                "風風": "巽為風: 柔軟、浸透、謙虚な従順",
+                "沢沢": "兌為沢: 喜び、対話、心の和らぎ",
+                "風水": "風水渙: 解散、霧散、古い殻を破る",
+                "水沢": "水沢節: 節度、制約、適切な区切り",
+                "風沢": "風中孚: 誠実、真実、心からの共鳴",
+                "雷山": "雷山小過: 少しの行き過ぎ、日常の遵守",
+                "水火": "水火既済: 完成、成就、その後の油断",
+                "火水": "火水未済: 未完成、希望の残存、再出発"
+            };
+
+            const key = upper.name + lower.name;
+            const hexDetail = hexMap[key] || "未知の卦: 変化の真っ只中にあります。";
+
+            hexName.innerText = `易占の結果：【${hexDetail.split(': ')[0]}】`;
+
+            let interpretation = `心に浮かべた問いに対し、宇宙はこの象（かたち）を示しました。<br>
+                                 <span class="text-xs bg-stone-100 px-3 py-1 rounded text-stone-500 inline-block mt-3 border border-stone-200 shadow-sm">${upper.symbol}(${upper.name}) ／ ${lower.symbol}(${lower.name})</span>`;
+
+            interpretation += `<div class="mt-6 p-4 bg-white border border-red-50 rounded-lg shadow-inner">
+                                <p class="text-stone-800 font-bold mb-2">総評: ${hexDetail.split(': ')[1]}</p>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    この卦は「${upper.name}」という外的な勢いと、「${lower.name}」という内面的な状態が重なることで生まれる物語です。
+                                </p>
+                              </div>`;
 
             const isDynamic = hexagramLines.some(l => l === 6 || l === 9);
             if (isDynamic) {
-                interpretation += "<br><br><strong>【変爻（へんこう）あり】</strong> 結果には「動くライン（老陰・老陽）」が含まれています。これは状況が現在進行形で大きく動こうとしていることを示唆しています。易教の神髄は「変化」にあります。今の結論が最終形ではなく、次の状態（之卦）へと移行するプロセスに注目してください。";
+                interpretation += `<div class="mt-6 animate-pulse border-l-4 border-amber-500 pl-4 py-1">
+                                    <p class="text-sm font-bold text-amber-800">【変爻（へんこう）あり】変化の真っ只中</p>
+                                    <p class="text-xs text-stone-600 mt-1">
+                                        現在は「${hexDetail.split(': ')[0]}」の状態にありますが、内部に「老」「極」のラインが含まれています。これは状況が裏返り、別の卦へと移行しようとしている動的な局面であることを意味します。結果を固定せず、変化の兆しを読み取ってください。
+                                    </p>
+                                  </div>`;
             } else {
-                interpretation += "<br><br><strong>【不変の卦】</strong> 全てのラインが安定しており、「変化」が生じていない状態です。これは今は動くべき時ではない、あるいは現状のエネルギーが純粋に保たれていることを意味します。焦らず、本来の役割に徹することが吉となります。";
+                interpretation += `<div class="mt-6 border-l-4 border-stone-400 pl-4 py-1">
+                                    <p class="text-sm font-bold text-stone-800">【不変の卦】安定の時</p>
+                                    <p class="text-xs text-stone-600 mt-1">
+                                        変化を示すラインが含まれていません。これは今すぐ状況が劇的に変わることはなく、この卦が示すエネルギーがしばらく持続することを意味します。地道な対応が鍵となります。
+                                    </p>
+                                  </div>`;
             }
 
-            interpretation += "<br><br><div class='text-left bg-stone-50 p-3 rounded text-[11px] text-stone-500 space-y-2'><strong>💡 アドバイス:</strong><br>易は「下から上へ」時間が流れると捉えます。一番下のラインは事盤の初期段階、一番上は終局を示します。自分の現状がどの位置にあるか、卦の形から想像してみてください。</div>";
+            interpretation += "<br><div class='text-left bg-stone-50 p-4 rounded text-[11px] text-stone-500 space-y-2 border border-stone-100'><strong>💡 易の知恵:</strong><br>結果を単なる吉凶ではなく「今の自分を映す鏡」として捉えてみてください。一番下のラインから順に、時間軸に沿った物語として解釈を深めることができます。</div>";
 
             hexDesc.innerHTML = interpretation;
             resultText.classList.remove('hidden');
