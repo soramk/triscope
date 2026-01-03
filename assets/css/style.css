@@ -363,7 +363,7 @@ input:focus {
 /* Home Content Styles (for iframe) */
 .home-content {
     padding: 2rem 4rem;
-    max-width: 1200px;
+    width: 100%;
     background: transparent;
     min-height: 100vh;
 }
