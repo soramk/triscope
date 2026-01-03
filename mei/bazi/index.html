@@ -127,20 +127,162 @@
             <div class="w-[800px] h-[800px] border-[50px] border-white rounded-full animate-[spin_60s_linear_infinite]">
             </div>
         </div>
-        <div class="max-w-6xl mx-auto text-center relative z-10">
-            <div
-                class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold mb-6 tracking-[0.3em] uppercase backdrop-blur-sm border border-indigo-500/30">
-                The Ultimate Art of Destiny</div>
-            <h1 class="text-6xl md:text-8xl font-black mb-8 serif tracking-tight">四柱推命</h1>
-            <p class="text-2xl md:text-3xl text-white font-medium serif mb-10 leading-relaxed">陰陽五行に秘められた、<br
-                    class="md:hidden">運命の統計学</p>
-            <div class="w-24 h-1.5 bg-indigo-500 mx-auto mb-12 rounded-full"></div>
-            <p class="max-w-3xl mx-auto text-indigo-100/80 text-lg leading-relaxed font-medium serif italic">
-                「生年月日時間」という不変のデータに基づき、自然界の法則（五行）と共鳴させることで、<br class="hidden md:block">
-                人の本質と運気の流れを驚異的な精度で解き明かします。
-            </p>
+        <div class="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+            <div class="text-left">
+                <div
+                    class="inline-block px-4 py-1.5 rounded-full bg-indigo-500/20 text-indigo-300 text-xs font-bold mb-6 tracking-[0.3em] uppercase backdrop-blur-sm border border-indigo-500/30">
+                    The Ultimate Art of Destiny</div>
+                <h1 class="text-6xl md:text-8xl font-black mb-8 serif tracking-tight">四柱推命</h1>
+                <p class="text-2xl md:text-3xl text-white font-medium serif mb-10 leading-relaxed">陰陽五行に秘められた、<br
+                        class="md:hidden">運命の統計学</p>
+                <div class="w-24 h-1.5 bg-indigo-500 mb-12 rounded-full"></div>
+                <p class="max-w-xl text-indigo-100/80 text-lg leading-relaxed font-medium serif italic">
+                    「生年月日時間」という不変のデータに基づき、自然界の法則（五行）と共鳴させることで、
+                    人の本質と運気の流れを驚異的な精度で解き明かします。
+                </p>
+            </div>
+
+            <!-- Bazi Calculator -->
+            <div class="bg-white/95 backdrop-blur-xl p-8 md:p-10 rounded-[3rem] shadow-2xl border border-white/20">
+                <h3 class="text-2xl font-black text-indigo-950 mb-8 flex items-center gap-3">
+                    <i data-lucide="calculator" class="w-6 h-6 text-indigo-600"></i>
+                    鑑定シミュレーター
+                </h3>
+                <div class="space-y-8">
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
+                        <div class="grid grid-cols-3 gap-3">
+                            <select id="birth-year"
+                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                            <select id="birth-month"
+                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                            <select id="birth-day"
+                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">出生時間</label>
+                        <div class="relative">
+                            <select id="birth-hour"
+                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all">
+                                <option value="-1">不明 (Unknown)</option>
+                                <option value="0">00:00 - 子時</option>
+                                <option value="2">02:00 - 丑時</option>
+                                <option value="4">04:00 - 寅時</option>
+                                <option value="6">06:00 - 卯時</option>
+                                <option value="8">08:00 - 辰時</option>
+                                <option value="10">10:00 - 巳時</option>
+                                <option value="12">12:00 - 午時</option>
+                                <option value="14">14:00 - 未時</option>
+                                <option value="16">16:00 - 申時</option>
+                                <option value="18">18:00 - 酉時</option>
+                                <option value="20">20:00 - 戌時</option>
+                                <option value="22">22:00 - 亥時</option>
+                            </select>
+                            <i data-lucide="chevron-down"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                        </div>
+                    </div>
+                    <button onclick="diagnoseBazi()"
+                        class="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-black rounded-2xl shadow-xl shadow-indigo-200 transition-all transform active:scale-95 flex items-center justify-center gap-3 group">
+                        運命の設計図を展開
+                        <i data-lucide="sparkles" class="w-5 h-5 group-hover:animate-pulse"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </header>
+
+    <!-- Diagnosis Result Area -->
+    <section id="diagnosis-section" class="hidden py-24 bg-slate-50 border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-600 text-[10px] font-black mb-4 tracking-widest uppercase">
+                    Analysis Result</div>
+                <h2 class="text-4xl font-black text-slate-900 serif mb-4">あなたの命式結果</h2>
+                <p class="text-slate-500 text-lg">解き明かされた「四つの柱」と「本質」</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                <!-- Result Card -->
+                <div class="lg:col-span-8 bg-white rounded-[3rem] p-10 shadow-xl border border-slate-100">
+                    <div class="mb-12">
+                        <h3 class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-8 flex items-center">
+                            <i data-lucide="layout-grid" class="w-4 h-4 mr-3 text-indigo-600"></i> The Four Pillars Map
+                        </h3>
+                        <div class="grid grid-cols-4 gap-4 md:gap-6">
+                            <div class="pillar-card bg-slate-50 p-6 rounded-[2rem] text-center border border-slate-100">
+                                <span class="text-[10px] font-black text-slate-400 mb-2 block">時柱</span>
+                                <div id="p-hour-gan" class="text-3xl font-black mb-1">--</div>
+                                <div id="p-hour-zhi" class="text-3xl font-black text-slate-400">--</div>
+                                <div id="p-hour-star" class="text-xs font-bold text-indigo-500 mt-3">--</div>
+                            </div>
+                            <div
+                                class="pillar-card bg-indigo-600 p-6 rounded-[2rem] text-center shadow-xl shadow-indigo-200 ring-4 ring-indigo-50">
+                                <span class="text-[10px] font-black text-indigo-200 mb-2 block">日柱 (自分)</span>
+                                <div id="p-day-gan" class="text-3xl font-black text-white mb-1">--</div>
+                                <div id="p-day-zhi" class="text-3xl font-black text-indigo-300">--</div>
+                                <div id="p-day-master"
+                                    class="text-xs font-bold text-white mt-3 bg-white/20 rounded-full px-2 py-0.5">日主
+                                </div>
+                            </div>
+                            <div class="pillar-card bg-slate-50 p-6 rounded-[2rem] text-center border border-slate-100">
+                                <span class="text-[10px] font-black text-slate-400 mb-2 block">月柱</span>
+                                <div id="p-month-gan" class="text-3xl font-black mb-1">--</div>
+                                <div id="p-month-zhi" class="text-3xl font-black text-slate-400">--</div>
+                                <div id="p-month-star" class="text-xs font-bold text-indigo-500 mt-3">--</div>
+                            </div>
+                            <div class="pillar-card bg-slate-50 p-6 rounded-[2rem] text-center border border-slate-100">
+                                <span class="text-[10px] font-black text-slate-400 mb-2 block">年柱</span>
+                                <div id="p-year-gan" class="text-3xl font-black mb-1">--</div>
+                                <div id="p-year-zhi" class="text-3xl font-black text-slate-400">--</div>
+                                <div id="p-year-star" class="text-xs font-bold text-indigo-500 mt-3">--</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xs font-black text-slate-400 uppercase tracking-[0.3em] mb-6">診断結果の要約</h4>
+                        <div id="diag-summary"
+                            class="text-lg text-slate-700 leading-relaxed font-medium serif italic p-8 bg-slate-50 rounded-[2rem] border border-slate-100">
+                            <!-- JS will populate this -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Info -->
+                <div class="lg:col-span-4 space-y-6">
+                    <div class="bg-indigo-900 text-white p-8 rounded-[2.5rem] shadow-xl relative overflow-hidden">
+                        <div class="absolute -right-6 -bottom-6 opacity-10">
+                            <i data-lucide="sun" class="w-32 h-32"></i>
+                        </div>
+                        <h4 class="text-sm font-bold text-indigo-300 mb-4 uppercase tracking-widest">Day Master</h4>
+                        <div id="res-master-name" class="text-5xl font-black mb-4 serif">--</div>
+                        <p id="res-master-desc" class="text-indigo-100/80 leading-relaxed text-sm"></p>
+                    </div>
+
+                    <div class="bg-white p-8 rounded-[2.5rem] border border-slate-100 shadow-xl">
+                        <h4 class="text-[10px] font-black text-slate-400 mb-4 uppercase tracking-widest">Fortune
+                            Elements</h4>
+                        <div id="res-elements-balance" class="space-y-4">
+                            <!-- Five Elements representation -->
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold text-slate-600">バランス評価</span>
+                                <div class="flex gap-1">
+                                    <div class="w-4 h-4 rounded-full bg-emerald-400"></div>
+                                    <div class="w-4 h-4 rounded-full bg-red-400"></div>
+                                    <div class="w-4 h-4 rounded-full bg-amber-400"></div>
+                                    <div class="w-4 h-4 rounded-full bg-slate-400"></div>
+                                    <div class="w-4 h-4 rounded-full bg-blue-400"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Main Content Container -->
     <main class="flex-grow container mx-auto px-4 py-12 space-y-24 max-w-7xl">
@@ -725,6 +867,134 @@
                 cannotTab.className = "flex-1 py-5 text-center font-bold text-red-800 bg-white border-b-2 border-red-600 transition-all flex items-center justify-center";
             }
         }
+
+        // --- Bazi Diagnosis Logic ---
+        const stems = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        const elementsMap = {
+            "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土", "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水",
+            "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火", "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
+        };
+        const masterInterpretations = {
+            "甲": { name: "甲 (きのえ)", desc: "大樹のごとく、真っ直ぐで力強いリーダーシップ。成長意欲が強く、困難にも屈しない精神を持ちます。", summary: "あなたの本質は「大地の守護者」です。大樹が空へ伸びるように、自身の理想に向かって進む力が備わっています。" },
+            "乙": { name: "乙 (きのと)", desc: "草花のごとく、柔軟で忍耐強い。周囲との調和を重んじ、厳しい環境でも生き抜く強さを秘めています。", summary: "あなたの本質は「柔らかなる強靭」です。草花が風に揺れつつも根を張るように、環境適応能力に優れています。" },
+            "丙": { name: "丙 (ひのえ)", desc: "太陽のごとく、明るく情熱的。周囲を照らすカリスマ性があり、常に注目の的となる存在です。", summary: "あなたの本質は「万物を照らす光」です。その情熱と明るさは、周囲の人々に勇気と活力を与えます。" },
+            "丁": { name: "丁 (ひのと)", desc: "灯火のごとく、繊細で思慮深い。内面に熱い情熱を秘め、芸術的な感性や集中力に秀でています。", summary: "あなたの本質は「静寂に燃える智知」です。一見静かですが、特定の分野で驚異的な輝きを放ちます。" },
+            "戊": { name: "戊 (つちのえ)", desc: "山岳のごとく、どっしりとして誠実。包容力があり、周囲からの信頼も厚い安定した人格の持ち主です。", summary: "あなたの本質は「不動の土台」です。揺るぎない信念を持ち、多くの人々を支える器を持っています。" },
+            "己": { name: "己 (つちのと)", desc: "田園の豊かな土のごとく、慈悲深く多才。何でも吸収し、育てる力があり、教育や育成に向いています。", summary: "あなたの本質は「育みの大地」です。あなたの優しさと粘り強さは、多くの才能を開花させる力となります。" },
+            "庚": { name: "庚 (かのえ)", desc: "鋼鉄のごとく、鋭く果敢。正義感が強く、決断力に優れています。自らを鍛え上げることで光り輝きます。", summary: "あなたの本質は「研ぎ澄まされた意志」です。困難を切り拓く力があり、変革を恐れない勇者です。" },
+            "辛": { name: "辛 (かのと)", desc: "宝石のごとく、繊細で高潔。独自の美学を持ち、プライドが高い一方、非常にデリケートな一面もあります。", summary: "あなたの本質は「磨かれた輝き」です。独自の感性を持ち、洗練されたものを生み出す才能に恵まれています。" },
+            "壬": { name: "壬 (みずのえ)", desc: "大河のごとく、奔放で知的。束縛を嫌い、常に新しい世界を求めて流れるダイナミックな行動力が武器です。", summary: "あなたの本質は「大海へと続く流れ」です。その広大な視野と自由な発想は、停滞した状況を打破します。" },
+            "癸": { name: "癸 (みずのと)", desc: "雨露のごとく、静かで謙虚。内省的で知性が高く、状況を敏感に察知する洞察力に優れています。", summary: "あなたの本質は「潤いを与える知性」です。静かに深く物事を考え、周囲に安らぎと知恵をもたらします。" }
+        };
+
+        function diagnoseBazi() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const day = parseInt(document.getElementById('birth-day').value);
+            const hour = parseInt(document.getElementById('birth-hour').value);
+
+            // Year Pillar
+            const yearIndex = (year - 4) % 60;
+            const y_gan = stems[yearIndex % 10];
+            const y_zhi = branches[yearIndex % 12];
+
+            // Month Pillar (Approximate solar months)
+            const m_zhi_idx = (month + 1) % 12;
+            const m_zhi = branches[m_zhi_idx];
+            const m_gan_start = ((yearIndex % 10) % 5 * 2 + 2) % 10;
+            const m_gan = stems[(m_gan_start + month - 1) % 10];
+
+            // Day Pillar (Ref: 2000-01-01 is Kanoe-Tatsu = 16)
+            const refDate = new Date(2000, 0, 1);
+            const targetDate = new Date(year, month - 1, day);
+            const diffDays = Math.floor((targetDate - refDate) / (1000 * 60 * 60 * 24));
+            let dayIdx = (16 + diffDays) % 60;
+            if (dayIdx < 0) dayIdx += 60;
+            const d_gan = stems[dayIdx % 10];
+            const d_zhi = branches[dayIdx % 12];
+
+            // Hour Pillar
+            let h_gan = "--", h_zhi = "--";
+            if (hour !== -1) {
+                const h_zhi_idx = (Math.floor((hour + 1) / 2)) % 12;
+                h_zhi = branches[h_zhi_idx];
+                const h_gan_start = ((dayIdx % 10) % 5 * 2) % 10;
+                h_gan = stems[(h_gan_start + h_zhi_idx) % 10];
+            }
+
+            // Update UI
+            document.getElementById('p-year-gan').innerText = y_gan;
+            document.getElementById('p-year-zhi').innerText = y_zhi;
+            document.getElementById('p-month-gan').innerText = m_gan;
+            document.getElementById('p-month-zhi').innerText = m_zhi;
+            document.getElementById('p-day-gan').innerText = d_gan;
+            document.getElementById('p-day-zhi').innerText = d_zhi;
+            if (hour !== -1) {
+                document.getElementById('p-hour-gan').innerText = h_gan;
+                document.getElementById('p-hour-zhi').innerText = h_zhi;
+            }
+
+            const interpretation = masterInterpretations[d_gan];
+            document.getElementById('res-master-name').innerText = interpretation.name;
+            document.getElementById('res-master-desc').innerText = interpretation.desc;
+            document.getElementById('diag-summary').innerText = `「${y_gan}${y_zhi}年 ${m_gan}${m_zhi}月 ${d_gan}${d_zhi}日 ${h_gan}${h_zhi}時」の命式。\n${interpretation.summary}`;
+
+            // Calculate Five Elements Balance
+            const allChars = [y_gan, y_zhi, m_gan, m_zhi, d_gan, d_zhi];
+            if (hour !== -1) allChars.push(h_gan, h_zhi);
+
+            const balance = { "木": 0, "火": 0, "土": 0, "金": 0, "水": 0 };
+            allChars.forEach(char => { if (elementsMap[char]) balance[elementsMap[char]]++; });
+
+            const balanceUI = document.getElementById('res-elements-balance');
+            balanceUI.innerHTML = Object.entries(balance).map(([el, count]) => {
+                const colors = { "木": "bg-emerald-400", "火": "bg-red-400", "土": "bg-amber-400", "金": "bg-slate-300", "水": "bg-blue-500" };
+                const pct = (count / allChars.length) * 100;
+                return `
+                    <div class="space-y-1">
+                        <div class="flex justify-between text-[10px] font-bold text-slate-500 uppercase">
+                            <span>${el} (${count})</span>
+                            <span>${Math.round(pct)}%</span>
+                        </div>
+                        <div class="w-full h-1.5 bg-slate-100 rounded-full overflow-hidden">
+                            <div class="${colors[el]} h-full transition-all duration-1000" style="width: ${pct}%"></div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            const section = document.getElementById('diagnosis-section');
+            section.classList.remove('hidden');
+            section.scrollIntoView({ behavior: 'smooth' });
+
+            lucide.createIcons();
+        }
+
+        // --- Initialize Dropdowns ---
+        function initSelectors() {
+            const ySelect = document.getElementById('birth-year');
+            const mSelect = document.getElementById('birth-month');
+            const dSelect = document.getElementById('birth-day');
+
+            for (let y = 1940; y <= 2024; y++) {
+                const opt = document.createElement('option');
+                opt.value = y; opt.innerText = y + "年";
+                if (y === 1990) opt.selected = true;
+                ySelect.appendChild(opt);
+            }
+            for (let m = 1; m <= 12; m++) {
+                const opt = document.createElement('option');
+                opt.value = m; opt.innerText = m + "月";
+                mSelect.appendChild(opt);
+            }
+            for (let d = 1; d <= 31; d++) {
+                const opt = document.createElement('option');
+                opt.value = d; opt.innerText = d + "日";
+                dSelect.appendChild(opt);
+            }
+        }
+        initSelectors();
 
         // --- Smooth Scroll Logic ---
         function scrollToSection(id) {
