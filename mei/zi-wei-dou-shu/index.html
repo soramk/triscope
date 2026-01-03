@@ -1,375 +1,309 @@
 ﻿<!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" class="scroll-smooth">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>紫微斗数：星々が織りなす運命の地図</title>
+    <title>紫微斗数：天命を解き明かす皇帝の星学</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
-        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&family=Cinzel:wght@400;700&display=swap"
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
     <style>
-        /* bodyスタイルは common.css で定義 */
-        /* h1-h3, .serifスタイルは common.css で定義 */
+        :root {
+            --celestial-gold: #d4af37;
+            --deep-night: #020617;
+            --nebula-purple: #6d28d9;
+            --nebula-indigo: #4338ca;
+            --star-white: #f8fafc;
+        }
 
+        body {
+            background-color: var(--deep-night);
+            color: var(--star-white);
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            letter-spacing: 0.02em;
+            overflow-x: hidden;
+        }
 
-        /* Starry Background Animation Effect (CSS only for subtle ambiance) */
-        .stars-bg {
-            background-color: #0f172a;
-            background-image:
-                radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
-                radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
-                radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            background-position: 0 0, 40px 60px, 130px 270px;
+        .serif {
+            font-family: 'Noto Serif JP', serif;
+        }
+
+        .cinzel {
+            font-family: 'Cinzel', serif;
+        }
+
+        /* Hero Background with generated image */
+        .hero-section {
+            background-image: linear-gradient(to bottom, rgba(2, 6, 23, 0.4), var(--deep-night)), url('zi_wei_dou_shu_celestial_hero_1767445185941.png');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, transparent 0%, var(--deep-night) 90%);
         }
 
         .glass-panel {
-            background: rgba(30, 41, 59, 0.7);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 350px;
-            max-height: 400px;
+        .gold-border {
+            border: 1px solid var(--celestial-gold);
+        }
+
+        .gold-glow {
+            box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .text-gold {
+            color: var(--celestial-gold);
+        }
+
+        .bg-gold {
+            background-color: var(--celestial-gold);
+        }
+
+        .palace-grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .palace-grid-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         .palace-card {
-            transition: all 0.3s ease;
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            background: rgba(30, 41, 59, 0.3);
         }
 
         .palace-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px -5px rgba(147, 51, 234, 0.5);
-            border-color: #a855f7;
+            transform: scale(1.05);
+            background: rgba(212, 175, 55, 0.1);
+            border-color: var(--celestial-gold);
         }
 
-        .active-palace {
-            background: linear-gradient(135deg, #4c1d95 0%, #2e1065 100%);
-            border-color: #d8b4fe;
-            box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+        .palace-card.active {
+            background: linear-gradient(135deg, rgba(109, 40, 217, 0.3) 0%, rgba(67, 56, 202, 0.3) 100%);
+            border-color: var(--celestial-gold);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
 
-        /* Scrollbar styling */
+        .star-link {
+            transition: all 0.3s ease;
+        }
+
+        .star-link:hover {
+            padding-left: 1rem;
+            color: var(--celestial-gold);
+        }
+
+        .star-link.active {
+            background: rgba(212, 175, 55, 0.1);
+            border-left: 4px solid var(--celestial-gold);
+            color: var(--celestial-gold);
+            padding-left: 1.2rem;
+        }
+
+        /* Animated Section Entrance */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar for Dark Theme */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 10px;
         }
 
         ::-webkit-scrollbar-track {
-            background: #0f172a;
+            background: var(--deep-night);
         }
 
         ::-webkit-scrollbar-thumb {
-            background: #475569;
-            border-radius: 4px;
+            background: #334155;
+            border-radius: 5px;
+            border: 2px solid var(--deep-night);
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #64748b;
+            background: var(--celestial-gold);
         }
     </style>
-    <!-- Chosen Palette: Deep Cosmic Purple & Gold (Background: Slate-900, Accents: Purple-600, Amber-400) -->
-    <!-- Application Structure Plan: 
-         1. Hero Section: Title and Essence.
-         2. Overview (The "What"): Explanation of 'Meijutsu' vs others.
-         3. Capability Analysis: Interactive Radar Chart showing strengths/weaknesses.
-         4. Core Logic (The "How"): Interactive Grid of the 12 Palaces (User explores the map of life).
-         5. The Stars (The "Who"): Interactive Selector for the 14 Major Stars (Archetypes).
-         6. Methodology & History: Process flow and timeline.
-         Designed to move from abstract concept -> concrete capabilities -> detailed mechanics -> interpretation.
-    -->
-    <!-- Visualization & Content Choices:
-         1. Radar Chart: To visually compare Zi Wei Dou Shu's utility against other needs (Psychology vs Gambling etc).
-         2. Interactive 12-Grid: Simulates the actual 'Meiban' chart layout, allowing users to click and learn per sector.
-         3. Dynamic Text Cards: For the 14 stars, avoiding massive text dumps.
-         4. Step-Process: For the Methodology section to make the complex calculation rules digestible.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 
-<body class="stars-bg text-slate-200 min-h-screen flex flex-col">
+<body class="selection:bg-yellow-900/30">
 
-
-    <!-- Header / Nav -->
-    <header class="sticky top-0 z-50 glass-panel border-b border-white/10 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-16">
-                <div class="flex items-center gap-2">
-                    <div
-                        class="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-indigo-600 flex items-center justify-center text-white font-bold serif">
-                        紫</div>
-                    <span class="text-xl font-bold tracking-wider serif text-white">紫微斗数<span
-                            class="text-xs text-purple-300 ml-2 font-sans opacity-70">INTERACTIVE REPORT</span></span>
+    <!-- Navigation -->
+    <header class="fixed top-0 w-full z-[100] transition-all duration-300" id="main-header">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-10 h-10 bg-gold rounded-sm flex items-center justify-center text-black font-bold serif transform rotate-45">
+                    <span class="transform -rotate-45">紫</span>
                 </div>
-                <nav class="hidden md:flex space-x-8 text-sm font-medium">
-                    <button onclick="scrollToSection('overview')"
-                        class="hover:text-purple-400 transition-colors">概要と特性</button>
-                    <button onclick="scrollToSection('capabilities')"
-                        class="hover:text-purple-400 transition-colors">得意・不得意</button>
-                    <button onclick="scrollToSection('mechanics')"
-                        class="hover:text-purple-400 transition-colors">十二宮の仕組み</button>
-                    <button onclick="scrollToSection('stars')"
-                        class="hover:text-purple-400 transition-colors">十四主星</button>
-                    <button onclick="scrollToSection('method')"
-                        class="hover:text-purple-400 transition-colors">歴史と手法</button>
-                </nav>
-                <!-- Mobile Menu Button (simplified) -->
-                <button class="md:hidden text-white hover:text-purple-400"
-                    onclick="document.getElementById('mobile-nav').classList.toggle('hidden')">
-                    ☰
-                </button>
+                <h1 class="text-2xl font-bold tracking-[0.2em] serif hidden sm:block">紫微斗数</h1>
             </div>
-        </div>
-        <!-- Mobile Nav Dropdown -->
-        <div id="mobile-nav" class="hidden md:hidden glass-panel border-t border-white/10">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <button onclick="scrollToSection('overview'); toggleMobileNav()"
-                    class="block w-full text-left px-3 py-2 hover:bg-white/5 rounded">概要と特性</button>
-                <button onclick="scrollToSection('capabilities'); toggleMobileNav()"
-                    class="block w-full text-left px-3 py-2 hover:bg-white/5 rounded">得意・不得意</button>
-                <button onclick="scrollToSection('mechanics'); toggleMobileNav()"
-                    class="block w-full text-left px-3 py-2 hover:bg-white/5 rounded">十二宮の仕組み</button>
-                <button onclick="scrollToSection('stars'); toggleMobileNav()"
-                    class="block w-full text-left px-3 py-2 hover:bg-white/5 rounded">十四主星</button>
-                <button onclick="scrollToSection('method'); toggleMobileNav()"
-                    class="block w-full text-left px-3 py-2 hover:bg-white/5 rounded">歴史と手法</button>
+            <nav class="hidden lg:flex gap-10 text-sm font-medium tracking-widest uppercase">
+                <a href="#about" class="hover:text-gold transition-colors">概要</a>
+                <a href="#palaces" class="hover:text-gold transition-colors">十二宮</a>
+                <a href="#stars" class="hover:text-gold transition-colors">主星</a>
+                <a href="#shihua" class="hover:text-gold transition-colors">四化星</a>
+                <a href="#history" class="hover:text-gold transition-colors">歴史</a>
+            </nav>
+            <div class="flex items-center gap-6">
+                <button
+                    class="bg-white/5 hover:bg-gold hover:text-black transition-all px-4 py-2 border border-white/20 text-xs tracking-widest uppercase"
+                    onclick="scrollToSection('palaces')">
+                    鑑定体験
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="flex-grow">
-
+    <main>
         <!-- Hero Section -->
-        <section class="relative py-20 px-4 text-center overflow-hidden">
-            <div
-                class="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-gradient-to-b from-purple-900/20 to-transparent pointer-events-none">
-            </div>
-            <h1
-                class="text-4xl md:text-6xl font-bold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-300 via-white to-purple-300 drop-shadow-sm">
-                星が描く、あなたの運命の地図
-            </h1>
-            <p class="max-w-2xl mx-auto text-lg md:text-xl text-slate-300 leading-relaxed mb-10">
-                紫微斗数（しびとすう）は、中国発祥の皇帝占星術。<br>
-                生年月日に加え「生まれた時間」と「場所」を用いることで、<br>
-                個人の性格、才能、運命のバイオリズムを驚異的な解像度で描き出します。
-            </p>
-            <button onclick="scrollToSection('overview')"
-                class="bg-purple-600 hover:bg-purple-500 text-white font-bold py-3 px-8 rounded-full shadow-[0_0_20px_rgba(147,51,234,0.5)] transition-all transform hover:scale-105">
-                探求を始める
-            </button>
-        </section>
-
-        <!-- 1. Overview & Characteristics -->
-        <section id="overview" class="py-16 bg-slate-900/50">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="mb-10 text-center">
-                    <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Section 1</span>
-                    <h2 class="text-3xl font-bold mt-2 text-white">概要と特性：命術の王</h2>
-                    <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-                        占いは大きく「命（めい）・卜（ぼく）・相（そう）」の3つに分類されます。<br>
-                        紫微斗数は、その中でも<strong class="text-purple-300">「命術（めいじゅつ）」</strong>の最高峰に位置づけられています。
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Card 1 -->
-                    <div
-                        class="glass-panel p-6 rounded-xl border border-white/5 hover:border-purple-500/50 transition-colors">
-                        <div class="text-4xl mb-4">📜</div>
-                        <h3 class="text-xl font-bold mb-3 text-purple-200">命術（めいじゅつ）</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            生年月日や出生時間など、変えることのできない情報から、生まれ持った性質や運命の大きな流れを読み解く手法です。西洋占星術や四柱推命もこれに含まれます。
-                        </p>
-                    </div>
-                    <!-- Card 2 -->
-                    <div
-                        class="glass-panel p-6 rounded-xl border border-white/5 hover:border-purple-500/50 transition-colors">
-                        <div class="text-4xl mb-4">🌌</div>
-                        <h3 class="text-xl font-bold mb-3 text-purple-200">虚星（きょせい）の配置</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            実在の天体を使う西洋占星術とは異なり、紫微斗数では北斗七星や南斗六星などの象徴的な「虚星」を、特定のルール（太陰太陽暦）に基づいて盤上に配置します。
-                        </p>
-                    </div>
-                    <!-- Card 3 -->
-                    <div
-                        class="glass-panel p-6 rounded-xl border border-white/5 hover:border-purple-500/50 transition-colors">
-                        <div class="text-4xl mb-4">🎯</div>
-                        <h3 class="text-xl font-bold mb-3 text-purple-200">高い具体性</h3>
-                        <p class="text-sm text-slate-300 leading-relaxed">
-                            「どの時期に」「どのような出来事が」「誰との関係で」起こりやすいかという詳細な分析に優れており、自己分析や適職診断において非常に高い的中率を誇ります。
-                        </p>
-                    </div>
-                </div>
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="relative z-10 text-center px-4">
+                <span class="cinzel text-gold tracking-[0.5em] text-sm mb-6 block fade-in">THE ROYAL ASTROLOGY</span>
+                <h2
+                    class="text-5xl md:text-8xl font-bold serif mb-8 tracking-tighter leading-tight bg-clip-text text-transparent bg-gradient-to-b from-white to-slate-400">
+                    星々が綴る<br>至高の天命
+                </h2>
+                <div class="h-24 w-px bg-gradient-to-b from-gold to-transparent mx-auto"></div>
+                <p class="mt-8 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                    生年月日と出生時間、その瞬間の天空を支配する星々の配置。<br>
+                    千年の時を超えて引き継がれる、あなただけの運命の設計図。
+                </p>
             </div>
         </section>
 
-        <!-- 2. Capabilities (What it tells) -->
-        <section id="capabilities" class="py-16 relative">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="grid lg:grid-cols-2 gap-12 items-center">
-                    <div>
-                        <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Section 2</span>
-                        <h2 class="text-3xl font-bold mt-2 mb-6 text-white">得意分野と限界</h2>
-                        <p class="text-slate-300 mb-6 leading-relaxed">
-                            紫微斗数は万能ではありませんが、<strong
-                                class="text-white">「個人の資質」と「運気の波」</strong>を分析することにおいては右に出るものがありません。一方で、偶然性に左右される事象（ギャンブルの結果など）を占うのは苦手です。
-                        </p>
-
-                        <div class="space-y-4">
-                            <div class="bg-purple-900/20 p-4 rounded-lg border-l-4 border-purple-500">
-                                <h4 class="font-bold text-purple-200 mb-1">✅ わかること（得意）</h4>
-                                <ul class="text-sm text-slate-300 list-disc list-inside space-y-1">
-                                    <li>詳細な性格分析（表の顔、裏の顔、深層心理）</li>
-                                    <li>一生の運勢バイオリズム（10年ごとの大きな運気）</li>
-                                    <li>適職、財運の傾向、リーダーシップの有無</li>
-                                    <li>配偶者のタイプや結婚生活の傾向</li>
-                                    <li>健康上の弱点や注意すべき時期</li>
-                                </ul>
-                            </div>
-                            <div class="bg-slate-800/50 p-4 rounded-lg border-l-4 border-slate-500">
-                                <h4 class="font-bold text-slate-300 mb-1">⚠️ 苦手・わからないこと</h4>
-                                <ul class="text-sm text-slate-400 list-disc list-inside space-y-1">
-                                    <li>「明日の天気」や「くじ運」などの偶発的事象</li>
-                                    <li>相手の現在の具体的な気持ち（卜術の領域）</li>
-                                    <li>出生時間が不明な場合の正確な鑑定</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Chart Container -->
-                    <div class="glass-panel p-6 rounded-xl border border-white/10">
-                        <h3 class="text-center font-bold mb-4 text-sm text-slate-400">占術特性レーダーチャート</h3>
-                        <div class="chart-container">
-                            <canvas id="capabilityChart"></canvas>
-                        </div>
-                        <p class="text-center text-xs text-slate-500 mt-2">※ グラフは紫微斗数の相対的な強みを示したイメージです。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 3. Logic & 12 Palaces (Interactive Grid) -->
-        <section id="mechanics" class="py-16 bg-slate-900/50">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Section 3</span>
-                    <h2 class="text-3xl font-bold mt-2 text-white">根拠とロジック：十二宮（じゅうにきゅう）</h2>
-                    <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-                        紫微斗数の盤（命盤）は12のブロックに分かれています。これを「宮（きゅう）」と呼びます。<br>
-                        各宮は人生の特定のテーマを司ります。<strong
-                            class="text-purple-300">下のパネルをクリック</strong>して、それぞれの宮が何を意味するのかを確認してください。
-                    </p>
-                </div>
-
-                <!-- 12 Palaces Grid (Desktop: 4x3 visual or simple grid, Mobile: 2 col) -->
-                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-3 mb-8" id="palaces-grid">
-                    <!-- Generated via JS -->
-                </div>
-
-                <!-- Active Palace Description Display -->
-                <div id="palace-detail"
-                    class="glass-panel p-8 rounded-xl border border-purple-500/30 shadow-[0_0_30px_rgba(88,28,135,0.2)] transition-all">
-                    <div class="flex flex-col md:flex-row gap-6 items-center md:items-start">
-                        <div class="w-16 h-16 rounded-full bg-purple-600 flex items-center justify-center text-2xl shrink-0 shadow-lg"
-                            id="palace-icon">
-                            👑
-                        </div>
-                        <div>
-                            <h3 class="text-2xl font-bold text-white mb-2" id="palace-title">命宮 (めいきゅう)</h3>
-                            <p class="text-lg text-purple-200 mb-3 font-serif" id="palace-subtitle">自分自身・運命の司令塔</p>
-                            <p class="text-slate-300 leading-relaxed" id="palace-desc">
-                                最も重要な宮です。あなたの基本的な性格、容姿、才能、そして人生全体の傾向を表します。ここに入る星が、あなたの「主人公」としてのキャラクターを決定づけます。
+        <!-- About Section -->
+        <section id="about" class="py-32 bg-slate-950 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-20 items-center">
+                    <div class="reveal">
+                        <span class="text-gold tracking-widest text-sm font-bold uppercase mb-4 block">01.
+                            Philosophy</span>
+                        <h2 class="text-4xl font-bold serif mb-8 leading-tight">命術の最高峰、<br>紫微斗数の世界</h2>
+                        <div class="space-y-6 text-lg text-slate-300 leading-relaxed font-light">
+                            <p>
+                                紫微斗数（しびとすう）は、唐代の末期に道士・陳希夷（ちんきい）によって体系化されたとされる中国の伝統的な占星術です。
+                            </p>
+                            <p>
+                                西洋占星術が実際の惑星の運行を用いるのに対し、紫微斗数は「太陰太陽暦（旧暦）」に基づき、計算によって求めたシンボリックな星々（虚星）を命盤に配置します。
+                            </p>
+                            <p>
+                                その的中率の高さから、かつては中国の皇帝や特権階級のみに伝授され、一般に公開されることのなかった「門外不出の秘術」と言われていました。
                             </p>
                         </div>
                     </div>
+                    <div class="reveal">
+                        <div class="glass-panel p-10 rounded-2xl relative overflow-hidden">
+                            <div class="absolute -top-10 -right-10 w-40 h-40 bg-gold/10 rounded-full blur-3xl"></div>
+                            <h3 class="text-xl font-bold mb-8 text-gold flex items-center gap-3 serif">
+                                <span>✦</span> 占術特性レーダー
+                            </h3>
+                            <div class="h-[350px]">
+                                <canvas id="aboutChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- 4. The 14 Stars (Interactive Selector) -->
-        <section id="stars" class="py-16">
-            <div class="max-w-6xl mx-auto px-4">
-                <div class="text-center mb-10">
-                    <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Section 4</span>
-                    <h2 class="text-3xl font-bold mt-2 text-white">主役となる14の星たち</h2>
-                    <p class="mt-4 text-slate-400 max-w-2xl mx-auto">
-                        命盤には100以上の星が配置されますが、特に影響力の強い「甲級主星」は14個。<br>
-                        これらはあなたの性格のアーキタイプ（原型）を表します。
+        <!-- 12 Palaces Section -->
+        <section id="palaces" class="py-32 bg-slate-900 px-6 relative overflow-hidden">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-20 reveal">
+                    <span class="text-gold tracking-widest text-sm font-bold uppercase mb-4 block">02. The
+                        Structure</span>
+                    <h2 class="text-4xl md:text-5xl font-bold serif">人生の十二、運命の舞台</h2>
+                    <p class="mt-6 text-slate-400 max-w-2xl mx-auto font-light">
+                        命盤は12の領域（宮）に分かれ、それぞれが人生の主要なテーマを司ります。<br>
+                        中心をクリックすると、その領域の深奥が開かれます。
                     </p>
                 </div>
 
-                <div class="flex flex-col lg:flex-row gap-8">
-                    <!-- Star List -->
-                    <div
-                        class="lg:w-1/3 glass-panel rounded-xl overflow-hidden border border-white/10 h-[500px] flex flex-col">
-                        <div class="p-4 bg-slate-800 border-b border-white/10 font-bold text-purple-300">
-                            星を選択してください
-                        </div>
-                        <div class="overflow-y-auto flex-grow p-2 space-y-1" id="star-list">
-                            <!-- Populated by JS -->
+                <div class="grid lg:grid-cols-5 gap-12 items-start reveal">
+                    <!-- Left: Grid View -->
+                    <div class="lg:col-span-3">
+                        <div class="palace-grid-container" id="palace-grid">
+                            <!-- JS populated -->
                         </div>
                     </div>
 
-                    <!-- Star Detail -->
-                    <div
-                        class="lg:w-2/3 glass-panel p-8 rounded-xl border border-white/10 relative overflow-hidden min-h-[500px] flex flex-col justify-center">
-                        <!-- Background decoration -->
-                        <div
-                            class="absolute top-0 right-0 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl -mr-16 -mt-16">
-                        </div>
-
-                        <div id="star-content" class="relative z-10 transition-opacity duration-300">
-                            <div class="flex justify-between items-start mb-6">
+                    <!-- Right: Detail View -->
+                    <div class="lg:col-span-2">
+                        <div id="palace-detail"
+                            class="glass-panel p-10 rounded-3xl min-h-[450px] flex flex-col justify-center transition-all duration-500 transform">
+                            <div class="flex items-center gap-6 mb-8">
+                                <div class="w-16 h-16 rounded-full bg-gold/20 border border-gold/30 flex items-center justify-center text-3xl shadow-[0_0_20px_rgba(212,175,55,0.2)]"
+                                    id="detail-icon">
+                                    👑
+                                </div>
                                 <div>
+                                    <h3 class="text-3xl font-bold serif text-gold tracking-wider" id="detail-name">命宮
+                                    </h3>
+                                    <p class="text-slate-400 text-sm italic mt-1 font-light" id="detail-yomi">Mei-kyu
+                                    </p>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-medium mb-6 text-white" id="detail-subtitle">運命の司令塔・あなたの本質</h4>
+                            <div class="text-lg text-slate-300 leading-relaxed font-light space-y-4" id="detail-body">
+                                <p>ここはあなたの性格、才能、容姿、そして一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。</p>
+                            </div>
+                            <div class="mt-10 pt-10 border-t border-white/10">
+                                <span class="text-xs uppercase tracking-widest text-gold/60 font-bold block mb-4">Focus
+                                    Keywords</span>
+                                <div class="flex flex-wrap gap-2" id="detail-keywords">
                                     <span
-                                        class="inline-block px-3 py-1 rounded-full bg-purple-900/50 text-purple-300 text-xs border border-purple-500/30 mb-2"
-                                        id="star-group">北斗星系・帝王の星</span>
-                                    <h3 class="text-4xl font-bold text-white mb-1 serif" id="star-name">紫微星 (しびせい)</h3>
-                                    <span class="text-lg text-slate-400" id="star-alias">The Emperor</span>
-                                </div>
-                                <div class="text-6xl opacity-20" id="star-bg-icon">👑</div>
-                            </div>
-
-                            <div class="grid md:grid-cols-2 gap-6 mb-8">
-                                <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
-                                    <h4 class="text-purple-400 font-bold text-sm mb-2 uppercase">Key Traits</h4>
-                                    <div class="flex flex-wrap gap-2" id="star-traits">
-                                        <span class="px-2 py-1 bg-white/10 rounded text-xs text-white">気品</span>
-                                        <span class="px-2 py-1 bg-white/10 rounded text-xs text-white">リーダーシップ</span>
-                                        <span class="px-2 py-1 bg-white/10 rounded text-xs text-white">プライド</span>
-                                    </div>
-                                </div>
-                                <div class="bg-slate-800/50 p-4 rounded-lg border border-white/5">
-                                    <h4 class="text-amber-400 font-bold text-sm mb-2 uppercase">Element</h4>
-                                    <p class="text-slate-300 text-sm" id="star-element">土（陰）</p>
-                                </div>
-                            </div>
-
-                            <div class="space-y-4">
-                                <div>
-                                    <h4 class="font-bold text-white border-b border-white/10 pb-2 mb-2">性格・特徴</h4>
-                                    <p class="text-slate-300 leading-relaxed" id="star-desc">
-                                        紫微斗数の中心となる星で、帝王の象徴です。高貴でプライドが高く、生まれながらのリーダー気質を持っています。
-                                        慈愛に満ちていますが、一方で他人の意見を聞き入れない頑固な一面もあります。
-                                        吉星（左輔・右弼など）の助けがあるかどうかで、名君になるか孤独な王になるかが決まります。
-                                    </p>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-white border-b border-white/10 pb-2 mb-2">現代的な解釈</h4>
-                                    <p class="text-slate-300 leading-relaxed" id="star-modern">
-                                        経営者、政治家、管理職などに適性があります。組織の中で人を動かすポジションで最も輝きますが、実務能力よりも「管理・統率」能力に特化しています。
-                                    </p>
+                                        class="px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/10">本質</span>
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/10">才能</span>
+                                    <span
+                                        class="px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/10">一生の運勢</span>
                                 </div>
                             </div>
                         </div>
@@ -378,107 +312,275 @@
             </div>
         </section>
 
-        <!-- 5. History & Methodology -->
-        <section id="method" class="py-16 bg-slate-900/50">
-            <div class="max-w-5xl mx-auto px-4">
-                <div class="grid md:grid-cols-2 gap-12">
-
-                    <!-- History Timeline -->
-                    <div>
-                        <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Section 5</span>
-                        <h2 class="text-3xl font-bold mt-2 mb-6 text-white">歴史と起源</h2>
-                        <div class="relative border-l-2 border-purple-500/30 ml-3 space-y-8 pl-8 py-2">
-                            <!-- Timeline Item -->
-                            <div class="relative">
-                                <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-900 border-2 border-purple-500 flex items-center justify-center text-[10px]">🌌</span>
-                                <h4 class="font-bold text-purple-300">起源：唐末〜宋代 (10世紀頃)</h4>
-                                <p class="text-sm text-slate-400 mt-1">伝説的な道士、<strong
-                                        class="text-white">陳希夷（ちんきい）</strong>によって創始されたと伝えられています。道教の思想が色濃く反映されています。</p>
-                            </div>
-                            <!-- Timeline Item -->
-                            <div class="relative">
-                                <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-900 border-2 border-purple-500 flex items-center justify-center text-[10px]">📜</span>
-                                <h4 class="font-bold text-purple-300">発展：明代 (14〜17世紀)</h4>
-                                <p class="text-sm text-slate-400 mt-1">
-                                    『紫微斗数全書』が編纂され、体系化が進みました。当時は皇帝や一部の特権階級のみが使用を許された「秘術」でした。</p>
-                            </div>
-                            <!-- Timeline Item -->
-                            <div class="relative">
-                                <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-slate-900 border-2 border-purple-500 flex items-center justify-center text-[10px]">🌏</span>
-                                <h4 class="font-bold text-purple-300">現代：台湾・香港・日本</h4>
-                                <p class="text-sm text-slate-400 mt-1">
-                                    戦後、台湾や香港で飛躍的に研究が進み、多くの流派が誕生（飛星派、欽天四化派など）。日本でもその的中率の高さから急速に普及しています。</p>
-                            </div>
+        <!-- 14 Stars Section -->
+        <section id="stars" class="py-32 bg-slate-950 px-6">
+            <div class="max-w-7xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-20 items-stretch">
+                    <div class="reveal">
+                        <span class="text-gold tracking-widest text-sm font-bold uppercase mb-4 block">03. The
+                            Archetypes</span>
+                        <h2 class="text-4xl font-bold serif mb-8">輝ける十四の主星</h2>
+                        <p class="text-lg text-slate-400 mb-12 font-light">
+                            命盤を駆け巡る無数の星々のうち、最も強い影響力を持つ14の主星。<br>
+                            それらは人間の持つ様々な側面を象徴するアーキタイプです。
+                        </p>
+                        <div class="grid grid-cols-2 gap-1" id="star-nav-list">
+                            <!-- JS Populated -->
                         </div>
                     </div>
 
-                    <!-- How-to Steps -->
-                    <div>
-                        <span class="text-purple-400 font-bold tracking-widest text-sm uppercase">Methodology</span>
-                        <h2 class="text-3xl font-bold mt-2 mb-6 text-white">基本的な鑑定手順</h2>
-                        <div class="space-y-4">
-                            <div class="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition-colors">
-                                <div class="flex items-center gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
-                                        1</div>
+                    <div class="reveal">
+                        <div class="glass-panel rounded-3xl p-10 h-full relative overflow-hidden"
+                            id="star-detail-panel">
+                            <div class="absolute top-0 right-0 w-80 h-80 bg-nebula-purple/5 filter blur-[100px]"></div>
+
+                            <div id="star-content" class="relative z-10 transition-all duration-300 opacity-100">
+                                <div class="flex justify-between items-start mb-10">
                                     <div>
-                                        <h4 class="font-bold text-white">情報の準備</h4>
-                                        <p class="text-sm text-slate-400">生年月日・<span
-                                                class="text-purple-300 font-bold">出生時間（必須）</span>・出生地を用意します。時間が不明だと作盤できません。
+                                        <span class="text-gold text-xs font-bold tracking-[0.2em] mb-2 block uppercase"
+                                            id="star-group">北斗主星・帝王</span>
+                                        <h3 class="text-5xl font-bold serif tracking-wider mb-2" id="star-name">紫微星</h3>
+                                        <p class="text-slate-500 cinzel tracking-widest" id="star-alias">THE EMPEROR</p>
+                                    </div>
+                                    <div class="text-7xl opacity-10" id="star-icon">👑</div>
+                                </div>
+
+                                <div class="grid md:grid-cols-2 gap-6 mb-10">
+                                    <div class="px-6 py-4 bg-white/5 rounded-2xl border border-white/10">
+                                        <span
+                                            class="text-[10px] uppercase tracking-widest text-gold/60 block mb-2">Element</span>
+                                        <p class="text-lg font-medium" id="star-element">土 (陰)</p>
+                                    </div>
+                                    <div class="px-6 py-4 bg-white/5 rounded-2xl border border-white/10">
+                                        <span
+                                            class="text-[10px] uppercase tracking-widest text-gold/60 block mb-2">Attribute</span>
+                                        <p class="text-lg font-medium" id="star-attribute">尊貴・権威</p>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-8">
+                                    <div>
+                                        <h4
+                                            class="text-sm font-bold text-gold uppercase tracking-widest mb-4 border-b border-gold/20 pb-2">
+                                            本質的性質</h4>
+                                        <p class="text-slate-300 leading-relaxed font-light" id="star-description">
+                                            帝王の象徴であり、命盤の中心。強い自尊心と統率力を持ち、周囲を慈しむ高貴な精神を宿します。
+                                        </p>
+                                    </div>
+                                    <div>
+                                        <h4
+                                            class="text-sm font-bold text-gold uppercase tracking-widest mb-4 border-b border-gold/20 pb-2">
+                                            現代の解釈</h4>
+                                        <p class="text-slate-300 leading-relaxed font-light" id="star-modern">
+                                            経営層やリーダーとしての資質。プライドが高く孤独を恐れる一面も。
                                         </p>
                                     </div>
                                 </div>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition-colors">
-                                <div class="flex items-center gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
-                                        2</div>
-                                    <div>
-                                        <h4 class="font-bold text-white">太陰太陽暦への変換</h4>
-                                        <p class="text-sm text-slate-400">西洋のカレンダー（グレゴリオ暦）を、旧暦（太陰太陽暦）に変換し、干支を割り出します。</p>
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Si Hua Stars Section -->
+        <section id="shihua" class="py-32 bg-slate-900 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="text-center mb-20 reveal">
+                    <span class="text-gold tracking-widest text-sm font-bold uppercase mb-4 block">04. The
+                        Transmutation</span>
+                    <h2 class="text-4xl font-bold serif">運命を動かす「四化星」</h2>
+                    <p class="mt-6 text-slate-400 max-w-2xl mx-auto font-light leading-relaxed">
+                        四化星（しかせい）は、他の主星に付着してその性質を劇的に変化させる「エネルギーの触媒」です。<br>
+                        星の吉凶はこの四化によって新たな意味を持ちます。
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 reveal">
+                    <!-- Hua Lu -->
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-t-green-500/50">
+                        <div class="text-3xl mb-6">禄</div>
+                        <h3 class="text-xl font-bold mb-4 serif text-green-300">化禄 (かろく)</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-6">
+                            財運、福分、人気。物事がスムーズに流れ、豊かな実りをもたらすエネルギーです。
+                        </p>
+                        <ul class="text-[11px] uppercase tracking-widest text-slate-500 space-y-2">
+                            <li>✦ 豊穣</li>
+                            <li>✦ 円満な人脈</li>
+                            <li>✦ 資産の増大</li>
+                        </ul>
+                    </div>
+                    <!-- Hua Quan -->
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-t-orange-500/50">
+                        <div class="text-3xl mb-6">権</div>
+                        <h3 class="text-xl font-bold mb-4 serif text-orange-300">化権 (かけん)</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-6">
+                            権威、行動、支配。自らの意志で道を切り拓き、物事を力強く推進するエネルギーです。
+                        </p>
+                        <ul class="text-[11px] uppercase tracking-widest text-slate-500 space-y-2">
+                            <li>✦ リーダーシップ</li>
+                            <li>✦ 専門技術</li>
+                            <li>✦ 達成の力</li>
+                        </ul>
+                    </div>
+                    <!-- Hua Ke -->
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-t-blue-500/50">
+                        <div class="text-3xl mb-6">科</div>
+                        <h3 class="text-xl font-bold mb-4 serif text-blue-300">化科 (かか)</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-6">
+                            名声、教養、品位。知的な美しさや評判をもたらし、調和を保つ穏やかなエネルギーです。
+                        </p>
+                        <ul class="text-[11px] uppercase tracking-widest text-slate-500 space-y-2">
+                            <li>✦ 合格・表彰</li>
+                            <li>✦ 貴人の助け</li>
+                            <li>✦ 解決の知恵</li>
+                        </ul>
+                    </div>
+                    <!-- Hua Ji -->
+                    <div class="glass-panel p-8 rounded-2xl border-t-4 border-t-red-500/50">
+                        <div class="text-3xl mb-6">忌</div>
+                        <h3 class="text-xl font-bold mb-4 serif text-red-400">化忌 (かき)</h3>
+                        <p class="text-sm text-slate-400 leading-relaxed font-light mb-6">
+                            執着、障害、試練。エネルギーが滞り、課題として現れますが、それは大きな成長の契機でもあります。
+                        </p>
+                        <ul class="text-[11px] uppercase tracking-widest text-slate-500 space-y-2">
+                            <li>✦ 拘泥</li>
+                            <li>✦ 越えるべき壁</li>
+                            <li>✦ 宿命的課題</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lucky & Unlucky Stars Section -->
+        <section id="auxiliary" class="py-32 bg-slate-950 px-6">
+            <div class="max-w-6xl mx-auto">
+                <div class="grid lg:grid-cols-2 gap-20">
+                    <div class="reveal">
+                        <h2 class="text-3xl font-bold serif mb-10 text-gold flex items-center gap-4">
+                            <span class="text-4xl">☀</span> 六吉星：光の導き
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-gold/10 text-gold p-2 rounded text-xs font-bold serif min-w-[80px] text-center">文昌/文曲</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    知性と才能の星。学問や芸術において輝きをもたらし、優れた表現力を授けます。
+                                </p>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition-colors">
-                                <div class="flex items-center gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
-                                        3</div>
-                                    <div>
-                                        <h4 class="font-bold text-white">命盤（チャート）の作成</h4>
-                                        <p class="text-sm text-slate-400">12の宮を配置し、計算式に基づいて14の主星や副星を各宮に配置していきます。</p>
-                                    </div>
-                                </div>
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-gold/10 text-gold p-2 rounded text-xs font-bold serif min-w-[80px] text-center">左輔/右弼</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    補佐と助力の星。人脈による支援を呼び込み、成功への強力なバックアップとなります。
+                                </p>
                             </div>
-                            <div class="bg-white/5 p-4 rounded-lg hover:bg-white/10 transition-colors">
-                                <div class="flex items-center gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold">
-                                        4</div>
-                                    <div>
-                                        <h4 class="font-bold text-white">解読</h4>
-                                        <p class="text-sm text-slate-400">
-                                            命宮を中心に、三方四正（さんぽうしせい）と呼ばれる対角線上の星の関係性を見て、吉凶を判断します。</p>
-                                    </div>
-                                </div>
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-gold/10 text-gold p-2 rounded text-xs font-bold serif min-w-[80px] text-center">天魁/天鉞</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    貴人の星。人生の窮地において、絶妙なタイミングで現れる守護者の存在を示します。
+                                </p>
                             </div>
                         </div>
                     </div>
+                    <div class="reveal">
+                        <h2 class="text-3xl font-bold serif mb-10 text-slate-400 flex items-center gap-4">
+                            <span class="text-4xl text-slate-500">☽</span> 六凶星：嵐の試練
+                        </h2>
+                        <div class="space-y-6">
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-slate-800 text-slate-400 p-2 rounded text-xs font-bold serif min-w-[80px] text-center">擎羊/陀羅</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    刃と影。突発的な衝突や、終わりのない停滞と葛藤をもたらす尖ったエネルギー。
+                                </p>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-slate-800 text-slate-400 p-2 rounded text-xs font-bold serif min-w-[80px] text-center">火星/鈴星</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    烈火と反響。抑えられない衝動や、内面を侵食する激しい感情の昂ぶりを象徴します。
+                                </p>
+                            </div>
+                            <div class="flex gap-6 items-start">
+                                <span
+                                    class="bg-slate-800 text-slate-400 p-2 rounded text-xs font-bold serif min-w-[80px] text-center">地空/地劫</span>
+                                <p class="text-sm text-slate-400 leading-relaxed font-light">
+                                    虚無と波乱。予期せぬ喪失や非凡な発想。物質文明の枠を超えた精神性への誘い。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- History Section -->
+        <section id="history" class="py-32 bg-slate-900 px-6">
+            <div class="max-w-4xl mx-auto reveal">
+                <div class="text-center mb-20">
+                    <span class="text-gold tracking-widest text-sm font-bold uppercase mb-4 block">05. Heritage</span>
+                    <h2 class="text-4xl font-bold serif">数千年の時を越えて</h2>
+                </div>
+
+                <div class="relative border-l border-gold/30 pl-10 ml-4 space-y-16 py-6">
+                    <div class="relative">
+                        <div class="absolute -left-[45px] top-1 w-3 h-3 bg-gold rounded-full gold-glow"></div>
+                        <h4 class="text-xl font-bold serif text-gold mb-4">道教の深淵より (唐代〜宋代)</h4>
+                        <p class="text-slate-400 font-light leading-relaxed">
+                            道士・陳希夷が『紫微斗数』を編纂。道教の天体信仰と陰陽五行説が融合し、皇帝のための秘術として誕生しました。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[45px] top-1 w-3 h-3 bg-gold rounded-full gold-glow"></div>
+                        <h4 class="text-xl font-bold serif text-gold mb-4">学際的発展 (明代・清代)</h4>
+                        <p class="text-slate-400 font-light leading-relaxed">
+                            『紫微斗数全書』が羅洪先によって世に広められ、占術としてのロジックが精緻化。しかしその難解さゆえに、修得者は選び抜かれた者限定でした。</p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[45px] top-1 w-3 h-3 bg-gold rounded-full gold-glow"></div>
+                        <h4 class="text-xl font-bold serif text-gold mb-4">現代への継承 (現代)</h4>
+                        <p class="text-slate-400 font-light leading-relaxed">
+                            台湾・香港で飛躍的な進化を遂げ、科学的思考と心理学的な視点を加味した新しい流派が誕生。世界中の成功者たちが密かに活用する知慧として今も生きています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final Call to Action -->
+        <section class="py-32 bg-gradient-to-t from-black to-slate-900 text-center px-6">
+            <div class="max-w-3xl mx-auto reveal">
+                <div class="w-16 h-px bg-gold mx-auto mb-10"></div>
+                <h2 class="text-4xl md:text-5xl font-bold serif mb-10 leading-tight">天の意思を知り、<br>自らの命を輝かせる</h2>
+                <p class="text-slate-400 mb-12 text-lg font-light leading-relaxed">
+                    紫微斗数は単なる予言ではありません。<br>
+                    それは、あなたがこの地上でどのように咲くべきかを示す、<br>宇宙からのメッセージです。
+                </p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button
+                        class="bg-gold text-black font-bold px-10 py-4 serif tracking-widest hover:bg-white transition-all transform hover:-translate-y-1">
+                        鑑定メニューへ
+                    </button>
+                    <button
+                        class="border border-white/20 text-white font-bold px-10 py-4 serif tracking-widest hover:bg-white/5 transition-all transform hover:-translate-y-1">
+                        お問い合わせ
+                    </button>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-slate-900 border-t border-white/10 py-8 text-center text-slate-500 text-sm">
-            <p>Zi Wei Dou Shu Interactive Report</p>
-            <p class="mt-2 text-xs">※このアプリケーションは紫微斗数の基本的な概念を学ぶための教育的ツールです。</p>
+        <footer class="py-20 border-t border-white/10 text-center bg-black">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-gold tracking-[0.8em] font-bold mb-8 cinzel">TRISCOPE</div>
+                <p class="text-slate-600 text-sm tracking-widest uppercase">Ancient Wisdom for a Modern World</p>
+                <div class="mt-10 text-slate-700 text-[10px] tracking-widest space-y-2 uppercase">
+                    <p>&copy; 2026 TRISCOPE CELESTIAL GUIDANCE. ALL RIGHTS RESERVED.</p>
+                    <p>Designed for Inner Enlightenment</p>
+                </div>
+            </div>
         </footer>
-
     </main>
 
     <script>
@@ -486,72 +588,77 @@
 
         // 12 Palaces Data
         const palaces = [
-            { id: "life", name: "命宮", yomi: "めいきゅう", icon: "👑", subtitle: "自分自身・運命の司令塔", desc: "あなたの本質的な性格、才能、容姿、そして人生全体の傾向を表す最も重要な宮です。" },
-            { id: "siblings", name: "兄弟宮", yomi: "けいていきゅう", icon: "👥", subtitle: "兄弟姉妹・親しい友人", desc: "兄弟姉妹との関係性や、親友、同僚との関係を見ます。母親との縁を表すこともあります。" },
-            { id: "spouse", name: "夫妻宮", yomi: "ふさいきゅう", icon: "💍", subtitle: "結婚・パートナー", desc: "好みの異性のタイプ、結婚後の生活、配偶者との関係性、恋愛傾向を表します。" },
-            { id: "children", name: "子女宮", yomi: "しじょきゅう", icon: "👶", subtitle: "子供・部下", desc: "子供の有無、性格、将来性。また、自分が指導する部下や生徒との関係、性的な嗜好も表します。" },
-            { id: "wealth", name: "財帛宮", yomi: "ざいはくきゅう", icon: "💰", subtitle: "金運・稼ぎ方", desc: "金銭感覚、収入の得方、財産を築く能力。現金収入の状態を主に見ます。" },
-            { id: "health", name: "疾厄宮", yomi: "しつやくきゅう", icon: "🏥", subtitle: "健康・体質", desc: "生まれつきの体質、かかりやすい病気、身体の弱点。また、トラブルや災厄の傾向も見ます。" },
-            { id: "travel", name: "遷移宮", yomi: "せんいきゅう", icon: "✈️", subtitle: "移動・対外関係", desc: "外出時の運気、旅行、引越し。また、第一印象や社会での対人関係の良し悪しを表します。" },
-            { id: "friends", name: "奴僕宮", yomi: "ぬぼくきゅう", icon: "🤝", subtitle: "一般の友人・部下", desc: "交友関係の広さ、目下の人やファン、顧客との関係。自分を助けてくれる人が多いかを見ます。" },
-            { id: "career", name: "官禄宮", yomi: "かんろくきゅう", icon: "💼", subtitle: "仕事・社会的地位", desc: "適職、仕事への取り組み方、出世運、社会的地位。どのような職種が向いているかがわかります。" },
-            { id: "property", name: "田宅宮", yomi: "でんたくきゅう", icon: "🏠", subtitle: "不動産・家庭環境", desc: "不動産運、住環境、家庭内の雰囲気。また、貯蓄（ストックとしての財）や先祖の因縁も表します。" },
-            { id: "mental", name: "福徳宮", yomi: "ふくとくきゅう", icon: "🧘", subtitle: "精神・趣味・幸福度", desc: "精神的な充足感、趣味、深層心理、寿命。人生を楽しめるか、精神的なストレス耐性を見ます。" },
-            { id: "parents", name: "父母宮", yomi: "ふぼきゅう", icon: "👴", subtitle: "両親・目上の人", desc: "両親（特に父親）との関係、目上の人や上司からの引き立て運。また、顔立ちや遺伝的要素も表します。" }
+            { id: "life", name: "命宮", yomi: "Mei-kyu", icon: "👑", subtitle: "運命の司令塔・あなたの本質", desc: "ここはあなたの性格、才能、容姿、そして一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。", keywords: ["本質", "才能", "一生の運勢"] },
+            { id: "siblings", name: "兄弟宮", yomi: "Keitei-kyu", icon: "👥", subtitle: "親しき人々との響き合わせ", desc: "兄弟姉妹や深い絆で結ばれた親友、同僚との関係を見ます。助け合えるか、あるいは競い合う仲かを暗示します。", keywords: ["兄弟姉妹", "同僚", "親友"] },
+            { id: "spouse", name: "夫妻宮", yomi: "Fusai-kyu", icon: "💍", subtitle: "魂の伴侶・愛のカタチ", desc: "好みのタイプや、将来出会う伴侶の性格、結婚後の家庭環境を示します。愛がどのような試練や喜びをもたらすかを説きます。", keywords: ["結婚", "恋愛", "パートナー"] },
+            { id: "children", name: "子女宮", yomi: "Shijo-kyu", icon: "👶", subtitle: "次世代への継承と創造", desc: "子供との縁、部下や後輩との関係、そしてあなたの性的な魅力や生命力の源泉をも表します。", keywords: ["子供", "後輩", "生命力"] },
+            { id: "wealth", name: "財帛宮", yomi: "Zaihaku-kyu", icon: "💰", subtitle: "豊かさの源泉・金銭の流転", desc: "どのように富を築き、どのように使うか。あなたにとって「富」とは何か、その哲学と実利の両面を映し出します。", keywords: ["金運", "稼ぎ方", "財産"] },
+            { id: "health", name: "疾厄宮", yomi: "Shitsuyaku-kyu", icon: "🏥", subtitle: "肉体の器・浄化のプロセス", desc: "健康状態、かかりやすい病気、身体の弱点。内面に抱えるストレスがどこに現れやすいかを示します。", keywords: ["健康", "体質", "未病"] },
+            { id: "travel", name: "遷移宮", yomi: "Sen-i-kyu", icon: "✈️", subtitle: "外の世界・社会的な仮面", desc: "移動による運気、社会的な顔、初対面の印象。一歩家を出た時のあなたの「輝き」がここにあります。", keywords: ["外出", "第一印象", "移動"] },
+            { id: "friends", name: "奴僕宮", yomi: "Nubo-kyu", icon: "🤝", subtitle: "社会との繋がり・支援の輪", desc: "広い交友関係、顧客、ファン、不特定多数の人々との関係。世の中からどのような支持を受けるかを表します。", keywords: ["友人", "支持層", "ファン"] },
+            { id: "career", name: "官禄宮", yomi: "Kanroku-kyu", icon: "💼", subtitle: "天職と功績・磨かれる魂", desc: "仕事への姿勢、適職、社会的成功への階段。あなたが魂を込めて取り組むべき活動の方向性がここにあります。", keywords: ["仕事", "出世", "適職"] },
+            { id: "property", name: "田宅宮", yomi: "Dentaku-kyu", icon: "🏠", subtitle: "安住の地・蓄えられた実り", desc: "不動産運、住環境、そして先祖から受け継ぐ精神的な資産。心休まる「場所」を見極めるための宮です。", keywords: ["不動産", "住まい", "貯蓄"] },
+            { id: "mental", name: "福徳宮", yomi: "Fukutoku-kyu", icon: "🧘", subtitle: "精神の平安・内なる幸福", desc: "魂の安定度、趣味、深層心理。何に喜びを感じ、どのように安らぎを得るかという精神のクオリティを司ります。", keywords: ["精神", "寿命", "幸福度"] },
+            { id: "parents", name: "父母宮", yomi: "Fubo-kyu", icon: "👴", subtitle: "ルーツと権威・目上の導き", desc: "両親、上司、目上の人々。あなたのルーツを支える人々からの恩恵や、解決すべき因縁を読み解きます。", keywords: ["両親", "上司", "後ろ盾"] }
         ];
 
         // 14 Major Stars Data
         const stars = [
-            { name: "紫微星", yomi: "しびせい", alias: "The Emperor", group: "北斗主星", icon: "👑", element: "土（陰）", keywords: ["気品", "統率力", "プライド", "孤独"], desc: "帝王の星。リーダーシップがあり、気品高く、尊厳を重んじる。他人の意見を聞かない頑固さも併せ持つ。吉星の補佐が必要。", modern: "経営者、政治家、管理職。組織のトップや中心人物としての適性が高い。" },
-            { name: "天機星", yomi: "てんきせい", alias: "The Strategist", group: "南斗星", icon: "🧠", element: "木（陰）", keywords: ["知恵", "企画", "神経質", "変化"], desc: "参謀の星。頭の回転が速く、知的好奇心が旺盛。企画立案に優れるが、考えすぎて神経質になりやすい。", modern: "ITエンジニア、コンサルタント、研究者、作家。知的労働に適性がある。" },
-            { name: "太陽星", yomi: "たいようせい", alias: "The Sun", group: "中天星", icon: "☀️", element: "火（陽）", keywords: ["博愛", "活発", "公明正大", "浪費"], desc: "太陽のように周囲を照らす星。明るく活発で、面倒見が良い親分肌。公明正大だが、見栄っ張りで浪費しやすい面も。", modern: "教育者、マスコミ、政治家、営業職。大衆を相手にする仕事や、海外との関わりに向く。" },
-            { name: "武曲星", yomi: "ぶごくせい", alias: "The General", group: "北斗星", icon: "⚔️", element: "金（陰）", keywords: ["決断", "実行力", "財運", "短気"], desc: "武将の星。決断力と実行力に優れ、困難を切り開く強さを持つ。財を築く能力が高いが、短気で人間関係がドライになりがち。", modern: "金融関係、自衛官、スポーツ選手、外科医。実務能力と決断力が求められる分野。" },
-            { name: "天同星", yomi: "てんどうせい", alias: "The Child", group: "南斗星", icon: "👶", element: "水（陽）", keywords: ["温和", "享楽", "協調性", "優柔不断"], desc: "福星。子供のように純粋で、温和で争いを好まない。趣味や遊びを愛する。困難を避ける傾向があり、優柔不断になりやすい。", modern: "サービス業、福祉関係、芸能、飲食業。人を楽しませたり癒やしたりする仕事。" },
-            { name: "廉貞星", yomi: "れんていせい", alias: "The Diplomat", group: "北斗星", icon: "🔥", element: "火（陰）", keywords: ["情熱", "秩序", "現実的", "拘束"], desc: "「次なる桃花」とも呼ばれる情熱の星。白黒はっきりさせたい性格で、仕事熱心。ルールに厳しいが、内面は複雑で感情の起伏が激しい。", modern: "公務員、精密機器、電気関係、芸能。規律と創造性の両方が求められる場。" },
-            { name: "天府星", yomi: "てんぷせい", alias: "The Treasurer", group: "南斗主星", icon: "🏦", element: "土（陽）", keywords: ["寛容", "安定", "保守的", "蓄財"], desc: "倉庫（金庫）の星。紫微星と同様にリーダー格だが、より現実的で保守的。温厚で包容力があり、財を守る能力に長けている。", modern: "銀行員、不動産管理、総務・経理、オーナー社長。守りと安定を重視するポジション。" },
-            { name: "太陰星", yomi: "たいいんせい", alias: "The Moon", group: "中天星", icon: "🌙", element: "水（陰）", keywords: ["ロマン", "潔癖", "母性", "不動産"], desc: "月の星。ロマンチストで感受性が豊か。清潔を好み、芸術的センスがある。女性的で優しく、不動産運を持つ。少し消極的。", modern: "芸術家、デザイナー、建築家、看護師。美や住まい、ケアに関わる仕事。" },
-            { name: "貪狼星", yomi: "どんろうせい", alias: "The Wolf", group: "北斗星", icon: "🐺", element: "木・水", keywords: ["欲望", "社交", "多芸多才", "投機"], desc: "欲望と社交の星。好奇心が強く、多趣味で多芸多才。人間関係を築くのが上手く、享楽的。お酒や異性関係のトラブルには注意。", modern: "営業、接客業、芸能人、実業家。人を魅了し、欲望をエネルギーに変える仕事。" },
-            { name: "巨門星", yomi: "こもんせい", alias: "The Orator", group: "北斗星", icon: "🗣️", element: "水（陰）", keywords: ["弁舌", "研究", "疑い深い", "マニアック"], desc: "口（言葉）をつかさどる星。弁が立ち、説得力がある。分析力が高くマニアックだが、疑い深く、口論や誤解を招きやすい。", modern: "弁護士、教師、評論家、アナウンサー、研究者。言葉や専門知識を使う仕事。" },
-            { name: "天相星", yomi: "てんそうせい", alias: "The Minister", group: "南斗星", icon: "🛡️", element: "水（陽）", keywords: ["奉仕", "補佐", "おしゃれ", "八方美人"], desc: "印（ハンコ）の星。トップを支える誠実な補佐役。慈悲深く、おしゃれで人当たりが良い。主体性に欠け、周囲の影響を受けやすい。", modern: "秘書、公務員、サービス業、スタイリスト。人をサポートし、調和を保つ役割。" },
-            { name: "天梁星", yomi: "てんりょうせい", alias: "The Sage", group: "南斗星", icon: "👴", element: "土（陽）", keywords: ["親分肌", "長寿", "指導", "孤高"], desc: "老人の星。落ち着きがあり、面倒見が良い親分肌。困難を解決する能力があるが、説教好きで理屈っぽい面も。", modern: "医師、教師、僧侶、カウンセラー、監査役。人を導き、問題を解決する仕事。" },
-            { name: "七殺星", yomi: "しちさつせい", alias: "The Warrior", group: "南斗星", icon: "🗡️", element: "金・火", keywords: ["独立", "権威", "激しい", "孤独"], desc: "将軍の星。独立心が旺盛で、権威を求める。行動力はずば抜けているが、激しく、一匹狼になりがち。変化の多い人生を歩む。", modern: "起業家、外科医、警察官、スポーツ選手。独立して実力で勝負する世界。" },
-            { name: "破軍星", yomi: "はぐんせい", alias: "The Rebel", group: "北斗星", icon: "🌊", element: "水（陰）", keywords: ["破壊", "創造", "変動", "消耗"], desc: "破壊と創造の星。既存のものを壊して新しいものを作るエネルギーの塊。人生の変動が激しく、好き嫌いがはっきりしている。", modern: "解体業、リノベーション、ベンチャー企業、投資家。スクラップ＆ビルドが必要な分野。" }
+            { name: "紫微星", yomi: "Shibi-sei", alias: "THE EMPEROR", group: "北斗主星", icon: "👑", element: "土（陰）", attribute: "尊貴・統率", desc: "帝王の象徴。強い自尊心と統率力を持ち、高貴な精神を宿します。周囲からの補佐があってこそ真の力を発揮します。", modern: "経営者、組織のトップ。自分のプライドと責任感で人を動かす適性があります。" },
+            { name: "天機星", yomi: "Tenki-sei", alias: "THE STRATEGIST", group: "南斗星", icon: "🧠", element: "木（陰）", attribute: "知恵・変化", desc: "参謀の星。非常に頭の回転が速く、知識欲が旺盛です。変化を好み、新しいものを企画する才能に長けます。", modern: "IT・技術職、プランナー、研究職。知的な好奇心を満たす環境で輝きます。" },
+            { name: "太陽星", yomi: "Taiyo-sei", alias: "THE SUN", group: "中天星", icon: "☀️", element: "火（陽）", attribute: "博愛・光明", desc: "周囲を平等に照らす光。公序良俗に則り、寛大で他人を助けることに喜びを感じます。一方で、見栄を張りやすい面も。", modern: "教育、マスコミ、公益事業。公の場で多くの人の注目を集める仕事に向きます。" },
+            { name: "武曲星", yomi: "Bugoku-sei", alias: "THE GENERAL", group: "北斗星", icon: "⚔️", element: "金（陰）", attribute: "決断・財星", desc: "実行力ある将軍。ドライですが、決断力と実務能力に優れ、確実に成果や財を手にします。寡黙で孤独を好む傾向があります。", modern: "金融、実業、専門技術。実利を重視するシビアな環境で圧倒的な成果を出します。" },
+            { name: "天同星", yomi: "Tendo-sei", alias: "THE CHILD", group: "南斗星", icon: "👶", element: "水（陽）", attribute: "温和・享受", desc: "福の神の星。子供のように無邪気で、穏やかな性格。周囲との調和を重んじ、楽しみを見つけるのが得意です。", modern: "サービス業、カウンセリング、芸能。周囲を癒やし、楽しませる役割。" },
+            { name: "廉貞星", yomi: "Rentei-sei", alias: "THE DIPLOMAT", group: "北斗星", icon: "🔥", element: "火（陰）", attribute: "権威・感性", desc: "「次なる魅力の星」。凛とした強さと情熱を秘めます。仕事には非常に厳格ですが、内面は非常に多感で複雑です。", modern: "行政関係、デザイン、芸能。規律と美的感覚が必要な分野。" },
+            { name: "天府星", yomi: "Tenpu-sei", alias: "THE TREASURER", group: "南斗主星", icon: "🏦", element: "土（陽）", attribute: "安定・慈愛", desc: "慈愛満ちた金庫。保守的で安定を好み、豊かな包容力で周囲を包みます。組織を維持・管理する能力が非常に高いです。", modern: "銀行、不動産、総務、経営安定期のリーダー。守備力の高さを活かす場。" },
+            { name: "太陰星", yomi: "Taiin-sei", alias: "THE MOON", group: "中天星", icon: "🌙", element: "水（陰）", attribute: "ロマン・慈愛", desc: "静寂の月。感受性が豊かで、美を愛するロマンチスト。控えめですが、深い思考と母性的な優しさを持ちます。", modern: "芸術家、デザイナー、不動産、ケア職。繊細な感覚が武器になります。" },
+            { name: "貪狼星", yomi: "Donro-sei", alias: "THE WOLF", group: "北斗星", icon: "🐺", element: "木・水", attribute: "社交・欲望", desc: "欲望と芸の星。飽くなき好奇心と卓越した社交術。人生を遊び尽くすエネルギーに満ち、多芸多才です。", modern: "営業、フリーランス、実業。人を惹きつけるカリスマ性を発揮します。" },
+            { name: "巨門星", yomi: "Komon-sei", alias: "THE ORATOR", group: "北斗星", icon: "🗣️", element: "水（陰）", attribute: "口才・分析", desc: "口の星。優れた弁説と鋭い分析力。物事の裏側を見抜く力がありますが、言葉によるトラブルには注意が必要です。", modern: "法律家、教師、評論家、アナウンサー、研究者。正確な言語化が求められる仕事。" },
+            { name: "天相星", yomi: "Tenso-sei", alias: "THE MINISTER", group: "南斗星", icon: "🛡️", element: "水（陽）", attribute: "補佐-慈悲", desc: "誠実なパートナー。人を助けることで自分が輝く「補佐の星」。身なりを整え、調和ある環境を作ります。", modern: "秘書、公務員、ホスピタリティ産業。優れた調整役として必要とされます。" },
+            { name: "天梁星", yomi: "Tenryo-sei", alias: "THE SAGE", group: "南斗星", icon: "✨", element: "土（陽）", attribute: "指導・慈愛", desc: "賢者の星。落ち着きがあり、面倒見の良い親分肌。困難を乗り越える守護の力を持ち、指導者的な立場に置かれます。", modern: "医療、教育、コンサルタント、監査。徳を持って人を導く役割。" },
+            { name: "七殺星", yomi: "Shichisatsu-sei", alias: "THE WARRIOR", group: "南斗星", icon: "🗡️", element: "金・火", attribute: "権威・独行", desc: "孤独な勇者。ずば抜けた行動力と独立心を持ちます。変化を恐れず、荒波の中に活路を見出します。", modern: "ベンチャー起業家、アスリート、外科医。個人の力で勝負する世界。" },
+            { name: "破軍星", yomi: "Hagun-sei", alias: "THE REBEL", group: "北斗星", icon: "🌊", element: "水（陰）", attribute: "耗散・開拓", desc: "破壊と創造。既存の概念を壊し、ゼロから新しいものを作り出す猛烈なエネルギーです。人生の変動が激しくなります。", modern: "新技術開発、開拓者、イノベーター。誰も通っていない道を切り拓く場。" }
         ];
 
-        // --- Initialization & Functions ---
+        // --- Initialization ---
 
         document.addEventListener('DOMContentLoaded', () => {
-            initChart();
+            initAboutChart();
             renderPalaces();
-            renderStars();
-            selectStar(0); // Select first star by default
+            renderStarNav();
+            setupIntersectionObserver();
+
+            // Initial state
+            selectPalace(0);
+            selectStar(0);
+
+            // Header scroll effect
+            window.addEventListener('scroll', () => {
+                const header = document.getElementById('main-header');
+                if (window.scrollY > 50) {
+                    header.classList.add('glass-panel', 'shadow-2xl');
+                    header.style.height = '60px';
+                } else {
+                    header.classList.remove('glass-panel', 'shadow-2xl');
+                    header.style.height = '80px';
+                }
+            });
         });
 
-        // Chart.js Visualization
-        function initChart() {
-            const ctx = document.getElementById('capabilityChart').getContext('2d');
+        // Radar Chart
+        function initAboutChart() {
+            const ctx = document.getElementById('aboutChart').getContext('2d');
             new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['詳細な性格分析', '運命のタイミング', '適職・才能', '毎日の吉凶', '相手の気持ち', 'Yes/No判断'],
+                    labels: ['性格の精密分析', '運勢の周期', '適職と才能', '対人関係の詳細', 'YES/NO判断', '直近の吉凶'],
                     datasets: [{
-                        label: '紫微斗数の得意度',
-                        data: [95, 90, 90, 40, 30, 20],
-                        backgroundColor: 'rgba(168, 85, 247, 0.4)', // Purple-500
-                        borderColor: '#a855f7',
+                        label: '紫微斗数',
+                        data: [98, 92, 95, 90, 40, 50],
+                        backgroundColor: 'rgba(212, 175, 55, 0.4)',
+                        borderColor: '#d4af37',
                         pointBackgroundColor: '#fff',
-                        pointBorderColor: '#a855f7',
                         borderWidth: 2
-                    },
-                    {
-                        label: 'タロット(比較用)',
-                        data: [50, 40, 40, 80, 95, 90],
-                        backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate-400
-                        borderColor: '#94a3b8',
-                        pointBackgroundColor: 'transparent',
-                        pointBorderColor: 'transparent',
-                        borderDash: [5, 5],
-                        borderWidth: 1
                     }]
                 },
                 options: {
@@ -562,129 +669,127 @@
                             angleLines: { color: 'rgba(255, 255, 255, 0.1)' },
                             grid: { color: 'rgba(255, 255, 255, 0.1)' },
                             pointLabels: {
-                                color: '#e2e8f0',
-                                font: { size: 11, family: "'Zen Kaku Gothic New', sans-serif" }
+                                color: '#94a3b8',
+                                font: { size: 12, family: "'Noto Sans JP', sans-serif" }
                             },
                             ticks: { display: false, max: 100 }
                         }
                     },
                     plugins: {
-                        legend: {
-                            labels: { color: '#e2e8f0' }
-                        }
+                        legend: { display: false }
                     }
                 }
             });
         }
 
-        // Render Palaces Grid
+        // Render Palaces
         function renderPalaces() {
-            const container = document.getElementById('palaces-grid');
-            palaces.forEach((palace, index) => {
-                const div = document.createElement('div');
-                div.className = `palace-card bg-slate-800/80 border border-white/10 rounded-lg p-3 cursor-pointer flex flex-col items-center justify-center text-center h-28 ${index === 0 ? 'active-palace' : ''}`;
-                div.onclick = () => selectPalace(index, div);
-                div.innerHTML = `
-                    <div class="text-2xl mb-1">${palace.icon}</div>
-                    <div class="font-bold text-sm text-slate-200">${palace.name}</div>
-                    <div class="text-[10px] text-slate-400 mt-1">${palace.yomi}</div>
+            const container = document.getElementById('palace-grid');
+            palaces.forEach((p, i) => {
+                const card = document.createElement('div');
+                card.className = `palace-card palace-item-${i}`;
+                card.innerHTML = `
+                    <div class="text-2xl mb-2 opacity-60">${p.icon}</div>
+                    <div class="text-sm font-bold tracking-widest">${p.name}</div>
                 `;
-                container.appendChild(div);
+                card.onclick = () => selectPalace(i, card);
+                container.appendChild(card);
             });
         }
 
-        function selectPalace(index, element) {
-            // Update UI State
-            document.querySelectorAll('.palace-card').forEach(el => el.classList.remove('active-palace'));
-            element.classList.add('active-palace');
-
-            // Update Content with Fade Animation
-            const detailSection = document.getElementById('palace-detail');
-            detailSection.style.opacity = '0';
-
-            setTimeout(() => {
-                const p = palaces[index];
-                document.getElementById('palace-icon').textContent = p.icon;
-                document.getElementById('palace-title').textContent = p.name;
-                document.getElementById('palace-subtitle').textContent = p.subtitle;
-                document.getElementById('palace-desc').textContent = p.desc;
-                detailSection.style.opacity = '1';
-            }, 200);
-        }
-
-        // Render Star List
-        function renderStars() {
-            const list = document.getElementById('star-list');
-            stars.forEach((star, index) => {
-                const btn = document.createElement('button');
-                btn.className = `w-full text-left px-4 py-3 rounded hover:bg-white/5 transition-colors text-sm border-l-2 border-transparent focus:outline-none star-item`;
-                btn.onclick = () => selectStar(index, btn);
-                btn.innerHTML = `
-                    <span class="mr-2">${star.icon}</span>
-                    <span class="font-bold text-slate-200">${star.name}</span>
-                `;
-                if (index === 0) btn.classList.add('bg-white/10', 'border-purple-500');
-                list.appendChild(btn);
-            });
-        }
-
-        function selectStar(index, btnEl) {
-            // Update List UI
-            if (btnEl) {
-                document.querySelectorAll('.star-item').forEach(b => {
-                    b.classList.remove('bg-white/10', 'border-purple-500');
-                    b.classList.add('border-transparent');
-                });
-                btnEl.classList.remove('border-transparent');
-                btnEl.classList.add('bg-white/10', 'border-purple-500');
+        function selectPalace(index, el) {
+            document.querySelectorAll('.palace-card').forEach(c => c.classList.remove('active'));
+            if (el) el.classList.add('active');
+            else {
+                const first = document.querySelector('.palace-item-0');
+                if (first) first.classList.add('active');
             }
 
-            // Update Content
+            const p = palaces[index];
+            const detail = document.getElementById('palace-detail');
+            detail.style.opacity = '0';
+            detail.style.transform = 'translateY(10px)';
+
+            setTimeout(() => {
+                document.getElementById('detail-icon').textContent = p.icon;
+                document.getElementById('detail-name').textContent = p.name;
+                document.getElementById('detail-yomi').textContent = p.yomi;
+                document.getElementById('detail-subtitle').textContent = p.subtitle;
+                document.getElementById('detail-body').innerHTML = `<p>${p.desc}</p>`;
+
+                const kwContainer = document.getElementById('detail-keywords');
+                kwContainer.innerHTML = '';
+                p.keywords.forEach(kw => {
+                    const s = document.createElement('span');
+                    s.className = 'px-3 py-1 bg-white/5 rounded-full text-xs text-slate-300 border border-white/10';
+                    s.textContent = kw;
+                    kwContainer.appendChild(s);
+                });
+
+                detail.style.opacity = '1';
+                detail.style.transform = 'translateY(0)';
+            }, 300);
+        }
+
+        // Star Navigation
+        function renderStarNav() {
+            const list = document.getElementById('star-nav-list');
+            stars.forEach((s, i) => {
+                const a = document.createElement('button');
+                a.className = `star-link text-left py-2 text-sm border-b border-white/5 block w-full star-btn-${i}`;
+                a.textContent = `${s.name} - ${s.alias}`;
+                a.onclick = () => selectStar(i, a);
+                list.appendChild(a);
+            });
+        }
+
+        function selectStar(index, el) {
+            document.querySelectorAll('.star-link').forEach(l => l.classList.remove('active'));
+            if (el) el.classList.add('active');
+            else {
+                const first = document.querySelector('.star-btn-0');
+                if (first) first.classList.add('active');
+            }
+
+            const s = stars[index];
             const content = document.getElementById('star-content');
             content.style.opacity = '0';
 
             setTimeout(() => {
-                const s = stars[index];
+                document.getElementById('star-group').textContent = s.group;
                 document.getElementById('star-name').textContent = s.name;
                 document.getElementById('star-alias').textContent = s.alias;
-                document.getElementById('star-group').textContent = s.group;
-                document.getElementById('star-bg-icon').textContent = s.icon;
+                document.getElementById('star-icon').textContent = s.icon;
                 document.getElementById('star-element').textContent = s.element;
-                document.getElementById('star-desc').textContent = s.desc;
+                document.getElementById('star-attribute').textContent = s.attribute;
+                document.getElementById('star-description').textContent = s.desc;
                 document.getElementById('star-modern').textContent = s.modern;
 
-                // Render Keywords
-                const traitContainer = document.getElementById('star-traits');
-                traitContainer.innerHTML = '';
-                s.keywords.forEach(k => {
-                    const span = document.createElement('span');
-                    span.className = 'px-2 py-1 bg-white/10 rounded text-xs text-white border border-white/10';
-                    span.textContent = k;
-                    traitContainer.appendChild(span);
-                });
-
                 content.style.opacity = '1';
-            }, 200);
+            }, 300);
         }
 
-        // Navigation
+        // Intersection Observer for animations
+        function setupIntersectionObserver() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
         function scrollToSection(id) {
             const el = document.getElementById(id);
             if (el) {
-                const headerOffset = 80;
-                const elementPosition = el.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
+                const offset = 100;
+                const pos = el.getBoundingClientRect().top + window.pageYOffset - offset;
+                window.scrollTo({ top: pos, behavior: 'smooth' });
             }
         }
-
-        function toggleMobileNav() {
-            document.getElementById('mobile-nav').classList.add('hidden');
-        }
-
     </script>
 </body>
 
