@@ -12,6 +12,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* bodyスタイルは common.css で定義 */
         /* h1-h3, .serifスタイルは common.css で定義 */
@@ -195,11 +196,8 @@
                                 <button id="calculate-btn" type="button"
                                     class="relative z-30 inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group cursor-pointer">
                                     <span>運命の羅針盤を動かす</span>
-                                    <svg class="ml-2 w-5 h-5 transition-transform group-hover:rotate-45" fill="none"
-                                        stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                                    </svg>
+                                    <i data-lucide="compass"
+                                        class="ml-2 w-6 h-6 transition-transform group-hover:rotate-45"></i>
                                 </button>
                             </div>
                             <!-- Result Display Wrapper -->
@@ -213,7 +211,9 @@
                                     <div class="relative z-10">
                                         <div class="flex items-center justify-between mb-6">
                                             <h4 class="text-2xl font-bold flex items-center text-indigo-900">
-                                                <span class="mr-3 p-2 bg-indigo-100 rounded-lg text-xl">✨</span> Destiny
+                                                <span
+                                                    class="mr-3 p-2 bg-indigo-100 rounded-lg text-xl flex items-center justify-center"><i
+                                                        data-lucide="sparkles" class="w-6 h-6"></i></span> Destiny
                                                 Message
                                             </h4>
                                             <div class="text-right">
@@ -279,7 +279,9 @@
                                         <!-- Name Analysis Detail Section -->
                                         <div id="name-detail-area" class="mt-8 pt-8 border-t border-indigo-50 hidden">
                                             <h5 class="text-sm font-bold text-indigo-900 mb-4 flex items-center">
-                                                <span class="mr-2">📝</span> 姓名が示す「社会的な顔」と「魂の望み」
+                                                <span class="mr-2 flex items-center justify-center"><i
+                                                        data-lucide="clipboard-list" class="w-4 h-4"></i></span>
+                                                姓名が示す「社会的な顔」と「魂の望み」
                                             </h5>
                                             <div class="space-y-4">
                                                 <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50">
@@ -451,7 +453,9 @@
                         <div
                             class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
                             <span
-                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">👤</span>
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform flex items-center justify-center text-indigo-600">
+                                <i data-lucide="user"></i>
+                            </span>
                             <div>
                                 <h4 class="font-bold text-indigo-900 mb-1 text-lg">本質的な性格・潜在能力</h4>
                                 <p class="text-slate-600 leading-relaxed">社会的な仮面の下にある、魂の望みや生まれ持った才能の「設計図」を読み解きます。</p>
@@ -460,7 +464,9 @@
                         <div
                             class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
                             <span
-                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">📅</span>
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform flex items-center justify-center text-indigo-600">
+                                <i data-lucide="calendar"></i>
+                            </span>
                             <div>
                                 <h4 class="font-bold text-indigo-900 mb-1 text-lg">人生のバイオリズム</h4>
                                 <p class="text-slate-600 leading-relaxed">9年サイクルで変化する運気の流れを把握し、「今、何をすべき時か」という指針を。 </p>
@@ -469,7 +475,9 @@
                         <div
                             class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
                             <span
-                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">❤️</span>
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform flex items-center justify-center text-pink-600">
+                                <i data-lucide="heart"></i>
+                            </span>
                             <div>
                                 <h4 class="font-bold text-indigo-900 mb-1 text-lg">相性と関係性の本質</h4>
                                 <p class="text-slate-600 leading-relaxed">お互いのエネルギーの響き合いから、円滑なコミュニケーションのヒントや学びを。 </p>
@@ -478,7 +486,9 @@
                         <div
                             class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
                             <span
-                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">🎯</span>
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform flex items-center justify-center text-indigo-600">
+                                <i data-lucide="target"></i>
+                            </span>
                             <div>
                                 <h4 class="font-bold text-indigo-900 mb-1 text-lg">今世の使命と課題</h4>
                                 <p class="text-slate-600 leading-relaxed">何のために生まれ、どのような課題を乗り越えて魂を成長させるのか、その方向性。</p>
@@ -492,7 +502,9 @@
                         <div class="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-full -mr-16 -mt-16 opacity-50">
                         </div>
                         <h3 class="text-xl font-bold mb-6 text-pink-900 flex items-center">
-                            <span class="p-2 bg-pink-100 rounded-lg mr-3">⚠️</span> 以下の内容は、他の占術が適しています
+                            <span
+                                class="p-2 bg-pink-100 rounded-lg mr-3 flex items-center justify-center text-pink-600"><i
+                                    data-lucide="alert-triangle" class="w-6 h-6"></i></span> 以下の内容は、他の占術が適しています
                         </h3>
                         <ul class="space-y-6">
                             <li class="flex items-start">
@@ -640,7 +652,8 @@
                     </div>
                     <div class="mt-6 border-t border-gray-100 pt-6">
                         <h4 class="text-sm font-bold text-indigo-900 mb-3 flex items-center">
-                            <span class="mr-2">📚</span> 同じエネルギーを持つ先駆者たち (根拠一覧)
+                            <span class="mr-2 flex items-center justify-center"><i data-lucide="book-open"
+                                    class="w-4 h-4"></i></span> 同じエネルギーを持つ先駆者たち (根拠一覧)
                         </h4>
                         <div id="detail-famous-list" class="space-y-2">
                             <!-- Famous people with grounds will be injected here -->
@@ -665,7 +678,8 @@
             <div class="bg-white p-4 sm:p-8 rounded-xl shadow-sm chart-container mx-auto">
                 <div class="flex items-center justify-between mb-4">
                     <h4 class="text-sm font-bold text-slate-700 flex items-center">
-                        <span class="mr-2">📈</span> <span id="cycle-chart-title">運気の波（9年周期）</span>
+                        <span class="mr-2 flex items-center justify-center"><i data-lucide="trending-up"
+                                class="w-4 h-4"></i></span> <span id="cycle-chart-title">運気の波（9年周期）</span>
                     </h4>
                     <div id="personal-year-calc"
                         class="text-[10px] font-mono text-indigo-400 bg-indigo-50 px-2 py-0.5 rounded"></div>
@@ -1354,6 +1368,9 @@
                     plugins: { legend: { display: false } }
                 }
             });
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         });
 
         function updateCycleChart(lifePath, birthMonth, birthDay) {
