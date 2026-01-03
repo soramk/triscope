@@ -276,6 +276,45 @@
                                                 <p id="result-love" class="text-slate-600 leading-relaxed text-sm"></p>
                                             </div>
                                         </div>
+                                        <!-- Name Analysis Detail Section -->
+                                        <div id="name-detail-area" class="mt-8 pt-8 border-t border-indigo-50 hidden">
+                                            <h5 class="text-sm font-bold text-indigo-900 mb-4 flex items-center">
+                                                <span class="mr-2">📝</span> 姓名が示す「社会的な顔」と「魂の望み」
+                                            </h5>
+                                            <div class="space-y-4">
+                                                <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50">
+                                                    <div class="flex items-center mb-1">
+                                                        <span
+                                                            class="text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Expression</span>
+                                                        <span id="name-exp-title"
+                                                            class="text-indigo-900 font-bold text-sm"></span>
+                                                    </div>
+                                                    <p id="name-exp-desc"
+                                                        class="text-xs text-slate-600 leading-relaxed"></p>
+                                                </div>
+                                                <div class="bg-pink-50/30 p-4 rounded-xl border border-pink-100/50">
+                                                    <div class="flex items-center mb-1">
+                                                        <span
+                                                            class="text-[10px] font-bold bg-pink-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Soul
+                                                            Urge</span>
+                                                        <span id="name-soul-title"
+                                                            class="text-pink-900 font-bold text-sm"></span>
+                                                    </div>
+                                                    <p id="name-soul-desc"
+                                                        class="text-xs text-slate-600 leading-relaxed"></p>
+                                                </div>
+                                                <div class="bg-teal-50/30 p-4 rounded-xl border border-teal-100/50">
+                                                    <div class="flex items-center mb-1">
+                                                        <span
+                                                            class="text-[10px] font-bold bg-teal-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Personality</span>
+                                                        <span id="name-pers-title"
+                                                            class="text-teal-900 font-bold text-sm"></span>
+                                                    </div>
+                                                    <p id="name-pers-desc"
+                                                        class="text-xs text-slate-600 leading-relaxed"></p>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -922,6 +961,36 @@
             }
         };
 
+        const nameMeanings = {
+            expression: {
+                title: "Expression Number (表現数)",
+                desc: "あなたの社会的な役割や、持ち合わせた才能をどう表現するかを示します。「何をする人か」という社会的な使命を表します。"
+            },
+            soul: {
+                title: "Soul Urge Number (ハート数)",
+                desc: "あなたの魂が真に求めているもの、心の奥底にある情熱や幸福の源泉を示します。自分でも気づかない「本音」の部分です。"
+            },
+            personality: {
+                title: "Personality Number (人格数)",
+                desc: "他人があなたをどう見ているか、第一印象や社会で見せている「ペルソナ（仮面）」を示します。対人関係の入り口となるエネルギーです。"
+            }
+        };
+
+        const numberKeywords = {
+            1: "独立・自立・先駆者",
+            2: "共感・サポート・受容",
+            3: "表現・楽しさ・創造性",
+            4: "安定・基盤・誠実",
+            5: "自由・変化・多才",
+            6: "愛・責任・調和",
+            7: "分析・探求・精神性",
+            8: "豊かさ・力・具現化",
+            9: "完結・慈愛・統合",
+            11: "直感・霊感・メッセンジャー",
+            22: "構築・カリスマ・ビジョン",
+            33: "宇宙愛・奉仕・癒やし"
+        };
+
         // --- Functions ---
 
         // Tab Switching Logic
@@ -1057,6 +1126,28 @@
             document.getElementById('res-soul').innerText = soul;
             document.getElementById('res-personality').innerText = personality;
             document.getElementById('res-today').innerText = todayNum;
+
+            // Name Analysis Detailed Explanations
+            if (name) {
+                document.getElementById('name-detail-area').classList.remove('hidden');
+
+                // Expression
+                const expData = numberData[expression] || { keyword: "情報なし" };
+                document.getElementById('name-exp-title').innerText = `${expression}: ${numberKeywords[expression] || ''}`;
+                document.getElementById('name-exp-desc').innerText = `${nameMeanings.expression.desc} ${expression}のあなたは、${expData.desc.split('。')[0]}というスタイルで社会に貢献します。`;
+
+                // Soul Urge
+                const soulData = numberData[soul] || { keyword: "情報なし" };
+                document.getElementById('name-soul-title').innerText = `${soul}: ${numberKeywords[soul] || ''}`;
+                document.getElementById('name-soul-desc').innerText = `${nameMeanings.soul.desc} 数字${soul}を持つあなたの魂は、${soulData.keyword}を通じて満たされます。`;
+
+                // Personality
+                const persData = numberData[personality] || { keyword: "情報なし" };
+                document.getElementById('name-pers-title').innerText = `${personality}: ${numberKeywords[personality] || ''}`;
+                document.getElementById('name-pers-desc').innerText = `${nameMeanings.personality.desc} 周囲からは、${persData.pos}といった特徴を持つ人物として信頼されるでしょう。`;
+            } else {
+                document.getElementById('name-detail-area').classList.add('hidden');
+            }
 
             const data = numberData[lifePath];
             document.getElementById('result-description').innerText = data.desc;
