@@ -192,8 +192,8 @@
                                     </div>
                                 </div>
 
-                                <button onclick="calculateNumerology()"
-                                    class="inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group">
+                                <button id="calculate-btn" type="button"
+                                    class="relative z-30 inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group cursor-pointer">
                                     <span>運命の羅針盤を動かす</span>
                                     <svg class="ml-2 w-5 h-5 transition-transform group-hover:rotate-45" fill="none"
                                         stroke="currentColor" viewBox="0 0 24 24">
@@ -873,6 +873,7 @@
         }
 
         function calculateNumerology() {
+            console.log("Calculation started...");
             const year = parseInt(document.getElementById('birth-year').value);
             const month = parseInt(document.getElementById('birth-month').value);
             const day = parseInt(document.getElementById('birth-day').value);
@@ -1023,6 +1024,13 @@
             for (let i = currentYear; i >= 1900; i--) { pYear.appendChild(new Option(i + '年', i)); }
             for (let i = 1; i <= 12; i++) { pMonth.appendChild(new Option(i + '月', i)); }
             for (let i = 1; i <= 31; i++) { pDay.appendChild(new Option(i + '日', i)); }
+
+            // Set up calculation button event listener
+            const calcBtn = document.getElementById('calculate-btn');
+            if (calcBtn) {
+                calcBtn.addEventListener('click', calculateNumerology);
+                console.log("Calculation button listener attached.");
+            }
 
             // 1. Comparison Radar Chart
             const ctxComparison = document.getElementById('comparisonChart').getContext('2d');
