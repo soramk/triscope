@@ -18,7 +18,13 @@ body {
     line-height: 1.6;
 }
 
-h1, h2, h3, h4, h5, h6, .serif {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.serif {
     font-family: 'Noto Serif JP', serif;
 }
 
@@ -28,27 +34,40 @@ h1, h2, h3, h4, h5, h6, .serif {
 
 :root {
     /* プライマリカラー */
-    --color-primary: #312e81;        /* Indigo-900 */
-    --color-primary-light: #3730a3;  /* Indigo-800 */
-    --color-primary-dark: #1e1b4b;   /* Indigo-950 */
-    
+    --color-primary: #312e81;
+    /* Indigo-900 */
+    --color-primary-light: #3730a3;
+    /* Indigo-800 */
+    --color-primary-dark: #1e1b4b;
+    /* Indigo-950 */
+
     /* セカンダリカラー */
-    --color-secondary: #d97706;      /* Amber-600 */
-    --color-secondary-light: #f59e0b; /* Amber-500 */
-    --color-secondary-dark: #b45309;  /* Amber-700 */
-    
+    --color-secondary: #d97706;
+    /* Amber-600 */
+    --color-secondary-light: #f59e0b;
+    /* Amber-500 */
+    --color-secondary-dark: #b45309;
+    /* Amber-700 */
+
     /* 背景色 */
-    --color-bg: #FDFBF7;             /* クリーム白 */
-    --color-bg-alt: #f3f0e8;         /* 暖かいグレー */
-    
+    --color-bg: #FDFBF7;
+    /* クリーム白 */
+    --color-bg-alt: #f3f0e8;
+    /* 暖かいグレー */
+
     /* テキスト色 */
-    --color-text: #1F2937;           /* Gray-800 */
-    --color-text-light: #6B7280;     /* Gray-500 */
-    --color-text-muted: #9CA3AF;     /* Gray-400 */
-    
+    --color-text: #1F2937;
+    /* Gray-800 */
+    --color-text-light: #6B7280;
+    /* Gray-500 */
+    --color-text-muted: #9CA3AF;
+    /* Gray-400 */
+
     /* ボーダー色 */
-    --color-border: #E5E7EB;         /* Gray-200 */
-    --color-border-light: #F3F4F6;   /* Gray-100 */
+    --color-border: #E5E7EB;
+    /* Gray-200 */
+    --color-border-light: #F3F4F6;
+    /* Gray-100 */
 }
 
 /* =====================
@@ -155,6 +174,7 @@ h1, h2, h3, h4, h5, h6, .serif {
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -256,4 +276,73 @@ h1, h2, h3, h4, h5, h6, .serif {
 
 .border-secondary {
     border-color: var(--color-secondary);
+}
+
+/* =====================
+   共通トップナビゲーションバー
+   ===================== */
+
+.triscope-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 10px rgba(99, 102, 241, 0.3);
+}
+
+.triscope-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: white;
+}
+
+.triscope-nav-logo {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.triscope-nav-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.triscope-nav-home {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.15);
+    transition: background 0.2s ease;
+}
+
+.triscope-nav-home:hover {
+    background: rgba(255, 255, 255, 0.25);
+}
+
+@media (max-width: 640px) {
+    .triscope-nav {
+        padding: 0.5rem 1rem;
+    }
+
+    .triscope-nav-title {
+        font-size: 0.95rem;
+    }
+
+    .triscope-nav-home span {
+        display: none;
+    }
 }
