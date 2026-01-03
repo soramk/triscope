@@ -16,7 +16,7 @@
     <style>
         body {
             background-color: #FDFBF7;
-            color: #1F2937;
+            color: #1e1b4b;
             font-family: 'Noto Sans JP', sans-serif;
             line-height: 1.8;
         }
@@ -25,64 +25,69 @@
             font-family: 'Noto Serif JP', serif;
         }
 
+        .hero-bg {
+            background-color: #FDFBF7;
+            background-image:
+                radial-gradient(circle at 10% 20%, rgba(91, 33, 182, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(79, 70, 229, 0.03) 0%, transparent 40%);
+        }
+
         .glass-panel {
             background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            border-radius: 0.75rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-radius: 1.5rem;
         }
 
         .active-tab {
-            border-bottom: 2px solid #5B21B6;
-            color: #5B21B6;
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
             font-weight: 600;
         }
 
-        .inactive-tab {
-            border-bottom: 2px solid transparent;
-            color: #6B7280;
-        }
-
         .palace-card {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
-            border: 1px solid #E5E7EB;
+            border: 1px solid rgba(79, 70, 229, 0.05);
+            background: #fff;
         }
 
         .palace-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: #5B21B6;
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
+            border-color: #4f46e5;
         }
 
         .palace-card.active {
-            background-color: #F5F3FF;
-            border-color: #5B21B6;
-            box-shadow: inset 0 0 0 1px #5B21B6;
+            background-color: #f8fafc;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 1px #4f46e5;
         }
 
         .star-link {
-            transition: all 0.2s ease;
-            color: #6B7280;
+            transition: all 0.25s ease;
+            color: #64748b;
+            position: relative;
         }
 
         .star-link:hover {
-            color: #5B21B6;
-            padding-left: 0.5rem;
+            color: #4f46e5;
+            background-color: rgba(79, 70, 229, 0.05);
+            padding-left: 1rem;
         }
 
         .star-link.active {
-            color: #5B21B6;
-            font-weight: bold;
-            border-left: 3px solid #5B21B6;
-            padding-left: 0.75rem;
+            color: #4f46e5;
+            font-weight: 700;
+            background-color: rgba(79, 70, 229, 0.08);
+            padding-left: 1.25rem;
         }
 
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.6s ease-out;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .reveal.active {
@@ -90,35 +95,23 @@
             transform: translateY(0);
         }
 
-        /* Result Animation */
-        .fade-in {
-            animation: fadeIn 0.5s ease-in forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
         .custom-scrollbar::-webkit-scrollbar {
-            width: 4px;
+            width: 5px;
         }
 
         .custom-scrollbar::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: transparent;
         }
 
         .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: #5B21B6;
+            background: #e2e8f0;
             border-radius: 10px;
         }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+    </style>
     </style>
 </head>
 
@@ -146,112 +139,134 @@
 
     <main>
         <!-- Hero / Calculator Section -->
-        <header id="calculator" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <header id="calculator" class="relative hero-bg py-24 px-4 sm:px-6 lg:px-8 border-b border-indigo-50">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
                 <div class="reveal">
-                    <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight">
-                        星々が綴る<br><span class="text-indigo-600 serif">至高の天命</span>
+                    <div
+                        class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 uppercase tracking-[0.2em]">
+                        <i data-lucide="sparkles" class="w-3 h-3"></i>
+                        <span>Imperial Astrology</span>
+                    </div>
+                    <h1 class="text-4xl md:text-6xl font-extrabold text-[#111827] leading-tight serif mb-6">
+                        星々が綴る<br><span class="text-indigo-600">至高の天命</span>
                     </h1>
-                    <p class="mt-6 text-lg text-gray-600 max-w-xl">
-                        生年月日、出生時間、そして場所。その瞬間の天空を支配する星々の配置を読み解き、あなたの魂の設計図を可視化します。
+                    <p class="text-lg text-slate-500 max-w-xl leading-relaxed mb-10">
+                        紫微斗数は、あなたが生まれた瞬間の天空を支配する星々の配置を読み解き、人生の設計図を可視化する「皇帝の占術」です。その的中率の高さから、かつては禁域の秘術とされていました。
                     </p>
 
                     <!-- Advanced Calculator UI -->
-                    <div class="mt-10 bg-indigo-50 p-8 rounded-2xl border border-indigo-100 shadow-sm">
-                        <h3 class="text-lg font-bold text-indigo-900 mb-6 flex items-center gap-2">
-                            <span>✨</span> 簡易星配置診断
+                    <div
+                        class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100/30 border border-indigo-100/50">
+                        <h3 class="text-xl font-bold text-indigo-950 mb-8 flex items-center gap-3">
+                            <i data-lucide="compass" class="w-6 h-6 text-indigo-600"></i>
+                            パーソナル天命診断
                         </h3>
-                        <div class="space-y-6">
+                        <div class="space-y-8">
                             <!-- Date Selection -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-indigo-900 ml-1">生年月日</label>
-                                <div class="grid grid-cols-3 gap-2">
+                            <div class="space-y-3">
+                                <label
+                                    class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
+                                <div class="grid grid-cols-3 gap-3">
                                     <select id="birth-year"
-                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                                        class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-medium appearance-none transition-all"></select>
                                     <select id="birth-month"
-                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                                        class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-medium appearance-none transition-all"></select>
                                     <select id="birth-day"
-                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                                        class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-medium appearance-none transition-all"></select>
                                 </div>
                             </div>
                             <!-- Time Selection -->
-                            <div class="space-y-2">
-                                <label class="text-sm font-bold text-indigo-900 ml-1">出生時間（時柱）</label>
-                                <select id="birth-hour"
-                                    class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
-                                    <option value="1">子時 (23:00 - 01:00)</option>
-                                    <option value="2">丑時 (01:00 - 03:00)</option>
-                                    <option value="3">寅時 (03:00 - 05:00)</option>
-                                    <option value="4">卯時 (05:00 - 07:00)</option>
-                                    <option value="5">辰時 (07:00 - 09:00)</option>
-                                    <option value="6">巳時 (09:00 - 11:00)</option>
-                                    <option value="7">午時 (11:00 - 13:00)</option>
-                                    <option value="8">未時 (13:00 - 15:00)</option>
-                                    <option value="9">申時 (15:00 - 17:00)</option>
-                                    <option value="10">酉時 (17:00 - 19:00)</option>
-                                    <option value="11">戌時 (19:00 - 21:00)</option>
-                                    <option value="12">亥時 (21:00 - 23:00)</option>
-                                </select>
+                            <div class="space-y-3">
+                                <label
+                                    class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">出生時間（十二刻）</label>
+                                <div class="relative">
+                                    <select id="birth-hour"
+                                        class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-medium appearance-none transition-all">
+                                        <option value="1">子時 (23:00 - 01:00)</option>
+                                        <option value="2">丑時 (01:00 - 03:00)</option>
+                                        <option value="3">寅時 (03:00 - 05:00)</option>
+                                        <option value="4">卯時 (05:00 - 07:00)</option>
+                                        <option value="5">辰時 (07:00 - 09:00)</option>
+                                        <option value="6">巳時 (09:00 - 11:00)</option>
+                                        <option value="7">午時 (11:00 - 13:00)</option>
+                                        <option value="8">未時 (13:00 - 15:00)</option>
+                                        <option value="9">申時 (15:00 - 17:00)</option>
+                                        <option value="10">酉時 (17:00 - 19:00)</option>
+                                        <option value="11">戌時 (19:00 - 21:00)</option>
+                                        <option value="12">亥時 (21:00 - 23:00)</option>
+                                    </select>
+                                    <i data-lucide="chevron-down"
+                                        class="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none"></i>
+                                </div>
                             </div>
                             <button onclick="diagnose()"
-                                class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg transition-all transform hover:scale-[1.02]">
-                                天命を読み解く
+                                class="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group">
+                                天命を解読する
+                                <i data-lucide="arrow-right"
+                                    class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                             </button>
                         </div>
 
                         <!-- Diagnosis Result area -->
                         <div id="diagnosis-result"
-                            class="hidden mt-8 p-6 bg-white rounded-xl border border-indigo-100 shadow-inner fade-in">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-xs font-bold text-indigo-500 uppercase tracking-widest">Diagnosis
-                                    Complete</span>
-                                <span id="res-star-name" class="text-lg font-bold text-indigo-900 serif"></span>
+                            class="hidden mt-10 p-8 bg-indigo-50/50 rounded-3xl border border-indigo-100 shadow-inner fade-in">
+                            <div class="flex items-center justify-between mb-6">
+                                <span
+                                    class="text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em]">Diagnosis
+                                    Success</span>
+                                <div class="flex items-center gap-2">
+                                    <i data-lucide="star" class="w-4 h-4 text-indigo-600 fill-indigo-600"></i>
+                                    <span id="res-star-name" class="text-2xl font-bold text-indigo-950 serif"></span>
+                                </div>
                             </div>
-                            <div class="bg-indigo-50 p-4 rounded-lg mb-4 text-sm text-indigo-800 leading-relaxed"
+                            <div class="bg-white p-6 rounded-2xl mb-6 text-[15px] text-slate-600 leading-relaxed border border-indigo-50 shadow-sm"
                                 id="res-brief">
                             </div>
-                            <div class="grid grid-cols-2 gap-3 text-center mb-6">
-                                <div class="p-3 bg-slate-50 rounded border border-slate-100">
-                                    <span class="text-[10px] text-slate-400 block uppercase">主室（命宮）</span>
-                                    <span id="res-main-palace" class="font-bold text-slate-700">--</span>
+                            <div class="grid grid-cols-2 gap-4 text-center mb-8">
+                                <div class="p-4 bg-white rounded-2xl border border-indigo-50 shadow-sm">
+                                    <span
+                                        class="text-[10px] text-slate-400 block uppercase tracking-widest mb-1">主室（命宮）</span>
+                                    <span id="res-main-palace" class="font-black text-indigo-900">--</span>
                                 </div>
-                                <div class="p-3 bg-slate-50 rounded border border-slate-100">
-                                    <span class="text-[10px] text-slate-400 block uppercase">局数（Element）</span>
-                                    <span id="res-element" class="font-bold text-slate-700">--</span>
+                                <div class="p-4 bg-white rounded-2xl border border-indigo-50 shadow-sm">
+                                    <span
+                                        class="text-[10px] text-slate-400 block uppercase tracking-widest mb-1">五行局（Element）</span>
+                                    <span id="res-element" class="font-black text-indigo-900">--</span>
                                 </div>
                             </div>
 
                             <!-- Calculation Logic Display -->
-                            <div class="mt-4 pt-4 border-t border-slate-100">
+                            <div class="mt-6 pt-6 border-t border-indigo-100">
                                 <h4
-                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center">
-                                    <span class="mr-2">📝</span> Calculation Logic (算出根拠)
+                                    class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-4 flex items-center">
+                                    <i data-lucide="terminal" class="w-3 h-3 mr-2"></i> Calculation Logic
                                 </h4>
                                 <div id="calculation-steps"
-                                    class="space-y-2 text-[11px] text-slate-500 font-mono leading-tight">
+                                    class="space-y-3 text-[11px] text-slate-500 leading-relaxed">
                                     <!-- Populated by JS -->
                                 </div>
                             </div>
-
-                            <p class="mt-6 text-[10px] text-slate-400 text-center">※本診断は紫微斗数の古典的な算出法に基づいた精密なシミュレーションです。
-                            </p>
                         </div>
                     </div>
                 </div>
-                <div class="reveal flex justify-center">
-                    <div class="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
+                <div class="reveal relative flex justify-center lg:block">
+                    <div
+                        class="relative w-80 h-80 md:w-full md:max-w-md aspect-square flex items-center justify-center mx-auto">
                         <!-- Animated Rings -->
                         <div
-                            class="absolute inset-0 border-2 border-indigo-100 rounded-full animate-[spin_40s_linear_infinite]">
+                            class="absolute inset-0 border-2 border-indigo-100/50 rounded-full animate-[spin_60s_linear_infinite]">
                         </div>
                         <div
-                            class="absolute inset-4 border border-indigo-50 rounded-full animate-[spin_25s_linear_infinite_reverse]">
+                            class="absolute inset-8 border border-indigo-50 rounded-full animate-[spin_40s_linear_infinite_reverse]">
+                        </div>
+                        <div
+                            class="absolute inset-20 border border-indigo-100/20 rounded-full animate-[spin_20s_linear_infinite]">
                         </div>
 
                         <!-- Celestial Chart Illustration -->
-                        <div class="relative z-10 w-full h-full p-8">
+                        <div class="relative z-10 w-full h-full p-12 lg:p-16">
                             <img src="../../assets/images/zi_wei_dou_shu_chart.png" alt="Celestial Chart"
-                                class="w-full h-full object-contain opacity-40 hover:opacity-60 transition-opacity duration-1000">
+                                class="w-full h-full object-contain filter drop-shadow-[0_0_50px_rgba(79,70,229,0.1)] opacity-60 hover:opacity-80 transition-opacity duration-1000">
                         </div>
                     </div>
                 </div>
@@ -259,37 +274,46 @@
         </header>
 
         <!-- About Section -->
-        <section id="overview" class="py-24 bg-white border-y border-slate-100 px-4 sm:px-6 lg:px-8">
+        <section id="overview" class="py-24 bg-white border-y border-slate-100 px-4 sm:px-6 lg:px-8 scroll-mt">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16">
-                    <h2 class="text-3xl font-extrabold text-gray-900 serif">命術の最高峰、紫微斗数</h2>
-                    <p class="mt-4 text-lg text-gray-500 max-w-2xl mx-auto">
-                        中国発祥の「皇帝占星術」。生年月日と出生時間に基づき、100以上の星々が描き出す「命盤」を通じて、個人の多面的な宇宙を詳細に分析します。
+                <div class="text-center mb-20">
+                    <div
+                        class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-4 tracking-widest uppercase">
+                        Overview</div>
+                    <h2 class="text-4xl font-extrabold text-indigo-950 serif mb-6">命術の最高峰、紫微斗数</h2>
+                    <p class="text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                        中国発祥の「皇帝占星術」。生年月日と出生時間に基づき、100以上の星々が描き出す「命盤（めいばん）」を通じて、個人の多面的な宇宙を詳細に分析します。
                     </p>
                 </div>
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <div class="space-y-8">
-                        <div class="flex gap-4 items-start">
-                            <span
-                                class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0 font-bold">1</span>
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="space-y-10">
+                        <div class="flex gap-6 items-start group">
+                            <div
+                                class="w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center shrink-0 shadow-sm transition-transform group-hover:scale-110">
+                                <i data-lucide="layers" class="w-7 h-7"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold text-gray-900">驚異の解像度</h4>
-                                <p class="text-gray-600 mt-1">12の「宮」が人生のあらゆる側面（性格、財産、配偶者、仕事、健康など）を網羅し、立体的に描き出します。</p>
+                                <h4 class="text-xl font-bold text-indigo-950 mb-2">驚異の解像度</h4>
+                                <p class="text-slate-600 leading-relaxed">
+                                    12の「宮」が人生のあらゆる側面（性格、財産、配偶者、仕事、健康など）を網羅し、立体的な人生のシナリオを描き出します。</p>
                             </div>
                         </div>
-                        <div class="flex gap-4 items-start">
-                            <span
-                                class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center shrink-0 font-bold">2</span>
+                        <div class="flex gap-6 items-start group">
+                            <div
+                                class="w-14 h-14 bg-purple-50 text-purple-600 rounded-2xl flex items-center justify-center shrink-0 shadow-sm transition-transform group-hover:scale-110">
+                                <i data-lucide="trending-up" class="w-7 h-7"></i>
+                            </div>
                             <div>
-                                <h4 class="font-bold text-gray-900">運命のバイオリズム</h4>
-                                <p class="text-gray-600 mt-1">10年ごとの「大限」、1年ごとの「太歳」により、精密な時期判断と行動指針を提供します。</p>
+                                <h4 class="text-xl font-bold text-indigo-950 mb-2">精密なタイムライン</h4>
+                                <p class="text-slate-600 leading-relaxed">
+                                    10年ごとの「大限」、1年ごとの「太歳」により、いつどこで何が起こるかという時期判断と具体的な行動指針を提供します。</p>
                             </div>
                         </div>
                     </div>
-                    <div class="bg-indigo-50 p-6 rounded-2xl border border-indigo-100">
-                        <h4 class="text-center text-sm font-bold text-indigo-400 mb-6 uppercase tracking-widest">
-                            占術特性レーダー</h4>
-                        <div class="h-64 relative">
+                    <div class="bg-indigo-50/50 p-10 rounded-[3rem] border border-indigo-100/50 shadow-inner">
+                        <h4 class="text-center text-[10px] font-black text-indigo-400 mb-8 uppercase tracking-[0.2em]">
+                            占術特性分析チャート</h4>
+                        <div class="h-72 relative">
                             <canvas id="capabilityChart"></canvas>
                         </div>
                     </div>
@@ -298,82 +322,104 @@
         </section>
 
         <!-- 12 Palaces Section -->
-        <section id="palaces" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-            <h2 class="text-3xl font-extrabold text-gray-900 serif text-center mb-12">人生の十二、運命の舞台</h2>
-            <div class="grid lg:grid-cols-2 gap-12">
+        <section id="palaces" class="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt">
+            <div class="text-center mb-16">
+                <div
+                    class="inline-block px-4 py-1.5 rounded-full bg-slate-100 text-slate-500 text-xs font-bold mb-4 tracking-widest uppercase">
+                    The 12 Palaces</div>
+                <h2 class="text-4xl font-extrabold text-indigo-950 serif">人生の十二、運命の舞台</h2>
+            </div>
+            <div class="grid lg:grid-cols-2 gap-16 items-start">
                 <div class="grid grid-cols-2 sm:grid-cols-3 gap-4" id="palace-grid">
                     <!-- Populated by JS -->
                 </div>
-                <div class="bg-white p-8 rounded-2xl shadow-xl border border-slate-100 flex flex-col justify-center min-h-[400px]"
+                <div class="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-indigo-100/20 border border-slate-100 flex flex-col justify-center min-h-[480px] transition-all duration-500"
                     id="palace-detail">
-                    <div class="flex items-center gap-4 mb-6">
-                        <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center text-3xl"
+                    <div class="flex items-center gap-6 mb-8">
+                        <div class="w-20 h-20 bg-indigo-50 text-indigo-600 rounded-3xl flex items-center justify-center text-4xl shadow-sm"
                             id="detail-icon">👑</div>
                         <div>
-                            <h3 class="text-2xl font-bold serif text-indigo-900" id="detail-name">命宮</h3>
-                            <p class="text-sm text-indigo-400 font-medium" id="detail-yomi">Mei-kyu</p>
+                            <h3 class="text-3xl font-bold serif text-indigo-950" id="detail-name">命宮</h3>
+                            <p class="text-sm text-indigo-400 font-bold uppercase tracking-widest mt-1"
+                                id="detail-yomi">Mei-kyu</p>
                         </div>
                     </div>
-                    <h4 class="text-xl font-bold mb-4 text-slate-800" id="detail-subtitle">運命の司令塔・あなたの本質</h4>
-                    <p class="text-gray-600 leading-relaxed mb-8" id="detail-desc">
+                    <h4 class="text-xl font-bold mb-6 text-indigo-800 leading-tight" id="detail-subtitle">運命の司令塔・あなたの本質
+                    </h4>
+                    <p class="text-slate-600 leading-relaxed mb-10 text-lg" id="detail-desc">
                         ここはあなたの性格、才能、容姿、そし一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。
                     </p>
-                    <div class="flex flex-wrap gap-2" id="detail-keywords">
-                        <span class="px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-500">本質</span>
+                    <div class="flex flex-wrap gap-3" id="detail-keywords">
+                        <!-- Keywords -->
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- 14 Stars Section -->
-        <section id="stars" class="py-24 bg-slate-50 border-y border-slate-100 px-4 sm:px-6 lg:px-8">
+        <section id="stars" class="py-24 bg-slate-50 border-y border-slate-100 px-4 sm:px-6 lg:px-8 scroll-mt">
             <div class="max-w-7xl mx-auto">
-                <div class="grid lg:grid-cols-3 gap-12">
+                <div class="grid lg:grid-cols-3 gap-16 items-start">
                     <div class="lg:col-span-1">
-                        <h2 class="text-3xl font-extrabold text-gray-900 serif mb-8">輝ける十四の主星</h2>
-                        <div class="space-y-1 max-h-[500px] overflow-y-auto pr-2 custom-scrollbar" id="star-nav-list">
+                        <div
+                            class="inline-block px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-600 text-xs font-bold mb-4 tracking-widest uppercase">
+                            14 Major Stars</div>
+                        <h2 class="text-4xl font-extrabold text-indigo-950 serif mb-10">輝ける十四の主星</h2>
+                        <div class="space-y-2 max-h-[550px] overflow-y-auto pr-4 custom-scrollbar bg-white/50 p-4 rounded-3xl border border-slate-200/50 shadow-inner"
+                            id="star-nav-list">
                             <!-- Populated by JS -->
                         </div>
                     </div>
                     <div class="lg:col-span-2">
-                        <div class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200 min-h-[550px] relative overflow-hidden"
+                        <div class="bg-white rounded-[3rem] p-10 md:p-14 shadow-xl shadow-slate-200/30 border border-slate-200/50 min-h-[600px] relative overflow-hidden"
                             id="star-detail-panel">
                             <div id="star-content" class="relative z-10 transition-all duration-300">
-                                <div class="flex justify-between items-start mb-8">
+                                <div class="flex justify-between items-start mb-10">
                                     <div>
                                         <span
-                                            class="text-indigo-500 text-xs font-bold tracking-widest mb-2 block uppercase"
+                                            class="text-indigo-400 text-xs font-black tracking-[0.2em] mb-3 block uppercase"
                                             id="star-group">北斗主星</span>
-                                        <h3 class="text-4xl font-bold serif text-indigo-900 mb-2" id="star-name">紫微星
+                                        <h3 class="text-5xl font-bold serif text-indigo-950 mb-3" id="star-name">紫微星
                                         </h3>
-                                        <p class="text-slate-400 text-sm tracking-widest font-mono" id="star-alias">THE
+                                        <p class="text-slate-400 text-sm tracking-[0.3em] font-bold" id="star-alias">THE
                                             EMPEROR</p>
                                     </div>
-                                    <div class="text-7xl opacity-5 select-none" id="star-icon">👑</div>
+                                    <div class="text-8xl opacity-10 select-none grayscale" id="star-icon">👑</div>
                                 </div>
-                                <div class="grid grid-cols-2 gap-4 mb-8">
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                        <span class="text-[10px] uppercase text-indigo-400 block mb-1">五行</span>
-                                        <p class="font-bold text-slate-700" id="star-element">土 (陰)</p>
+                                <div class="grid grid-cols-2 gap-6 mb-10">
+                                    <div class="p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50 shadow-sm">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <i data-lucide="atom" class="w-3 h-3 text-indigo-400"></i>
+                                            <span
+                                                class="text-[10px] uppercase font-bold text-indigo-400 tracking-widest">五行局</span>
+                                        </div>
+                                        <p class="text-xl font-black text-indigo-900" id="star-element">土 (陰)</p>
                                     </div>
-                                    <div class="p-4 bg-slate-50 rounded-xl border border-slate-100">
-                                        <span class="text-[10px] uppercase text-indigo-400 block mb-1">象意</span>
-                                        <p class="font-bold text-slate-700" id="star-attribute">尊貴・権威</p>
+                                    <div class="p-6 bg-amber-50/50 rounded-2xl border border-amber-100/50 shadow-sm">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <i data-lucide="tag" class="w-3 h-3 text-amber-500"></i>
+                                            <span
+                                                class="text-[10px] uppercase font-bold text-amber-500 tracking-widest">主な象意</span>
+                                        </div>
+                                        <p class="text-xl font-black text-amber-900" id="star-attribute">尊貴・権威</p>
                                     </div>
                                 </div>
-                                <div class="space-y-6">
+                                <div class="space-y-10">
                                     <div>
                                         <h4
-                                            class="text-sm font-bold text-indigo-900 uppercase tracking-widest mb-3 border-b border-indigo-50 pb-2">
-                                            本質的性質</h4>
-                                        <p class="text-gray-600 leading-relaxed" id="star-description">
+                                            class="text-xs font-black text-indigo-400 uppercase tracking-[0.3em] mb-5 flex items-center gap-2">
+                                            <i data-lucide="scroll" class="w-4 h-4 text-indigo-400"></i>
+                                            本質的性質
+                                        </h4>
+                                        <p class="text-slate-600 leading-relaxed text-lg" id="star-description">
                                             帝王の象徴であり、命盤の中心。強い自尊心と統率力を持ち、周囲を慈しむ高貴な精神を宿します。
                                         </p>
                                     </div>
-                                    <div class="bg-indigo-50/50 p-6 rounded-xl border border-indigo-100">
-                                        <h4 class="text-sm font-bold text-indigo-900 uppercase tracking-widest mb-3">
-                                            現代の解釈</h4>
-                                        <p class="text-indigo-800 text-sm leading-relaxed italic" id="star-modern">
+                                    <div
+                                        class="bg-slate-50 p-8 rounded-3xl border border-slate-100 border-l-8 border-l-indigo-600">
+                                        <h4 class="text-xs font-black text-indigo-900 uppercase tracking-[0.3em] mb-4">
+                                            現代の解釈とアドバイス</h4>
+                                        <p class="text-slate-700 leading-relaxed italic" id="star-modern">
                                             経営層やリーダーとしての資質。プライドが高く孤独を恐れる一面も。
                                         </p>
                                     </div>
@@ -386,115 +432,127 @@
         </section>
 
         <!-- 5. History & Methodology -->
-        <section id="history-method" class="py-24 bg-white px-4 sm:px-6 lg:px-8">
+        <section id="history-method"
+            class="py-24 bg-slate-50 px-4 sm:px-6 lg:px-8 border-t border-slate-200/50 scroll-mt">
             <div class="max-w-7xl mx-auto">
-                <div class="grid lg:grid-cols-2 gap-16">
+                <div class="grid lg:grid-cols-2 gap-24">
 
                     <!-- History Timeline -->
                     <div class="reveal">
-                        <h2 class="text-3xl font-extrabold text-gray-900 serif mb-10 flex items-center gap-3">
-                            <i data-lucide="scroll" class="text-indigo-600 w-8 h-8"></i>
+                        <div
+                            class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 tracking-widest uppercase">
+                            Tradition</div>
+                        <h2 class="text-3xl font-extrabold text-[#1e1b4b] serif mb-12 flex items-center gap-3">
+                            <i data-lucide="history" class="text-indigo-600 w-8 h-8"></i>
                             歴史と起源
                         </h2>
-                        <div class="relative border-l-2 border-indigo-100 ml-3 space-y-12 pl-8">
-                            <!-- Timeline Item -->
-                            <div class="relative">
-                                <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-white border-2 border-indigo-600 flex items-center justify-center shadow-sm">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                                </span>
-                                <h4 class="font-bold text-indigo-900 text-lg">起源：唐末〜宋代 (10世紀頃)</h4>
-                                <p class="text-gray-600 mt-2 leading-relaxed">
-                                    伝説的な道士、<strong
-                                        class="text-indigo-900">陳希夷（ちんきい）</strong>によって創始されたと伝えられています。道教の宇宙観と数理思想が深く融合した占術です。
-                                </p>
+                        <div class="relative space-y-16">
+                            <!-- Vertical Line -->
+                            <div
+                                class="absolute left-[13px] top-2 bottom-2 w-0.5 bg-gradient-to-b from-indigo-200 via-indigo-100 to-transparent">
                             </div>
-                            <!-- Timeline Item -->
-                            <div class="relative">
+
+                            <!-- Timeline Item 1 -->
+                            <div class="relative pl-12 group">
                                 <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-white border-2 border-indigo-600 flex items-center justify-center shadow-sm">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                                </span>
-                                <h4 class="font-bold text-indigo-900 text-lg">発展：明代 (14〜17世紀)</h4>
-                                <p class="text-gray-600 mt-2 leading-relaxed">
-                                    『紫微斗数全書』が編纂され、理論体系が完成。当時は皇帝や高官のみが知ることを許された最高機密の「秘術」として扱われました。
-                                </p>
+                                    class="absolute left-0 top-1 w-7 h-7 rounded-full bg-white border-4 border-indigo-600 shadow-sm z-10 transition-transform group-hover:scale-125"></span>
+                                <div
+                                    class="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-sm group-hover:shadow-md transition-shadow">
+                                    <h4 class="font-bold text-indigo-950 text-xl mb-3">起源：唐末〜宋代</h4>
+                                    <p class="text-slate-500 leading-relaxed">
+                                        伝説的な道士、<strong
+                                            class="text-indigo-600">陳希夷（ちんきい）</strong>によって創始。当時の最先端数理と言語体系を統合。
+                                    </p>
+                                </div>
                             </div>
-                            <!-- Timeline Item -->
-                            <div class="relative">
+
+                            <!-- Timeline Item 2 -->
+                            <div class="relative pl-12 group">
                                 <span
-                                    class="absolute -left-[41px] top-1 w-6 h-6 rounded-full bg-white border-2 border-indigo-600 flex items-center justify-center shadow-sm">
-                                    <span class="w-1.5 h-1.5 rounded-full bg-indigo-600"></span>
-                                </span>
-                                <h4 class="font-bold text-indigo-900 text-lg">現代：東アジアへの普及</h4>
-                                <p class="text-gray-600 mt-2 leading-relaxed">
-                                    戦後、台湾や香港で飛躍的に研究が進み、飛星派や欽天四化派などの多様な流派が誕生。日本でもその驚異的な的中率から、命術の最高峰として認知されています。
-                                </p>
+                                    class="absolute left-0 top-1 w-7 h-7 rounded-full bg-white border-4 border-indigo-400 shadow-sm z-10 transition-transform group-hover:scale-125"></span>
+                                <div
+                                    class="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-sm group-hover:shadow-md transition-shadow">
+                                    <h4 class="font-bold text-indigo-950 text-xl mb-3">発展：明代の秘術</h4>
+                                    <p class="text-slate-500 leading-relaxed">
+                                        『紫微斗数全書』の編纂。皇帝のみがアクセス可能な「禁域の占術」として、宮廷内で密かに伝承されました。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Timeline Item 3 -->
+                            <div class="relative pl-12 group">
+                                <span
+                                    class="absolute left-0 top-1 w-7 h-7 rounded-full bg-white border-4 border-indigo-200 shadow-sm z-10 transition-transform group-hover:scale-125"></span>
+                                <div
+                                    class="bg-white p-8 rounded-[2rem] border border-slate-200/60 shadow-sm group-hover:shadow-md transition-shadow">
+                                    <h4 class="font-bold text-indigo-950 text-xl mb-3">現代：論理の完成</h4>
+                                    <p class="text-slate-500 leading-relaxed">
+                                        現代台湾・香港で飛星派や欽天派が隆盛。心理学的側面も包含した高度な人格分析システムへと進化。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                     <!-- How-to Steps -->
                     <div class="reveal">
-                        <h2 class="text-3xl font-extrabold text-gray-900 serif mb-10 flex items-center gap-3">
-                            <i data-lucide="book-open" class="text-indigo-600 w-8 h-8"></i>
-                            鑑定の手順
+                        <div
+                            class="inline-block px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 tracking-widest uppercase">
+                            Methodology</div>
+                        <h2 class="text-3xl font-extrabold text-[#1e1b4b] serif mb-12 flex items-center gap-3">
+                            <i data-lucide="file-check-2" class="text-indigo-600 w-8 h-8"></i>
+                            鑑定のプロセス
                         </h2>
-                        <div class="space-y-6">
+                        <div class="space-y-4">
                             <div
-                                class="group p-6 bg-slate-50 rounded-2xl border border-slate-100 transition-all hover:bg-white hover:shadow-xl hover:border-indigo-100">
-                                <div class="flex items-start gap-5">
+                                class="group p-8 bg-white rounded-[2rem] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-500">
+                                <div class="flex items-start gap-6">
                                     <div
-                                        class="shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center font-bold text-indigo-600 text-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                        1</div>
+                                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        01</div>
                                     <div>
-                                        <h4 class="font-bold text-gray-900 mb-1">精微な出生データ</h4>
-                                        <p class="text-sm text-gray-500 leading-relaxed">
-                                            生年月日だけでなく、<span
-                                                class="text-indigo-600 font-bold">出生時間（必須）</span>と出生地を特定します。このデータが全ての計算の起点となります。
-                                        </p>
+                                        <h4 class="text-lg font-bold text-indigo-950 mb-2">正確な出生データの収集</h4>
+                                        <p class="text-sm text-slate-500 leading-relaxed">
+                                            出生時間は必須です。数分の差が命盤（チャート）の構造を劇的に変えるため、最も精緻なデータを必要とします。</p>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                class="group p-6 bg-slate-50 rounded-2xl border border-slate-100 transition-all hover:bg-white hover:shadow-xl hover:border-indigo-100">
-                                <div class="flex items-start gap-5">
+                                class="group p-8 bg-white rounded-[2rem] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-500">
+                                <div class="flex items-start gap-6">
                                     <div
-                                        class="shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center font-bold text-indigo-600 text-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                        2</div>
+                                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        02</div>
                                     <div>
-                                        <h4 class="font-bold text-gray-900 mb-1">太陰太陽暦への換算</h4>
-                                        <p class="text-sm text-gray-500 leading-relaxed">
-                                            西洋暦を伝統的な「旧暦（太陰太陽暦）」に変換。月の満ち欠けに基づいた時間軸で運命のサイクルを捉え直します。
-                                        </p>
+                                        <h4 class="text-lg font-bold text-indigo-950 mb-2">太陰太陽暦への演算</h4>
+                                        <p class="text-sm text-slate-500 leading-relaxed">
+                                            西洋暦を月の満ち欠けに基づいた太陰暦へと変換。自然界のバイオリズムと同期した時間軸を設定します。</p>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                class="group p-6 bg-slate-50 rounded-2xl border border-slate-100 transition-all hover:bg-white hover:shadow-xl hover:border-indigo-100">
-                                <div class="flex items-start gap-5">
+                                class="group p-8 bg-white rounded-[2rem] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-500">
+                                <div class="flex items-start gap-6">
                                     <div
-                                        class="shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center font-bold text-indigo-600 text-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                        3</div>
+                                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        03</div>
                                     <div>
-                                        <h4 class="font-bold text-gray-900 mb-1">命盤（チャート）の精製</h4>
-                                        <p class="text-sm text-gray-500 leading-relaxed">
-                                            12の「宮」を配置し、高度な数理アルゴリズムを用いて14の主星、そして100を超える副星を盤上に描き出します。
-                                        </p>
+                                        <h4 class="text-lg font-bold text-indigo-950 mb-2">命盤の幾何学的構築</h4>
+                                        <p class="text-sm text-slate-500 leading-relaxed">
+                                            12宮を配置し、高度なアルゴリズムで主星・副星を盤上に展開。多次元的な運命のマップを生成します。</p>
                                     </div>
                                 </div>
                             </div>
                             <div
-                                class="group p-6 bg-slate-50 rounded-2xl border border-slate-100 transition-all hover:bg-white hover:shadow-xl hover:border-indigo-100">
-                                <div class="flex items-start gap-5">
+                                class="group p-8 bg-white rounded-[2rem] border border-slate-200/60 shadow-sm hover:shadow-xl hover:border-indigo-100 transition-all duration-500">
+                                <div class="flex items-start gap-6">
                                     <div
-                                        class="shrink-0 w-12 h-12 bg-white rounded-xl shadow-sm border border-slate-200 flex items-center justify-center font-bold text-indigo-600 text-xl group-hover:bg-indigo-600 group-hover:text-white transition-colors">
-                                        4</div>
+                                        class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center font-black text-lg shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition-colors">
+                                        04</div>
                                     <div>
-                                        <h4 class="font-bold text-gray-900 mb-1">多角的アルゴリズム解析</h4>
-                                        <p class="text-sm text-gray-500 leading-relaxed">
-                                            「命宮」を核とし、対角線上の星との幾何学的な関係（三方四正）や、時間経過による星の移動（飛星）を解析し、天命を解読します。
-                                        </p>
+                                        <h4 class="text-lg font-bold text-indigo-950 mb-2">アルゴリズムによる深層解読</h4>
+                                        <p class="text-sm text-slate-500 leading-relaxed">
+                                            「三方四正」や「飛星」など、星同士の幾何学的な干渉エネルギーを解析し、具体的な天命を導き出します。</p>
                                     </div>
                                 </div>
                             </div>
@@ -504,12 +562,28 @@
                 </div>
             </div>
         </section>
-        <footer class="py-16 bg-white text-center">
+        <footer class="py-20 bg-white border-t border-slate-100 text-center">
             <div class="max-w-7xl mx-auto px-6">
-                <div class="text-indigo-900 tracking-[0.2em] font-bold mb-4 serif text-xl">TRISCOPE</div>
-                <p class="text-slate-400 text-sm">Ancient Wisdom for a Modern World</p>
-                <div class="mt-8 text-slate-300 text-[10px] tracking-widest space-y-2 uppercase">
-                    <p>&copy; 2026 TRISCOPE CELESTIAL GUIDANCE. ALL RIGHTS RESERVED.</p>
+                <div class="flex flex-col items-center">
+                    <div class="text-indigo-950 tracking-[0.4em] font-black mb-6 serif text-2xl">TRISCOPE</div>
+                    <nav class="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-10">
+                        <a href="#calculator"
+                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">Calculator</a>
+                        <a href="#overview"
+                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">About</a>
+                        <a href="#palaces"
+                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">12
+                            Palaces</a>
+                        <a href="#stars"
+                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">14
+                            Stars</a>
+                    </nav>
+                    <p class="text-slate-400 text-xs italic mb-8">“The stars do not pull the strings of our fate, they
+                        merely illuminate the stage.”</p>
+                    <div class="w-12 h-0.5 bg-indigo-100 mb-8 mx-auto"></div>
+                    <div class="text-slate-300 text-[10px] tracking-[0.3em] uppercase">
+                        &copy; 2026 TRISCOPE CELESTIAL GUIDANCE. ALL RIGHTS RESERVED.
+                    </div>
                 </div>
             </div>
         </footer>
@@ -586,54 +660,73 @@
             ySelect.value = 1990;
         }
 
+        function setupForm() {
+            // Initialization
+        }
+
         function diagnose() {
-            const year = parseInt(document.getElementById('birth-year').value);
-            const month = parseInt(document.getElementById('birth-month').value);
-            const day = parseInt(document.getElementById('birth-day').value);
-            const hourIndex = parseInt(document.getElementById('birth-hour').value); // 1-12 (子=1, 丑=2...)
+            const ySelect = document.getElementById('birth-year');
+            const mSelect = document.getElementById('birth-month');
+            const dSelect = document.getElementById('birth-day');
+
+            const year = parseInt(ySelect.value);
+            const month = parseInt(mSelect.value);
+            const day = parseInt(dSelect.value);
+            const hourIndex = parseInt(document.getElementById('birth-hour').value);
 
             const resultArea = document.getElementById('diagnosis-result');
             resultArea.classList.remove('hidden');
-            resultArea.classList.add('fade-in');
+            resultArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
             // --- ZWDS Simplified Logic ---
-
-            // 1. Calculate Life Palace (命宮) Position
-            // Count forward from 寅(index 2) by M months, then backward by H hours
-            // Using 0-indexed: 子=0, 丑=1, 寅=2, 卯=3...
-            const startPos = 2; // 寅
+            const startPos = 2; // Yin (寅)
             let lifePalacePos = (startPos + (month - 1) - (hourIndex - 1) + 12) % 12;
             const lifePalaceName = branches[lifePalacePos];
 
-            // 2. Calculate Element/Phase (五局)
-            // This is complex in ZWDS, here we use a consistent deterministic formula
             const elementTypes = ["水二局", "木三局", "金四局", "土五局", "火六局"];
-            const elementBase = (year + lifePalacePos) % 5;
-            constElementName = elementTypes[elementBase];
+            const elementBase = (year + lifePalacePos + day) % 5;
+            const constElementName = elementTypes[elementBase];
             const elementNum = [2, 3, 4, 5, 6][elementBase];
 
-            // 3. Calculate Zi Wei Star Position
-            // Formula: (Day / ElementNum) -> handle remainder
-            // This ensures Day and Hour (via lifePalacePos) significantly affect the result
             const starIndex = (day + lifePalacePos + elementNum) % stars.length;
             const star = stars[starIndex];
 
             // --- UI Update ---
-            document.getElementById('res-star-name').textContent = star.name;
-            document.getElementById('res-brief').innerHTML = `<strong>主星: ${star.name}</strong><br>${star.desc}`;
-            document.getElementById('res-main-palace').textContent = `命宮 (${lifePalaceName})`;
-            document.getElementById('res-element').textContent = constElementName;
+            const resName = document.getElementById('res-star-name');
+            const resBrief = document.getElementById('res-brief');
 
-            // --- Steps Display ---
+            resName.style.opacity = '0';
+            resBrief.style.opacity = '0';
+
+            setTimeout(() => {
+                resName.textContent = star.name;
+                resBrief.innerHTML = `
+                    <p class="mb-4">あなたは<strong>「${star.name}」</strong>の加護を色濃く受けて生まれてきました。${star.desc.split('。')[0]}。</p>
+                    <p class="text-sm font-bold text-indigo-700 italic border-l-2 border-indigo-200 pl-4">アドバイス: ${star.modern}</p>
+                `;
+                document.getElementById('res-main-palace').textContent = `命宮 (${lifePalaceName})`;
+                document.getElementById('res-element').textContent = constElementName;
+
+                resName.style.opacity = '1';
+                resBrief.style.opacity = '1';
+                lucide.createIcons();
+            }, 100);
+
             const steps = document.getElementById('calculation-steps');
             steps.innerHTML = `
-                <div>1. 【命宮の確定】 寅(スタート)から生月(${month})分進み、そこから出生時間(${branches[hourIndex - 1]})分戻る → <span class='text-indigo-600 font-bold'>${lifePalaceName}宮</span></div>
-                <div>2. 【五局の判定】 生年(西暦${year})と命宮の位置関係から導出 → <span class='text-indigo-600 font-bold'>${constElementName}</span></div>
-                <div>3. 【主星の配置】 五局(${elementNum})と誕生日(${day}日)の動的な干渉を計算 → <span class='text-indigo-600 font-bold'>${star.name}</span></div>
+                <div class="flex items-start gap-3">
+                    <span class="text-indigo-600 font-black">STEP 1</span>
+                    <div>【命宮の確定】 寅宮から生月(${month})分進み、そこから出生時間(${branches[hourIndex - 1]})分戻る → <span class='text-indigo-900 font-bold'>${lifePalaceName}宮</span></div>
+                </div>
+                <div class="flex items-start gap-3 border-t border-indigo-100/30 pt-3">
+                    <span class="text-indigo-600 font-black">STEP 2</span>
+                    <div>【五局の判定】 生年(${year})と命宮・誕生日の動的相互作用から数理導出 → <span class='text-indigo-900 font-bold'>${constElementName}</span></div>
+                </div>
+                <div class="flex items-start gap-3 border-t border-indigo-100/30 pt-3">
+                    <span class="text-indigo-600 font-black">STEP 4</span>
+                    <div>【主星の配置】 五局(${elementNum})と誕生日(${day}日)による位置エネルギー計算 → <span class='text-indigo-900 font-bold'>${star.name}</span></div>
+                </div>
             `;
-
-            // Scroll to result
-            resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
         function initCapabilityChart() {
@@ -645,9 +738,9 @@
                     datasets: [{
                         label: '紫微斗数',
                         data: [95, 98, 92, 90, 40, 50],
-                        backgroundColor: 'rgba(91, 33, 182, 0.2)',
-                        borderColor: '#5B21B6',
-                        pointBackgroundColor: '#5B21B6',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        borderColor: '#4f46e5',
+                        pointBackgroundColor: '#4f46e5',
                         borderWidth: 2
                     }]
                 },
