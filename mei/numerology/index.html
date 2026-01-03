@@ -663,7 +663,19 @@
                 自分が今どのサイクルにいるかを知ることで、行動の指針が得られます。
             </p>
             <div class="bg-white p-4 sm:p-8 rounded-xl shadow-sm chart-container mx-auto">
-                <canvas id="cycleChart"></canvas>
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-sm font-bold text-slate-700 flex items-center">
+                        <span class="mr-2">📈</span> <span id="cycle-chart-title">運気の波（9年周期）</span>
+                    </h4>
+                    <div id="personal-year-calc"
+                        class="text-[10px] font-mono text-indigo-400 bg-indigo-50 px-2 py-0.5 rounded"></div>
+                </div>
+                <div class="h-48 relative">
+                    <canvas id="cycleChart"></canvas>
+                </div>
+                <p class="text-[10px] text-slate-400 mt-4 leading-relaxed">
+                    ※数秘術における「個人年」は、**年齢ではなく「西暦＋誕生月＋誕生日」**で算出されます。そのため、同じ40歳でも誕生日によって現在の位置は異なります。
+                </p>
             </div>
         </div>
     </section>
@@ -1347,11 +1359,22 @@
         function updateCycleChart(lifePath, birthMonth, birthDay) {
             const currentYear = new Date().getFullYear();
             // Accurate Personal Year Calculation: (Current Year + Birth Month + Birth Day) reduced
-            const digits = `${currentYear}${birthMonth}${birthDay}`.split('').map(Number);
-            const personalYear = reduceNumber(digits.reduce((a, b) => a + b, 0));
+            const yearDigits = String(currentYear).split('').map(Number);
+            const monthDigits = String(birthMonth).split('').map(Number);
+            const dayDigits = String(birthDay).split('').map(Number);
+
+            const totalSum = yearDigits.concat(monthDigits, dayDigits).reduce((a, b) => a + b, 0);
+            const personalYear = reduceNumber(totalSum);
+
             // Map 1-9 to 0-8 for chart index. Master numbers 11 -> 2, etc. (cycle is 9 years)
             const yearIndex = (reduceNumber(personalYear) - 1) % 9;
             window.currentYearIdx = yearIndex;
+
+            // Update UI
+            document.getElementById('cycle-chart-title').innerText = `${currentYear}年の運気の波`;
+            const calcText = `${currentYear}+${birthMonth}+${birthDay}=${totalSum}→${personalYear}`;
+            document.getElementById('personal-year-calc').innerText = `CALC: ${calcText}`;
+
             window.cycleChart.update();
         }
     </script>
