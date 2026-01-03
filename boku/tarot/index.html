@@ -12,6 +12,8 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
     <style>
         /* bodyスタイルは common.css で定義 */
 
@@ -136,7 +138,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
-                    <span class="text-2xl mr-2">🔮</span>
+                    <i data-lucide="sparkles" class="w-8 h-8 text-indigo-600 mr-2"></i>
                     <span class="font-bold text-xl tracking-tight text-indigo-950 serif-font">タロット占い</span>
                 </div>
                 <div class="hidden md:flex space-x-4">
@@ -162,7 +164,7 @@
                 <!-- Mobile menu button -->
                 <div class="md:hidden flex items-center">
                     <button id="mobile-menu-btn" class="text-gray-600 hover:text-indigo-700 focus:outline-none">
-                        <span class="text-2xl">☰</span>
+                        <i data-lucide="menu" class="w-6 h-6"></i>
                     </button>
                 </div>
             </div>
@@ -208,7 +210,7 @@
                         <div class="tarot-card w-full h-full relative duration-700">
                             <!-- Back -->
                             <div class="card-face card-back shadow-xl">
-                                <span class="text-4xl opacity-50">✨</span>
+                                <i data-lucide="sparkles" class="w-12 h-12 text-yellow-400 opacity-50"></i>
                             </div>
                             <!-- Front (Dynamic Content) -->
                             <div class="card-face card-front shadow-xl p-4 text-center">
@@ -253,17 +255,20 @@
                         <div class="space-y-3">
                             <button onclick="showTab('boku')" id="btn-boku"
                                 class="w-full text-left px-4 py-3 rounded-lg bg-indigo-600 text-white shadow-md transition-all flex justify-between items-center">
-                                <span>🃏 卜術 (ぼくじゅつ)</span>
+                                <span class="flex items-center"><i data-lucide="scroll-text" class="w-5 h-5 mr-2"></i>
+                                    卜術 (ぼくじゅつ)</span>
                                 <span class="text-xs bg-white/20 px-2 py-1 rounded">タロット</span>
                             </button>
                             <button onclick="showTab('mei')" id="btn-mei"
                                 class="w-full text-left px-4 py-3 rounded-lg bg-white hover:bg-indigo-50 text-gray-700 border border-gray-200 transition-all flex justify-between items-center">
-                                <span>⭐ 命術 (めいじゅつ)</span>
+                                <span class="flex items-center"><i data-lucide="star" class="w-5 h-5 mr-2"></i> 命術
+                                    (めいじゅつ)</span>
                                 <span class="text-xs bg-gray-100 px-2 py-1 rounded">占星術</span>
                             </button>
                             <button onclick="showTab('so')" id="btn-so"
                                 class="w-full text-left px-4 py-3 rounded-lg bg-white hover:bg-indigo-50 text-gray-700 border border-gray-200 transition-all flex justify-between items-center">
-                                <span>✋ 相術 (そうじゅつ)</span>
+                                <span class="flex items-center"><i data-lucide="hand" class="w-5 h-5 mr-2"></i> 相術
+                                    (そうじゅつ)</span>
                                 <span class="text-xs bg-gray-100 px-2 py-1 rounded">手相</span>
                             </button>
                         </div>
@@ -277,13 +282,16 @@
                                 「偶然」の中に「必然」を見出す占術です。計算や観察ではなく、その瞬間に現れた結果（シンクロニシティ）を重視します。
                             </p>
                             <ul class="space-y-2">
-                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                <li class="flex items-start"><i data-lucide="check"
+                                        class="w-4 h-4 text-indigo-500 mr-2 mt-0.5"></i><span
                                         class="text-sm font-bold text-gray-800">主軸：</span><span
                                         class="text-sm text-gray-600">偶然性、共時性、直感</span></li>
-                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                <li class="flex items-start"><i data-lucide="check"
+                                        class="w-4 h-4 text-indigo-500 mr-2 mt-0.5"></i><span
                                         class="text-sm font-bold text-gray-800">時間軸：</span><span
                                         class="text-sm text-gray-600">「今」この瞬間から近い未来（3ヶ月〜半年程度）</span></li>
-                                <li class="flex items-start"><span class="text-indigo-500 mr-2">✔</span><span
+                                <li class="flex items-start"><i data-lucide="check"
+                                        class="w-4 h-4 text-indigo-500 mr-2 mt-0.5"></i><span
                                         class="text-sm font-bold text-gray-800">強み：</span><span
                                         class="text-sm text-gray-600">揺れ動く人の気持ちや、具体的な選択肢の吉凶判断</span></li>
                             </ul>
@@ -335,7 +343,7 @@
                     <div
                         class="bg-gradient-to-br from-indigo-50 to-violet-50 rounded-2xl p-8 border border-indigo-100 shadow-md">
                         <div class="flex items-center mb-6">
-                            <span class="text-4xl mr-4">👑</span>
+                            <i data-lucide="crown" class="w-10 h-10 text-indigo-600 mr-4"></i>
                             <div>
                                 <h3 class="text-2xl font-bold text-indigo-900 serif-font">大アルカナ (Major Arcana)</h3>
                                 <p class="text-sm text-indigo-600">22枚 - 人生の重要なテーマ</p>
@@ -364,7 +372,7 @@
                     <div
                         class="bg-gradient-to-br from-amber-50 to-orange-50 rounded-2xl p-8 border border-amber-100 shadow-md">
                         <div class="flex items-center mb-6">
-                            <span class="text-4xl mr-4">🎴</span>
+                            <i data-lucide="layers" class="w-10 h-10 text-amber-600 mr-4"></i>
                             <div>
                                 <h3 class="text-2xl font-bold text-indigo-900 serif-font">小アルカナ (Minor Arcana)</h3>
                                 <p class="text-sm text-amber-700">56枚 - 日常の出来事</p>
@@ -374,21 +382,33 @@
                             4つのスート(組)に分かれ、各14枚(数札10枚+人物札4枚)で構成。日常的な状況や具体的なアドバイスを示します。
                         </p>
                         <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="bg-white rounded-lg p-3 border border-red-200">
-                                <div class="font-bold text-red-600 text-sm">🗡️ ソード (剣)</div>
-                                <div class="text-xs text-gray-600">思考・争い</div>
+                            <div class="bg-white rounded-lg p-3 border border-red-200 flex items-center">
+                                <i data-lucide="sword" class="w-5 h-5 text-red-600 mr-2"></i>
+                                <div>
+                                    <div class="font-bold text-red-600 text-sm">ソード (剣)</div>
+                                    <div class="text-xs text-gray-600">思考・争い</div>
+                                </div>
                             </div>
-                            <div class="bg-white rounded-lg p-3 border border-yellow-200">
-                                <div class="font-bold text-yellow-600 text-sm">🪄 ワンド (棒)</div>
-                                <div class="text-xs text-gray-600">行動・情熱</div>
+                            <div class="bg-white rounded-lg p-3 border border-yellow-200 flex items-center">
+                                <i data-lucide="wand-2" class="w-5 h-5 text-yellow-600 mr-2"></i>
+                                <div>
+                                    <div class="font-bold text-yellow-600 text-sm">ワンド (棒)</div>
+                                    <div class="text-xs text-gray-600">行動・情熱</div>
+                                </div>
                             </div>
-                            <div class="bg-white rounded-lg p-3 border border-blue-200">
-                                <div class="font-bold text-blue-600 text-sm">🏆 カップ (杯)</div>
-                                <div class="text-xs text-gray-600">感情・愛</div>
+                            <div class="bg-white rounded-lg p-3 border border-blue-200 flex items-center">
+                                <i data-lucide="glass-water" class="w-5 h-5 text-blue-600 mr-2"></i>
+                                <div>
+                                    <div class="font-bold text-blue-600 text-sm">カップ (杯)</div>
+                                    <div class="text-xs text-gray-600">感情・愛</div>
+                                </div>
                             </div>
-                            <div class="bg-white rounded-lg p-3 border border-green-200">
-                                <div class="font-bold text-green-600 text-sm">💰 ペンタクル (金貨)</div>
-                                <div class="text-xs text-gray-600">物質・仕事</div>
+                            <div class="bg-white rounded-lg p-3 border border-green-200 flex items-center">
+                                <i data-lucide="coins" class="w-5 h-5 text-green-600 mr-2"></i>
+                                <div>
+                                    <div class="font-bold text-green-600 text-sm">ペンタクル (金貨)</div>
+                                    <div class="text-xs text-gray-600">物質・仕事</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -546,7 +566,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">🃏</span>
+                                    <i data-lucide="sticky-note" class="w-10 h-10 text-indigo-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ワンオラクル (1枚引き)
                                         </h3>
@@ -562,7 +582,9 @@
                                     最もシンプルで基本的な方法。1枚だけ引いて、今日の運勢や質問への直接的な答えを得ます。
                                 </p>
                                 <div class="bg-white rounded-lg p-4 mb-4">
-                                    <h4 class="font-bold text-indigo-800 mb-2 text-sm">📋 適した質問例:</h4>
+                                    <h4 class="font-bold text-indigo-800 mb-2 text-sm flex items-center">
+                                        <i data-lucide="list-checks" class="w-4 h-4 mr-2"></i> 適した質問例:
+                                    </h4>
                                     <ul class="text-sm text-gray-700 space-y-1">
                                         <li class="flex items-start"><span class="text-indigo-500 mr-2">•</span>今日の運勢は?
                                         </li>
@@ -577,7 +599,7 @@
                                 <div class="relative">
                                     <div
                                         class="w-32 h-44 bg-gradient-to-br from-indigo-600 to-violet-700 rounded-xl flex items-center justify-center text-white text-4xl shadow-2xl border-4 border-white">
-                                        🔮
+                                        <i data-lucide="sparkles" class="w-16 h-16 opacity-50"></i>
                                     </div>
                                     <div class="text-center mt-3 text-sm font-bold text-indigo-900">
                                         カード1枚<br>
@@ -594,7 +616,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">🎴</span>
+                                    <i data-lucide="layout-grid" class="w-10 h-10 text-amber-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">スリーカード (3枚引き)
                                         </h3>
@@ -610,7 +632,9 @@
                                     3つの視点から状況を分析する最もポピュラーなスプレッド。時間軸や状況の流れを把握できます。
                                 </p>
                                 <div class="bg-white rounded-lg p-4 mb-4">
-                                    <h4 class="font-bold text-amber-800 mb-3 text-sm">📊 配置パターン例:</h4>
+                                    <h4 class="font-bold text-amber-800 mb-3 text-sm flex items-center">
+                                        <i data-lucide="layout-list" class="w-4 h-4 mr-2"></i> 配置パターン例:
+                                    </h4>
                                     <div class="space-y-2 text-sm">
                                         <div class="flex justify-between items-center bg-amber-50 p-2 rounded">
                                             <span class="font-semibold text-gray-700">① 過去</span>
@@ -661,7 +685,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">✝️</span>
+                                    <i data-lucide="plus" class="w-10 h-10 text-violet-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ケルト十字法 (10枚)</h3>
                                         <div class="flex flex-wrap gap-2 mb-3">
@@ -737,7 +761,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">🧲</span>
+                                    <i data-lucide="magnet" class="w-10 h-10 text-blue-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ホースシュー (7枚)</h3>
                                         <div class="flex flex-wrap gap-2 mb-3">
@@ -805,7 +829,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">✡️</span>
+                                    <i data-lucide="star" class="w-10 h-10 text-rose-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ヘキサグラム (7枚)</h3>
                                         <div class="flex flex-wrap gap-2 mb-3">
@@ -870,7 +894,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">💎</span>
+                                    <i data-lucide="diamond" class="w-10 h-10 text-emerald-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ダイヤモンド展開 (4枚)
                                         </h3>
@@ -923,7 +947,7 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div>
                                 <div class="flex items-start mb-4">
-                                    <span class="text-4xl mr-3">✖️</span>
+                                    <i data-lucide="cross" class="w-10 h-10 text-slate-600 mr-3"></i>
                                     <div>
                                         <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ギリシャ十字 (5枚)</h3>
                                         <div class="flex flex-wrap gap-2 mb-3">
@@ -976,47 +1000,52 @@
         </section>
 
         <!-- Section 5: Methodology (Interactive) -->
-        <section id="method" class="py-16 bg-indigo-900 text-white">
+        <section id="method" class="py-16 bg-slate-50">
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-10">
-                    <h2 class="text-3xl font-bold text-white mb-4 serif-font">5. 基本的なやり方</h2>
-                    <p class="text-indigo-200">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">5. 基本的なやり方</h2>
+                    <p class="text-gray-600">
                         タロット占いは、特別な霊能力がなくても手順を踏めば誰でも実践できます。<br>
                         ここでは最も基本的な「ワンオラクル（1枚引き）」の手順をシミュレーションします。
                     </p>
                 </div>
 
                 <!-- Wizard UI -->
-                <div class="bg-indigo-800 rounded-2xl p-8 shadow-2xl border border-indigo-700">
+                <div class="bg-white rounded-2xl p-8 shadow-xl border border-indigo-100">
                     <!-- Progress -->
                     <div class="flex justify-between mb-8 relative">
-                        <div class="absolute top-1/2 left-0 w-full h-1 bg-indigo-900 -z-0"></div>
+                        <div class="absolute top-1/2 left-0 w-full h-1 bg-indigo-50 -z-0"></div>
                         <div id="step-dot-1"
-                            class="w-8 h-8 rounded-full bg-yellow-400 text-indigo-900 font-bold flex items-center justify-center relative z-10">
+                            class="w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center relative z-10 shadow-md">
                             1</div>
                         <div id="step-dot-2"
-                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            class="w-10 h-10 rounded-full bg-white border-2 border-indigo-200 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
                             2</div>
                         <div id="step-dot-3"
-                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            class="w-10 h-10 rounded-full bg-white border-2 border-indigo-200 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
                             3</div>
                         <div id="step-dot-4"
-                            class="w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
+                            class="w-10 h-10 rounded-full bg-white border-2 border-indigo-200 text-gray-400 font-bold flex items-center justify-center relative z-10 transition-colors">
                             4</div>
                     </div>
 
                     <!-- Step Content -->
-                    <div id="step-content" class="min-h-[200px] flex flex-col items-center justify-center text-center">
+                    <div id="step-content"
+                        class="min-h-[200px] flex flex-col items-center justify-center text-center text-gray-800">
                         <!-- Dynamic JS Content -->
                     </div>
 
                     <!-- Controls -->
-                    <div class="flex justify-between mt-8 pt-4 border-t border-indigo-700">
+                    <div class="flex justify-between mt-8 pt-4 border-t border-indigo-50">
                         <button id="prev-btn" onclick="changeStep(-1)"
-                            class="px-4 py-2 rounded text-indigo-300 hover:text-white disabled:opacity-0"
-                            disabled>戻る</button>
+                            class="px-4 py-2 rounded text-indigo-600 hover:text-indigo-800 font-medium disabled:opacity-0 flex items-center"
+                            disabled>
+                            <i data-lucide="chevron-left" class="w-4 h-4 mr-1"></i> 戻る
+                        </button>
                         <button id="next-btn" onclick="changeStep(1)"
-                            class="px-6 py-2 bg-yellow-500 hover:bg-yellow-400 text-indigo-900 font-bold rounded shadow-lg transition-transform transform active:scale-95">次へ</button>
+                            class="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded shadow-lg transition-all transform active:scale-95 flex items-center">
+                            次へ <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1037,8 +1066,8 @@
                     <div class="bg-white rounded-2xl p-8 border-2 border-green-200 shadow-lg">
                         <div class="flex items-center mb-6">
                             <div
-                                class="w-16 h-24 bg-gradient-to-b from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white text-3xl shadow-md mr-4">
-                                ↑
+                                class="w-16 h-24 bg-gradient-to-b from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white shadow-md mr-4">
+                                <i data-lucide="arrow-up-circle" class="w-10 h-10"></i>
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-green-700 serif-font">正位置 (Upright)</h3>
@@ -1065,8 +1094,8 @@
                     <div class="bg-white rounded-2xl p-8 border-2 border-orange-200 shadow-lg">
                         <div class="flex items-center mb-6">
                             <div
-                                class="w-16 h-24 bg-gradient-to-b from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white text-3xl shadow-md mr-4">
-                                ↓
+                                class="w-16 h-24 bg-gradient-to-b from-orange-500 to-orange-600 rounded-lg flex items-center justify-center text-white shadow-md mr-4">
+                                <i data-lucide="arrow-down-circle" class="w-10 h-10"></i>
                             </div>
                             <div>
                                 <h3 class="text-2xl font-bold text-orange-700 serif-font">逆位置 (Reversed)</h3>
@@ -1075,11 +1104,11 @@
                         </div>
                         <ul class="space-y-3">
                             <li class="flex items-start">
-                                <span class="text-orange-500 mr-2 text-lg">⚠</span>
+                                <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-500 mr-2"></i>
                                 <span class="text-gray-700"><strong>意味の変化:</strong> エネルギーの過剰・不足、ブロック、内面化</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-orange-500 mr-2 text-lg">⚠</span>
+                                <i data-lucide="alert-triangle" class="w-5 h-5 text-orange-500 mr-2"></i>
                                 <span class="text-gray-700"><strong>解釈:</strong> 必ずしもネガティブではなく、「調整が必要」というサイン</span>
                             </li>
                             <li class="flex items-start">
@@ -1091,121 +1120,127 @@
                 </div>
 
                 <!-- Reading Tips -->
-                <div
-                    class="bg-gradient-to-br from-indigo-900 to-violet-900 rounded-2xl p-8 text-white shadow-2xl border-2 border-indigo-700">
+                <div class="bg-white rounded-2xl p-8 text-indigo-900 shadow-xl border border-indigo-100">
                     <div class="text-center mb-8">
-                        <h3 class="text-3xl font-bold serif-font flex items-center justify-center mb-3">
-                            <span class="text-4xl mr-3">💡</span>
+                        <h3 class="text-3xl font-bold text-indigo-950 serif-font flex items-center justify-center mb-3">
+                            <i data-lucide="lightbulb" class="w-10 h-10 text-yellow-500 mr-3"></i>
                             リーディングのコツ ＆ 実践テクニック
                         </h3>
-                        <p class="text-indigo-200 text-sm">初心者が陥りやすい間違いを避け、精度の高いリーディングをするための5つのポイント</p>
+                        <p class="text-gray-600 text-sm">初心者が陥りやすい間違いを避け、精度の高いリーディングをするための5つのポイント</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
                         <!-- Tip 1 -->
                         <div
-                            class="bg-white/15 rounded-xl p-5 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
+                            class="bg-slate-50 rounded-xl p-5 border border-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
                             <div class="flex items-center mb-3">
                                 <div
-                                    class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-lg mr-3">
+                                    class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">
                                     1</div>
-                                <div class="font-bold text-xl text-yellow-300">第一印象を大切に</div>
+                                <div class="font-bold text-xl text-indigo-900">第一印象を大切に</div>
                             </div>
-                            <p class="text-sm text-indigo-100 leading-relaxed mb-3">
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
                                 カードを見た瞬間の直感が最も重要です。「明るい雰囲気?」「重苦しい感じ?」その感覚があなたの潜在意識からの答えです。
                             </p>
-                            <div class="text-xs text-yellow-200 bg-white/10 p-2 rounded">
-                                ⚠️ よくある間違い: すぐに解説書を読んでしまう
+                            <div class="text-xs text-red-600 bg-red-50 p-2 rounded">
+                                <i data-lucide="alert-circle" class="w-3 h-3 inline mr-1"></i> よくある間違い: すぐに解説書を読んでしまう
                             </div>
                         </div>
 
                         <!-- Tip 2 -->
                         <div
-                            class="bg-white/15 rounded-xl p-5 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
+                            class="bg-slate-50 rounded-xl p-5 border border-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
                             <div class="flex items-center mb-3">
                                 <div
-                                    class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-lg mr-3">
+                                    class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">
                                     2</div>
-                                <div class="font-bold text-xl text-yellow-300">絵柄を丁寧に観察</div>
+                                <div class="font-bold text-xl text-indigo-900">絵柄を丁寧に観察</div>
                             </div>
-                            <p class="text-sm text-indigo-100 leading-relaxed mb-3">
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
                                 人物の表情、色彩、シンボル、視線の向き、動きなど。細部から物語を読み取りましょう。「この人は何を見ている?」と問いかけてみてください。
                             </p>
-                            <div class="text-xs text-yellow-200 bg-white/10 p-2 rounded">
-                                💡 コツ: カードの中の人になったつもりで見る
+                            <div class="text-xs text-indigo-600 bg-indigo-50 p-2 rounded">
+                                <i data-lucide="sparkles" class="w-3 h-3 inline mr-1"></i> コツ: カードの中の人になったつもりで見る
                             </div>
                         </div>
 
                         <!-- Tip 3 -->
                         <div
-                            class="bg-white/15 rounded-xl p-5 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
+                            class="bg-slate-50 rounded-xl p-5 border border-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
                             <div class="flex items-center mb-3">
                                 <div
-                                    class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-lg mr-3">
+                                    class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">
                                     3</div>
-                                <div class="font-bold text-xl text-yellow-300">質問と関連付ける</div>
+                                <div class="font-bold text-xl text-indigo-900">質問と関連付ける</div>
                             </div>
-                            <p class="text-sm text-indigo-100 leading-relaxed mb-3">
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
                                 カードの意味を暗記するより「この質問に対して、このカードは何を伝えようとしている?」と考えることが重要です。
                             </p>
-                            <div class="text-xs text-yellow-200 bg-white/10 p-2 rounded">
-                                📝 例: 「恋人」が仕事運で出たら「選択」の意味に注目
+                            <div class="text-xs text-green-700 bg-green-50 p-2 rounded">
+                                <i data-lucide="check" class="w-3 h-3 inline mr-1"></i> 例: 「恋人」が仕事運で出たら「選択」の意味に注目
                             </div>
                         </div>
 
                         <!-- Tip 4 -->
                         <div
-                            class="bg-white/15 rounded-xl p-5 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
+                            class="bg-slate-50 rounded-xl p-5 border border-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
                             <div class="flex items-center mb-3">
                                 <div
-                                    class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-lg mr-3">
+                                    class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">
                                     4</div>
-                                <div class="font-bold text-xl text-yellow-300">カード同士の関係性</div>
+                                <div class="font-bold text-xl text-indigo-900">カード同士の関係性</div>
                             </div>
-                            <p class="text-sm text-indigo-100 leading-relaxed mb-3">
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
                                 複数枚のスプレッドでは、カード同士の対話を読み取りましょう。隣り合うカードは互いに影響し合い、ストーリーを形成します。
                             </p>
-                            <div class="text-xs text-yellow-200 bg-white/10 p-2 rounded">
-                                💡 コツ: 「過去→現在」の流れに注目する
+                            <div class="text-xs text-indigo-600 bg-indigo-50 p-2 rounded">
+                                <i data-lucide="sparkles" class="w-3 h-3 inline mr-1"></i> コツ: 「過去→現在」の流れに注目する
                             </div>
                         </div>
 
                         <!-- Tip 5 -->
                         <div
-                            class="bg-white/15 rounded-xl p-5 backdrop-blur-sm border border-white/20 hover:bg-white/20 transition-colors">
+                            class="bg-slate-50 rounded-xl p-5 border border-indigo-50 hover:border-indigo-200 transition-colors shadow-sm">
                             <div class="flex items-center mb-3">
                                 <div
-                                    class="w-10 h-10 bg-yellow-400 rounded-full flex items-center justify-center text-indigo-900 font-bold text-lg mr-3">
+                                    class="w-10 h-10 bg-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-3">
                                     5</div>
-                                <div class="font-bold text-xl text-yellow-300">感情を言語化する</div>
+                                <div class="font-bold text-xl text-indigo-900">感情を言語化する</div>
                             </div>
-                            <p class="text-sm text-indigo-100 leading-relaxed mb-3">
+                            <p class="text-sm text-gray-700 leading-relaxed mb-3">
                                 「なんとなく不安」ではなく、「先が見えない状況に孤独を感じている」など、感情を具体的な言葉にすることで、メッセージがより明確になります。
                             </p>
-                            <div class="text-xs text-yellow-200 bg-white/10 p-2 rounded">
-                                ✍️ おすすめ: リーディング記録をつける
+                            <div class="text-xs text-amber-700 bg-amber-50 p-2 rounded">
+                                <i data-lucide="pen-tool" class="w-3 h-3 inline mr-1"></i> おすすめ: リーディング記録をつける
                             </div>
                         </div>
                     </div>
 
                     <!-- Additional Advanced Tips -->
-                    <div class="bg-indigo-800/50 rounded-xl p-6 border border-indigo-600">
-                        <h4 class="font-bold text-lg text-yellow-300 mb-4 flex items-center">
-                            <span class="mr-2">🎯</span>
+                    <div class="bg-slate-100 rounded-xl p-6 border border-slate-200">
+                        <h4 class="font-bold text-lg text-indigo-900 mb-4 flex items-center">
+                            <i data-lucide="target" class="w-6 h-6 text-red-500 mr-2"></i>
                             上達のための実践アドバイス
                         </h4>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-indigo-100">
-                            <div>
-                                <strong class="text-white">タロット日記をつける:</strong> 毎朝1枚引いて記録し、夜に答え合わせをすると理解が深まります。
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
+                            <div class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600 mr-2 mt-0.5"></i>
+                                <span><strong class="text-indigo-900">タロット日記をつける:</strong>
+                                    毎朝1枚引いて記録し、夜に答え合わせをすると理解が深まります。</span>
                             </div>
-                            <div>
-                                <strong class="text-white">練習相手を見つける:</strong> 友人に練習させてもらうことで、客観的な視点が養われます。
+                            <div class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600 mr-2 mt-0.5"></i>
+                                <span><strong class="text-indigo-900">練習相手を見つける:</strong>
+                                    友人に練習させてもらうことで、客観的な視点が養われます。</span>
                             </div>
-                            <div>
-                                <strong class="text-white">解釈に迷ったら:</strong> 複数の解釈書を読み比べ、共通点を見つけましょう。
+                            <div class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600 mr-2 mt-0.5"></i>
+                                <span><strong class="text-indigo-900">解釈に迷ったら:</strong> 複数の解釈書を読み比べ、共通点を見つけましょう。</span>
                             </div>
-                            <div>
-                                <strong class="text-white">焦らない:</strong> すぐに完璧に読めなくても問題ありません。経験とともに精度は上がります。
+                            <div class="flex items-start">
+                                <i data-lucide="check-circle-2" class="w-4 h-4 text-green-600 mr-2 mt-0.5"></i>
+                                <span><strong class="text-indigo-900">焦らない:</strong>
+                                    すぐに完璧に読めなくても問題ありません。経験とともに精度は上がります。</span>
                             </div>
                         </div>
                     </div>
@@ -1244,7 +1279,7 @@
                     <div
                         class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-orange-500 hover:shadow-lg transition-shadow">
                         <div class="flex items-center mb-4">
-                            <span class="text-4xl mr-3">🔥</span>
+                            <i data-lucide="flame" class="w-10 h-10 text-orange-600 mr-3"></i>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">ワンド (杖 / Wands)</h3>
                                 <p class="text-xs text-orange-600 font-bold">火の属性 | 情熱・創造・行動</p>
@@ -1265,7 +1300,7 @@
                     <div
                         class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-blue-500 hover:shadow-lg transition-shadow">
                         <div class="flex items-center mb-4">
-                            <span class="text-4xl mr-3">💧</span>
+                            <i data-lucide="droplets" class="w-10 h-10 text-blue-600 mr-3"></i>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">カップ (聖杯 / Cups)</h3>
                                 <p class="text-xs text-blue-600 font-bold">水の属性 | 感情・愛・直感</p>
@@ -1286,7 +1321,7 @@
                     <div
                         class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-slate-500 hover:shadow-lg transition-shadow">
                         <div class="flex items-center mb-4">
-                            <span class="text-4xl mr-3">⚔️</span>
+                            <i data-lucide="swords" class="w-10 h-10 text-slate-600 mr-3"></i>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">ソード (剣 / Swords)</h3>
                                 <p class="text-xs text-slate-600 font-bold">風の属性 | 知性・思考・決断</p>
@@ -1307,7 +1342,7 @@
                     <div
                         class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-yellow-600 hover:shadow-lg transition-shadow">
                         <div class="flex items-center mb-4">
-                            <span class="text-4xl mr-3">🪙</span>
+                            <i data-lucide="coins" class="w-10 h-10 text-amber-700 mr-3"></i>
                             <div>
                                 <h3 class="text-xl font-bold text-gray-800">ペンタクル (金貨 / Pentacles)</h3>
                                 <p class="text-xs text-amber-700 font-bold">地の属性 | 物質・現実・継続</p>
@@ -1344,8 +1379,11 @@
                     <details class="bg-white rounded-lg shadow-sm border border-indigo-100 overflow-hidden group">
                         <summary
                             class="px-6 py-4 cursor-pointer hover:bg-indigo-50 transition-colors font-semibold text-indigo-900 flex justify-between items-center">
-                            <span>📌 同じ質問を何度も占っても良いですか?</span>
-                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+                            <span class="flex items-center"><i data-lucide="help-circle"
+                                    class="w-5 h-5 mr-3 text-indigo-500"></i> 同じ質問を何度も占っても良いですか?</span>
+                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
                         </summary>
                         <div class="px-6 py-4 bg-indigo-50/50 text-gray-700 border-t border-indigo-100">
                             <p>短期間に同じ質問を繰り返すのは避けましょう。「望む答えが出るまで引き直す」のはタロットの意味を失わせます。通常は、状況が大きく変化したとき(1〜3ヶ月後)に再度占うのが適切です。
@@ -1356,8 +1394,11 @@
                     <details class="bg-white rounded-lg shadow-sm border border-indigo-100 overflow-hidden group">
                         <summary
                             class="px-6 py-4 cursor-pointer hover:bg-indigo-50 transition-colors font-semibold text-indigo-900 flex justify-between items-center">
-                            <span>📌 悪いカードが出たら必ず悪いことが起きる?</span>
-                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+                            <span class="flex items-center"><i data-lucide="help-circle"
+                                    class="w-5 h-5 mr-3 text-indigo-500"></i> 悪いカードが出たら必ず悪いことが起きる?</span>
+                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
                         </summary>
                         <div class="px-6 py-4 bg-indigo-50/50 text-gray-700 border-t border-indigo-100">
                             <p>いいえ。「死神」や「塔」など一見不吉に見えるカードも、「変化」「再生」「古い価値観の崩壊」など、前向きな意味を持ちます。タロットは「警告」であり「呪い」ではありません。結果は行動次第で変えられます。
@@ -1368,8 +1409,11 @@
                     <details class="bg-white rounded-lg shadow-sm border border-indigo-100 overflow-hidden group">
                         <summary
                             class="px-6 py-4 cursor-pointer hover:bg-indigo-50 transition-colors font-semibold text-indigo-900 flex justify-between items-center">
-                            <span>📌 タロットに向いている質問は?</span>
-                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+                            <span class="flex items-center"><i data-lucide="help-circle"
+                                    class="w-5 h-5 mr-3 text-indigo-500"></i> タロットに向いている質問は?</span>
+                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
                         </summary>
                         <div class="px-6 py-4 bg-indigo-50/50 text-gray-700 border-t border-indigo-100">
                             <p><strong class="text-green-700">◎ 得意:</strong>
@@ -1382,8 +1426,11 @@
                     <details class="bg-white rounded-lg shadow-sm border border-indigo-100 overflow-hidden group">
                         <summary
                             class="px-6 py-4 cursor-pointer hover:bg-indigo-50 transition-colors font-semibold text-indigo-900 flex justify-between items-center">
-                            <span>📌 自分で占うのと占い師に見てもらうのはどう違う?</span>
-                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
+                            <span class="flex items-center"><i data-lucide="help-circle"
+                                    class="w-5 h-5 mr-3 text-indigo-500"></i> 自分で占うのと占い師に見てもらうのはどう違う?</span>
+                            <span class="text-indigo-400 group-open:rotate-180 transition-transform">
+                                <i data-lucide="chevron-down" class="w-5 h-5"></i>
+                            </span>
                         </summary>
                         <div class="px-6 py-4 bg-indigo-50/50 text-gray-700 border-t border-indigo-100">
                             <p>自分で占う場合は「瞑想的な気づき」を得る効果があります。一方、プロの占い師は経験と客観性により、感情に流されない的確な解釈を提供します。深刻な悩みや重大な決断の際は、プロに相談することをお勧めします。
@@ -1394,7 +1441,8 @@
                     <details class="bg-white rounded-lg shadow-sm border border-indigo-100 overflow-hidden group">
                         <summary
                             class="px-6 py-4 cursor-pointer hover:bg-indigo-50 transition-colors font-semibold text-indigo-900 flex justify-between items-center">
-                            <span>📌 タロットカードは自分で買うと良くない?</span>
+                            <span class="flex items-center"><i data-lucide="help-circle"
+                                    class="w-5 h-5 mr-3 text-indigo-500"></i> タロットカードは自分で買うと良くない?</span>
                             <span class="text-indigo-400 group-open:rotate-180 transition-transform">▼</span>
                         </summary>
                         <div class="px-6 py-4 bg-indigo-50/50 text-gray-700 border-t border-indigo-100">
@@ -1407,73 +1455,73 @@
         </section>
 
         <!-- Section: Ethics -->
-        <section id="ethics" class="py-16 bg-indigo-900 text-white">
+        <section id="ethics" class="py-16 bg-slate-50">
             <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold mb-4 serif-font">タロットの倫理とマナー</h2>
-                    <p class="text-indigo-200">占いを受ける際、または行う際に心得ておくべきこと</p>
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">タロットの倫理とマナー</h2>
+                    <p class="text-gray-600">占いを受ける際、または行う際に心得ておくべきこと</p>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- For Readers -->
-                    <div class="bg-indigo-800 rounded-xl p-6 border border-indigo-700">
-                        <h3 class="text-xl font-bold mb-4 text-yellow-400 flex items-center">
-                            <span class="mr-2">🔮</span>
+                    <div class="bg-white rounded-xl p-6 border border-indigo-100 shadow-sm">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-700 flex items-center">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-indigo-500 mr-2"></i>
                             占う側の心構え
                         </h3>
-                        <ul class="space-y-3 text-indigo-100">
+                        <ul class="space-y-3 text-gray-700">
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>責任を持つ:</strong> 言葉が相手の人生に影響を与えることを自覚</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">責任を持つ:</strong> 言葉が相手の人生に影響を与えることを自覚</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>決めつけない:</strong> 「絶対」「必ず」という断言は避ける</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">決めつけない:</strong> 「絶対」「必ず」という断言は避ける</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>希望を残す:</strong> ネガティブなカードでも前向きな助言を添える</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">希望を残す:</strong> ネガティブなカードでも前向きな助言を添える</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>プライバシー厳守:</strong> 相談内容は絶対に他言しない</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">プライバシー厳守:</strong> 相談内容は絶対に他言しない</span>
                             </li>
                         </ul>
                     </div>
 
                     <!-- For Querents -->
-                    <div class="bg-indigo-800 rounded-xl p-6 border border-indigo-700">
-                        <h3 class="text-xl font-bold mb-4 text-yellow-400 flex items-center">
-                            <span class="mr-2">🙏</span>
+                    <div class="bg-white rounded-xl p-6 border border-indigo-100 shadow-sm">
+                        <h3 class="text-xl font-bold mb-4 text-indigo-700 flex items-center">
+                            <i data-lucide="heart" class="w-6 h-6 text-red-500 mr-2"></i>
                             占ってもらう側の心構え
                         </h3>
-                        <ul class="space-y-3 text-indigo-100">
+                        <ul class="space-y-3 text-gray-700">
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>心を開く:</strong> 素直な気持ちで質問し、結果を受け入れる</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">心を開く:</strong> 素直な気持ちで質問し、結果を受け入れる</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>依存しない:</strong> 全てを占いに委ねず、自分で考え行動する</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">依存しない:</strong> 全てを占いに委ねず、自分で考え行動する</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>敬意を払う:</strong> 占い師の時間と技術に感謝の気持ちを持つ</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">敬意を払う:</strong> 占い師の時間と技術に感謝の気持ちを持つ</span>
                             </li>
                             <li class="flex items-start">
-                                <span class="text-yellow-400 mr-2">•</span>
-                                <span><strong>試さない:</strong> 「この人本物?」と疑いながらの鑑定は無意味</span>
+                                <span class="text-indigo-500 mr-2">•</span>
+                                <span><strong class="text-indigo-900">試さない:</strong> 「この人本物?」と疑いながらの鑑定は無意味</span>
                             </li>
                         </ul>
                     </div>
                 </div>
 
-                <div class="mt-8 bg-yellow-500/20 border-2 border-yellow-400 rounded-xl p-6">
+                <div class="mt-8 bg-amber-50 border-2 border-amber-200 rounded-xl p-6">
                     <div class="flex items-start">
-                        <span class="text-3xl mr-4">⚠️</span>
+                        <i data-lucide="alert-triangle" class="w-8 h-8 text-amber-500 mr-4 flex-shrink-0"></i>
                         <div>
-                            <h4 class="font-bold text-yellow-300 text-lg mb-2">注意すべき占い師の特徴</h4>
-                            <p class="text-indigo-100 text-sm leading-relaxed">
+                            <h4 class="font-bold text-amber-800 text-lg mb-2">注意すべき占い師の特徴</h4>
+                            <p class="text-gray-700 text-sm leading-relaxed">
                                 「このままでは不幸になる」と脅す、高額な開運グッズを売りつける、「私だけが救える」と依存させようとする、などの行為は悪質です。占いは「気づきのツール」であり、支配や商売の道具ではありません。
                             </p>
                         </div>
@@ -1497,50 +1545,50 @@
     <script>
         // --- DATA & STATE ---
         const majorArcana = [
-            { number: "0", name: "The Fool", jpName: "愚者", icon: "🤡", keywords: "自由、始まり、無邪気、可能性", meaning: "何も持たずに崖っぷちを歩く若者。常識に縛られない新しいスタートを示唆します。" },
-            { number: "I", name: "The Magician", jpName: "魔術師", icon: "🪄", keywords: "創造、自信、スキル、意思", meaning: "テーブルの上に全ての道具が揃っています。準備は完了し、あなたの意志で何でも生み出せる状態です。" },
-            { number: "II", name: "The High Priestess", jpName: "女教皇", icon: "📜", keywords: "直感、知性、静寂、神秘", meaning: "白と黒の柱の間に座る女性。論理よりも直感や内なる声を信じるべき時です。" },
-            { number: "III", name: "The Empress", jpName: "女帝", icon: "👑", keywords: "豊穣、母性、繁栄、愛", meaning: "豊かな自然の中で座る女性。物質的・精神的な満足や、愛を受け取る喜びを表します。" },
-            { number: "IV", name: "The Emperor", jpName: "皇帝", icon: "🏛️", keywords: "権威、安定、責任、リーダーシップ", meaning: "社会的な成功や安定した基盤。論理的な思考と実行力が鍵となります。" },
-            { number: "V", name: "The Hierophant", jpName: "教皇", icon: "🙏", keywords: "伝統、慈悲、助言、精神性", meaning: "ルールや伝統を守ることの重要性。信頼できる人からのアドバイスが助けになります。" },
-            { number: "VI", name: "The Lovers", jpName: "恋人", icon: "💕", keywords: "選択、調和、愛、直感的な決断", meaning: "単なる恋愛だけでなく、人生の重要な岐路での「心に従った選択」を意味します。" },
-            { number: "VII", name: "The Chariot", jpName: "戦車", icon: "🐎", keywords: "勝利、前進、克服、意志力", meaning: "困難を乗り越えて突き進むエネルギー。迷わずにコントロールの手綱を握りましょう。" },
-            { number: "VIII", name: "Strength", jpName: "力", icon: "🦁", keywords: "忍耐、勇気、受容、内なる力", meaning: "ライオンを手なずける女性。力ずくではなく、精神的な強さと優しさで困難を克服します。" },
-            { number: "IX", name: "The Hermit", jpName: "隠者", icon: "🔦", keywords: "内省、孤独、探求、導き", meaning: "世俗を離れて内面を見つめる時。答えは外ではなく、自分自身の内側にあります。" },
-            { number: "X", name: "Wheel of Fortune", jpName: "運命の輪", icon: "🎡", keywords: "チャンス、変化、一時的、周期", meaning: "自分ではコントロールできない運命の流れ。チャンスが来たら迷わず乗るべきです。" },
-            { number: "XI", name: "Justice", jpName: "正義", icon: "⚖️", keywords: "公正、真実、原因と結果、バランス", meaning: "剣と天秤を持つ女性。行動には相応の結果が伴います。正直さと公平性が求められます。" },
-            { number: "XII", name: "The Hanged Man", jpName: "吊るされた男", icon: "🙃", keywords: "犠牲、視点の転換、忍耐、停滞", meaning: "逆さ吊りの男性。今は動かず、別の視点から物事を見る時。停滞は次への準備期間です。" },
-            { number: "XIII", name: "Death", jpName: "死神", icon: "💀", keywords: "終わり、変容、再生、手放す", meaning: "文字通りの死ではなく「変化」の象徴。古いものを手放し、新しいステージへ進む時です。" },
-            { number: "XIV", name: "Temperance", jpName: "節制", icon: "🧘", keywords: "調和、バランス、中庸、癒し", meaning: "水を混ぜ合わせる天使。極端を避け、バランスを取ることで最良の結果が生まれます。" },
-            { number: "XV", name: "The Devil", jpName: "悪魔", icon: "😈", keywords: "束縛、誘惑、執着、物欲", meaning: "鎖で繋がれた男女。しかし鎖は緩く、自分で外せます。依存や執着から自由になるべき時。" },
-            { number: "XVI", name: "The Tower", jpName: "塔", icon: "🗼", keywords: "崩壊、衝撃、解放、真実の露呈", meaning: "雷に打たれる塔。突然の変化や崩壊。しかしそれは偽りの基盤を壊し、真実を見せるためです。" },
-            { number: "XVII", name: "The Star", jpName: "星", icon: "⭐", keywords: "希望、癒し、インスピレーション、未来", meaning: "水を注ぐ女性と星。困難な状況の後に訪れる希望の光。癒しと再生のエネルギーです。" },
-            { number: "XVIII", name: "The Moon", jpName: "月", icon: "🌙", keywords: "不安、幻想、潜在意識、曖昧さ", meaning: "月の下で遠吠えする狼。曖昧な状況や内なる不安。直感を信じつつも慎重に進むべき時。" },
-            { number: "XIX", name: "The Sun", jpName: "太陽", icon: "☀️", keywords: "成功、喜び、活力、明確さ", meaning: "輝く太陽の下の子供。全てが明るく照らされ、成功と喜びに満ちた状態。ポジティブなエネルギー。" },
-            { number: "XX", name: "Judgement", jpName: "審判", icon: "📯", keywords: "覚醒、復活、呼びかけ、新生", meaning: "天使のラッパで目覚める人々。過去を清算し、新しい人生への呼びかけ。再生と目覚めの時。" },
-            { number: "XXI", name: "The World", jpName: "世界", icon: "🌍", keywords: "完成、達成、統合、次のサイクル", meaning: "リースに囲まれた女性。一つの旅の完結。目標達成と同時に、新たな始まりへの準備でもあります。" }
+            { number: "0", name: "The Fool", jpName: "愚者", icon: "wind", keywords: "自由、始まり、無邪気、可能性", meaning: "何も持たずに崖っぷちを歩く若者。常識に縛られない新しいスタートを示唆します。" },
+            { number: "I", name: "The Magician", jpName: "魔術師", icon: "wand-2", keywords: "創造、自信、スキル、意思", meaning: "テーブルの上に全ての道具が揃っています。準備は完了し、あなたの意志で何でも生み出せる状態です。" },
+            { number: "II", name: "The High Priestess", jpName: "女教皇", icon: "book-open", keywords: "直感、知性、静寂、神秘", meaning: "白と黒の柱の間に座る女性。論理よりも直感や内なる声を信じるべき時です。" },
+            { number: "III", name: "The Empress", jpName: "女帝", icon: "flower-2", keywords: "豊穣、母性、繁栄、愛", meaning: "豊かな自然の中で座る女性。物質的・精神的な満足や、愛を受け取る喜びを表します。" },
+            { number: "IV", name: "The Emperor", jpName: "皇帝", icon: "shield", keywords: "権威、安定、責任、リーダーシップ", meaning: "社会的な成功や安定した基盤。論理的な思考と実行力が鍵となります。" },
+            { number: "V", name: "The Hierophant", jpName: "教皇", icon: "user-check", keywords: "伝統、慈悲、助言、精神性", meaning: "ルールや伝統を守ることの重要性。信頼できる人からのアドバイスが助けになります。" },
+            { number: "VI", name: "The Lovers", jpName: "恋人", icon: "heart", keywords: "選択、調和、愛、直感的な決断", meaning: "単なる恋愛だけでなく、人生の重要な岐路での「心に従った選択」を意味します。" },
+            { number: "VII", name: "The Chariot", jpName: "戦車", icon: "milestone", keywords: "勝利、前進、克服、意志力", meaning: "困難を乗り越えて突き進むエネルギー。迷わずにコントロールの手綱を握りましょう。" },
+            { number: "VIII", name: "Strength", jpName: "力", icon: "shield-check", keywords: "忍耐、勇気、受容、内なる力", meaning: "ライオンを手なずける女性。力ずくではなく、精神的な強さと優しさで困難を克服します。" },
+            { number: "IX", name: "The Hermit", jpName: "隠者", icon: "lamp", keywords: "内省、孤独、探求、導き", meaning: "世俗を離れて内面を見つめる時。答えは外ではなく、自分自身の内側にあります。" },
+            { number: "X", name: "Wheel of Fortune", jpName: "運命の輪", icon: "refresh-cw", keywords: "チャンス、変化、一時的、周期", meaning: "自分ではコントロールできない運命の流れ。チャンスが来たら迷わず乗るべきです。" },
+            { number: "XI", name: "Justice", jpName: "正義", icon: "scale", keywords: "公正、真実、原因と結果、バランス", meaning: "剣と天秤を持つ女性。行動には相応の結果が伴います。正直さと公平性が求められます。" },
+            { number: "XII", name: "The Hanged Man", jpName: "吊るされた男", icon: "anchor", keywords: "犠牲、視点の転換、忍耐、停滞", meaning: "逆さ吊りの男性。今は動かず、別の視点から物事を見る時. 停滞は次への準備期間です。" },
+            { number: "XIII", name: "Death", jpName: "死神", icon: "skull", keywords: "終わり、変容、再生、手放す", meaning: "文字通りの死ではなく「変化」の象徴。古いものを手放し、新しいステージへ進む時です。" },
+            { number: "XIV", name: "Temperance", jpName: "節制", icon: "droplets", keywords: "調和、バランス、中庸、癒し", meaning: "水を混ぜ合わせる天使。極端を避け、バランスを取ることで最良の結果が生まれます。" },
+            { number: "XV", name: "The Devil", jpName: "悪魔", icon: "flame", keywords: "束縛、誘惑、執着、物欲", meaning: "鎖で繋がれた男女。しかし鎖は緩く、自分で外せます。依存や執着から自由になるべき時。" },
+            { number: "XVI", name: "The Tower", jpName: "塔", icon: "zap", keywords: "崩壊、衝撃、解放、真実の露呈", meaning: "雷に打たれる塔。突然の変化や崩壊。しかしそれは偽りの基盤を壊し、真実を見せるためです。" },
+            { number: "XVII", name: "The Star", jpName: "星", icon: "sparkles", keywords: "希望、癒し、インスピレーション、未来", meaning: "水を注ぐ女性と星。困難な状況の後に訪れる希望の光。癒しと再生のエネルギーです。" },
+            { number: "XVIII", name: "The Moon", jpName: "月", icon: "moon", keywords: "不安、幻想、潜在意識、曖昧さ", meaning: "月の下で遠吠えする狼。曖昧な状況や内なる不安。直感を信じつつも慎重に進むべき時。" },
+            { number: "XIX", name: "The Sun", jpName: "太陽", icon: "sun", keywords: "成功、喜び、活力、明確さ", meaning: "輝く太陽の下の子供。全てが明るく照らされ、成功と喜びに満ちた状態。ポジティブなエネルギー。" },
+            { number: "XX", name: "Judgement", jpName: "審判", icon: "megaphone", keywords: "覚醒、復活、呼びかけ、新生", meaning: "天使のラッパで目覚める人々。過去を清算し、新しい人生への呼びかけ。再生と目覚めの時。" },
+            { number: "XXI", name: "The World", jpName: "世界", icon: "globe", keywords: "完成、達成、統合、次のサイクル", meaning: "リースに囲まれた女性。一つの旅の完結。目標達成と同時に、新たな始まりへの準備でもあります。" }
         ];
 
         let currentStep = 1;
         const steps = [
             {
                 title: "1. 準備とシャッフル",
-                icon: "🌪️",
+                icon: "refresh-cw",
                 desc: "まず、カードを裏向きにしてテーブルに広げます。質問内容を心の中で唱えながら、両手で時計回りにカードを混ぜ合わせます（シャッフル）。この行為は「カオス（混沌）」を作り出し、自我を離れる儀式です。"
             },
             {
                 title: "2. カットとまとめ",
-                icon: "✂️",
+                icon: "scissors",
                 desc: "心が落ち着いたらシャッフルを止め、カードを一つにまとめます。左手で山を2つか3つに分け（カット）、再び好きな順序で一つの山に戻します。これによりカードにあなたの「気」を通します。"
             },
             {
                 title: "3. 展開 (スプレッド)",
-                icon: "🃏",
+                icon: "layout",
                 desc: "決められた配置法（スプレッド）に従ってカードを並べます。今回は最もシンプルな「ワンオラクル」。山の一番上、あるいは直感で気になった1枚を引いて場に置きます。"
             },
             {
                 title: "4. リーディング",
-                icon: "👁️",
+                icon: "eye",
                 desc: "カードを表に返し、絵柄からメッセージを読み取ります。解説書の意味だけでなく、絵を見て「何を感じたか（明るい？暗い？）」という第一印象も重要です。それがあなたの潜在意識の声です。"
             }
         ];
@@ -1564,7 +1612,7 @@
                 const randomCard = majorArcana[Math.floor(Math.random() * majorArcana.length)];
 
                 document.getElementById('card-number').textContent = randomCard.number;
-                document.getElementById('card-icon').textContent = randomCard.icon;
+                document.getElementById('card-icon').innerHTML = `<i data-lucide="${randomCard.icon}" class="w-16 h-16 shadow-yellow-500/50"></i>`;
                 document.getElementById('card-name').textContent = randomCard.name;
                 document.getElementById('card-keyword').textContent = randomCard.jpName + ": " + randomCard.keywords;
 
@@ -1573,6 +1621,7 @@
                 instruction.classList.remove('animate-pulse');
 
                 card.classList.add('flipped');
+                lucide.createIcons();
             }
         }
 
@@ -1615,29 +1664,33 @@
 
             setTimeout(() => {
                 contentDiv.innerHTML = `
-                    <div class="text-6xl mb-4 animate-bounce">${stepData.icon}</div>
-                    <h3 class="text-2xl font-bold mb-4">${stepData.title}</h3>
-                    <p class="text-indigo-200 leading-relaxed max-w-lg">${stepData.desc}</p>
+                    <div class="mb-4 flex justify-center text-indigo-600 animate-bounce">
+                        <i data-lucide="${stepData.icon}" class="w-20 h-20"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-indigo-900">${stepData.title}</h3>
+                    <p class="text-gray-600 leading-relaxed max-w-lg mx-auto">${stepData.desc}</p>
                 `;
                 // Fade in
                 contentDiv.style.opacity = '1';
                 contentDiv.style.transition = 'opacity 0.3s ease-in-out';
+                lucide.createIcons();
             }, 200);
 
             // Update dots
             for (let i = 1; i <= 4; i++) {
                 const dot = document.getElementById(`step-dot-${i}`);
                 if (i < currentStep) {
-                    dot.className = "w-8 h-8 rounded-full bg-indigo-500 text-indigo-300 font-bold flex items-center justify-center relative z-10";
-                    dot.innerHTML = "✓";
+                    dot.className = "w-10 h-10 rounded-full bg-green-500 text-white font-bold flex items-center justify-center relative z-10 shadow-sm";
+                    dot.innerHTML = `<i data-lucide="check" class="w-6 h-6"></i>`;
                 } else if (i === currentStep) {
-                    dot.className = "w-8 h-8 rounded-full bg-yellow-400 text-indigo-900 font-bold flex items-center justify-center relative z-10 shadow-lg scale-110 transition-transform";
+                    dot.className = "w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center relative z-10 shadow-lg scale-110 transition-transform";
                     dot.innerHTML = i;
                 } else {
-                    dot.className = "w-8 h-8 rounded-full bg-indigo-900 border-2 border-indigo-600 text-gray-500 font-bold flex items-center justify-center relative z-10";
+                    dot.className = "w-10 h-10 rounded-full bg-white border-2 border-indigo-100 text-indigo-200 font-bold flex items-center justify-center relative z-10";
                     dot.innerHTML = i;
                 }
             }
+            lucide.createIcons();
 
             // Update buttons
             document.getElementById('prev-btn').disabled = currentStep === 1;
@@ -1668,7 +1721,10 @@
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
         }
 
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
@@ -1681,14 +1737,16 @@
             const cardsGrid = document.getElementById('cards-grid');
             majorArcana.forEach(card => {
                 const cardDiv = document.createElement('div');
-                cardDiv.className = 'bg-gradient-to-br from-indigo-50 to-violet-50 rounded-lg p-4 border border-indigo-200 hover:shadow-lg hover:scale-105 transition-all cursor-pointer';
+                cardDiv.className = 'bg-white rounded-xl p-6 border border-indigo-50 hover:border-indigo-200 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer shadow-sm group';
                 cardDiv.innerHTML = `
                     <div class="text-center">
-                        <div class="text-4xl mb-2">${card.icon}</div>
-                        <div class="text-xs text-indigo-400 font-bold mb-1">${card.number}</div>
-                        <div class="font-bold text-indigo-900 text-sm mb-1">${card.jpName}</div>
-                        <div class="text-xs text-gray-500 italic mb-2">${card.name}</div>
-                        <div class="text-xs text-gray-600 leading-relaxed">${card.keywords}</div>
+                        <div class="flex justify-center mb-4 transition-transform group-hover:scale-110">
+                            <i data-lucide="${card.icon}" class="w-12 h-12 text-indigo-500"></i>
+                        </div>
+                        <div class="text-[10px] text-indigo-300 font-bold tracking-widest uppercase mb-1">${card.number}</div>
+                        <div class="font-bold text-indigo-900 text-lg mb-0.5 serif-font">${card.jpName}</div>
+                        <div class="text-[11px] text-gray-400 font-medium mb-3 tracking-wider">${card.name}</div>
+                        <p class="text-[11px] text-gray-500 leading-relaxed line-clamp-2">${card.keywords}</p>
                     </div>
                 `;
                 cardDiv.addEventListener('click', () => {
@@ -1696,6 +1754,7 @@
                 });
                 cardsGrid.appendChild(cardDiv);
             });
+            lucide.createIcons();
 
             const ctx = document.getElementById('capabilityChart').getContext('2d');
             new Chart(ctx, {
