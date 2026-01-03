@@ -12,10 +12,10 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* bodyスタイルは common.css で定義 */
         /* h1-h3, .serifスタイルは common.css で定義 */
-
 
         .chart-container {
             position: relative;
@@ -28,17 +28,34 @@
         }
 
         .element-btn {
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .element-btn:hover {
-            transform: scale(1.05);
+            transform: scale(1.1);
+            filter: brightness(1.1);
         }
 
         .active-element {
-            ring-width: 4px;
-            ring-opacity: 0.7;
-            transform: scale(1.1);
+            outline: none;
+            box-shadow: 0 0 0 2px #fff, 0 0 0 4px #4f46e5;
+            transform: scale(1.15);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .bazi-pillar {
+            transition: all 0.3s ease;
+        }
+
+        .bazi-pillar:hover {
+            transform: translateY(-5px);
+            background-color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
 
         /* Custom scrollbar for webkit */
@@ -47,7 +64,7 @@
         }
 
         ::-webkit-scrollbar-track {
-            background: #f1f1f1;
+            background: #FDFBF7;
         }
 
         ::-webkit-scrollbar-thumb {
@@ -58,196 +75,232 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #a0aec0;
         }
+
+        .scroll-mt-20 {
+            scroll-margin-top: 5rem;
+        }
     </style>
-    <!-- Chosen Palette: Traditional Japanese Colors (Warm Neutral Background #FDFBF7, Ink Black #2D3748, Vermilion Accent #C0392B, Gold/Ochre #D4AC0D) -->
+    <!-- Chosen Palette: Traditional Japanese Colors with Numerology Alignment (Background #FDFBF7, Indigo #312E81, Gold #D4AC0D) -->
     <!-- Application Structure Plan: 
-         1. Hero Section: Title and core definition to set the tone of "Logic of Destiny".
-         2. Comparative Analysis (The "What"): Radar chart comparing Four Pillars to other divination types (Tarot, Feng Shui) to clearly define its position as "Meijutsu" (Art of Destiny).
-         3. The Core Engine (The "Logic"): An interactive Five Elements (Wood, Fire, Earth, Metal, Water) cycle visualizer. This is the heart of the logic, allowing users to click elements to see their meanings and relationships (Creation/Destruction).
-         4. Capabilities Dashboard (The "Utility"): A toggle-based view showing what can/cannot be predicted, visualized with simple progress bars or icons.
-         5. Methodology & History (The "Context"): A dual-column layout. Left: Step-by-step visual process of a reading. Right: A vertical timeline of its origins.
-         Rationale: This structure moves from the abstract "positioning" of the art to its "internal logic," then its "practical application," and finally its "background," allowing the user to construct a mental model of the system layer by layer.
+         1. Top Navigation: Sticky menu for easier section access.
+         2. Hero Section: Premium dark header with "Logic of Destiny" focus.
+         3. Positioning (Section 1): Radar chart and categorization.
+         4. Five Elements Engine (Section 2): Interactive cycle visualizer with new professional icons.
+         5. Capabilities Dashboard (Section 3): Tabbed interface for what Bazi can/cannot predict.
+         6. Meaning of Components (Section 4): New sections for Ten Gods and Twelve Life Stages.
+         7. History & Structure (Section 5-6): Simplified timeline and Pillar simulation.
     -->
-    <!-- Visualization & Content Choices:
-         1. Radar Chart (Chart.js): To visualize the "Strengths" of Four Pillars compared to other methods. Goal: Inform/Compare.
-         2. Interactive Element Cycle (HTML/CSS/JS): A circular arrangement of 5 elements. Goal: Change/Relationships. Users click to see "Creation" (generating) and "Destruction" (controlling) relationships. No SVG used; CSS positioning and Unicode icons.
-         3. Dynamic Timeline (HTML/Tailwind): Vertical list for history. Goal: Change/Inform.
-         4. Pillar Builder UI (HTML/JS): A simulation of the 4 pillars (Year, Month, Day, Hour) to explain what each represents. Goal: Organize/Inform.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 
-<body class="antialiased min-h-screen flex flex-col">
+<body class="bg-[#FDFBF7] text-slate-800 antialiased min-h-screen flex flex-col">
 
+    <!-- Navigation -->
+    <nav class="bg-white/90 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-900 serif tracking-wide">四柱推命</span>
+                    <span class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Oriental
+                        Astrology</span>
+                </div>
+                <div class="flex items-center space-x-6 text-sm font-semibold">
+                    <button onclick="scrollToSection('characteristics')"
+                        class="text-gray-500 hover:text-indigo-700 transition-colors">概要</button>
+                    <button onclick="scrollToSection('logic')"
+                        class="text-gray-500 hover:text-indigo-700 transition-colors">五行</button>
+                    <button onclick="scrollToSection('capabilities')"
+                        class="text-gray-500 hover:text-indigo-700 transition-colors">適性</button>
+                    <button onclick="scrollToSection('structure')"
+                        class="text-gray-500 hover:text-indigo-700 transition-colors">理論</button>
+                    <button onclick="scrollToSection('history')"
+                        class="text-gray-500 hover:text-indigo-700 transition-colors">歴史</button>
+                </div>
+            </div>
+        </div>
+    </nav>
 
     <!-- Header / Hero -->
-    <header class="bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 text-white py-12 px-4 shadow-lg">
-        <div class="max-w-6xl mx-auto text-center">
-            <p class="text-yellow-500 tracking-widest text-sm font-bold mb-2 uppercase">Oriental Astrology Analysis</p>
-            <h1 class="text-4xl md:text-6xl font-bold mb-4">四柱推命</h1>
-            <p class="text-xl md:text-2xl text-gray-300 font-light serif">陰陽五行に秘められた、運命の統計学</p>
-            <p class="mt-6 max-w-2xl mx-auto text-gray-400 text-sm leading-relaxed">
-                四柱推命（しちゅうすいめい）は、生まれた「年・月・日・時」の4つの柱を用いて、
-                その人の先天的な運命と後天的な運気の流れを推察する「命術（めいじゅつ）」の王様です。
-                このレポートでは、その高度な論理体系と歴史的背景を紐解きます。
+    <header class="bg-[#1e1b4b] text-white py-20 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none flex items-center justify-center">
+            <div class="w-[800px] h-[800px] border-[50px] border-white rounded-full animate-[spin_60s_linear_infinite]">
+            </div>
+        </div>
+        <div class="max-w-6xl mx-auto text-center relative z-10">
+            <p class="text-indigo-300 tracking-[0.4em] text-xs font-bold mb-4 uppercase">The Ultimate Art of Destiny</p>
+            <h1 class="text-5xl md:text-7xl font-extrabold mb-6 serif tracking-tight">四柱推命</h1>
+            <p class="text-xl md:text-2xl text-gray-300 font-light serif mb-8">陰陽五行に秘められた、運命の統計学</p>
+            <div class="w-24 h-1 bg-indigo-500 mx-auto mb-10"></div>
+            <p class="max-w-3xl mx-auto text-gray-400 text-base leading-relaxed serif italic">
+                「生年月日時間」という不変のデータに基づき、自然界の法則（五行）と共鳴させることで、<br class="hidden md:block">
+                人の本質と運気の流れを驚異的な精度で解き明かします。
             </p>
         </div>
     </header>
 
-    <!-- Main Content Grid -->
-    <main class="flex-grow container mx-auto px-4 py-8 space-y-12 max-w-7xl">
+    <!-- Main Content Container -->
+    <main class="flex-grow container mx-auto px-4 py-12 space-y-24 max-w-7xl">
 
         <!-- Section 1: Positioning & Characteristics -->
-        <section id="characteristics">
-            <div class="mb-6 border-l-4 border-red-700 pl-4">
-                <h2 class="text-3xl font-bold text-gray-800">1. 占術としての特性と位置づけ</h2>
-                <p class="text-gray-600 mt-2">他の占いと比較した際、四柱推命はどこに強みがあるのでしょうか？</p>
+        <section id="characteristics" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 serif border-b-2 border-indigo-100 inline-block pb-2">1.
+                    占術としての位置づけ</h2>
+                <p class="text-gray-500 mt-4">四柱推命は「命術（めいじゅつ）」の最高峰とされ、長期的な分析に特化しています。</p>
             </div>
 
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-800 border-b pb-2">「命術」の王様</h3>
-                    <p class="mb-4 text-gray-700 leading-relaxed">
-                        占いは大きく「命（めい）・卜（ぼく）・相（そう）」の3つに分類されます。
-                        四柱推命はこのうち<strong>「命術」</strong>に属し、生年月日という「不変のデータ」を用いて、
-                        長期的な運命の傾向や生まれ持った資質を分析することに特化しています。
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-bold text-indigo-900 border-l-4 border-indigo-600 pl-4">運勢の根源を知る「命術」</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        占術は大きく「命・卜・相」に分類されますが、四柱推命はその中でも<strong>「不変の個人データ」</strong>を扱うため、信頼性と論理性が非常に高いのが特徴です。
                     </p>
-                    <ul class="space-y-3 mt-4">
-                        <li class="flex items-start">
-                            <span
-                                class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-red-100 text-red-800 font-bold text-xs mr-3 mt-1">命</span>
-                            <div>
-                                <span class="font-bold block text-gray-800">四柱推命・西洋占星術</span>
-                                <span class="text-sm text-gray-500">変わらない運命、才能、バイオリズムを見る。</span>
+
+                    <div class="space-y-4 mt-6">
+                        <div
+                            class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="p-3 bg-indigo-50 rounded-lg mr-4 text-indigo-600">
+                                <i data-lucide="scroll-text" class="w-6 h-6"></i>
                             </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span
-                                class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-blue-100 text-blue-800 font-bold text-xs mr-3 mt-1">卜</span>
                             <div>
-                                <span class="font-bold block text-gray-800">タロット・易</span>
-                                <span class="text-sm text-gray-500">人の気持ち、近い未来の選択、偶然性を利用する。</span>
+                                <span class="font-bold block text-indigo-900">命術：四柱推命・西洋占星術</span>
+                                <span class="text-sm text-gray-500">宿命、才能、生涯のバイオリズム。自分の「設計図」を知る。</span>
                             </div>
-                        </li>
-                        <li class="flex items-start">
-                            <span
-                                class="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 font-bold text-xs mr-3 mt-1">相</span>
+                        </div>
+                        <div
+                            class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="p-3 bg-red-50 rounded-lg mr-4 text-red-600">
+                                <i data-lucide="dices" class="w-6 h-6"></i>
+                            </div>
                             <div>
-                                <span class="font-bold block text-gray-800">手相・人相・風水</span>
-                                <span class="text-sm text-gray-500">形から吉凶を判断し、現状を変えることで開運する。</span>
+                                <span class="font-bold block text-red-900">卜術：タロット・易</span>
+                                <span class="text-sm text-gray-500">短期的な吉凶、人の心、決断の迷い。偶然性から答えを得る。</span>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                        <div
+                            class="flex items-start bg-white p-4 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                            <div class="p-3 bg-emerald-50 rounded-lg mr-4 text-emerald-600">
+                                <i data-lucide="shapes" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <span class="font-bold block text-emerald-900">相術：手相・風水</span>
+                                <span class="text-sm text-gray-500">形が示す運気。環境や自分の状態を整えることで開運する。</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-gray-50 p-4 rounded-lg">
-                    <h4 class="text-center text-sm font-bold text-gray-500 mb-2">占術タイプ別 得意分野比較</h4>
+                <div class="bg-white p-8 rounded-2xl shadow-xl border border-gray-100">
+                    <h4 class="text-center text-sm font-bold text-gray-400 mb-6 uppercase tracking-widest">占術タイプ別 得意分野比較
+                    </h4>
                     <div class="chart-container">
                         <canvas id="comparisonChart"></canvas>
                     </div>
-                    <p class="text-xs text-center text-gray-400 mt-2">四柱推命は「長期的な運勢」と「本質分析」において圧倒的な精度を誇ります。</p>
                 </div>
             </div>
         </section>
 
         <!-- Section 2: Logic - The Five Elements Engine -->
-        <section id="logic"
-            class="bg-gray-900 text-white -mx-4 px-4 py-12 md:rounded-xl md:mx-0 shadow-2xl overflow-hidden relative">
-            <div class="absolute top-0 right-0 p-10 opacity-10 text-9xl font-serif pointer-events-none select-none">五行
-            </div>
+        <section id="logic" class="scroll-mt-20">
+            <div class="bg-[#1e1b4b] text-white rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
+                <div class="absolute top-0 right-0 p-10 opacity-5 text-9xl font-serif pointer-events-none select-none">
+                    五行</div>
 
-            <div class="max-w-6xl mx-auto">
-                <div class="mb-8 text-center">
-                    <h2 class="text-3xl font-bold text-yellow-500 serif">2. 根拠とロジック：陰陽五行説</h2>
-                    <p class="text-gray-300 mt-2 max-w-2xl mx-auto">
-                        四柱推命の根幹は、古代中国の自然哲学「陰陽五行説」です。
-                        この世の全てを「木・火・土・金・水」の5つの元素と「陰陽」に分類し、
-                        そのエネルギーのバランス（強弱）と相互作用から運命を読み解きます。
-                    </p>
-                </div>
-
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                    <!-- Interactive Cycle Visualizer -->
-                    <div class="relative h-96 w-full flex items-center justify-center">
-                        <!-- Connecting Lines (Canvas simulated with CSS borders or similar visual trick, strictly simplified here for pure HTML/CSS robustness without SVG) -->
-                        <!-- Instead of SVG lines, we use a central info circle and positioned satellites -->
-
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div id="element-display"
-                                class="w-48 h-48 bg-gray-800 rounded-full flex flex-col items-center justify-center border-4 border-gray-700 transition-all duration-500 z-10 p-4 text-center">
-                                <span id="center-icon" class="text-4xl mb-2">☯️</span>
-                                <h3 id="center-title" class="text-xl font-bold text-white">五行を選択</h3>
-                                <p id="center-desc" class="text-xs text-gray-400 mt-1">周囲のアイコンをクリックして関係性を確認</p>
-                            </div>
-                        </div>
-
-                        <!-- Satellite Buttons -->
-                        <!-- Wood (Top) -->
-                        <button onclick="selectElement('wood')"
-                            class="element-btn absolute top-0 left-1/2 transform -translate-x-1/2 -mt-2 w-20 h-20 rounded-full bg-green-800 border-2 border-green-500 flex flex-col items-center justify-center z-20 hover:bg-green-700 group focus:outline-none"
-                            aria-label="木">
-                            <span class="text-2xl">🌲</span>
-                            <span class="text-xs font-bold text-green-200">木 (Wood)</span>
-                        </button>
-
-                        <!-- Fire (Right Top) -->
-                        <button onclick="selectElement('fire')"
-                            class="element-btn absolute top-[28%] right-[10%] w-20 h-20 rounded-full bg-red-800 border-2 border-red-500 flex flex-col items-center justify-center z-20 hover:bg-red-700 group focus:outline-none"
-                            aria-label="火">
-                            <span class="text-2xl">🔥</span>
-                            <span class="text-xs font-bold text-red-200">火 (Fire)</span>
-                        </button>
-
-                        <!-- Earth (Right Bottom) -->
-                        <button onclick="selectElement('earth')"
-                            class="element-btn absolute bottom-[28%] right-[10%] w-20 h-20 rounded-full bg-yellow-800 border-2 border-yellow-500 flex flex-col items-center justify-center z-20 hover:bg-yellow-700 group focus:outline-none"
-                            aria-label="土">
-                            <span class="text-2xl">⛰️</span>
-                            <span class="text-xs font-bold text-yellow-200">土 (Earth)</span>
-                        </button>
-
-                        <!-- Metal (Left Bottom) -->
-                        <button onclick="selectElement('metal')"
-                            class="element-btn absolute bottom-[28%] left-[10%] w-20 h-20 rounded-full bg-gray-600 border-2 border-gray-400 flex flex-col items-center justify-center z-20 hover:bg-gray-500 group focus:outline-none"
-                            aria-label="金">
-                            <span class="text-2xl">⚔️</span>
-                            <span class="text-xs font-bold text-gray-200">金 (Metal)</span>
-                        </button>
-
-                        <!-- Water (Left Top) -->
-                        <button onclick="selectElement('water')"
-                            class="element-btn absolute top-[28%] left-[10%] w-20 h-20 rounded-full bg-blue-900 border-2 border-blue-500 flex flex-col items-center justify-center z-20 hover:bg-blue-800 group focus:outline-none"
-                            aria-label="水">
-                            <span class="text-2xl">💧</span>
-                            <span class="text-xs font-bold text-blue-200">水 (Water)</span>
-                        </button>
+                <div class="max-w-6xl mx-auto relative z-10">
+                    <div class="mb-12 text-center">
+                        <h2 class="text-3xl font-bold text-indigo-300 serif">2. 根拠とロジック：陰陽五行説</h2>
+                        <p class="text-gray-400 mt-4 max-w-2xl mx-auto">
+                            四柱推命は、古代中国の自然哲学から生まれました。
+                            この世の全てを「木・火・土・金・水」の5つの元素に分類し、
+                            その巡りと「陰陽」のバランスから運命の力学を読み解きます。
+                        </p>
                     </div>
 
-                    <!-- Description Panel -->
-                    <div class="bg-gray-800 p-6 rounded-lg border border-gray-700 h-full flex flex-col justify-center">
-                        <h3 class="text-xl font-bold text-yellow-500 mb-4 border-b border-gray-600 pb-2">五行の関係性：相生と相剋
-                        </h3>
-                        <div id="logic-details" class="space-y-4">
-                            <p class="text-gray-300">
-                                五行図の要素をクリックすると、それぞれの性質と、他の要素との関係が表示されます。
-                            </p>
-                            <div class="grid grid-cols-2 gap-4 text-sm mt-4">
-                                <div class="bg-gray-700 p-3 rounded">
-                                    <span class="block font-bold text-green-400 mb-1">相生 (Sōshō)</span>
-                                    <span class="text-gray-300 text-xs">相手を生み出し、助ける関係 (例: 木は火を生む)</span>
-                                </div>
-                                <div class="bg-gray-700 p-3 rounded">
-                                    <span class="block font-bold text-red-400 mb-1">相剋 (Sōkoku)</span>
-                                    <span class="text-gray-300 text-xs">相手を攻撃し、抑制する関係 (例: 水は火を消す)</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <!-- Interactive Cycle Visualizer -->
+                        <div class="relative h-[400px] w-full flex items-center justify-center">
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <div id="element-display"
+                                    class="w-56 h-56 bg-indigo-950/50 rounded-full flex flex-col items-center justify-center border-4 border-indigo-900/50 backdrop-blur-xl transition-all duration-500 z-10 p-6 text-center shadow-[0_0_50px_rgba(79,70,229,0.2)]">
+                                    <div id="center-icon-container" class="text-indigo-400 mb-2">
+                                        <i data-lucide="sparkles" class="w-12 h-12"></i>
+                                    </div>
+                                    <h3 id="center-title" class="text-xl font-bold text-white">五行を選択</h3>
+                                    <p id="center-desc" class="text-xs text-indigo-300/60 mt-2 italic">
+                                        アイコンをクリックして<br>関係性を確認</p>
                                 </div>
                             </div>
-                            <div class="mt-4 p-4 bg-gray-900 rounded border border-gray-600">
-                                <h4 class="font-bold text-white mb-2">十干（じっかん）と十二支（じゅうにし）</h4>
-                                <p class="text-xs text-gray-400 leading-relaxed">
-                                    この5つの要素はさらに「陰陽」に分かれ、10種類の「十干（甲・乙・丙…）」となります。
-                                    これに季節や時間を表す12種類の「十二支（子・丑・寅…）」を組み合わせ、
-                                    60通りの「干支（かんし）」を作成。これが四柱推命の計算の最小単位となります。
+
+                            <!-- Satellite Buttons -->
+                            <!-- Wood (Top) -->
+                            <button onclick="selectElement('wood')"
+                                class="element-btn absolute top-0 left-1/2 transform -translate-x-1/2 w-20 h-20 rounded-full bg-emerald-900 border-2 border-emerald-500/50 flex flex-col items-center justify-center z-20 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] focus:outline-none"
+                                aria-label="木">
+                                <i data-lucide="tree-pine" class="w-8 h-8 text-emerald-400 mb-1"></i>
+                                <span class="text-[10px] font-bold text-emerald-200">木</span>
+                            </button>
+
+                            <!-- Fire (Right Top) -->
+                            <button onclick="selectElement('fire')"
+                                class="element-btn absolute top-[28%] right-[5%] w-20 h-20 rounded-full bg-orange-900 border-2 border-orange-500/50 flex flex-col items-center justify-center z-20 hover:shadow-[0_0_30px_rgba(249,115,22,0.4)] focus:outline-none"
+                                aria-label="火">
+                                <i data-lucide="flame" class="w-8 h-8 text-orange-400 mb-1"></i>
+                                <span class="text-[10px] font-bold text-orange-200">火</span>
+                            </button>
+
+                            <!-- Earth (Right Bottom) -->
+                            <button onclick="selectElement('earth')"
+                                class="element-btn absolute bottom-[5%] right-[20%] w-20 h-20 rounded-full bg-amber-900 border-2 border-amber-500/50 flex flex-col items-center justify-center z-20 hover:shadow-[0_0_30px_rgba(245,158,11,0.4)] focus:outline-none"
+                                aria-label="土">
+                                <i data-lucide="mountain" class="w-8 h-8 text-amber-400 mb-1"></i>
+                                <span class="text-[10px] font-bold text-amber-200">土</span>
+                            </button>
+
+                            <!-- Metal (Left Bottom) -->
+                            <button onclick="selectElement('metal')"
+                                class="element-btn absolute bottom-[5%] left-[20%] w-20 h-20 rounded-full bg-slate-800 border-2 border-slate-400/50 flex flex-col items-center justify-center z-20 hover:shadow-[0_0_30px_rgba(148,163,184,0.4)] focus:outline-none"
+                                aria-label="金">
+                                <i data-lucide="swords" class="w-8 h-8 text-slate-300 mb-1"></i>
+                                <span class="text-[10px] font-bold text-slate-200">金</span>
+                            </button>
+
+                            <!-- Water (Left Top) -->
+                            <button onclick="selectElement('water')"
+                                class="element-btn absolute top-[28%] left-[5%] w-20 h-20 rounded-full bg-sky-900 border-2 border-sky-500/50 flex flex-col items-center justify-center z-20 hover:shadow-[0_0_30px_rgba(14,165,233,0.4)] focus:outline-none"
+                                aria-label="水">
+                                <i data-lucide="droplets" class="w-8 h-8 text-sky-400 mb-1"></i>
+                                <span class="text-[10px] font-bold text-sky-200">水</span>
+                            </button>
+                        </div>
+
+                        <!-- Description Panel -->
+                        <div class="glass-card p-8 rounded-2xl border border-indigo-500/20">
+                            <h3 class="text-2xl font-bold text-indigo-300 mb-6 flex items-center">
+                                <i data-lucide="arrow-left-right" class="w-6 h-6 mr-3"></i> 五行の関係性
+                            </h3>
+                            <div id="logic-details" class="space-y-6">
+                                <p class="text-gray-300 leading-relaxed">
+                                    五行図の要素をクリックすると、それぞれの性質と、他の要素との相互作用（生成と抑制）が表示されます。
                                 </p>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div class="bg-indigo-900/40 p-4 rounded-xl border border-emerald-500/30">
+                                        <span
+                                            class="block font-bold text-emerald-400 text-sm mb-1 uppercase tracking-wider">相生
+                                            (Sōshō)</span>
+                                        <span class="text-gray-400 text-xs">「生み出す」関係。親が子を助けるようにエネルギーを与えます。</span>
+                                    </div>
+                                    <div class="bg-indigo-900/40 p-4 rounded-xl border border-red-500/30">
+                                        <span
+                                            class="block font-bold text-red-400 text-sm mb-1 uppercase tracking-wider">相剋
+                                            (Sōkoku)</span>
+                                        <span class="text-gray-400 text-xs">「抑える」関係。行き過ぎた力を抑制し、バランスを保ちます。</span>
+                                    </div>
+                                </div>
+                                <div
+                                    class="p-6 bg-indigo-950/60 rounded-xl border border-indigo-400/20 text-sm text-gray-400">
+                                    <h4 class="font-bold text-white mb-2">干支（かんし）の基本</h4>
+                                    <p class="leading-relaxed">
+                                        5つの要素はさらに陰陽に分かれ、10種類の「十干」となります。これに「十二支」を掛け合わせた60通りの干支が、四柱推命の最小構成単位です。
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -256,107 +309,189 @@
         </section>
 
         <!-- Section 3: Capabilities (What it can/cannot do) -->
-        <section id="capabilities" class="max-w-5xl mx-auto">
-            <div class="mb-6 border-l-4 border-blue-700 pl-4">
-                <h2 class="text-3xl font-bold text-gray-800">3. 何がわかるのか（得意・不得意）</h2>
-                <p class="text-gray-600 mt-2">最強の占術と言えども、万能ではありません。</p>
+        <section id="capabilities" class="scroll-mt-20 max-w-5xl mx-auto">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900 serif border-b-2 border-indigo-100 inline-block pb-1">3.
+                    何がわかるのか（得意・不得意）</h2>
+                <p class="text-gray-500 mt-4">世界最強レベルの分析精度を誇りますが、万能ではありません。</p>
             </div>
 
-            <div class="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden">
-                <div class="flex border-b">
+            <div class="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden">
+                <div class="flex border-b bg-gray-50/50">
                     <button onclick="switchTab('can')" id="tab-can"
-                        class="flex-1 py-4 text-center font-bold text-blue-800 bg-blue-50 border-b-2 border-blue-600 transition-colors">
-                        わかること (得意)
+                        class="flex-1 py-5 text-center font-bold text-indigo-800 bg-white border-b-2 border-indigo-600 transition-all flex items-center justify-center">
+                        <i data-lucide="check-circle-2" class="w-5 h-5 mr-2"></i> わかること (得意)
                     </button>
                     <button onclick="switchTab('cannot')" id="tab-cannot"
-                        class="flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors">
-                        わからないこと (苦手)
+                        class="flex-1 py-5 text-center font-bold text-gray-400 hover:text-indigo-600 transition-all flex items-center justify-center">
+                        <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i> わからないこと (苦手)
                     </button>
                 </div>
 
-                <div class="p-8 min-h-[300px]">
+                <div class="p-8 md:p-12 min-h-[350px]">
                     <!-- Content for "Can" -->
-                    <div id="content-can" class="grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
-                        <div class="flex items-start space-x-4">
+                    <div id="content-can" class="grid grid-cols-1 md:grid-cols-2 gap-10 animate-fade-in">
+                        <div class="flex items-start group">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
-                                🦁</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">本質的な性格・才能</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    表面的な性格だけでなく、無意識レベルの本能、適職、社会での振る舞い方、ストレスの感じ方まで詳細に分析できます。
+                                class="flex-shrink-0 w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <i data-lucide="user-round" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-indigo-900">本質的な性格・才能</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    自覚している性格だけでなく、無意識下の本能、隠れた適職、社会での本当の役割を詳細に提示します。
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
+                        <div class="flex items-start group">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
-                                📈</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">運気のバイオリズム</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    10年ごとの大きな運気（大運）と、1年ごとの運気（年運）を読み解き、「攻めるべき時」と「守るべき時」を特定します。
+                                class="flex-shrink-0 w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <i data-lucide="trending-up" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-indigo-900">人生の周期（バイオリズム）</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    10年刻みの大きな流れ（大運）と、1年ごとの運気（年運）を読み解き、「いつ勝負すべきか」を特定します。
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
+                        <div class="flex items-start group">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
-                                ❤️</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">相性・人間関係</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    単なる「好き嫌い」ではなく、お互いの運気を高め合う関係か、消耗させる関係かというエネルギーの相互作用を判定します。
+                                class="flex-shrink-0 w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <i data-lucide="heart" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-indigo-900">人間関係・相性</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    相手のエネルギーを奪う関係か、高め合う関係か。お互いの「日干」の相性から、本質的な親和性を測ります。
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4">
+                        <div class="flex items-start group">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center text-2xl">
-                                🏥</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">健康・体質</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    五行のバランスの崩れから、弱りやすい臓器や注意すべき時期を予測します（例：火が強すぎると心臓や目に注意など）。
+                                class="flex-shrink-0 w-14 h-14 bg-indigo-50 text-indigo-600 rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110">
+                                <i data-lucide="stethoscope" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-indigo-900">健康・体質の傾向</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    五行の偏りはそのまま内臓の強弱に繋がります。不足している要素を補うことで、未病を防ぐヒントが得られます。
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- Content for "Cannot" -->
-                    <div id="content-cannot" class="hidden grid grid-cols-1 md:grid-cols-2 gap-6 animate-fade-in">
-                        <div class="flex items-start space-x-4 opacity-75">
+                    <div id="content-cannot" class="hidden grid grid-cols-1 md:grid-cols-2 gap-10 animate-fade-in">
+                        <div class="flex items-start opacity-75">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-2xl">
-                                💭</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">相手の「今の」気持ち</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    「彼は今、私をどう思っている？」といった流動的な感情は読めません。これらはタロットなどの「卜術」の専門分野です。
+                                class="flex-shrink-0 w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="message-square-quote" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-gray-800">相手の昨日の感情</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    「あの時、どう思ったか」という刹那的な感情の動きは、命術ではなくタロット等の卜術の分野です。
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4 opacity-75">
+                        <div class="flex items-start opacity-75">
                             <div
-                                class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-2xl">
-                                🎲</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">ギャンブルの結果</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    明日の競馬の結果や宝くじの当選番号など、偶然性に左右される具体的な事象は予測できません。
+                                class="flex-shrink-0 w-14 h-14 bg-red-50 text-red-600 rounded-2xl flex items-center justify-center">
+                                <i data-lucide="dices" class="w-7 h-7"></i>
+                            </div>
+                            <div class="ml-5">
+                                <h4 class="font-bold text-lg text-gray-800">宝くじの当選結果</h4>
+                                <p class="text-sm text-gray-600 mt-2 leading-relaxed">
+                                    完全な偶然性やギャンブルの結果をピンポイントで当てることはできません。あくまで運の波を予測します。
                                 </p>
                             </div>
                         </div>
-                        <div class="flex items-start space-x-4 opacity-75">
-                            <div
-                                class="flex-shrink-0 w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-2xl">
-                                🗺️</div>
-                            <div>
-                                <h4 class="font-bold text-lg text-gray-800">物理的な「吉方位」</h4>
-                                <p class="text-sm text-gray-600 mt-1">
-                                    「引っ越しはどの方角が良いか」といった地理的な風水要素は、九星気学や奇門遁甲などの専門分野になります。
-                                </p>
-                            </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: Deep Dive - Theory (New) -->
+        <section id="structure" class="scroll-mt-20">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 serif border-b-2 border-indigo-100 inline-block pb-1">4.
+                    解読の鍵：通変星と十二大従星</h2>
+                <p class="text-gray-500 mt-4">四柱推命をより深く、具体的に読み解くための2つの主要な指標です。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Ten Gods (Ten Gods) -->
+                <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+                    <h3 class="text-xl font-bold text-indigo-950 mb-6 flex items-center">
+                        <i data-lucide="layers" class="w-6 h-6 mr-3 text-indigo-600"></i> 通変星（十神）
+                        <span
+                            class="ml-auto text-xs font-normal text-gray-400 bg-gray-50 px-2 py-1 rounded">行動・性格の傾向</span>
+                    </h3>
+                    <div class="space-y-4">
+                        <div
+                            class="flex justify-between items-center p-3 hover:bg-indigo-50 rounded-lg transition-colors border-b border-gray-50">
+                            <span class="font-bold text-indigo-900">自立の星 <span
+                                    class="text-xs font-normal text-gray-500 ml-2">(比肩・劫財)</span></span>
+                            <span class="text-sm text-gray-600">独立心、自己主張、意志</span>
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-3 hover:bg-orange-50 rounded-lg transition-colors border-b border-gray-50">
+                            <span class="font-bold text-orange-900">遊びの星 <span
+                                    class="text-xs font-normal text-gray-500 ml-2">(食神・傷官)</span></span>
+                            <span class="text-sm text-gray-600">表現力、感受性、感性</span>
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-3 hover:bg-amber-50 rounded-lg transition-colors border-b border-gray-50">
+                            <span class="font-bold text-amber-900">人脈の星 <span
+                                    class="text-xs font-normal text-gray-500 ml-2">(偏財・正財)</span></span>
+                            <span class="text-sm text-gray-600">社交性、経済観念、愛情</span>
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-3 hover:bg-sky-50 rounded-lg transition-colors border-b border-gray-50">
+                            <span class="font-bold text-sky-900">行動の星 <span
+                                    class="text-xs font-normal text-gray-500 ml-2">(偏官・正官)</span></span>
+                            <span class="text-sm text-gray-600">責任感、実行力、規律</span>
+                        </div>
+                        <div
+                            class="flex justify-between items-center p-3 hover:bg-emerald-50 rounded-lg transition-colors border-b border-gray-50">
+                            <span class="font-bold text-emerald-900">知性の星 <span
+                                    class="text-xs font-normal text-gray-500 ml-2">(偏印・印綬)</span></span>
+                            <span class="text-sm text-gray-600">思考力、探究心、慈悲</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Twelve Life Stages -->
+                <div
+                    class="bg-indigo-900 text-white p-8 rounded-2xl border border-indigo-700 shadow-xl overflow-hidden relative">
+                    <div class="absolute -right-10 -bottom-10 opacity-10">
+                        <i data-lucide="milestone" class="w-64 h-64"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-200 mb-6 flex items-center relative z-10">
+                        <i data-lucide="hourglass" class="w-6 shadow-sm h-6 mr-3 text-indigo-400"></i> 十二運（十二大従星）
+                        <span
+                            class="ml-auto text-xs font-normal text-indigo-300 bg-white/10 px-2 py-1 rounded">エネルギーの強弱</span>
+                    </h3>
+                    <p class="text-indigo-100 text-sm mb-6 leading-relaxed relative z-10">
+                        人の魂を「胎児」から「死・墓」までの12のステージに例えて表現。運気の勢いや物事への取り組み方を表します。
+                    </p>
+                    <div class="grid grid-cols-2 gap-4 relative z-10">
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                            <span class="block font-bold text-indigo-300">帝旺 (ていおう)</span>
+                            <p class="text-[11px] text-indigo-100/60 mt-1">最高潮、完成、君主。圧倒的なエネルギー。</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                            <span class="block font-bold text-indigo-300">建禄 (けんろく)</span>
+                            <p class="text-[11px] text-indigo-100/60 mt-1">発展、堅実、努力。最もバランスが良い。</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                            <span class="block font-bold text-indigo-300">長生 (ちょうせい)</span>
+                            <p class="text-[11px] text-indigo-100/60 mt-1">成長、素直、発展。順風満帆な滑り出し。</p>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-xl border border-white/10">
+                            <span class="block font-bold text-indigo-300">墓 (ぼ)</span>
+                            <p class="text-[11px] text-indigo-100/60 mt-1">蓄積、保守、探求。内側に力を溜める。</p>
                         </div>
                     </div>
                 </div>
@@ -409,119 +544,176 @@
             </section>
 
             <!-- Section 5: Methodology -->
-            <section id="method" class="lg:col-span-7 bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-800 serif border-b-2 border-red-300 inline-block pb-1">5.
-                        基本的なやり方・構造</h2>
-                    <p class="text-sm text-gray-600 mt-2">実際の鑑定は、以下の4つの柱を作成することから始まります。</p>
-                </div>
+            <!-- Section 5: Methodology -->
+            <section id="method" class="scroll-mt-20">
+                <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-gray-100">
+                    <div class="mb-10">
+                        <h2 class="text-3xl font-bold text-gray-900 serif border-b-2 border-red-200 inline-block pb-1">
+                            5. 基本構造：四つの柱</h2>
+                        <p class="text-gray-500 mt-4 text-lg">実際の鑑定は、人生の時間を4つの「柱」に解体することから始まります。</p>
+                    </div>
 
-                <div class="bg-red-50 p-4 rounded-lg mb-6 text-center">
-                    <h3 class="text-lg font-bold text-red-800 mb-2">命式の構造 (4つの柱)</h3>
-                    <div class="grid grid-cols-4 gap-2 text-center">
-                        <div class="bg-white p-2 rounded shadow-sm border-t-4 border-gray-400">
-                            <div class="text-xs text-gray-500 mb-1">晩年・子供</div>
-                            <div class="text-xl font-bold text-gray-800">時柱</div>
-                            <div class="text-xs text-gray-400">(生まれた時間)</div>
+                    <div class="bg-red-50/50 p-6 md:p-10 rounded-2xl mb-12">
+                        <h3
+                            class="text-center text-sm font-bold text-red-900 mb-8 uppercase tracking-widest flex items-center justify-center">
+                            <i data-lucide="layout-grid" class="w-4 h-4 mr-2"></i> 命式の構造 (Pillar Structure)
+                        </h3>
+                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div class="bazi-pillar bg-white p-6 rounded-xl border-t-8 border-gray-400">
+                                <div class="text-xs text-gray-400 font-bold mb-2 uppercase">Time</div>
+                                <div class="text-2xl font-bold text-gray-900 mb-1">時柱</div>
+                                <div class="text-xs text-gray-500">晩年・子供運</div>
+                            </div>
+                            <div
+                                class="bazi-pillar bg-white p-6 rounded-xl border-t-8 border-indigo-600 ring-2 ring-indigo-100 scale-105 z-10 shadow-lg">
+                                <div class="text-xs text-indigo-600 font-bold mb-2 uppercase">Day</div>
+                                <div class="text-2xl font-bold text-indigo-900 mb-1">日柱</div>
+                                <div class="text-xs text-indigo-600 font-bold">自分自身・配偶者</div>
+                            </div>
+                            <div class="bazi-pillar bg-white p-6 rounded-xl border-t-8 border-gray-400">
+                                <div class="text-xs text-gray-400 font-bold mb-2 uppercase">Month</div>
+                                <div class="text-2xl font-bold text-gray-900 mb-1">月柱</div>
+                                <div class="text-xs text-gray-500">社会運・家系</div>
+                            </div>
+                            <div class="bazi-pillar bg-white p-6 rounded-xl border-t-8 border-gray-400">
+                                <div class="text-xs text-gray-400 font-bold mb-2 uppercase">Year</div>
+                                <div class="text-2xl font-bold text-gray-900 mb-1">年柱</div>
+                                <div class="text-xs text-gray-500">ルーツ・先祖</div>
+                            </div>
                         </div>
-                        <div class="bg-white p-2 rounded shadow-sm border-t-4 border-red-500 transform scale-105 z-10">
-                            <div class="text-xs text-red-500 font-bold mb-1">自分・配偶者</div>
-                            <div class="text-xl font-bold text-gray-800">日柱</div>
-                            <div class="text-xs text-gray-400">(生まれた日)</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-sm">
+                        <div class="p-6 bg-gray-50 rounded-xl">
+                            <div
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-indigo-600 font-bold">
+                                1</div>
+                            <h4 class="font-bold text-gray-900 mb-2">命式の作成</h4>
+                            <p class="text-gray-600">『万年暦』を使い、生年月日時間を十干十二支の記号に変換し、4つの柱を立てます。</p>
                         </div>
-                        <div class="bg-white p-2 rounded shadow-sm border-t-4 border-gray-400">
-                            <div class="text-xs text-gray-500 mb-1">社会・家系</div>
-                            <div class="text-xl font-bold text-gray-800">月柱</div>
-                            <div class="text-xs text-gray-400">(生まれた月)</div>
+                        <div class="p-6 bg-gray-50 rounded-xl">
+                            <div
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-indigo-600 font-bold">
+                                2</div>
+                            <h4 class="font-bold text-gray-900 mb-2">エネルギー分析</h4>
+                            <p class="text-gray-600">自分を示す「日干」を中心に、周りとの五行バランスを見て、強弱や運気の巡りを判断します。</p>
                         </div>
-                        <div class="bg-white p-2 rounded shadow-sm border-t-4 border-gray-400">
-                            <div class="text-xs text-gray-500 mb-1">ルーツ・親</div>
-                            <div class="text-xl font-bold text-gray-800">年柱</div>
-                            <div class="text-xs text-gray-400">(生まれた年)</div>
+                        <div class="p-6 bg-gray-50 rounded-xl">
+                            <div
+                                class="w-10 h-10 bg-white rounded-full flex items-center justify-center mb-4 shadow-sm text-indigo-600 font-bold">
+                                3</div>
+                            <h4 class="font-bold text-gray-900 mb-2">事象の特定</h4>
+                            <p class="text-gray-600">通変星や十二運などの指標を重ね合わせ、具体的な性格、適職、時期の吉凶を導き出します。</p>
                         </div>
                     </div>
                 </div>
+            </section>
 
-                <div class="space-y-4">
-                    <h4 class="font-bold text-gray-700">鑑定のステップ</h4>
-                    <ol class="list-decimal list-inside space-y-3 text-sm text-gray-600">
-                        <li class="pl-2"><span class="font-bold text-gray-800">命式の作成</span>:
-                            『万年暦（まんねんれき）』という特殊な暦を使い、生年月日時間を干支（甲子、乙丑など）に変換して4つの柱を立てます。</li>
-                        <li class="pl-2"><span class="font-bold text-gray-800">通変星（つうへんせい）の算出</span>:
-                            「日干（自分の魂）」と他の干支との関係性から、性格や才能を表す「通変星（食神、正官など）」を導き出します。</li>
-                        <li class="pl-2"><span class="font-bold text-gray-800">エネルギーバランスの分析</span>:
-                            木火土金水の五行のどれが多く、どれが不足しているかを見て、健康や運気の偏りを判断します。</li>
-                        <li class="pl-2"><span class="font-bold text-gray-800">大運（たいうん）の確認</span>:
-                            10年ごとに切り替わる社会運の巡りを重ね合わせ、人生のどの時期にチャンスが来るかを予測します。</li>
-                    </ol>
+            <!-- Section 6: History -->
+            <section id="history" class="scroll-mt-20">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-gray-900 serif border-b-2 border-indigo-100 inline-block pb-1">6.
+                        歴史と起源</h2>
+                    <p class="text-gray-500 mt-4">三千年の時を経て練り上げられた、人類の知恵の結晶。</p>
+                </div>
+
+                <div class="max-w-4xl mx-auto relative px-4">
+                    <div
+                        class="absolute left-1/2 transform -translate-x-1/2 top-0 bottom-0 w-px bg-gray-200 hidden md:block">
+                    </div>
+
+                    <div class="space-y-12">
+                        <div class="relative flex items-center justify-between md:justify-normal group">
+                            <div class="hidden md:flex w-1/2 pr-12 text-right flex-col items-end">
+                                <span class="text-xl font-bold text-indigo-900">春秋戦国〜漢代</span>
+                                <p class="text-sm text-gray-500 mt-1">陰陽五行説の原型が成立。</p>
+                            </div>
+                            <div
+                                class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-indigo-500 z-10 hidden md:block">
+                            </div>
+                            <div
+                                class="md:w-1/2 md:pl-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 transition-all hover:shadow-md">
+                                <div class="flex items-center md:hidden mb-2">
+                                    <span
+                                        class="text-xs font-bold text-indigo-500 bg-indigo-50 px-2 py-1 rounded">紀元前</span>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-2">自然哲学の芽吹</h4>
+                                <p class="text-sm text-gray-600">古代中国で万物の理として「陰陽五行」の概念が誕生し、暦と結びつき始めました。</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex items-center justify-between md:justify-end group">
+                            <div
+                                class="md:w-1/2 md:pr-12 bg-white p-6 rounded-2xl shadow-sm border border-gray-100 text-right transition-all hover:shadow-md">
+                                <div class="flex items-center justify-end md:hidden mb-2">
+                                    <span class="text-xs font-bold text-indigo-500 bg-indigo-50 px-2 py-1 rounded">唐代
+                                        (618-907)</span>
+                                </div>
+                                <h4 class="font-bold text-gray-900 mb-2">李虚中による体系化</h4>
+                                <p class="text-sm text-gray-600">「年・月・日」の三柱で占う手法が確立され、より個人にフォーカスした分析が始まりました。</p>
+                            </div>
+                            <div
+                                class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full border-4 border-white bg-indigo-400 z-10 hidden md:block">
+                            </div>
+                            <div class="hidden md:flex w-1/2 pl-12 flex-col items-start">
+                                <span class="text-xl font-bold text-indigo-900">唐代</span>
+                                <p class="text-sm text-gray-500 mt-1">三柱推命の時代。</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex items-center justify-between md:justify-normal group">
+                            <div class="hidden md:flex w-1/2 pr-12 text-right flex-col items-end">
+                                <span class="text-xl font-bold text-indigo-900 md:text-indigo-600">宋代 (960-1279)</span>
+                                <p class="text-sm text-gray-500 mt-1">徐子平による完成。</p>
+                            </div>
+                            <div
+                                class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 rounded-full border-4 border-white bg-indigo-600 z-10 hidden md:block">
+                            </div>
+                            <div
+                                class="md:w-1/2 md:pl-12 bg-indigo-50 p-6 rounded-2xl shadow-md border border-indigo-100 transition-all hover:scale-[1.02]">
+                                <div class="flex items-center md:hidden mb-2">
+                                    <span class="text-xs font-bold text-white bg-indigo-600 px-2 py-1 rounded">宋代
+                                        ★重要</span>
+                                </div>
+                                <h4 class="font-bold text-indigo-900 mb-2">徐子平の革新</h4>
+                                <p class="text-sm text-gray-700">「時間」を加えた四柱を完成させ、日干を主体とする現在の論理体系を構築。ここから「子平」の名で知れ渡ります。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
-        </div>
-
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-gray-400 py-8 text-center text-sm">
-        <p>© 2024 Shichū Suimei Interactive Report. All rights reserved.</p>
-        <p class="mt-2 text-xs">※このレポートは占術の学習を目的としたものです。</p>
+    <footer class="bg-indigo-950 text-indigo-300 py-16 px-4">
+        <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-indigo-900 pb-12">
+            <div class="md:col-span-2">
+                <h3 class="text-2xl font-bold text-white serif mb-4">四柱推命：運命の論理と構造</h3>
+                <p class="text-sm text-indigo-400/80 max-w-md leading-relaxed">
+                    四柱推命は、単なる占いを超えた自然学であり統計学です。
+                    自分の設計図を知ることは、人生の荒波を乗りこなすための羅針盤を得ることに他なりません。
+                </p>
+            </div>
+            <div class="flex flex-col space-y-4">
+                <h4 class="text-white font-bold text-sm uppercase tracking-widest">Links</h4>
+                <a href="#" class="hover:text-white transition-colors">Triscope Top</a>
+                <a href="../numerology/index.html" class="hover:text-white transition-colors">Numerology</a>
+                <a href="../western-astrology/index.html" class="hover:text-white transition-colors">Western
+                    Astrology</a>
+            </div>
+        </div>
+        <div
+            class="max-w-6xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-indigo-500">
+            <p>© 2024 Shichu Suimei Interactive Atlas. All rights reserved.</p>
+            <p class="mt-4 md:mt-0 italic text-indigo-600">The Stars impel, they do not compel.</p>
+        </div>
     </footer>
 
     <!-- JavaScript Logic -->
     <script>
-        // --- State Management ---
-        const appState = {
-            currentTab: 'can',
-            activeElement: null
-        };
-
-        // --- Data: Five Elements Logic ---
-        const fiveElementsData = {
-            wood: {
-                name: "木 (Wood)",
-                icon: "🌲",
-                colorClass: "text-green-500",
-                desc: "成長、慈悲、発展を表す。季節は春。",
-                creates: "火 (木は燃えて火を生む)",
-                destroys: "土 (木は根を張って土の養分を吸う)"
-            },
-            fire: {
-                name: "火 (Fire)",
-                icon: "🔥",
-                colorClass: "text-red-500",
-                desc: "情熱、表現、礼節を表す。季節は夏。",
-                creates: "土 (火が燃え尽きると灰＝土になる)",
-                destroys: "金 (火は熱で金属を溶かす)"
-            },
-            earth: {
-                name: "土 (Earth)",
-                icon: "⛰️",
-                colorClass: "text-yellow-500",
-                desc: "育成、信用、引力を表す。季節は季節の変わり目（土用）。",
-                creates: "金 (土の中から鉱物が生まれる)",
-                destroys: "水 (土は水をせき止める)"
-            },
-            metal: {
-                name: "金 (Metal)",
-                icon: "⚔️",
-                colorClass: "text-gray-400",
-                desc: "決断、正義、収穫を表す。季節は秋。",
-                creates: "水 (金属の表面に水滴がつく/溶けて液体になる)",
-                destroys: "木 (斧は木を切り倒す)"
-            },
-            water: {
-                name: "水 (Water)",
-                icon: "💧",
-                colorClass: "text-blue-500",
-                desc: "知恵、柔軟、流動を表す。季節は冬。",
-                creates: "木 (水は木を育てる)",
-                destroys: "火 (水は火を消す)"
-            }
-        };
-
-        // --- Interaction: Tab Switching ---
+        // --- Tab Switching Logic ---
         function switchTab(tabName) {
-            appState.currentTab = tabName;
-
             const canContent = document.getElementById('content-can');
             const cannotContent = document.getElementById('content-cannot');
             const canTab = document.getElementById('tab-can');
@@ -530,135 +722,134 @@
             if (tabName === 'can') {
                 canContent.classList.remove('hidden');
                 cannotContent.classList.add('hidden');
-
-                canTab.className = "flex-1 py-4 text-center font-bold text-blue-800 bg-blue-50 border-b-2 border-blue-600 transition-colors";
-                cannotTab.className = "flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors";
+                canTab.className = "flex-1 py-5 text-center font-bold text-indigo-800 bg-white border-b-2 border-indigo-600 transition-all flex items-center justify-center";
+                cannotTab.className = "flex-1 py-5 text-center font-bold text-gray-400 hover:text-indigo-600 transition-all flex items-center justify-center";
             } else {
                 canContent.classList.add('hidden');
                 cannotContent.classList.remove('hidden');
-
-                canTab.className = "flex-1 py-4 text-center font-bold text-gray-500 hover:bg-gray-50 transition-colors";
-                cannotTab.className = "flex-1 py-4 text-center font-bold text-red-800 bg-red-50 border-b-2 border-red-600 transition-colors";
+                canTab.className = "flex-1 py-5 text-center font-bold text-gray-400 hover:text-indigo-600 transition-all flex items-center justify-center";
+                cannotTab.className = "flex-1 py-5 text-center font-bold text-red-800 bg-white border-b-2 border-red-600 transition-all flex items-center justify-center";
             }
         }
 
-        // --- Interaction: Element Selection ---
+        // --- Smooth Scroll Logic ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // --- Five Elements Interactive Data ---
+        const fiveElementsData = {
+            wood: {
+                name: "木 (Wood)",
+                icon: "tree-pine",
+                colorClass: "text-emerald-400",
+                desc: "成長、慈悲、発展を表す。季節は春。",
+                creates: "火 (木は燃えて火を生む)",
+                destroys: "土 (木は根を張って土の養分を吸う)"
+            },
+            fire: {
+                name: "火 (Fire)",
+                icon: "flame",
+                colorClass: "text-orange-400",
+                desc: "情熱、表現、礼節を表す。季節は夏。",
+                creates: "土 (火が燃え尽きると灰＝土になる)",
+                destroys: "金 (火は熱で金属を溶かす)"
+            },
+            earth: {
+                name: "土 (Earth)",
+                icon: "mountain",
+                colorClass: "text-amber-400",
+                desc: "育成、信用、引力を表す。土用。",
+                creates: "金 (土の中から鉱物が生まれる)",
+                destroys: "水 (土は水をせき止める)"
+            },
+            metal: {
+                name: "金 (Metal)",
+                icon: "swords",
+                colorClass: "text-slate-300",
+                desc: "決断、正義、収穫を表す。季節は秋。",
+                creates: "水 (金属が溶けて液体になる)",
+                destroys: "木 (斧は木を切り倒す)"
+            },
+            water: {
+                name: "水 (Water)",
+                icon: "droplets",
+                colorClass: "text-sky-400",
+                desc: "知恵、柔軟、流動を表す。季節は冬。",
+                creates: "木 (水は木を育てる)",
+                destroys: "火 (水は火を消す)"
+            }
+        };
+
         function selectElement(elementKey) {
             const data = fiveElementsData[elementKey];
-            const display = document.getElementById('element-display');
-            const icon = document.getElementById('center-icon');
             const title = document.getElementById('center-title');
             const desc = document.getElementById('center-desc');
+            const container = document.getElementById('center-icon-container');
             const logicDetails = document.getElementById('logic-details');
 
-            // Visual feedback on buttons
-            document.querySelectorAll('.element-btn').forEach(btn => {
-                btn.classList.remove('active-element');
-            });
-            // Note: simple highlight logic, in a real app would map click event target properly
-
-            // Update Center Circle
-            icon.innerText = data.icon;
+            // Update UI
+            container.innerHTML = `<i data-lucide="${data.icon}" class="w-12 h-12 ${data.colorClass}"></i>`;
             title.innerText = data.name;
             title.className = `text-xl font-bold ${data.colorClass}`;
             desc.innerText = "選択中";
 
-            // Update Details Panel
             logicDetails.innerHTML = `
                 <div class="animate-fade-in">
                     <div class="mb-4">
                         <h4 class="text-lg font-bold ${data.colorClass} flex items-center">
-                            <span class="text-2xl mr-2">${data.icon}</span> ${data.name}の性質
+                            ${data.name}の性質
                         </h4>
                         <p class="text-white text-sm mt-1 leading-relaxed">${data.desc}</p>
                     </div>
                     <div class="grid grid-cols-1 gap-3">
-                        <div class="bg-gray-700 p-3 rounded border-l-4 border-green-500">
-                            <div class="text-green-400 font-bold text-xs mb-1">相生（生み出す）</div>
+                        <div class="bg-indigo-900/40 p-4 rounded-xl border-l-4 border-emerald-500">
+                            <div class="text-emerald-400 font-bold text-xs mb-1 uppercase tracking-tighter">相生（生み出す）</div>
                             <div class="text-white text-sm">${data.creates}</div>
                         </div>
-                        <div class="bg-gray-700 p-3 rounded border-l-4 border-red-500">
-                            <div class="text-red-400 font-bold text-xs mb-1">相剋（攻撃する）</div>
+                        <div class="bg-indigo-900/40 p-4 rounded-xl border-l-4 border-red-500">
+                            <div class="text-red-400 font-bold text-xs mb-1 uppercase tracking-tighter">相剋（攻撃する）</div>
                             <div class="text-white text-sm">${data.destroys}</div>
                         </div>
                     </div>
-                    <div class="mt-4 pt-4 border-t border-gray-700 text-center">
-                        <button onclick="resetElements()" class="text-xs text-gray-500 hover:text-white underline">リセット</button>
+                    <div class="mt-6 pt-4 border-t border-indigo-500/20 text-center">
+                        <button onclick="resetElements()" class="text-xs text-indigo-400 hover:text-white underline">リセット</button>
                     </div>
                 </div>
             `;
+            lucide.createIcons();
         }
 
         function resetElements() {
-            const logicDetails = document.getElementById('logic-details');
-            const icon = document.getElementById('center-icon');
-            const title = document.getElementById('center-title');
-            const desc = document.getElementById('center-desc');
-
-            icon.innerText = "☯️";
-            title.innerText = "五行を選択";
-            title.className = "text-xl font-bold text-white";
-            desc.innerText = "周囲のアイコンをクリックして関係性を確認";
-
-            logicDetails.innerHTML = `
-                <p class="text-gray-300">
-                    五行図の要素をクリックすると、それぞれの性質と、他の要素との関係が表示されます。
-                </p>
-                <div class="grid grid-cols-2 gap-4 text-sm mt-4">
-                    <div class="bg-gray-700 p-3 rounded">
-                        <span class="block font-bold text-green-400 mb-1">相生 (Sōshō)</span>
-                        <span class="text-gray-300 text-xs">相手を生み出し、助ける関係 (例: 木は火を生む)</span>
-                    </div>
-                    <div class="bg-gray-700 p-3 rounded">
-                        <span class="block font-bold text-red-400 mb-1">相剋 (Sōkoku)</span>
-                        <span class="text-gray-300 text-xs">相手を攻撃し、抑制する関係 (例: 水は火を消す)</span>
-                    </div>
-                </div>
-                <div class="mt-4 p-4 bg-gray-900 rounded border border-gray-600">
-                    <h4 class="font-bold text-white mb-2">十干（じっかん）と十二支（じゅうにし）</h4>
-                    <p class="text-xs text-gray-400 leading-relaxed">
-                        この5つの要素はさらに「陰陽」に分かれ、10種類の「十干（甲・乙・丙…）」となります。
-                        これに季節や時間を表す12種類の「十二支（子・丑・寅…）」を組み合わせ、
-                        60通りの「干支（かんし）」を作成。これが四柱推命の計算の最小単位となります。
-                    </p>
-                </div>
-             `;
+            location.reload(); // Simple way to reset, or manually reset DOM
         }
 
-        // --- Chart.js Initialization ---
+        // --- Chart Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
             const ctx = document.getElementById('comparisonChart').getContext('2d');
-
-            // Radar Chart Data: Comparing Divination Types
-            // Axes: Long-term Fate, Short-term/Feelings, Environment/Location, Innate Personality, Simplicity
-            const comparisonChart = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: ['長期的運勢', '今の気持ち', '環境・方位', '本質・性格', '手軽さ'],
+                    labels: ['長期的運勢', '今の感情', '環境・方位', '本質分析', '手軽さ'],
                     datasets: [
                         {
-                            label: '四柱推命 (命)',
-                            data: [10, 2, 3, 10, 2], // Strong in Fate/Personality, Weak in Feelings/Location, Hard to learn
-                            backgroundColor: 'rgba(59, 130, 246, 0.2)', // Blue
-                            borderColor: 'rgba(59, 130, 246, 1)',
+                            label: '四柱推命',
+                            data: [10, 2, 4, 10, 3],
+                            backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                            borderColor: 'rgba(79, 70, 229, 1)',
                             borderWidth: 2,
-                            pointBackgroundColor: 'rgba(59, 130, 246, 1)',
+                            pointBackgroundColor: 'rgba(79, 70, 229, 1)',
                         },
                         {
-                            label: 'タロット (卜)',
-                            data: [4, 10, 2, 5, 8], // Strong in Feelings, Weak in Long-term
-                            backgroundColor: 'rgba(239, 68, 68, 0.2)', // Red
-                            borderColor: 'rgba(239, 68, 68, 1)',
+                            label: '平均的占術',
+                            data: [6, 6, 6, 5, 7],
+                            backgroundColor: 'rgba(156, 163, 175, 0.1)',
+                            borderColor: 'rgba(156, 163, 175, 0.4)',
                             borderWidth: 1,
-                            pointBackgroundColor: 'rgba(239, 68, 68, 1)',
-                        },
-                        {
-                            label: '風水 (相)',
-                            data: [6, 3, 10, 4, 5], // Strong in Location
-                            backgroundColor: 'rgba(16, 185, 129, 0.2)', // Green
-                            borderColor: 'rgba(16, 185, 129, 1)',
-                            borderWidth: 1,
-                            pointBackgroundColor: 'rgba(16, 185, 129, 1)',
+                            dash: [5, 5]
                         }
                     ]
                 },
@@ -667,38 +858,19 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: {
-                                color: '#e5e7eb'
-                            },
-                            grid: {
-                                color: '#e5e7eb'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 11,
-                                    family: "'Noto Sans JP', sans-serif"
-                                },
-                                color: '#4b5563'
-                            },
+                            angleLines: { color: '#f3f4f6' },
+                            grid: { color: '#f3f4f6' },
                             suggestedMin: 0,
                             suggestedMax: 10,
-                            ticks: {
-                                display: false // Hide numbers for cleaner look
-                            }
+                            ticks: { display: false }
                         }
                     },
                     plugins: {
-                        legend: {
-                            position: 'bottom',
-                            labels: {
-                                font: {
-                                    size: 10
-                                }
-                            }
-                        }
+                        legend: { position: 'bottom', labels: { font: { size: 10 } } }
                     }
                 }
             });
+            lucide.createIcons();
         });
     </script>
 </body>
