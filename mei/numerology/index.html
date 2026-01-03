@@ -209,51 +209,62 @@
                                     <div id="aura-bg"
                                         class="absolute inset-0 opacity-20 blur-3xl transition-all duration-1000"></div>
                                     <div class="relative z-10">
-                                        <h4 class="text-lg font-bold mb-2 flex items-center">
+                                        <h4 class="text-xl font-bold mb-3 flex items-center text-white">
                                             <span class="mr-2">✨</span> Destiny Message
                                         </h4>
                                         <p id="result-description"
-                                            class="text-indigo-100 text-sm leading-relaxed mb-4 italic"></p>
+                                            class="text-white text-base leading-relaxed mb-6 font-medium italic"></p>
 
                                         <!-- Core Numbers Grid -->
-                                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-center mb-6">
-                                            <div class="bg-white/10 p-2 rounded">
+                                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center mb-8">
+                                            <div
+                                                class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
                                                 <span
-                                                    class="block text-[10px] uppercase text-indigo-300">Expression</span>
-                                                <span id="res-destiny" class="text-xl font-bold">--</span>
+                                                    class="block text-[11px] uppercase tracking-tighter text-indigo-200 font-bold mb-1">Expression</span>
+                                                <span id="res-destiny" class="text-2xl font-bold text-white">--</span>
                                                 <span
-                                                    class="block text-[9px] text-indigo-400 leading-none">社会的な役割</span>
+                                                    class="block text-[10px] text-indigo-300 leading-none mt-1">社会的な役割</span>
                                             </div>
-                                            <div class="bg-white/10 p-2 rounded">
-                                                <span class="block text-[10px] uppercase text-indigo-300">Soul
+                                            <div
+                                                class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
+                                                <span
+                                                    class="block text-[11px] uppercase tracking-tighter text-indigo-200 font-bold mb-1">Soul
                                                     Urge</span>
-                                                <span id="res-soul" class="text-xl font-bold">--</span>
-                                                <span class="block text-[9px] text-indigo-400 leading-none">内なる願望</span>
-                                            </div>
-                                            <div class="bg-white/10 p-2 rounded">
+                                                <span id="res-soul" class="text-2xl font-bold text-white">--</span>
                                                 <span
-                                                    class="block text-[10px] uppercase text-indigo-300">Personality</span>
-                                                <span id="res-personality" class="text-xl font-bold">--</span>
-                                                <span class="block text-[9px] text-indigo-400 leading-none">他人の評価</span>
+                                                    class="block text-[10px] text-indigo-300 leading-none mt-1">内なる願望</span>
                                             </div>
-                                            <div class="bg-white/10 p-2 rounded">
-                                                <span class="block text-[10px] uppercase text-indigo-300">Personal
+                                            <div
+                                                class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
+                                                <span
+                                                    class="block text-[11px] uppercase tracking-tighter text-indigo-200 font-bold mb-1">Personality</span>
+                                                <span id="res-personality"
+                                                    class="text-2xl font-bold text-white">--</span>
+                                                <span
+                                                    class="block text-[10px] text-indigo-300 leading-none mt-1">他人の評価</span>
+                                            </div>
+                                            <div
+                                                class="bg-white/10 p-3 rounded-lg backdrop-blur-sm border border-white/5">
+                                                <span
+                                                    class="block text-[11px] uppercase tracking-tighter text-indigo-200 font-bold mb-1">Personal
                                                     Day</span>
-                                                <span id="res-today" class="text-xl font-bold">--</span>
+                                                <span id="res-today" class="text-2xl font-bold text-white">--</span>
                                                 <span
-                                                    class="block text-[9px] text-indigo-400 leading-none">今日のテーマ</span>
+                                                    class="block text-[10px] text-indigo-300 leading-none mt-1">今日のテーマ</span>
                                             </div>
                                         </div>
 
                                         <div
-                                            class="pt-4 border-t border-indigo-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                            class="pt-5 border-t border-indigo-700 grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
                                             <div>
-                                                <span class="text-indigo-400 block font-bold mb-1">仕事・才能:</span>
-                                                <span id="result-work" class="text-indigo-200"></span>
+                                                <span
+                                                    class="text-indigo-200 block font-bold mb-1 text-xs uppercase tracking-wider">仕事・才能:</span>
+                                                <span id="result-work" class="text-white leading-relaxed"></span>
                                             </div>
                                             <div>
-                                                <span class="text-indigo-400 block font-bold mb-1">恋愛・対人:</span>
-                                                <span id="result-love" class="text-indigo-200"></span>
+                                                <span
+                                                    class="text-indigo-200 block font-bold mb-1 text-xs uppercase tracking-wider">恋愛・対人:</span>
+                                                <span id="result-love" class="text-white leading-relaxed"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -369,71 +380,94 @@
     </section>
 
     <!-- Capabilities Section (Tabs) -->
-    <section class="bg-indigo-900 text-white py-16">
+    <section class="bg-white py-20 border-y border-indigo-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-extrabold serif text-center mb-8">得意分野と限界</h2>
-            <div class="max-w-3xl mx-auto">
+            <h2 class="text-3xl font-extrabold serif text-center mb-10 text-indigo-900">数秘術で「わかること」と「限界」</h2>
+            <div class="max-w-4xl mx-auto">
                 <!-- Tabs -->
-                <div class="flex border-b border-indigo-700 mb-6">
+                <div class="flex justify-center space-x-2 bg-indigo-50 p-1 rounded-xl mb-10">
                     <button onclick="switchTab('can')" id="tab-can"
-                        class="w-1/2 py-4 text-center font-medium text-lg border-b-2 border-white focus:outline-none transition-colors">
-                        わかること (得意)
+                        class="px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 bg-white text-indigo-700 shadow-sm border border-indigo-200">
+                        わかること (得意分野)
                     </button>
                     <button onclick="switchTab('cannot')" id="tab-cannot"
-                        class="w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors">
-                        わからないこと (苦手)
+                        class="px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 text-indigo-400 hover:text-indigo-600">
+                        わからないこと (限界)
                     </button>
                 </div>
 
                 <!-- Content Area -->
                 <div id="content-can" class="fade-in">
-                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
-                            <span class="text-2xl mr-3">👤</span>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div
+                            class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
+                            <span
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">👤</span>
                             <div>
-                                <h4 class="font-bold text-indigo-200">本質的な性格・才能</h4>
-                                <p class="text-sm text-indigo-300">社会的な仮面ではない、魂レベルでの欲求や潜在能力。</p>
+                                <h4 class="font-bold text-indigo-900 mb-1 text-lg">本質的な性格・潜在能力</h4>
+                                <p class="text-slate-600 leading-relaxed">社会的な仮面の下にある、魂の望みや生まれ持った才能の「設計図」を読み解きます。</p>
                             </div>
-                        </li>
-                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
-                            <span class="text-2xl mr-3">📅</span>
+                        </div>
+                        <div
+                            class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
+                            <span
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">📅</span>
                             <div>
-                                <h4 class="font-bold text-indigo-200">運勢のバイオリズム</h4>
-                                <p class="text-sm text-indigo-300">人生を9年周期で捉え、今は「種まき」の時か「収穫」の時かを知る。</p>
+                                <h4 class="font-bold text-indigo-900 mb-1 text-lg">人生のバイオリズム</h4>
+                                <p class="text-slate-600 leading-relaxed">9年サイクルで変化する運気の流れを把握し、「今、何をすべき時か」という指針を。 </p>
                             </div>
-                        </li>
-                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
-                            <span class="text-2xl mr-3">❤️</span>
+                        </div>
+                        <div
+                            class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
+                            <span
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">❤️</span>
                             <div>
-                                <h4 class="font-bold text-indigo-200">相性と関係性</h4>
-                                <p class="text-sm text-indigo-300">お互いの数が持つエネルギーの共鳴度合いや、関係構築のヒント。</p>
+                                <h4 class="font-bold text-indigo-900 mb-1 text-lg">相性と関係性の本質</h4>
+                                <p class="text-slate-600 leading-relaxed">お互いのエネルギーの響き合いから、円滑なコミュニケーションのヒントや学びを。 </p>
                             </div>
-                        </li>
-                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
-                            <span class="text-2xl mr-3">🎯</span>
+                        </div>
+                        <div
+                            class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100 flex items-start group hover:bg-white hover:shadow-lg transition-all">
+                            <span
+                                class="text-3xl mr-4 p-3 bg-white rounded-xl shadow-sm group-hover:scale-110 transition-transform">🎯</span>
                             <div>
-                                <h4 class="font-bold text-indigo-200">人生の使命</h4>
-                                <p class="text-sm text-indigo-300">今世で成し遂げるべきテーマや課題（カルマ）。</p>
+                                <h4 class="font-bold text-indigo-900 mb-1 text-lg">今世の使命と課題</h4>
+                                <p class="text-slate-600 leading-relaxed">何のために生まれ、どのような課題を乗り越えて魂を成長させるのか、その方向性。</p>
                             </div>
-                        </li>
-                    </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div id="content-cannot" class="hidden fade-in">
-                    <div class="bg-indigo-800 p-6 rounded-lg border-l-4 border-pink-500">
-                        <h3 class="text-xl font-bold mb-4 text-white">以下の内容は「卜術（タロット等）」の分野です</h3>
-                        <ul class="space-y-4">
-                            <li class="flex items-center text-indigo-200">
-                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                                「明日の天気がどうなるか」といった具体的な物理現象の予知
+                    <div class="bg-white p-8 rounded-2xl border-2 border-pink-100 shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-pink-50 rounded-full -mr-16 -mt-16 opacity-50">
+                        </div>
+                        <h3 class="text-xl font-bold mb-6 text-pink-900 flex items-center">
+                            <span class="p-2 bg-pink-100 rounded-lg mr-3">⚠️</span> 以下の内容は、他の占術が適しています
+                        </h3>
+                        <ul class="space-y-6">
+                            <li class="flex items-start">
+                                <div class="w-2 h-2 bg-pink-400 rounded-full mt-2.5 mr-4 shrink-0"></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">具体的な物理現象の予知</h4>
+                                    <p class="text-slate-600 text-sm mt-1">「明日の天気」や「特定のイベントの結果」など、設計図に含まれない外的な物理事象。</p>
+                                </div>
                             </li>
-                            <li class="flex items-center text-indigo-200">
-                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                                「あの人は今、私のことをどう思っているか」という流動的な感情の透視
+                            <li class="flex items-start">
+                                <div class="w-2 h-2 bg-pink-400 rounded-full mt-2.5 mr-4 shrink-0"></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">流動的な他者の感情</h4>
+                                    <p class="text-slate-600 text-sm mt-1">「あの人が今、一瞬どう思ったか」といった、時々刻々と変化する移ろいやすい感情の透視。
+                                    </p>
+                                </div>
                             </li>
-                            <li class="flex items-center text-indigo-200">
-                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
-                                ギャンブルの勝ち負けや、試験の合否そのもの（運気はわかるが結果は行動次第）
+                            <li class="flex items-start">
+                                <div class="w-2 h-2 bg-pink-400 rounded-full mt-2.5 mr-4 shrink-0"></div>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">努力を介さない絶対的な結果</h4>
+                                    <p class="text-slate-600 text-sm mt-1">
+                                        ギャンブルや試験の合否など。運気の波は分かりますが、最終的な結果は本人の行動に委ねられます。</p>
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -798,11 +832,19 @@
         function switchTab(tabName) {
             document.getElementById('content-can').classList.add('hidden');
             document.getElementById('content-cannot').classList.add('hidden');
-            document.getElementById('tab-can').className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors";
-            document.getElementById('tab-cannot').className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors";
+
+            const tabCan = document.getElementById('tab-can');
+            const tabCannot = document.getElementById('tab-cannot');
+
+            if (tabName === 'can') {
+                tabCan.className = "px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 bg-white text-indigo-700 shadow-sm border border-indigo-200";
+                tabCannot.className = "px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 text-indigo-400 hover:text-indigo-600";
+            } else {
+                tabCannot.className = "px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 bg-white text-indigo-700 shadow-sm border border-indigo-200";
+                tabCan.className = "px-8 py-3 rounded-lg font-bold text-sm transition-all duration-300 text-indigo-400 hover:text-indigo-600";
+            }
 
             document.getElementById(`content-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-${tabName}`).className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-white focus:outline-none transition-colors";
         }
 
         // Detail Card Update Logic
