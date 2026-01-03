@@ -202,97 +202,108 @@
                                     </svg>
                                 </button>
                             </div>
-                            <div class="bg-indigo-900 text-white p-6 rounded-xl shadow-2xl relative overflow-hidden">
-                                <div id="aura-bg"
-                                    class="absolute inset-0 opacity-20 blur-3xl transition-all duration-1000"></div>
-                                <div class="relative z-10">
-                                    <h4 class="text-lg font-bold mb-2 flex items-center">
-                                        <span class="mr-2">✨</span> Destiny Message
-                                    </h4>
-                                    <p id="result-description"
-                                        class="text-indigo-100 text-sm leading-relaxed mb-4 italic"></p>
+                            <!-- Result Display Wrapper -->
+                            <div id="result-area" class="mt-8 hidden space-y-6">
+                                <div
+                                    class="bg-indigo-900 text-white p-6 rounded-xl shadow-2xl relative overflow-hidden">
+                                    <div id="aura-bg"
+                                        class="absolute inset-0 opacity-20 blur-3xl transition-all duration-1000"></div>
+                                    <div class="relative z-10">
+                                        <h4 class="text-lg font-bold mb-2 flex items-center">
+                                            <span class="mr-2">✨</span> Destiny Message
+                                        </h4>
+                                        <p id="result-description"
+                                            class="text-indigo-100 text-sm leading-relaxed mb-4 italic"></p>
 
-                                    <!-- Core Numbers Grid -->
-                                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-center mb-6">
-                                        <div class="bg-white/10 p-2 rounded">
-                                            <span class="block text-[10px] uppercase text-indigo-300">Expression</span>
-                                            <span id="res-destiny" class="text-xl font-bold">--</span>
-                                            <span class="block text-[9px] text-indigo-400 leading-none">社会的な役割</span>
+                                        <!-- Core Numbers Grid -->
+                                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-center mb-6">
+                                            <div class="bg-white/10 p-2 rounded">
+                                                <span
+                                                    class="block text-[10px] uppercase text-indigo-300">Expression</span>
+                                                <span id="res-destiny" class="text-xl font-bold">--</span>
+                                                <span
+                                                    class="block text-[9px] text-indigo-400 leading-none">社会的な役割</span>
+                                            </div>
+                                            <div class="bg-white/10 p-2 rounded">
+                                                <span class="block text-[10px] uppercase text-indigo-300">Soul
+                                                    Urge</span>
+                                                <span id="res-soul" class="text-xl font-bold">--</span>
+                                                <span class="block text-[9px] text-indigo-400 leading-none">内なる願望</span>
+                                            </div>
+                                            <div class="bg-white/10 p-2 rounded">
+                                                <span
+                                                    class="block text-[10px] uppercase text-indigo-300">Personality</span>
+                                                <span id="res-personality" class="text-xl font-bold">--</span>
+                                                <span class="block text-[9px] text-indigo-400 leading-none">他人の評価</span>
+                                            </div>
+                                            <div class="bg-white/10 p-2 rounded">
+                                                <span class="block text-[10px] uppercase text-indigo-300">Personal
+                                                    Day</span>
+                                                <span id="res-today" class="text-xl font-bold">--</span>
+                                                <span
+                                                    class="block text-[9px] text-indigo-400 leading-none">今日のテーマ</span>
+                                            </div>
                                         </div>
-                                        <div class="bg-white/10 p-2 rounded">
-                                            <span class="block text-[10px] uppercase text-indigo-300">Soul Urge</span>
-                                            <span id="res-soul" class="text-xl font-bold">--</span>
-                                            <span class="block text-[9px] text-indigo-400 leading-none">内なる願望</span>
-                                        </div>
-                                        <div class="bg-white/10 p-2 rounded">
-                                            <span class="block text-[10px] uppercase text-indigo-300">Personality</span>
-                                            <span id="res-personality" class="text-xl font-bold">--</span>
-                                            <span class="block text-[9px] text-indigo-400 leading-none">他人の評価</span>
-                                        </div>
-                                        <div class="bg-white/10 p-2 rounded">
-                                            <span class="block text-[10px] uppercase text-indigo-300">Personal
-                                                Day</span>
-                                            <span id="res-today" class="text-xl font-bold">--</span>
-                                            <span class="block text-[9px] text-indigo-400 leading-none">今日のテーマ</span>
-                                        </div>
-                                    </div>
 
-                                    <div
-                                        class="pt-4 border-t border-indigo-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                                        <div>
-                                            <span class="text-indigo-400 block font-bold mb-1">仕事・才能:</span>
-                                            <span id="result-work" class="text-indigo-200"></span>
-                                        </div>
-                                        <div>
-                                            <span class="text-indigo-400 block font-bold mb-1">恋愛・対人:</span>
-                                            <span id="result-love" class="text-indigo-200"></span>
+                                        <div
+                                            class="pt-4 border-t border-indigo-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                            <div>
+                                                <span class="text-indigo-400 block font-bold mb-1">仕事・才能:</span>
+                                                <span id="result-work" class="text-indigo-200"></span>
+                                            </div>
+                                            <div>
+                                                <span class="text-indigo-400 block font-bold mb-1">恋愛・対人:</span>
+                                                <span id="result-love" class="text-indigo-200"></span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <!-- Compatibility Result Area (Target only) -->
-                            <div id="compatibility-result"
-                                class="hidden animate-fade-in bg-gradient-to-r from-pink-500 to-indigo-600 p-1 rounded-xl">
-                                <div class="bg-white rounded-lg p-6 flex flex-col items-center">
-                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Relationship
-                                        Resonance</span>
-                                    <div class="flex items-center gap-4 my-2">
-                                        <div class="text-center">
-                                            <span class="text-[10px] block text-gray-400">You</span>
-                                            <span id="comp-you" class="text-3xl font-bold text-gray-800"></span>
+                                <!-- Compatibility Result Area (Target only) -->
+                                <div id="compatibility-result"
+                                    class="hidden animate-fade-in bg-gradient-to-r from-pink-500 to-indigo-600 p-1 rounded-xl">
+                                    <div class="bg-white rounded-lg p-6 flex flex-col items-center">
+                                        <span
+                                            class="text-xs font-bold text-gray-500 uppercase tracking-widest">Relationship
+                                            Resonance</span>
+                                        <div class="flex items-center gap-4 my-2">
+                                            <div class="text-center">
+                                                <span class="text-[10px] block text-gray-400">You</span>
+                                                <span id="comp-you" class="text-3xl font-bold text-gray-800"></span>
+                                            </div>
+                                            <div class="text-2xl text-pink-400 font-serif">×</div>
+                                            <div class="text-center">
+                                                <span class="text-[10px] block text-gray-400">Partner</span>
+                                                <span id="comp-partner" class="text-3xl font-bold text-gray-800"></span>
+                                            </div>
                                         </div>
-                                        <div class="text-2xl text-pink-400 font-serif">×</div>
-                                        <div class="text-center">
-                                            <span class="text-[10px] block text-gray-400">Partner</span>
-                                            <span id="comp-partner" class="text-3xl font-bold text-gray-800"></span>
+                                        <div id="comp-score-bar"
+                                            class="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
+                                            <div id="comp-score-fill"
+                                                class="bg-pink-500 h-full transition-all duration-1000"
+                                                style="width: 0%">
+                                            </div>
                                         </div>
+                                        <div class="text-2xl font-bold text-pink-600 mb-2">共鳴度: <span
+                                                id="comp-percent">0</span>%</div>
+                                        <p id="comp-message" class="text-sm text-gray-600 text-center leading-relaxed">
+                                        </p>
                                     </div>
-                                    <div id="comp-score-bar"
-                                        class="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
-                                        <div id="comp-score-fill"
-                                            class="bg-pink-500 h-full transition-all duration-1000" style="width: 0%">
-                                        </div>
-                                    </div>
-                                    <div class="text-2xl font-bold text-pink-600 mb-2">共鳴度: <span
-                                            id="comp-percent">0</span>%</div>
-                                    <p id="comp-message" class="text-sm text-gray-600 text-center leading-relaxed"></p>
                                 </div>
-                            </div>
 
-                            <!-- Famous People Match Section -->
-                            <div id="famous-section" class="hidden animate-fade-in">
-                                <h4 class="text-xs font-bold text-indigo-400 mb-3 ml-2 uppercase tracking-tighter">
-                                    同じエネルギーを持つ先駆者たち</h4>
-                                <div id="famous-list" class="flex flex-wrap gap-2">
-                                    <!-- JS populate -->
+                                <!-- Famous People Match Section -->
+                                <div id="famous-section" class="hidden animate-fade-in">
+                                    <h4 class="text-xs font-bold text-indigo-400 mb-3 ml-2 uppercase tracking-tighter">
+                                        同じエネルギーを持つ先駆者たち</h4>
+                                    <div id="famous-list" class="flex flex-wrap gap-2">
+                                        <!-- JS populate -->
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </main>
             </div>
-            </main>
-        </div>
         </div>
         <div
             class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex flex-col items-center justify-center p-8 overflow-hidden">
@@ -949,8 +960,8 @@
             }
 
             showNumberDetail(lifePath);
-            updateCycleChart(lifePath);
-            if (window.innerWidth < 768) document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+            if (window.cycleChart) updateCycleChart(lifePath, month, day);
+            document.getElementById('result-area').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function scrollToSection(id) {
@@ -1085,10 +1096,13 @@
             });
         });
 
-        function updateCycleChart(lifePath) {
+        function updateCycleChart(lifePath, birthMonth, birthDay) {
             const currentYear = new Date().getFullYear();
-            // Simple logic for plotting: (Current Year - Birth Year + LifePath) % 9
-            const yearIndex = (lifePath + 1) % 9; // Placeholder for demo logic
+            // Accurate Personal Year Calculation: (Current Year + Birth Month + Birth Day) reduced
+            const digits = `${currentYear}${birthMonth}${birthDay}`.split('').map(Number);
+            const personalYear = reduceNumber(digits.reduce((a, b) => a + b, 0));
+            // Map 1-9 to 0-8 for chart index. Master numbers 11 -> 2, etc. (cycle is 9 years)
+            const yearIndex = (reduceNumber(personalYear) - 1) % 9;
             window.currentYearIdx = yearIndex;
             window.cycleChart.update();
         }
