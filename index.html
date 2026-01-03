@@ -7,31 +7,44 @@
     <title>Triscope - 神秘学と心理学の探究ポータル</title>
     <link rel="stylesheet" href="assets/css/style.css">
     <style>
-        /* Iframe specific styles */
-        .content-frame {
+        /* Content area with background logo */
+        .content-wrapper {
             flex: 1;
             margin-left: 280px;
             height: 100vh;
-            border: none;
-            background: var(--bg-color);
+            position: relative;
+            background: linear-gradient(135deg, #f8f7ff 0%, #FDFBF7 50%, #fef7ed 100%);
         }
 
-        @media (max-width: 1024px) {
-            .content-frame {
-                margin-left: 80px;
-            }
-        }
-
-        /* Enhanced Logo for x4 version */
-        .logo-icon {
-            width: 64px;
-            height: 64px;
+        .content-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-image: url('assets/images/triscope_logo_x4.png');
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            border-radius: 8px;
-            filter: drop-shadow(0 0 12px rgba(138, 43, 226, 0.6));
+            opacity: 0.15;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            position: relative;
+            z-index: 1;
+            background: transparent;
+        }
+
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                margin-left: 80px;
+            }
         }
     </style>
 </head>
@@ -39,9 +52,6 @@
 <body>
     <div class="app-container">
         <aside class="sidebar">
-            <div class="logo-container">
-                <div class="logo-icon"></div>
-            </div>
             <nav>
                 <ul class="nav-list">
                     <li class="nav-item">
@@ -105,7 +115,9 @@
             </nav>
         </aside>
 
-        <iframe id="content-frame" class="content-frame" src="home.html" name="content-frame"></iframe>
+        <div class="content-wrapper">
+            <iframe id="content-frame" class="content-frame" src="home.html" name="content-frame"></iframe>
+        </div>
     </div>
 
     <script>

@@ -1,14 +1,14 @@
 :root {
-    --bg-color: #0d0d12;
-    --sidebar-bg: rgba(20, 20, 30, 0.8);
-    --card-bg: rgba(30, 30, 45, 0.6);
-    --accent-primary: #8a2be2;
-    --accent-secondary: #4b0082;
-    --accent-gold: #ffd700;
-    --text-main: #e0e0e0;
-    --text-muted: #a0a0a0;
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --bg-color: #FDFBF7;
+    --sidebar-bg: rgba(255, 255, 255, 0.95);
+    --card-bg: rgba(255, 255, 255, 0.9);
+    --accent-primary: #6366f1;
+    --accent-secondary: #8b5cf6;
+    --accent-gold: #d97706;
+    --text-main: #1f2937;
+    --text-muted: #6b7280;
+    --glass-border: rgba(99, 102, 241, 0.15);
+    --font-family: 'Noto Sans JP', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
@@ -23,7 +23,7 @@ body {
     font-family: var(--font-family);
     line-height: 1.6;
     overflow-x: hidden;
-    background: radial-gradient(circle at 50% 50%, #1a1a2e 0%, #0d0d12 100%);
+    background: linear-gradient(135deg, #f8f7ff 0%, #FDFBF7 50%, #fef7ed 100%);
     min-height: 100vh;
 }
 
@@ -88,7 +88,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0.8rem 1rem;
-    color: var(--text-muted);
+    color: #4b5563;
     text-decoration: none;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -96,16 +96,16 @@ body {
 
 .nav-link:hover,
 .nav-link.active {
-    background: rgba(138, 43, 226, 0.15);
-    color: #fff;
-    box-shadow: inset 0 0 10px rgba(138, 43, 226, 0.1);
+    background: rgba(99, 102, 241, 0.1);
+    color: #4f46e5;
+    box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.05);
 }
 
 .nav-link.active::before {
     content: '';
     width: 4px;
     height: 20px;
-    background: var(--accent-gold);
+    background: var(--accent-primary);
     position: absolute;
     left: 0;
     border-radius: 0 4px 4px 0;
@@ -155,9 +155,10 @@ body {
 h1 {
     font-size: 2.5rem;
     margin-bottom: 1.5rem;
-    background: linear-gradient(to bottom, #fff, #bdbdbd);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    color: #1f2937;
+    background: none;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: unset;
 }
 
 h2 {
@@ -171,7 +172,7 @@ h2 {
 h3 {
     font-size: 1.3rem;
     margin: 1.5rem 0 1rem;
-    color: #fff;
+    color: #374151;
 }
 
 p {
@@ -363,6 +364,6 @@ input:focus {
 .home-content {
     padding: 2rem 4rem;
     max-width: 1200px;
-    background: var(--bg-color);
+    background: transparent;
     min-height: 100vh;
 }
