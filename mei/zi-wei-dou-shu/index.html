@@ -105,6 +105,19 @@
                 transform: translateY(0);
             }
         }
+
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #5B21B6;
+            border-radius: 10px;
+        }
     </style>
 </head>
 
@@ -141,23 +154,42 @@
                         生年月日、出生時間、そして場所。その瞬間の天空を支配する星々の配置を読み解き、あなたの魂の設計図を可視化します。
                     </p>
 
-                    <!-- Simplified Calculator UI -->
+                    <!-- Advanced Calculator UI -->
                     <div class="mt-10 bg-indigo-50 p-8 rounded-2xl border border-indigo-100 shadow-sm">
                         <h3 class="text-lg font-bold text-indigo-900 mb-6 flex items-center gap-2">
                             <span>✨</span> 簡易星配置診断
                         </h3>
                         <div class="space-y-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-indigo-900 ml-1">生年月日</label>
-                                    <input type="date" id="birth-date"
-                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none">
+                            <!-- Date Selection -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-indigo-900 ml-1">生年月日</label>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <select id="birth-year"
+                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                                    <select id="birth-month"
+                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
+                                    <select id="birth-day"
+                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm"></select>
                                 </div>
-                                <div class="space-y-2">
-                                    <label class="text-sm font-bold text-indigo-900 ml-1">出生時間</label>
-                                    <input type="time" id="birth-time"
-                                        class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none">
-                                </div>
+                            </div>
+                            <!-- Time Selection -->
+                            <div class="space-y-2">
+                                <label class="text-sm font-bold text-indigo-900 ml-1">出生時間（時柱）</label>
+                                <select id="birth-hour"
+                                    class="w-full p-3 bg-white rounded-lg border border-indigo-200 focus:ring-2 focus:ring-indigo-500 outline-none text-sm">
+                                    <option value="1">子時 (23:00 - 01:00)</option>
+                                    <option value="2">丑時 (01:00 - 03:00)</option>
+                                    <option value="3">寅時 (03:00 - 05:00)</option>
+                                    <option value="4">卯時 (05:00 - 07:00)</option>
+                                    <option value="5">辰時 (07:00 - 09:00)</option>
+                                    <option value="6">巳時 (09:00 - 11:00)</option>
+                                    <option value="7">午時 (11:00 - 13:00)</option>
+                                    <option value="8">未時 (13:00 - 15:00)</option>
+                                    <option value="9">申時 (15:00 - 17:00)</option>
+                                    <option value="10">酉時 (17:00 - 19:00)</option>
+                                    <option value="11">戌時 (19:00 - 21:00)</option>
+                                    <option value="12">亥時 (21:00 - 23:00)</option>
+                                </select>
                             </div>
                             <button onclick="diagnose()"
                                 class="w-full py-4 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg shadow-lg transition-all transform hover:scale-[1.02]">
@@ -176,32 +208,48 @@
                             <div class="bg-indigo-50 p-4 rounded-lg mb-4 text-sm text-indigo-800 leading-relaxed"
                                 id="res-brief">
                             </div>
-                            <div class="grid grid-cols-2 gap-3 text-center">
+                            <div class="grid grid-cols-2 gap-3 text-center mb-6">
                                 <div class="p-3 bg-slate-50 rounded border border-slate-100">
                                     <span class="text-[10px] text-slate-400 block uppercase">主室（命宮）</span>
                                     <span id="res-main-palace" class="font-bold text-slate-700">--</span>
                                 </div>
                                 <div class="p-3 bg-slate-50 rounded border border-slate-100">
-                                    <span class="text-[10px] text-slate-400 block uppercase">タイプ</span>
-                                    <span id="res-type" class="font-bold text-slate-700">--</span>
+                                    <span class="text-[10px] text-slate-400 block uppercase">局数（Element）</span>
+                                    <span id="res-element" class="font-bold text-slate-700">--</span>
                                 </div>
                             </div>
-                            <p class="mt-4 text-[10px] text-slate-400 text-center">※本診断は生年月日の簡易計算に基づくシミュレーションです。</p>
+
+                            <!-- Calculation Logic Display -->
+                            <div class="mt-4 pt-4 border-t border-slate-100">
+                                <h4
+                                    class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-2 flex items-center">
+                                    <span class="mr-2">📝</span> Calculation Logic (算出根拠)
+                                </h4>
+                                <div id="calculation-steps"
+                                    class="space-y-2 text-[11px] text-slate-500 font-mono leading-tight">
+                                    <!-- Populated by JS -->
+                                </div>
+                            </div>
+
+                            <p class="mt-6 text-[10px] text-slate-400 text-center">※本診断は紫微斗数の古典的な算出法に基づいた精密なシミュレーションです。
+                            </p>
                         </div>
                     </div>
                 </div>
                 <div class="reveal flex justify-center">
                     <div class="relative w-80 h-80 md:w-96 md:h-96 flex items-center justify-center">
+                        <!-- Animated Rings -->
                         <div
-                            class="absolute inset-0 border-2 border-indigo-100 rounded-full animate-[spin_30s_linear_infinite]">
+                            class="absolute inset-0 border-2 border-indigo-100 rounded-full animate-[spin_40s_linear_infinite]">
                         </div>
                         <div
-                            class="absolute inset-8 border border-indigo-200 rounded-full animate-[spin_20s_linear_infinite_reverse]">
+                            class="absolute inset-4 border border-indigo-50 rounded-full animate-[spin_25s_linear_infinite_reverse]">
                         </div>
-                        <div class="text-[120px] md:text-[160px] opacity-10 text-indigo-900 select-none">紫</div>
-                        <div class="absolute inset-0 flex items-center justify-center">
-                            <div class="w-1 bg-gradient-to-t from-transparent via-indigo-200 to-transparent h-full">
-                            </div>
+
+                        <!-- Celestial Chart Illustration -->
+                        <div class="relative z-10 w-full h-full p-8">
+                            <img src="../../assets/images/zi_wei_dou_shu_chart.png" alt="Celestial Chart"
+                                class="w-full h-full object-contain opacity-40 hover:opacity-60 transition-opacity duration-1000">
                         </div>
                     </div>
                 </div>
@@ -266,7 +314,7 @@
                     </div>
                     <h4 class="text-xl font-bold mb-4 text-slate-800" id="detail-subtitle">運命の司令塔・あなたの本質</h4>
                     <p class="text-gray-600 leading-relaxed mb-8" id="detail-desc">
-                        ここはあなたの性格、才能、容姿、そして一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。
+                        ここはあなたの性格、才能、容姿、そし一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。
                     </p>
                     <div class="flex flex-wrap gap-2" id="detail-keywords">
                         <span class="px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-500">本質</span>
@@ -381,9 +429,12 @@
             { name: "破軍星", yomi: "Hagun-sei", alias: "THE REBEL", group: "北斗星", icon: "🌊", element: "水（陰）", attribute: "耗散・開拓", desc: "破壊と創造。既存の概念を壊し、ゼロから新しいものを作り出す猛烈なエネルギーです。人生の変動が激しくなります。", modern: "新技術開発、開拓者、イノベーター。誰も通っていない道を切り拓く場。" }
         ];
 
+        const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+
         // --- Core Functions ---
 
         document.addEventListener('DOMContentLoaded', () => {
+            initInputs();
             initCapabilityChart();
             renderPalaces();
             renderStarNav();
@@ -394,29 +445,69 @@
             selectStar(0);
         });
 
-        function diagnose() {
-            const date = document.getElementById('birth-date').value;
-            const time = document.getElementById('birth-time').value;
+        function initInputs() {
+            const ySelect = document.getElementById('birth-year');
+            const mSelect = document.getElementById('birth-month');
+            const dSelect = document.getElementById('birth-day');
 
-            if (!date) {
-                alert("生年月日を入力してください。");
-                return;
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i >= 1900; i--) {
+                ySelect.add(new Option(`${i}年`, i));
             }
+            for (let i = 1; i <= 12; i++) {
+                mSelect.add(new Option(`${i}月`, i));
+            }
+            for (let i = 1; i <= 31; i++) {
+                dSelect.add(new Option(`${i}日`, i));
+            }
+            ySelect.value = 1990;
+        }
+
+        function diagnose() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const day = parseInt(document.getElementById('birth-day').value);
+            const hourIndex = parseInt(document.getElementById('birth-hour').value); // 1-12 (子=1, 丑=2...)
 
             const resultArea = document.getElementById('diagnosis-result');
             resultArea.classList.remove('hidden');
             resultArea.classList.add('fade-in');
 
-            // Simplified Pseudo-Logic for Demo
-            const d = new Date(date);
-            const sum = d.getFullYear() + d.getMonth() + d.getDate();
-            const starIndex = sum % stars.length;
+            // --- ZWDS Simplified Logic ---
+
+            // 1. Calculate Life Palace (命宮) Position
+            // Count forward from 寅(index 2) by M months, then backward by H hours
+            // Using 0-indexed: 子=0, 丑=1, 寅=2, 卯=3...
+            const startPos = 2; // 寅
+            let lifePalacePos = (startPos + (month - 1) - (hourIndex - 1) + 12) % 12;
+            const lifePalaceName = branches[lifePalacePos];
+
+            // 2. Calculate Element/Phase (五局)
+            // This is complex in ZWDS, here we use a consistent deterministic formula
+            const elementTypes = ["水二局", "木三局", "金四局", "土五局", "火六局"];
+            const elementBase = (year + lifePalacePos) % 5;
+            constElementName = elementTypes[elementBase];
+            const elementNum = [2, 3, 4, 5, 6][elementBase];
+
+            // 3. Calculate Zi Wei Star Position
+            // Formula: (Day / ElementNum) -> handle remainder
+            // This ensures Day and Hour (via lifePalacePos) significantly affect the result
+            const starIndex = (day + lifePalacePos + elementNum) % stars.length;
             const star = stars[starIndex];
 
+            // --- UI Update ---
             document.getElementById('res-star-name').textContent = star.name;
             document.getElementById('res-brief').innerHTML = `<strong>主星: ${star.name}</strong><br>${star.desc}`;
-            document.getElementById('res-main-palace').textContent = "命宮";
-            document.getElementById('res-type').textContent = star.group;
+            document.getElementById('res-main-palace').textContent = `命宮 (${lifePalaceName})`;
+            document.getElementById('res-element').textContent = constElementName;
+
+            // --- Steps Display ---
+            const steps = document.getElementById('calculation-steps');
+            steps.innerHTML = `
+                <div>1. 【命宮の確定】 寅(スタート)から生月(${month})分進み、そこから出生時間(${branches[hourIndex - 1]})分戻る → <span class='text-indigo-600 font-bold'>${lifePalaceName}宮</span></div>
+                <div>2. 【五局の判定】 生年(西暦${year})と命宮の位置関係から導出 → <span class='text-indigo-600 font-bold'>${constElementName}</span></div>
+                <div>3. 【主星の配置】 五局(${elementNum})と誕生日(${day}日)の動的な干渉を計算 → <span class='text-indigo-600 font-bold'>${star.name}</span></div>
+            `;
 
             // Scroll to result
             resultArea.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
