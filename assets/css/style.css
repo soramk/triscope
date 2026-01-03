@@ -73,6 +73,7 @@ body {
     letter-spacing: 1px;
     background: linear-gradient(to right, #fff, #a0a0a0);
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
 }
 
@@ -120,7 +121,7 @@ body {
 .nav-group-title {
     display: block;
     padding: 0.5rem 1rem;
-    font-size: 0.75rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--accent-gold);
     text-transform: uppercase;
@@ -139,8 +140,15 @@ body {
 }
 
 .nav-sublist .nav-link {
-    padding: 0.5rem 1rem;
-    font-size: 0.85rem;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+}
+
+.nav-link i,
+.nav-link svg {
+    margin-right: 0.8rem;
+    width: 20px;
+    height: 20px;
 }
 
 /* Main Content */
@@ -158,6 +166,7 @@ h1 {
     color: #1f2937;
     background: none;
     -webkit-background-clip: unset;
+    background-clip: unset;
     -webkit-text-fill-color: unset;
 }
 
@@ -233,6 +242,15 @@ p {
 .portal-card-icon {
     font-size: 3rem;
     margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.portal-card-icon svg {
+    width: 48px;
+    height: 48px;
+    stroke-width: 1.5;
+    color: var(--accent-primary);
 }
 
 .portal-card h3 {

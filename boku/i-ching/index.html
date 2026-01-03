@@ -35,6 +35,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* bodyスタイルは common.css で定義 */
 
@@ -188,7 +189,7 @@
         <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center cursor-pointer" onclick="window.scrollTo(0,0)">
-                    <div class="text-3xl text-red-700 mr-3">☯</div>
+                    <div class="text-3xl text-red-700 mr-3"><i data-lucide="circle-dashed"></i></div>
                     <div>
                         <h1 class="text-xl font-bold tracking-wider text-stone-900 serif">易 (Eki)</h1>
                         <p class="text-[10px] text-stone-500 serif uppercase tracking-widest">The Book of Changes</p>
@@ -210,7 +211,7 @@
                     <!-- Mobile menu simple toggle -->
                     <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
                         class="text-stone-500 hover:text-stone-900 p-2">
-                        <span class="text-2xl">≡</span>
+                        <i data-lucide="menu"></i>
                     </button>
                 </div>
             </div>
@@ -250,7 +251,7 @@
                     <button onclick="scrollToSection('simulation')"
                         class="bg-red-700 text-white px-8 py-3 rounded-full hover:bg-red-800 transition shadow-lg text-sm tracking-widest uppercase flex items-center justify-center gap-2">
                         <span>易を体験する</span>
-                        <span class="text-lg">→</span>
+                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
                 </div>
             </div>
@@ -298,7 +299,9 @@
                 <!-- Card 1: Bokujutsu (Highlight) -->
                 <div
                     class="bg-white p-8 rounded-xl shadow-lg border-t-4 border-red-700 hover:shadow-2xl transition-all transform hover:-translate-y-1 group">
-                    <div class="text-5xl mb-6 text-center group-hover:scale-110 transition-transform duration-300">🎲
+                    <div
+                        class="text-5xl mb-6 text-center group-hover:scale-110 transition-transform duration-300 text-red-700 flex justify-center">
+                        <i data-lucide="dice-5" class="w-12 h-12"></i>
                     </div>
                     <h4 class="text-2xl font-bold text-center mb-2 serif text-stone-800">卜術 (Bokujutsu)</h4>
                     <p class="text-center text-xs text-red-600 font-bold mb-4 tracking-widest uppercase">易・タロット・ルーン</p>
@@ -311,7 +314,9 @@
                 <!-- Card 2: Meijutsu -->
                 <div
                     class="bg-[#f5f5f4] p-8 rounded-xl shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
-                    <div class="text-5xl mb-6 text-center opacity-70">📅</div>
+                    <div class="text-5xl mb-6 text-center opacity-70 text-stone-500 flex justify-center">
+                        <i data-lucide="calendar" class="w-12 h-12"></i>
+                    </div>
                     <h4 class="text-xl font-bold text-center mb-2 serif text-stone-700">命術 (Meijutsu)</h4>
                     <p class="text-center text-xs text-stone-500 mb-4 tracking-widest uppercase">四柱推命・西洋占星術</p>
                     <p class="text-stone-500 text-sm leading-7">
@@ -323,7 +328,9 @@
                 <!-- Card 3: Sojutsu -->
                 <div
                     class="bg-[#f5f5f4] p-8 rounded-xl shadow-sm hover:bg-white hover:shadow-md transition-all duration-300">
-                    <div class="text-5xl mb-6 text-center opacity-70">👀</div>
+                    <div class="text-5xl mb-6 text-center opacity-70 text-stone-500 flex justify-center">
+                        <i data-lucide="eye" class="w-12 h-12"></i>
+                    </div>
                     <h4 class="text-xl font-bold text-center mb-2 serif text-stone-700">相術 (Sojutsu)</h4>
                     <p class="text-center text-xs text-stone-500 mb-4 tracking-widest uppercase">手相・人相・風水</p>
                     <p class="text-stone-500 text-sm leading-7">
@@ -391,7 +398,7 @@
                         <!-- Interpretation Guide (New Detail) -->
                         <div class="mt-12 bg-amber-50 p-6 rounded-xl border border-amber-100">
                             <h4 class="text-sm font-bold text-amber-900 mb-3 flex items-center gap-2">
-                                <span>📖 卦を読み解く3要素</span>
+                                <i data-lucide="book-open" class="w-4 h-4"></i> <span>卦を読み解く3要素</span>
                             </h4>
                             <div class="grid grid-cols-3 gap-4 text-center">
                                 <div>
@@ -642,7 +649,9 @@
                     </div>
                     <h4 class="text-xl font-bold text-red-800 mb-6 flex items-center relative z-10">
                         <span
-                            class="w-8 h-8 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-3 text-sm">◎</span>
+                            class="w-8 h-8 rounded-full bg-red-100 text-red-700 flex items-center justify-center mr-3">
+                            <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                        </span>
                         得意なこと
                     </h4>
                     <ul class="space-y-4 relative z-10">
@@ -673,7 +682,9 @@
                 <div class="bg-stone-50 border border-stone-200 rounded-xl p-8 relative overflow-hidden">
                     <h4 class="text-xl font-bold text-stone-600 mb-6 flex items-center">
                         <span
-                            class="w-8 h-8 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center mr-3 text-sm">✕</span>
+                            class="w-8 h-8 rounded-full bg-stone-200 text-stone-500 flex items-center justify-center mr-3">
+                            <i data-lucide="x-circle" class="w-5 h-5"></i>
+                        </span>
                         苦手なこと
                     </h4>
                     <ul class="space-y-4">
@@ -845,7 +856,7 @@
                             <!-- Lines will be injected here by JS -->
                             <div class="h-full flex flex-col items-center justify-center text-stone-400 italic space-y-4"
                                 id="empty-state">
-                                <span class="text-4xl opacity-20">☰</span>
+                                <i data-lucide="layers" class="w-12 h-12 opacity-20"></i>
                                 <span class="text-sm">コインを投げると、<br>ここに卦（け）が現れます</span>
                             </div>
                         </div>
@@ -1298,6 +1309,9 @@
         window.addEventListener('DOMContentLoaded', () => {
             initChart();
             initGallery();
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
         });
 
     </script>
