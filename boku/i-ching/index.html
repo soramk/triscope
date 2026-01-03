@@ -27,7 +27,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>易経 (I Ching): 変化の書</title>
+    <title>易経 (I Ching): 変化の書 | Triscope</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link
@@ -199,9 +199,11 @@
                     <button onclick="scrollToSection('overview')"
                         class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">概要と特性</button>
                     <button onclick="scrollToSection('logic')"
-                        class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">理論と根拠</button>
+                        class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">理論と歴史</button>
                     <button onclick="scrollToSection('capabilities')"
                         class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">得意・不得意</button>
+                    <button onclick="scrollToSection('gallery')"
+                        class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">六十四卦</button>
                     <button onclick="scrollToSection('simulation')"
                         class="nav-btn text-stone-600 hover:text-stone-900 px-3 py-2 text-sm font-medium transition-colors">実践シミュレーション</button>
                 </nav>
@@ -218,9 +220,13 @@
                 <button onclick="scrollToSection('overview')"
                     class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">概要と特性</button>
                 <button onclick="scrollToSection('logic')"
-                    class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">理論と根拠</button>
+                    class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">理論と歴史</button>
+                <button onclick="scrollToSection('bagua')"
+                    class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">八卦の象徴</button>
                 <button onclick="scrollToSection('capabilities')"
                     class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">得意・不得意</button>
+                <button onclick="scrollToSection('gallery')"
+                    class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">六十四卦</button>
                 <button onclick="scrollToSection('simulation')"
                     class="block w-full text-left px-4 py-2 text-stone-600 hover:bg-stone-100">実践シミュレーション</button>
             </div>
@@ -265,6 +271,28 @@
                     占術は大きく「命・卜・相（めい・ぼく・そう）」の3つに分類されます。易はその中で<strong>「卜術（ぼくじゅつ）」</strong>の最高峰とされています。<br>
                     偶然性の中に必然を見出す、シンクロニシティ（共時性）の芸術です。
                 </p>
+            </div>
+
+            <!-- The Three Meanings (New Philosophy Section) -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
+                    <h5 class="text-amber-500 font-bold mb-2 serif">変易 (Hen'eki)</h5>
+                    <p class="text-[11px] leading-relaxed">
+                        宇宙のあらゆるものは、常に変化し続けているという真理。現状に執着せず、変化の波を捉える重要性を説きます。
+                    </p>
+                </div>
+                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
+                    <h5 class="text-amber-500 font-bold mb-2 serif">不易 (Fueki)</h5>
+                    <p class="text-[11px] leading-relaxed">
+                        万物は変化するが、その変化を支配する「法則」だけは永遠に変わらないということ。易はその不変のルールを読み解きます。
+                    </p>
+                </div>
+                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
+                    <h5 class="text-amber-500 font-bold mb-2 serif">簡易 (Kan'i)</h5>
+                    <p class="text-[11px] leading-relaxed">
+                        一見複雑に見える宇宙の現象も、突き詰めれば「陰」と「陽」という非常にシンプルな原理から成り立っているという考えです。
+                    </p>
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
@@ -353,10 +381,31 @@
                                         3</div>
                                 </div>
                                 <div>
-                                    <h4 class="font-bold text-lg text-stone-800">歴史的変遷 (Evolution)</h4>
+                                    <h4 class="font-bold text-lg text-stone-800">周易と十翼 (Origins & Philosophy)</h4>
                                     <p class="text-stone-600 mt-2 text-sm leading-relaxed">
-                                        伝説上の伏儀（ふぎ）が八卦を作り、周の文王が64卦に整理し、孔子が哲学的解釈を加えました。古代中国の政治判断から、個人の処世術へと3000年以上かけて進化を遂げてきました。
+                                        易の最も基本的なテキストは「周易」と呼ばれます。伝説上の伏儀（ふぎ）が基盤を作り、周の文王が64卦に整理し、孔子が「十翼」と呼ばれる解説を加え、単なる占いから深遠な哲学へと昇華させました。
                                     </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Interpretation Guide (New Detail) -->
+                        <div class="mt-12 bg-amber-50 p-6 rounded-xl border border-amber-100">
+                            <h4 class="text-sm font-bold text-amber-900 mb-3 flex items-center gap-2">
+                                <span>📖 卦を読み解く3要素</span>
+                            </h4>
+                            <div class="grid grid-cols-3 gap-4 text-center">
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">卦辞 (Kaji)</p>
+                                    <p class="text-[10px] text-stone-500 mt-1">卦全体の意味</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">爻辞 (Koji)</p>
+                                    <p class="text-[10px] text-stone-500 mt-1">各ラインの意味</p>
+                                </div>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-xs">象伝 (Shoden)</p>
+                                    <p class="text-[10px] text-stone-500 mt-1">自然界に例えた訓示</p>
                                 </div>
                             </div>
                         </div>
@@ -393,11 +442,193 @@
             </div>
         </section>
 
-        <!-- 3. Capabilities (Interactive List) -->
-        <section id="capabilities" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+        <!-- 3. The Eight Trigrams (NEW Section) -->
+        <section id="bagua" class="py-24 bg-stone-50 scroll-mt-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span
+                        class="text-red-700 font-bold tracking-widest uppercase text-xs border-b border-red-700 pb-1">03.
+                        The Eight Trigrams</span>
+                    <h3 class="text-3xl font-bold text-stone-800 mt-4 serif">八卦：万物を構成する8つのシンボル</h3>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto leading-relaxed text-sm">
+                        易の64卦は、以下の「八卦（はっけ）」の上下の組み合わせでできています。それぞれの八卦は自然界の事象と、家族構成や性質を象徴しています。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Trigram 1: Heaven -->
+                    <div
+                        class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition group">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="h-1 bg-stone-800"></div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">乾 (Ken)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">天 / 剛健</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            父、創造性、力強さ。すべてを包み込むリーダーシップと、絶え間ない進歩を象徴します。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 2: Earth -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">坤 (Kon)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">地 / 順応</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            母、受容性、献身。万物を育む大地のように、他者に寄り添い支える力を象徴します。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 3: Thunder -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="h-1 bg-stone-800"></div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">震 (Shin)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">雷 / 動感</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            長男、活動、決断。雷鳴のように人を目覚めさせ、勢いよく物事を動かすエネルギー。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 4: Wind -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">巽 (Son)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">風 / 浸透</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            長女、柔軟、調和。風のように隅々まで行き渡り、しなやかに対応する柔軟な知恵。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 5: Water -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">坎 (Kan)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">水 / 困難</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            次男、深層、知略。厳しい環境や心の暗部を示唆しますが、それを乗り越える強い意志。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 6: Fire -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="h-1 bg-stone-800"></div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">離 (Ri)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">火 / 明晰</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            次女、情熱、付着。明かりのように真実を照らし出し、美しさや直感力をもたらします。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 7: Mountain -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">艮 (Gon)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">山 / 静止</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            三男、堅実、内省。立ち止まる勇気や、不動の信念。今は動かず土台を固める時期。
+                        </p>
+                    </div>
+
+                    <!-- Trigram 8: Marsh -->
+                    <div class="bg-white p-6 rounded-xl shadow-sm border border-stone-100 hover:shadow-md transition">
+                        <div class="text-center mb-4">
+                            <div class="flex flex-col gap-1 w-12 mx-auto mb-3">
+                                <div class="flex justify-between h-1">
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                    <div class="w-[42%] bg-stone-800"></div>
+                                </div>
+                                <div class="h-1 bg-stone-800"></div>
+                                <div class="h-1 bg-stone-800"></div>
+                            </div>
+                            <h4 class="text-xl font-bold serif text-stone-800">兌 (Da)</h4>
+                            <p class="text-red-700 text-xs font-bold mt-1">沢 / 歓喜</p>
+                        </div>
+                        <p class="text-xs text-stone-500 leading-relaxed">
+                            三女、喜び、交流。実り豊かな収穫や、人々との楽しい語らい、心の潤いを象徴します。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Capabilities (Interactive List) -->
+        <section id="capabilities" class="py-20 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto scroll-mt-16">
             <div class="text-center mb-12">
                 <span
-                    class="text-stone-400 font-bold tracking-widest uppercase text-xs border-b border-stone-300 pb-1">03.
+                    class="text-stone-400 font-bold tracking-widest uppercase text-xs border-b border-stone-300 pb-1">04.
                     Capabilities</span>
                 <h3 class="text-3xl font-bold text-stone-800 mt-4 serif">易で「わかること」・「わからないこと」</h3>
                 <p class="text-stone-600 mt-2 max-w-xl mx-auto">易は万能ではありません。その特性を正しく理解することで、より深い洞察が得られます。</p>
@@ -465,19 +696,87 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- How to Ask Section (New) -->
+            <div class="mt-16 bg-white border border-stone-200 rounded-2xl p-8 lg:p-12 shadow-sm">
+                <div class="flex flex-col md:flex-row gap-12">
+                    <div class="md:w-1/3">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-4">易への正しい「問いかけ方」</h4>
+                        <p class="text-stone-500 text-sm leading-relaxed">
+                            易はあなたの鏡です。問いが曖昧であれば、答えも曖昧になります。より深い洞察を得るための3つのポイントを紹介します。
+                        </p>
+                    </div>
+                    <div class="md:w-2/3 grid grid-cols-1 sm:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                <span class="text-red-700">1.</span> 具体的なアクションを問う
+                            </h5>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                「私はどうなりますか？」という受け身の問いより、「〇〇という行動を起こした場合の成り行きは？」と、自分の主体性を入れた問いの方が明確な指針が得られます。
+                            </p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                <span class="text-red-700">2.</span> 二者択一で比較する
+                            </h5>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                迷いがある時は、A案とB案それぞれについて別々に占ってみましょう。卦を比較することで、それぞれの道にあるリスクや恩恵が浮き彫りになります。
+                            </p>
+                        </div>
+                        <div>
+                            <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                <span class="text-red-700">3.</span> 一度きりの真剣勝負（初筮）
+                            </h5>
+                            <p class="text-xs text-stone-600 leading-relaxed">
+                                望まない結果が出たからと何度も占うのは、易の知恵を軽んじる行為とされます（再筮せず）。その結果をどう活かすかを考えることこそが「易」の活用法です。
+                            </p>
+                        </div>
+                        <div class="bg-stone-50 p-4 rounded-lg border border-dashed border-stone-300">
+                            <p class="text-[10px] text-stone-400 uppercase tracking-widest mb-2">Good Example</p>
+                            <p class="text-xs font-bold text-stone-700 italic">
+                                「今、転職に向けて準備を始めるべきでしょうか、それとも今の職場で実力を蓄えるべきでしょうか？」</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
-        <!-- 4. Interactive Simulation (The Core Experience) -->
-        <section id="simulation" class="py-24 bg-[#1c1917] text-stone-100 relative overflow-hidden">
+        <!-- 5. 64 Hexagrams Gallery (New) -->
+        <section id="gallery" class="py-24 bg-stone-100 scroll-mt-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span
+                        class="text-stone-500 font-bold tracking-widest uppercase text-xs border-b border-stone-400 pb-1">05.
+                        64 Hexagrams</span>
+                    <h3 class="text-3xl font-bold text-stone-800 mt-4 serif">六十四卦の宇宙</h3>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto leading-relaxed text-sm">
+                        八卦が上下に重なることで生まれる64の物語。これらは人生のあらゆる局面、変化のあらゆるステージを網羅していると言われています。
+                    </p>
+                </div>
+
+                <!-- Hexagram Grid -->
+                <div id="hex-grid" class="grid grid-cols-4 sm:grid-cols-8 md:grid-cols-8 lg:grid-cols-16 gap-2">
+                    <!-- Injected by JavaScript -->
+                </div>
+
+                <div class="mt-12 text-center">
+                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Hover icons to see the binary
+                        essence</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. Interactive Simulation (The Core Experience) -->
+        <section id="simulation" class="py-24 bg-[#1c1917] text-stone-100 relative overflow-hidden scroll-mt-16">
             <!-- Background Texture -->
             <div class="absolute inset-0 opacity-5 pointer-events-none"
-                style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0wIDQwaDQwVjBIMHY0MHptMjAgMjBoMjB2MjBIMjBWNjB6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjEiLz48L2c+PC9zdmc+');">
+                style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9MTAgNDBoNDBWMEgwVjQwem0yMCAyMGgyMHYyMEgyMFY2MHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMSIvPjwvZz48L3N2Zz4=');">
             </div>
 
             <div class="max-w-5xl mx-auto px-4 relative z-10">
                 <div class="text-center mb-12">
                     <span
-                        class="text-amber-500 font-bold tracking-widest uppercase text-xs border-b border-amber-500 pb-1">04.
+                        class="text-amber-500 font-bold tracking-widest uppercase text-xs border-b border-amber-500 pb-1">06.
                         Simulation</span>
                     <h3 class="text-4xl font-bold text-white mt-4 serif">実践：擲銭法（てきせんほう）</h3>
                     <p class="text-stone-400 mt-4 max-w-2xl mx-auto leading-relaxed">
@@ -808,21 +1107,39 @@
             btn.classList.add('hidden');
             resetBtn.classList.remove('hidden');
 
-            // Generate a demo interpretation based on the first trigram (bottom 3 lines) just to vary the text slightly
-            // This is a simulation, not a full 64 hexagram engine.
-            const bottomSum = hexagramLines.slice(0, 3).reduce((a, b) => a + b, 0);
-            const isDynamic = hexagramLines.some(l => l === 6 || l === 9);
+            // Dictionary for Trigrams based on binary representation (Yang=0, Yin=1 for bitwise logic here)
+            // But we can just use the sums of 3 lines for a rough "Upper/Lower" identification
+            const getTrigramName = (lines) => {
+                const pattern = lines.map(l => (l === 7 || l === 9) ? "Y" : "y").join("");
+                const trigrams = {
+                    "YYY": "乾（天）",
+                    "yyy": "坤（地）",
+                    "yyY": "震（雷）",
+                    "YYy": "巽（風）",
+                    "yYy": "坎（水）",
+                    "YyY": "離（火）",
+                    "yYY": "艮（山）",
+                    "Yyy": "兌（沢）"
+                };
+                return trigrams[pattern] || "不明";
+            };
+
+            const lowerTrigram = getTrigramName(hexagramLines.slice(0, 3));
+            const upperTrigram = getTrigramName(hexagramLines.slice(3, 6));
 
             hexName.innerText = "易占の結果：変化の兆し";
 
-            let interpretation = "あなたの無意識と偶然が交差し、この形が生まれました。";
+            let interpretation = `あなたの無意識と偶然が交差し、この形が生まれました。<br>
+                                 <span class="text-xs bg-stone-100 px-2 py-1 rounded text-stone-500 inline-block mt-2">構成：上卦 [${upperTrigram}] / 下卦 [${lowerTrigram}]</span>`;
+
+            const isDynamic = hexagramLines.some(l => l === 6 || l === 9);
             if (isDynamic) {
-                interpretation += "<br><br><strong>【変爻あり】</strong> 結果には「老陰」または「老陽」が含まれています。これは状況が大きく動こうとしていることを示唆しています。現状維持よりも、変化を受け入れ、タイミングを見計らって行動することが吉と出るでしょう。";
+                interpretation += "<br><br><strong>【変爻（へんこう）あり】</strong> 結果には「動くライン（老陰・老陽）」が含まれています。これは状況が現在進行形で大きく動こうとしていることを示唆しています。易教の神髄は「変化」にあります。今の結論が最終形ではなく、次の状態（之卦）へと移行するプロセスに注目してください。";
             } else {
-                interpretation += "<br><br><strong>【安定の相】</strong> 結果には変化を示すラインが含まれていません。これは現状が比較的安定している、または今は大きなアクションを起こす時ではないことを示唆しています。足元を固め、内面を充実させる時期です。";
+                interpretation += "<br><br><strong>【不変の卦】</strong> 全てのラインが安定しており、「変化」が生じていない状態です。これは今は動くべき時ではない、あるいは現状のエネルギーが純粋に保たれていることを意味します。焦らず、本来の役割に徹することが吉となります。";
             }
 
-            interpretation += "<br><br><span class='text-xs text-stone-500'>※本来の易占いでは、この6本の組み合わせ（64通り）を「易経」のテキストと照らし合わせ、漢詩のような抽象的な文章から具体的なアドバイスを読み解きます。</span>";
+            interpretation += "<br><br><div class='text-left bg-stone-50 p-3 rounded text-[11px] text-stone-500 space-y-2'><strong>💡 アドバイス:</strong><br>易は「下から上へ」時間が流れると捉えます。一番下のラインは事盤の初期段階、一番上は終局を示します。自分の現状がどの位置にあるか、卦の形から想像してみてください。</div>";
 
             hexDesc.innerHTML = interpretation;
             resultText.classList.remove('hidden');
@@ -850,9 +1167,48 @@
             });
         }
 
+        // --- Hexagram Gallery Generation ---
+        function initGallery() {
+            const grid = document.getElementById('hex-grid');
+            if (!grid) return;
+
+            // Generate 64 hexagrams based on binary 0-63
+            for (let i = 0; i < 64; i++) {
+                const hexWrapper = document.createElement('div');
+                hexWrapper.className = "bg-white p-2 border border-stone-200 rounded flex flex-col items-center justify-center hover:border-red-400 cursor-help transition-colors group";
+
+                const hexLines = document.createElement('div');
+                hexLines.className = "flex flex-col-reverse gap-[1px] w-full";
+
+                // 6 lines
+                for (let line = 0; line < 6; line++) {
+                    const lineDiv = document.createElement('div');
+                    lineDiv.className = "h-[2px] w-full";
+                    // bitwise check: 1 = Yang, 0 = Yin (or vice versa)
+                    const isYang = (i >> line) & 1;
+                    if (isYang) {
+                        lineDiv.className += " bg-stone-800";
+                    } else {
+                        lineDiv.className += " flex justify-between";
+                        lineDiv.innerHTML = '<div class="w-[44%] bg-stone-800"></div><div class="w-[44%] bg-stone-800"></div>';
+                    }
+                    hexLines.appendChild(lineDiv);
+                }
+
+                const label = document.createElement('span');
+                label.className = "text-[8px] text-stone-400 mt-1 font-mono";
+                label.innerText = i.toString(2).padStart(6, '0');
+
+                hexWrapper.appendChild(hexLines);
+                hexWrapper.appendChild(label);
+                grid.appendChild(hexWrapper);
+            }
+        }
+
         // --- Initialization ---
         window.addEventListener('DOMContentLoaded', () => {
             initChart();
+            initGallery();
         });
 
     </script>
