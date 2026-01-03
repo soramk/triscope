@@ -62,11 +62,10 @@
         .hex-line.yin {
             display: flex;
             justify-content: space-between;
+            background-color: transparent !important;
         }
 
-        .hex-line.yin::before,
-        .hex-line.yin::after {
-            content: '';
+        .hex-line-segment {
             width: 42%;
             height: 100%;
             background-color: #1c1917;
@@ -1077,8 +1076,8 @@
             } else {
                 // Yin Base (Broken)
                 lineHTML = `<div class="hex-line yin flex justify-between w-full h-3">
-                    <div class="w-[42%] bg-stone-900 rounded-sm shadow-sm"></div>
-                    <div class="w-[42%] bg-stone-900 rounded-sm shadow-sm relative">`;
+                    <div class="hex-line-segment shadow-sm"></div>
+                    <div class="hex-line-segment shadow-sm relative">`;
                 if (value === 6) {
                     lineHTML += `<span class="absolute -right-10 top-[-4px] text-red-600 text-lg font-bold">✕</span></div></div>`; // Change marker
                     lineLabel = "老陰 (変)";
@@ -1172,31 +1171,49 @@
             const grid = document.getElementById('hex-grid');
             if (!grid) return;
 
+            const trigramMap = {
+                "111": "乾（天）",
+                "000": "坤（地）",
+                "001": "震（雷）",
+                "110": "巽（風）",
+                "010": "坎（水）",
+                "101": "離（火）",
+                "011": "艮（山）",
+                "100": "兌（沢）"
+            };
+
             // Generate 64 hexagrams based on binary 0-63
             for (let i = 0; i < 64; i++) {
                 const hexWrapper = document.createElement('div');
+
+                // Get Lower/Upper patterns for tooltip
+                const lowerPattern = ((i >> 0) & 1).toString() + ((i >> 1) & 1).toString() + ((i >> 2) & 1).toString();
+                const upperPattern = ((i >> 3) & 1).toString() + ((i >> 4) & 1).toString() + ((i >> 5) & 1).toString();
+                const lowerName = trigramMap[lowerPattern] || "?";
+                const upperName = trigramMap[upperPattern] || "?";
+
                 hexWrapper.className = "bg-white p-2 border border-stone-200 rounded flex flex-col items-center justify-center hover:border-red-400 cursor-help transition-colors group";
+                hexWrapper.title = `上卦: ${upperName} / 下卦: ${lowerName}`;
 
                 const hexLines = document.createElement('div');
-                hexLines.className = "flex flex-col-reverse gap-[1px] w-full";
+                hexLines.className = "flex flex-col-reverse gap-[2px] w-full";
 
                 // 6 lines
                 for (let line = 0; line < 6; line++) {
                     const lineDiv = document.createElement('div');
-                    lineDiv.className = "h-[2px] w-full";
-                    // bitwise check: 1 = Yang, 0 = Yin (or vice versa)
+                    lineDiv.className = "h-[3px] w-full";
                     const isYang = (i >> line) & 1;
                     if (isYang) {
                         lineDiv.className += " bg-stone-800";
                     } else {
                         lineDiv.className += " flex justify-between";
-                        lineDiv.innerHTML = '<div class="w-[44%] bg-stone-800"></div><div class="w-[44%] bg-stone-800"></div>';
+                        lineDiv.innerHTML = '<div class="w-[42%] bg-stone-800 h-full"></div><div class="w-[42%] bg-stone-800 h-full"></div>';
                     }
                     hexLines.appendChild(lineDiv);
                 }
 
                 const label = document.createElement('span');
-                label.className = "text-[8px] text-stone-400 mt-1 font-mono";
+                label.className = "text-[7px] text-stone-400 mt-1 font-mono group-hover:text-red-600 transition-colors";
                 label.innerText = i.toString(2).padStart(6, '0');
 
                 hexWrapper.appendChild(hexLines);
