@@ -110,13 +110,16 @@
                     <div class="flex -space-x-2">
                         <div
                             class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-white text-indigo-600">
-                            <i data-lucide="sun" class="w-5 h-5"></i></div>
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </div>
                         <div
                             class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center border-2 border-white text-purple-600">
-                            <i data-lucide="moon" class="w-5 h-5"></i></div>
+                            <i data-lucide="moon" class="w-5 h-5"></i>
+                        </div>
                         <div
                             class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center border-2 border-white text-blue-600">
-                            <i data-lucide="star" class="w-5 h-5"></i></div>
+                            <i data-lucide="star" class="w-5 h-5"></i>
+                        </div>
                     </div>
                     <span class="text-sm font-medium text-slate-400 italic">Explore your celestial blueprint</span>
                 </div>
@@ -711,12 +714,23 @@
             document.getElementById('result-meta').textContent = `${data.dateTime} 生まれ | 出生地: ${data.location}`;
 
             const sunSign = data.planets[0].sign;
-            document.getElementById('res-desc').innerHTML = `あなたは<strong>「${sunSign}」</strong>の太陽を持ち、${getInterpretation(sunSign)}`;
+            const ascSign = data.ascendant.sign;
 
-            // Render Planet Table
+            // ASCと太陽星座を両方明示する
+            document.getElementById('res-desc').innerHTML = `
+                あなたのホロスコープでは、上昇宮（ASC）が<strong>「${ascSign}」</strong>、太陽星座が<strong>「${sunSign}」</strong>に位置しています。<br><br>
+                ${ascSign}の質はあなたの「第一印象や社会への向き向き方」を、${sunSign}の質は「あなたの本質的な人生の目的」を象徴します。<br><br>
+                <strong>${sunSign}の特性:</strong> ${getInterpretation(sunSign)}
+            `;
+
+            // Render Planet Table (including ASC)
             const container = document.getElementById('planet-list-container');
             container.innerHTML = '';
-            data.planets.forEach(p => {
+
+            // Add ASC to the list
+            const allItems = [data.ascendant, ...data.planets];
+
+            allItems.forEach(p => {
                 const row = document.createElement('div');
                 row.className = 'flex items-center justify-between p-3 bg-slate-50/50 rounded-xl border border-slate-100/50';
                 row.innerHTML = `
@@ -738,7 +752,12 @@
         }
 
         function lookupIcon(name) {
-            const match = { "太陽": "sun", "月": "moon", "水星": "message-square", "金星": "heart", "火星": "swords", "木星": "trending-up", "土星": "anchor", "天王星": "unplug", "海王星": "cloud", "冥王星": "skull" };
+            const match = {
+                "太陽": "sun", "月": "moon", "水星": "message-square", "金星": "heart",
+                "火星": "swords", "木星": "trending-up", "土星": "anchor",
+                "天王星": "unplug", "海王星": "cloud", "冥王星": "skull",
+                "アセンダント": "compass"
+            };
             return match[name] || "star";
         }
 

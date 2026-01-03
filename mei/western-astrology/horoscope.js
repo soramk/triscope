@@ -27,56 +27,41 @@ function getZodiacSign(degree) {
     return ZODIAC_SIGNS[Math.floor(normalized / 30)];
 }
 
-/**
- * Calculates simplified planetary positions.
- * This implementation improves precision with time and location.
- */
 function calculateHoroscope(year, month, day, hour, minute, prefName) {
-    const dateTime = new Date(Date.UTC(year, month - 1, day, hour - 9, minute)); // Adjusted for JST (GMT+9)
+    const dateTime = new Date(Date.UTC(year, month - 1, day, hour - 9, minute));
     const timestamp = dateTime.getTime();
     const startOfEra = new Date(Date.UTC(2000, 0, 1, 12, 0, 0)).getTime();
     const daysSinceEpoch = (timestamp - startOfEra) / (1000 * 60 * 60 * 24);
 
     const location = PREFECTURES[prefName] || PREFECTURES["東京都"];
 
-    // Sun position (Approximate: 0.9856 degrees per day from 2000 epoch)
-    const sunDegree = (daysSinceEpoch * 0.9856 + 280) % 360;
+    const sunDeg = (daysSinceEpoch * 0.9856 + 280) % 360;
+    const moonDeg = (daysSinceEpoch * 13.176 + 125) % 360;
+    const mercDeg = (sunDeg + Math.sin(daysSinceEpoch / 5.5) * 20) % 360;
+    const venusDeg = (sunDeg + Math.cos(daysSinceEpoch / 14.5) * 45) % 360;
+    const marsDeg = (daysSinceEpoch * 0.524 + 100) % 360;
+    const jupDeg = (daysSinceEpoch * 0.0832 + 30) % 360;
+    const satDeg = (daysSinceEpoch * 0.0337 + 50) % 360;
 
-    // Moon position (Approximate: 13.176 degrees per day)
-    const moonDegree = (daysSinceEpoch * 13.176 + 125) % 360;
-
-    // Mars (Approximate: 0.524 degrees per day)
-    const marsDegree = (daysSinceEpoch * 0.524 + 100) % 360;
-
-    // Jupiter (Approximate: 0.083 degrees per day)
-    const jupiterDegree = (daysSinceEpoch * 0.0832 + 30) % 360;
-
-    // Saturn (Approximate: 0.033 degrees per day)
-    const saturnDegree = (daysSinceEpoch * 0.0337 + 50) % 360;
-
-    const results = [
-        { name: "太陽", degree: sunDegree, sign: getZodiacSign(sunDegree), color: "#facc15" },
-        { name: "月", degree: moonDegree, sign: getZodiacSign(moonDegree), color: "#c084fc" },
-        { name: "水星", degree: (sunDegree + Math.sin(daysSinceEpoch / 5.5) * 20) % 360, sign: getZodiacSign(sunDegree + 10), color: "#60a5fa" },
-        { name: "金星", degree: (sunDegree + Math.cos(daysSinceEpoch / 14.5) * 45) % 360, sign: getZodiacSign(sunDegree - 15), color: "#f472b6" },
-        { name: "火星", degree: marsDegree, sign: getZodiacSign(marsDegree), color: "#f87171" },
-        { name: "木星", degree: jupiterDegree, sign: getZodiacSign(jupiterDegree), color: "#fb923c" },
-        { name: "土星", degree: saturnDegree, sign: getZodiacSign(saturnDegree), color: "#94a3b8" }
+    const planets = [
+        { name: "太陽", degree: sunDeg, sign: getZodiacSign(sunDeg), color: "#facc15" },
+        { name: "月", degree: moonDeg, sign: getZodiacSign(moonDeg), color: "#c084fc" },
+        { name: "水星", degree: mercDeg, sign: getZodiacSign(mercDeg), color: "#60a5fa" },
+        { name: "金星", degree: venusDeg, sign: getZodiacSign(venusDeg), color: "#f472b6" },
+        { name: "火星", degree: marsDeg, sign: getZodiacSign(marsDeg), color: "#f87171" },
+        { name: "木星", degree: jupDeg, sign: getZodiacSign(jupDeg), color: "#fb923c" },
+        { name: "土星", degree: satDeg, sign: getZodiacSign(satDeg), color: "#94a3b8" }
     ];
 
-    // Calculate Ascendant (Approximate based on time of day and longitude)
-    // Sidereal time calculation (very simplified)
     const hoursJST = hour + minute / 60;
-    const localSolarTimeOffset = (location.lng - 135) / 15; // JST is 135E
+    const localSolarTimeOffset = (location.lng - 135) / 15;
     const correctedTime = hoursJST + localSolarTimeOffset;
-    
-    // Very rough ASC: At sunrise (6:00 local), Sun is near ASC.
     const ascOffset = (correctedTime - 6) * 15;
-    const ascDegree = (sunDegree + ascOffset + 360) % 360;
+    const ascDegree = (sunDeg + ascOffset + 360) % 360;
 
     return {
-        planets: results,
-        ascendant: { name: "アセンダント", degree: ascDegree, sign: getZodiacSign(ascDegree) },
+        planets,
+        ascendant: { name: "アセンダント", degree: ascDegree, sign: getZodiacSign(ascDegree), color: "#f43f5e" },
         location: prefName,
         dateTime: `${year}/${month}/${day} ${hour}:${minute}`
     };
@@ -90,49 +75,47 @@ function renderHoroscopeChart(data) {
     const height = canvas.height;
     const centerX = width / 2;
     const centerY = height / 2;
-    const radius = Math.min(centerX, centerY) - 50;
+    const radius = Math.min(centerX, centerY) - 60;
 
     ctx.clearRect(0, 0, width, height);
 
-    // Draw background outer circle (Zodiac)
-    ctx.strokeStyle = '#e2e8f0';
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius + 30, 0, Math.PI * 2);
-    ctx.stroke();
+    // ASCを左側に固定するための回転オフセット
+    // 標準的なチャートはASCが180度(左)。
+    const rotationOffset = 180 - data.ascendant.degree;
 
-    ctx.beginPath();
-    ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-    ctx.stroke();
+    // ヘルパー関数: Zodiac度数をCanvas角度に変換
+    const toRad = (zodiacDeg) => (zodiacDeg + rotationOffset) * Math.PI / 180;
 
-    // Draw Zodiac segments
+    // 1. サイン（外周）の描画
     for (let i = 0; i < 12; i++) {
-        const angle = (i * 30 - 90) * Math.PI / 180;
-        const xStart = centerX + Math.cos(angle) * radius;
-        const yStart = centerY + Math.sin(angle) * radius;
-        const xEnd = centerX + Math.cos(angle) * (radius + 30);
-        const yEnd = centerY + Math.sin(angle) * (radius + 30);
+        const startAngle = toRad(i * 30);
+        const endAngle = toRad((i + 1) * 30);
 
-        ctx.strokeStyle = '#cbd5e1';
+        ctx.strokeStyle = '#e2e8f0';
         ctx.beginPath();
-        ctx.moveTo(xStart, yStart);
-        ctx.lineTo(xEnd, yEnd);
+        ctx.arc(centerX, centerY, radius + 30, startAngle, endAngle);
         ctx.stroke();
 
-        // Labels
-        const labelAngle = (i * 30 + 15 - 90) * Math.PI / 180;
-        ctx.fillStyle = '#64748b';
+        // 境界線
+        ctx.beginPath();
+        ctx.moveTo(centerX + Math.cos(startAngle) * radius, centerY + Math.sin(startAngle) * radius);
+        ctx.lineTo(centerX + Math.cos(startAngle) * (radius + 30), centerY + Math.sin(startAngle) * (radius + 30));
+        ctx.stroke();
+
+        // サイン名
+        const labelAngle = toRad(i * 30 + 15);
+        ctx.fillStyle = '#94a3b8';
         ctx.font = '10px "Noto Sans JP"';
         ctx.textAlign = 'center';
         ctx.textBaseline = 'middle';
         ctx.fillText(ZODIAC_SIGNS[i], centerX + Math.cos(labelAngle) * (radius + 15), centerY + Math.sin(labelAngle) * (radius + 15));
     }
 
-    // Draw Houses (Simplified: equal houses from ASC)
+    // 2. ハウス（内周）の描画 - 等分割ハウス
     ctx.setLineDash([2, 4]);
-    ctx.strokeStyle = '#94a3b8';
+    ctx.strokeStyle = '#cbd5e1';
     for (let i = 0; i < 12; i++) {
-        const angle = (data.ascendant.degree + i * 30 - 90) * Math.PI / 180;
+        const angle = toRad(data.ascendant.degree + i * 30);
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.lineTo(centerX + Math.cos(angle) * radius, centerY + Math.sin(angle) * radius);
@@ -140,15 +123,15 @@ function renderHoroscopeChart(data) {
     }
     ctx.setLineDash([]);
 
-    // Draw Planets
+    // 3. 天体の描画
     data.planets.forEach(p => {
-        const angle = (p.degree - 90) * Math.PI / 180;
-        const rPos = radius * 0.7;
+        const angle = toRad(p.degree);
+        const rPos = radius * 0.75;
         const x = centerX + Math.cos(angle) * rPos;
         const y = centerY + Math.sin(angle) * rPos;
 
         ctx.fillStyle = p.color;
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 8;
         ctx.shadowColor = p.color;
         ctx.beginPath();
         ctx.arc(x, y, 6, 0, Math.PI * 2);
@@ -160,18 +143,18 @@ function renderHoroscopeChart(data) {
         ctx.fillText(p.name, x, y - 12);
     });
 
-    // Draw ASC Line
-    const ascAngle = (data.ascendant.degree - 90) * Math.PI / 180;
+    // 4. ASCラインの描画（常に左側）
+    const ascAngle = toRad(data.ascendant.degree);
     ctx.strokeStyle = '#f43f5e';
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.beginPath();
     ctx.moveTo(centerX, centerY);
     ctx.lineTo(centerX + Math.cos(ascAngle) * radius, centerY + Math.sin(ascAngle) * radius);
     ctx.stroke();
-    
+
     ctx.fillStyle = '#f43f5e';
-    ctx.font = 'bold 12px "Noto Sans JP"';
-    ctx.fillText("ASC", centerX + Math.cos(ascAngle) * (radius + 40), centerY + Math.sin(ascAngle) * (radius + 40));
+    ctx.font = 'black 14px Arial';
+    ctx.fillText("ASC", centerX + Math.cos(ascAngle) * (radius + 45), centerY + Math.sin(ascAngle) * (radius + 45));
 }
 
 function getInterpretation(sign) {
