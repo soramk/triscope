@@ -7,6 +7,7 @@
     <title>紫微斗数：天命を解き明かす皇帝の星学</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <link
         href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@400;700&display=swap"
         rel="stylesheet">
@@ -398,18 +399,18 @@
     <script>
         // --- Data ---
         const palaces = [
-            { id: "life", name: "命宮", yomi: "Mei-kyu", icon: "👑", subtitle: "運命の司令塔・あなたの本質", desc: "ここはあなたの性格、才能、容姿、そして一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。", keywords: ["本質", "才能", "一生の運"] },
-            { id: "siblings", name: "兄弟宮", yomi: "Keitei-kyu", icon: "👥", subtitle: "親しき人々との響き合わせ", desc: "兄弟姉妹や深い絆で結ばれた親友、同僚との関係を見ます。助け合えるか、あるいは競い合う仲かを暗示します。", keywords: ["兄弟姉妹", "同僚", "親友"] },
-            { id: "spouse", name: "夫妻宮", yomi: "Fusai-kyu", icon: "💍", subtitle: "魂の伴侶・愛のカタチ", desc: "好みのタイプや、将来出会う伴侶の性格、結婚後の家庭環境を示します。愛がどのような試練や喜びをもたらすかを説きます。", keywords: ["結婚", "恋愛", "パートナー"] },
-            { id: "children", name: "子女宮", yomi: "Shijo-kyu", icon: "👶", subtitle: "次世代への継承と創造", desc: "子供との縁、部下や後輩との関係、そしてあなたの性的な魅力や生命力の源泉をも表します。", keywords: ["子供", "後輩", "生命力"] },
-            { id: "wealth", name: "財帛宮", yomi: "Zaihaku-kyu", icon: "💰", subtitle: "豊かさの源泉・金銭の流転", desc: "どのように富を築き、どのように使うか。あなたにとって「富」とは何か、その哲学と実利の両面を映し出します。", keywords: ["金運", "稼ぎ方", "財産"] },
-            { id: "health", name: "疾厄宮", yomi: "Shitsuyaku-kyu", icon: "🏥", subtitle: "肉体の器・浄化のプロセス", desc: "健康状態、かかりやすい病気、身体の弱点。内面に抱えるストレスがどこに現れやすいかを示します。", keywords: ["健康", "体質", "未病"] },
-            { id: "travel", name: "遷移宮", yomi: "Sen-i-kyu", icon: "✈️", subtitle: "外の世界・社会的な仮面", desc: "移動による運気、社会的な顔、初対面の印象。一歩家を出た時のあなたの「輝き」がここにあります。", keywords: ["外出", "第一印象", "移動"] },
-            { id: "friends", name: "奴僕宮", yomi: "Nubo-kyu", icon: "🤝", subtitle: "社会との繋がり・支援の輪", desc: "広い交友関係、顧客、ファン、不特定多数の人々との関係。世の中からどのような支持を受けるかを表します。", keywords: ["友人", "支持層", "ファン"] },
-            { id: "career", name: "官禄宮", yomi: "Kanroku-kyu", icon: "💼", subtitle: "天職と功績・磨かれる魂", desc: "仕事への姿勢、適職、社会的成功への階段。あなたが魂を込めて取り組むべき活動の方向性がここにあります。", keywords: ["仕事", "出世", "適職"] },
-            { id: "property", name: "田宅宮", yomi: "Dentaku-kyu", icon: "🏠", subtitle: "安住の地・蓄えられた実り", desc: "不動産運、住環境、そして先祖から受け継ぐ精神的な資産。心休まる「場所」を見極めるための宮です。", keywords: ["不動産", "住まい", "貯蓄"] },
-            { id: "mental", name: "福徳宮", yomi: "Fukutoku-kyu", icon: "🧘", subtitle: "精神の平安・内なる幸福", desc: "魂の安定度、趣味、深層心理。何に喜びを感じ、どのように安らぎを得るかという精神のクオリティを司ります。", keywords: ["精神", "寿命", "幸福度"] },
-            { id: "parents", name: "父母宮", yomi: "Fubo-kyu", icon: "👴", subtitle: "ルーツと権威・目上の導き", desc: "両親、上司、目上の人々。あなたのルーツを支える人々からの恩恵や、解決すべき因縁を読み解きます。", keywords: ["両親", "上司", "後ろ盾"] }
+            { id: "life", name: "命宮", yomi: "Mei-kyu", icon: "compass", subtitle: "運命の司令塔・あなたの本質", desc: "ここはあなたの性格、才能、容姿、そして一生の運命の土台となる場所です。ここに入る星が、あなたの「魂の輪郭」を決定づけます。", keywords: ["本質", "才能", "一生の運"] },
+            { id: "siblings", name: "兄弟宮", yomi: "Keitei-kyu", icon: "users", subtitle: "親しき人々との響き合わせ", desc: "兄弟姉妹や深い絆で結ばれた親友、同僚との関係を見ます。助け合えるか、あるいは競い合う仲かを暗示します。", keywords: ["兄弟姉妹", "同僚", "親友"] },
+            { id: "spouse", name: "夫妻宮", yomi: "Fusai-kyu", icon: "heart", subtitle: "魂の伴侶・愛のカタチ", desc: "好みのタイプや、将来出会う伴侶の性格、結婚後の家庭環境を示します。愛がどのような試練や喜びをもたらすかを説きます。", keywords: ["結婚", "恋愛", "パートナー"] },
+            { id: "children", name: "子女宮", yomi: "Shijo-kyu", icon: "sparkles", subtitle: "次世代への継承と創造", desc: "子供との縁、部下や後輩との関係、そしてあなたの性的な魅力や生命力の源泉をも表します。", keywords: ["子供", "後輩", "生命力"] },
+            { id: "wealth", name: "財帛宮", yomi: "Zaihaku-kyu", icon: "coins", subtitle: "豊かさの源泉・金銭の流転", desc: "どのように富を築き、どのように使うか。あなたにとって「富」とは何か、その哲学と実利の両面を映し出します。", keywords: ["金運", "稼ぎ方", "財産"] },
+            { id: "health", name: "疾厄宮", yomi: "Shitsuyaku-kyu", icon: "activity", subtitle: "肉体の器・浄化のプロセス", desc: "健康状態、かかりやすい病気、身体の弱点。内面に抱えるストレスがどこに現れやすいかを示します。", keywords: ["健康", "体質", "未病"] },
+            { id: "travel", name: "遷移宮", yomi: "Sen-i-kyu", icon: "map", subtitle: "外の世界・社会的な仮面", desc: "移動による運気、社会的な顔、初対面の印象。一歩家を出た時のあなたの「輝き」がここにあります。", keywords: ["外出", "第一印象", "移動"] },
+            { id: "friends", name: "奴僕宮", yomi: "Nubo-kyu", icon: "handshake", subtitle: "社会との繋がり・支援の輪", desc: "広い交友関係、顧客、ファン、不特定多数の人々との関係。世の中からどのような支持を受けるかを表します。", keywords: ["友人", "支持層", "ファン"] },
+            { id: "career", name: "官禄宮", yomi: "Kanroku-kyu", icon: "award", subtitle: "天職と功績・磨かれる魂", desc: "仕事への姿勢、適職、社会的成功への階段。あなたが魂を込めて取り組むべき活動の方向性がここにあります。", keywords: ["仕事", "出世", "適職"] },
+            { id: "property", name: "田宅宮", yomi: "Dentaku-kyu", icon: "home", subtitle: "安住の地・蓄えられた実り", desc: "不動産運、住環境、そして先祖から受け継ぐ精神的な資産。心休まる「場所」を見極めるための宮です。", keywords: ["不動産", "住まい", "貯蓄"] },
+            { id: "mental", name: "福徳宮", yomi: "Fukutoku-kyu", icon: "sun-dim", subtitle: "精神の平安・内なる幸福", desc: "魂の安定度、趣味、深層心理。何に喜びを感じ、どのように安らぎを得るかという精神のクオリティを司ります。", keywords: ["精神", "寿命", "幸福度"] },
+            { id: "parents", name: "父母宮", yomi: "Fubo-kyu", icon: "landmark", subtitle: "ルーツと権威・目上の導き", desc: "両親、上司、目上の人々。あなたのルーツを支える人々からの恩恵や、解決すべき因縁を読み解きます。", keywords: ["両親", "上司", "後ろ盾"] }
         ];
 
         const stars = [
@@ -546,11 +547,17 @@
             const grid = document.getElementById('palace-grid');
             palaces.forEach((p, i) => {
                 const card = document.createElement('div');
-                card.className = `palace-card bg-white p-4 rounded-xl text-center flex flex-col items-center justify-center h-24 palace-item-${i}`;
-                card.innerHTML = `<span class="text-xl mb-1">${p.icon}</span><span class="text-xs font-bold">${p.name}</span>`;
+                card.className = `palace-card bg-white p-4 rounded-xl text-center flex flex-col items-center justify-center h-28 group palace-item-${i}`;
+                card.innerHTML = `
+                    <div class="mb-2 p-3 bg-indigo-50 rounded-lg text-indigo-600 transition-colors group-hover:bg-indigo-600 group-hover:text-white group-[.active]:bg-indigo-600 group-[.active]:text-white">
+                        <i data-lucide="${p.icon}" class="w-6 h-6 stroke-[1.5]"></i>
+                    </div>
+                    <span class="text-[11px] font-bold text-slate-700 transition-colors group-hover:text-indigo-900 group-[.active]:text-indigo-900">${p.name}</span>
+                `;
                 card.onclick = () => selectPalace(i, card);
                 grid.appendChild(card);
             });
+            lucide.createIcons();
         }
 
         function selectPalace(index, el) {
@@ -566,7 +573,7 @@
             detail.style.opacity = '0';
 
             setTimeout(() => {
-                document.getElementById('detail-icon').textContent = p.icon;
+                document.getElementById('detail-icon').innerHTML = `<i data-lucide="${p.icon}" class="w-10 h-10 stroke-[1.5] text-indigo-600"></i>`;
                 document.getElementById('detail-name').textContent = p.name;
                 document.getElementById('detail-yomi').textContent = p.yomi;
                 document.getElementById('detail-subtitle').textContent = p.subtitle;
@@ -576,10 +583,11 @@
                 kw.innerHTML = '';
                 p.keywords.forEach(k => {
                     const s = document.createElement('span');
-                    s.className = 'px-3 py-1 bg-slate-100 rounded-full text-xs text-slate-500';
+                    s.className = 'px-3 py-1 bg-indigo-50 text-indigo-600 rounded-full text-[10px] uppercase font-bold tracking-wider';
                     s.textContent = k;
                     kw.appendChild(s);
                 });
+                lucide.createIcons();
                 detail.style.opacity = '1';
             }, 200);
         }
