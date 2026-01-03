@@ -888,59 +888,121 @@
             "癸": { name: "癸 (みずのと)", desc: "雨露のごとく、静かで謙虚。内省的で知性が高く、状況を敏感に察知する洞察力に優れています。", summary: "あなたの本質は「潤いを与える知性」です。静かに深く物事を考え、周囲に安らぎと知恵をもたらします。" }
         };
 
+
+        const hiddenStemsMap = {
+            "子": "癸", "丑": "己", "寅": "甲", "卯": "乙", "辰": "戊", "巳": "丙",
+            "午": "丁", "未": "己", "申": "庚", "酉": "辛", "戌": "戊", "亥": "壬"
+        };
+
+        const getTenGod = (dmGan, targetGan) => {
+            if (!dmGan || !targetGan || targetGan === "--") return "--";
+            const dmIdx = stems.indexOf(dmGan);
+            const targetIdx = stems.indexOf(targetGan);
+            const samePolarity = (dmIdx % 2) === (targetIdx % 2);
+            const dmElem = elementsMap[dmGan];
+            const targetElem = elementsMap[targetGan];
+
+            if (dmElem === targetElem) return samePolarity ? "比肩" : "劫財";
+            const produce = { "木": "火", "火": "土", "土": "金", "金": "水", "水": "木" };
+            if (produce[dmElem] === targetElem) return samePolarity ? "食神" : "傷官";
+            if (produce[targetElem] === dmElem) return samePolarity ? "偏印" : "印綬";
+            const control = { "木": "土", "土": "水", "水": "火", "火": "金", "金": "木" };
+            if (control[dmElem] === targetElem) return samePolarity ? "偏財" : "正財";
+            if (control[targetElem] === dmElem) return samePolarity ? "偏官" : "正官";
+            return "--";
+        };
+
         function diagnoseBazi() {
             const year = parseInt(document.getElementById('birth-year').value);
             const month = parseInt(document.getElementById('birth-month').value);
             const day = parseInt(document.getElementById('birth-day').value);
             const hour = parseInt(document.getElementById('birth-hour').value);
 
-            // Year Pillar
-            const yearIndex = (year - 4) % 60;
-            const y_gan = stems[yearIndex % 10];
-            const y_zhi = branches[yearIndex % 12];
+            // --- Precise Solar Calendar Logic ---
+            // Solar term average dates (approximation for 21st century)
+            const jieQiDates = [
+                { m: 2, d: 4 },  // 立春 (Tiger) - Start of Solar Year
+                { m: 3, d: 6 },  // 啓蟄 (Rabbit)
+                { m: 4, d: 5 },  // 清明 (Dragon)
+                { m: 5, d: 6 },  // 立夏 (Snake)
+                { m: 6, d: 6 },  // 芒種 (Horse)
+                { m: 7, d: 7 },  // 小暑 (Goat)
+                { m: 8, d: 8 },  // 立秋 (Monkey)
+                { m: 9, d: 8 },  // 白露 (Rooster)
+                { m: 10, d: 8 }, // 寒露 (Dog)
+                { m: 11, d: 7 }, // 立冬 (Pig)
+                { m: 12, d: 7 }, // 大雪 (Rat)
+                { m: 1, d: 6 }   // 小寒 (Ox)
+            ];
 
-            // Month Pillar (Approximate solar months)
-            const m_zhi_idx = (month + 1) % 12;
-            const m_zhi = branches[m_zhi_idx];
-            const m_gan_start = ((yearIndex % 10) % 5 * 2 + 2) % 10;
-            const m_gan = stems[(m_gan_start + month - 1) % 10];
+            const birthDate = new Date(year, month - 1, day);
 
-            // Day Pillar (Ref: 2000-01-01 is Kanoe-Tatsu = 16)
+            // 1. Determine Solar Year
+            let solarYear = year;
+            const currentYearLiChun = new Date(year, 1, 4); // Feb 4
+            if (birthDate < currentYearLiChun) solarYear--;
+
+            for (let i = 0; i < 12; i++) {
+                const term = jieQiDates[i];
+                if (birthDate >= new Date(year, term.m - 1, term.d)) solarMonthIdx = i;
+            }
+            if (solarMonthIdx === -1) solarMonthIdx = 10;
+
+            // --- Pillar Calculations ---
+            const yearIdx = (solarYear - 4) % 60;
+            const y_gan_idx = yearIdx % 10;
+            const y_gan = stems[y_gan_idx];
+            const y_zhi = branches[yearIdx % 12];
+
+            const m_gan_base = (y_gan_idx % 5 * 2 + 2) % 10;
+            const m_gan = stems[(m_gan_base + solarMonthIdx) % 10];
+            const m_zhi = branches[(solarMonthIdx + 2) % 12];
+
+            let adjDate = new Date(year, month - 1, day);
+            if (hour >= 23) adjDate.setDate(adjDate.getDate() + 1);
             const refDate = new Date(2000, 0, 1);
-            const targetDate = new Date(year, month - 1, day);
-            const diffDays = Math.floor((targetDate - refDate) / (1000 * 60 * 60 * 24));
+            const diffDays = Math.floor((adjDate - refDate) / 86400000);
             let dayIdx = (16 + diffDays) % 60;
             if (dayIdx < 0) dayIdx += 60;
             const d_gan = stems[dayIdx % 10];
             const d_zhi = branches[dayIdx % 12];
 
-            // Hour Pillar
             let h_gan = "--", h_zhi = "--";
             if (hour !== -1) {
                 const h_zhi_idx = (Math.floor((hour + 1) / 2)) % 12;
                 h_zhi = branches[h_zhi_idx];
-                const h_gan_start = ((dayIdx % 10) % 5 * 2) % 10;
+                const h_gan_start = (stems.indexOf(d_gan) % 5 * 2) % 10;
                 h_gan = stems[(h_gan_start + h_zhi_idx) % 10];
             }
 
-            // Update UI
+            const y_star = getTenGod(d_gan, y_gan);
+            const m_star = getTenGod(d_gan, m_gan);
+            const h_star = hour !== -1 ? getTenGod(d_gan, h_gan) : "--";
+
+            // --- Update UI ---
             document.getElementById('p-year-gan').innerText = y_gan;
             document.getElementById('p-year-zhi').innerText = y_zhi;
+            document.getElementById('p-year-star').innerText = y_star;
+
             document.getElementById('p-month-gan').innerText = m_gan;
             document.getElementById('p-month-zhi').innerText = m_zhi;
+            document.getElementById('p-month-star').innerText = m_star;
+
             document.getElementById('p-day-gan').innerText = d_gan;
             document.getElementById('p-day-zhi').innerText = d_zhi;
-            if (hour !== -1) {
-                document.getElementById('p-hour-gan').innerText = h_gan;
-                document.getElementById('p-hour-zhi').innerText = h_zhi;
-            }
+
+            document.getElementById('p-hour-gan').innerText = h_gan;
+            document.getElementById('p-hour-zhi').innerText = h_zhi;
+            document.getElementById('p-hour-star').innerText = h_star;
 
             const interpretation = masterInterpretations[d_gan];
             document.getElementById('res-master-name').innerText = interpretation.name;
             document.getElementById('res-master-desc').innerText = interpretation.desc;
-            document.getElementById('diag-summary').innerText = `「${y_gan}${y_zhi}年 ${m_gan}${m_zhi}月 ${d_gan}${d_zhi}日 ${h_gan}${h_zhi}時」の命式。\n${interpretation.summary}`;
 
-            // Calculate Five Elements Balance
+            const birthInfoTxt = `「${solarYear}年(${y_gan}${y_zhi}) ${m_gan}${m_zhi}月 ${d_gan}${d_zhi}日 ${hour === -1 ? '時間不明' : h_gan + h_zhi + '時'}」の命式。`;
+            document.getElementById('diag-summary').innerText = `${birthInfoTxt}\n${interpretation.summary}`;
+
+            // Five Elements Balance calculation
             const allChars = [y_gan, y_zhi, m_gan, m_zhi, d_gan, d_zhi];
             if (hour !== -1) allChars.push(h_gan, h_zhi);
 
