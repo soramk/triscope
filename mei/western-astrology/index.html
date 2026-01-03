@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西洋占星術：総合分析レポート</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+    <style>
+        /* bodyスタイルは common.css で定義 */
+        /* h1-h3, .serifスタイルは common.css で定義 */
+
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .active-tab {
+            border-bottom: 2px solid #4F46E5;
+            /* Indigo-600 */
+            color: #4F46E5;
+            font-weight: 700;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+    <!-- Chosen Palette: Cosmic Harmony - Warm Neutral Background (#FDFBF7) with Deep Indigo (#312E81) and Soft Gold (#D97706) accents. -->
+    <!-- Application Structure Plan: A tab-based dashboard layout was chosen to segment the dense information (Logic, History, Methodology) into digestible views. 
+         - 'Overview': High-level summary and characteristics (Meijutsu).
+         - 'Mechanics': Deep dive into the logic (Planets/Signs) using interactive lists and charts.
+         - 'Insights': Focuses on capabilities (What it can/cannot do).
+         - 'Timeline': Historical evolution.
+         - 'Methodology': Practical step-by-step guide.
+         This structure allows non-linear exploration, letting users jump between "How to do it" and "Why it works". -->
+    <!-- Visualization & Content Choices:
+         - Planetary Cycles Bar Chart: Used in 'Mechanics' to visualize the vast difference in influence duration (Moon vs Pluto), explaining the concept of personal vs generational impact.
+         - Elements Radar Chart: Used to explain the Logic of the 4 Elements (Fire, Earth, Air, Water), visually demonstrating how a chart might be balanced or skewed.
+         - Interactive Accordions/Cards: Used for Signs and Houses to allow users to explore details without being overwhelmed by text blocks.
+         - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. All visuals are CSS/HTML or Chart.js Canvas. -->
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-900 serif">西洋占星術</span>
+                    <span
+                        class="ml-2 text-xs bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded-full hidden sm:inline-block">総合分析レポート</span>
+                </div>
+                <!-- Mobile Menu Button (Simple implementation) -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-indigo-600 focus:outline-none">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                </div>
+                <!-- Desktop Nav -->
+                <nav class="hidden md:flex space-x-8">
+                    <button
+                        class="nav-btn active-tab px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-indigo-300"
+                        data-target="overview">概要と特性</button>
+                    <button
+                        class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-indigo-300 hover:text-gray-700"
+                        data-target="mechanics">根拠とロジック</button>
+                    <button
+                        class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-indigo-300 hover:text-gray-700"
+                        data-target="insights">得意分野</button>
+                    <button
+                        class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-indigo-300 hover:text-gray-700"
+                        data-target="history">歴史と起源</button>
+                    <button
+                        class="nav-btn px-1 pt-1 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-indigo-300 hover:text-gray-700"
+                        data-target="methodology">実践手順</button>
+                </nav>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="flex flex-col px-4 pt-2 pb-4 space-y-2">
+                <button
+                    class="mobile-nav-btn block w-full text-left px-3 py-2 rounded-md text-base font-medium bg-indigo-50 text-indigo-700"
+                    data-target="overview">概要と特性</button>
+                <button
+                    class="mobile-nav-btn block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    data-target="mechanics">根拠とロジック</button>
+                <button
+                    class="mobile-nav-btn block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    data-target="insights">得意分野</button>
+                <button
+                    class="mobile-nav-btn block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    data-target="history">歴史と起源</button>
+                <button
+                    class="mobile-nav-btn block w-full text-left px-3 py-2 rounded-md text-base font-medium text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                    data-target="methodology">実践手順</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section id="overview" class="tab-content active">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold text-gray-900 serif mb-4">星々が語る「命（めい）」の地図</h2>
+                <p class="max-w-3xl mx-auto text-lg text-gray-600">
+                    西洋占星術は、あなたが生まれたその瞬間の天体の配置を読み解き、持って生まれた性質や運命の傾向を分析する「命術（めいじゅつ）」の代表格です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-indigo-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">🌟</span> 命術（めいじゅつ）としての特性
+                    </h3>
+                    <p class="text-gray-600 leading-relaxed">
+                        占いは大きく「命（運命）・卜（偶然）・相（外見）」の3つに分類されます。西洋占星術は「命術」に属し、生年月日・出生時間・出生地という不変のデータを使用します。
+                        タロットのような偶然性（卜術）や、手相のような変化する相（相術）とは異なり、<strong>「生まれ持った設計図」</strong>を分析することに特化しています。
+                    </p>
+                </div>
+                <div
+                    class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 card-hover transition duration-300">
+                    <h3 class="text-xl font-bold text-indigo-900 mb-3 flex items-center">
+                        <span class="text-2xl mr-2">⚖️</span> 他の占いとの比較
+                    </h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">●</span>
+                            <span><strong>対 東洋占術（四柱推命など）:</strong>
+                                東洋が「暦（干支）」や「五行」を重視するのに対し、西洋は「実際の天体の位置（惑星の配置）」を重視します。</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-indigo-500 mr-2">●</span>
+                            <span><strong>強み:</strong> 個人の内面心理や性格の多面的な分析（心理占星術）において、圧倒的な解像度を誇ります。</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Dashboard Summary Widgets -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-indigo-700 mb-2">12</div>
+                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide">サイン (星座)</div>
+                    <p class="text-xs text-gray-500 mt-2">性質や傾向を表す</p>
+                </div>
+                <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-indigo-700 mb-2">10</div>
+                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide">惑星 (天体)</div>
+                    <p class="text-xs text-gray-500 mt-2">行動の主体・エネルギー</p>
+                </div>
+                <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                    <div class="text-4xl font-bold text-indigo-700 mb-2">12</div>
+                    <div class="text-sm font-semibold text-gray-700 uppercase tracking-wide">ハウス (場所)</div>
+                    <p class="text-xs text-gray-500 mt-2">活動の舞台・分野</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: MECHANICS (LOGIC) -->
+        <section id="mechanics" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 serif mb-3">根拠とロジック：天空の鏡</h2>
+                <p class="text-gray-600">
+                    「As above, so
+                    below（上なる如く、下も然り）」というヘルメス思想が根本にあります。天空（マクロコスモス）で起きていることは、地上（ミクロコスモス＝人間）にも反映されるという考え方です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Logic Visualization 1: Elements -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">4つのエレメント（元素）の概念</h3>
+                    <p class="text-sm text-gray-500 mb-4 text-center">12星座は4つの価値観（火・地・風・水）に分類されます。このバランスが個人の気質を決定づけます。
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="elementsChart"></canvas>
+                    </div>
+                    <div class="mt-4 grid grid-cols-2 gap-2 text-xs text-gray-600">
+                        <div class="bg-red-50 p-2 rounded"><strong class="text-red-700">火 (直感・情熱):</strong> 牡羊・獅子・射手
+                        </div>
+                        <div class="bg-emerald-50 p-2 rounded"><strong class="text-emerald-700">地 (感覚・現実):</strong>
+                            牡牛・乙女・山羊</div>
+                        <div class="bg-blue-50 p-2 rounded"><strong class="text-blue-700">風 (思考・情報):</strong> 双子・天秤・水瓶
+                        </div>
+                        <div class="bg-indigo-50 p-2 rounded"><strong class="text-indigo-700">水 (感情・共感):</strong> 蟹・蠍・魚
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Logic Visualization 2: Planetary Influence -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-gray-800 mb-4 text-center">惑星の公転周期と影響範囲</h3>
+                    <p class="text-sm text-gray-500 mb-4 text-center">
+                        動きの速い天体は「個人的な性格」を、遅い天体は「世代的な運命」を司ります。
+                    </p>
+                    <div class="chart-container">
+                        <canvas id="planetCycleChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 bg-gray-50 p-3 rounded">
+                        <p><strong>解説:</strong>
+                            月や水星のように周期が短い天体は、日々の気分や知性など個人的な変化に影響します。一方、冥王星などの遠い天体は、1つのサインに十数年留まり、その「世代」全体の特徴を形成します。</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Logic Explorer -->
+            <div class="mt-10">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">ホロスコープの三要素</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="logic-explorer">
+                    <!-- Buttons will be generated by JS -->
+                </div>
+                <div id="logic-detail-panel"
+                    class="mt-4 bg-white border border-indigo-100 p-6 rounded-lg shadow-sm hidden">
+                    <h4 id="detail-title" class="text-lg font-bold text-indigo-800 mb-2"></h4>
+                    <p id="detail-desc" class="text-gray-700"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: INSIGHTS (CAPABILITIES) -->
+        <section id="insights" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 serif mb-3">わかること・苦手なこと</h2>
+                <p class="text-gray-600">
+                    西洋占星術は「自分自身の取扱説明書」としては最強のツールですが、万能ではありません。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Can Do -->
+                <div>
+                    <div class="bg-indigo-50 rounded-t-lg p-3 border-b border-indigo-100">
+                        <h3 class="font-bold text-indigo-900 text-center">得意分野（わかること）</h3>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-b-lg p-4 space-y-4">
+                        <div class="flex">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-xl">
+                                👤</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">性格の多層的分析</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    「公的な自分（太陽）」だけでなく、「プライベートな自分（月）」や「恋愛傾向（金星）」など、多角的に自己を理解できます。</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-xl">
+                                📈</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">運勢のバイオリズム</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    トランジット（経過法）を用い、「いつチャンスが来るか」「いつ耐えるべき時期か」という長期的な人生の天気予報が可能です。</p>
+                            </div>
+                        </div>
+                        <div class="flex">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-indigo-100 flex items-center justify-center text-xl">
+                                ❤️</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">相性と関係性</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    シナストリー（相性図）により、二人の関係が「刺激的」か「安定的」かなど、具体的な化学反応を分析できます。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cannot Do -->
+                <div>
+                    <div class="bg-gray-100 rounded-t-lg p-3 border-b border-gray-200">
+                        <h3 class="font-bold text-gray-700 text-center">苦手分野（わからないこと）</h3>
+                    </div>
+                    <div class="bg-white border border-gray-200 rounded-b-lg p-4 space-y-4">
+                        <div class="flex opacity-75">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-xl">
+                                🎲</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">ギャンブルの結果</h4>
+                                <p class="text-sm text-gray-600 mt-1">「明日の宝くじが当たるか」といった、個人の意志を超えた偶然性の高い事象は予測できません。</p>
+                            </div>
+                        </div>
+                        <div class="flex opacity-75">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-xl">
+                                ⚖️</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">善悪の判断</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    星はあくまで「エネルギーの質」を示します。その人の行いが道徳的に正しいかどうかは、ホロスコープには表示されません。</p>
+                            </div>
+                        </div>
+                        <div class="flex opacity-75">
+                            <div
+                                class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-200 flex items-center justify-center text-xl">
+                                🛑</div>
+                            <div class="ml-4">
+                                <h4 class="text-sm font-bold text-gray-900">絶対的な未来確定</h4>
+                                <p class="text-sm text-gray-600 mt-1">占星術は「傾向」を示しますが、それをどう使うかは個人の自由意志（Free
+                                    Will）に委ねられています。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: HISTORY -->
+        <section id="history" class="tab-content">
+            <div class="max-w-4xl mx-auto">
+                <div class="mb-8 text-center">
+                    <h2 class="text-2xl font-bold text-gray-900 serif mb-3">歴史と起源</h2>
+                    <p class="text-gray-600">紀元前から続く叡智のバトンリレー。</p>
+                </div>
+
+                <div class="relative border-l-4 border-indigo-200 ml-3 md:ml-6 space-y-8">
+                    <!-- Timeline Items -->
+                    <div class="relative pl-8">
+                        <div class="absolute -left-2.5 top-0 w-5 h-5 bg-indigo-600 rounded-full border-4 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-900">紀元前2000年頃：バビロニア</h3>
+                        <p class="text-sm text-gray-600 mt-1">メソポタミア地域で発祥。天体観測が国家の運命（豊作や戦争）を占うために行われました。</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-2.5 top-0 w-5 h-5 bg-indigo-400 rounded-full border-4 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-900">紀元前2世紀：ヘレニズム期</h3>
+                        <p class="text-sm text-gray-600 mt-1">
+                            ギリシャ・エジプトで体系化。「ホロスコープ」の概念が誕生し、個人の運命を占う技術として発展しました。プトレマイオスが『テトラビブロス』を著し、理論を統合。</p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-2.5 top-0 w-5 h-5 bg-indigo-400 rounded-full border-4 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-900">中世・ルネサンス期</h3>
+                        <p class="text-sm text-gray-600 mt-1">アラビア世界を経由してヨーロッパに逆輸入。天文学と占星術は未分化のままであり、ケプラーなどの科学者も占星術師でした。
+                        </p>
+                    </div>
+
+                    <div class="relative pl-8">
+                        <div class="absolute -left-2.5 top-0 w-5 h-5 bg-indigo-400 rounded-full border-4 border-white">
+                        </div>
+                        <h3 class="text-lg font-bold text-indigo-900">19世紀〜20世紀：現代占星術</h3>
+                        <p class="text-sm text-gray-600 mt-1">
+                            神智学の影響を受け、ユング心理学などと融合。「吉凶」を当てる占いから、「自己実現・性格分析」のためのツールへと進化（心理占星術）。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: METHODOLOGY -->
+        <section id="methodology" class="tab-content">
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 serif mb-3">基本的なやり方</h2>
+                <p class="text-gray-600">ホロスコープ（出生図）を作成し、解読するまでのステップ。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-lg shadow-sm border-t-4 border-indigo-500">
+                    <div class="text-3xl font-bold text-indigo-100 mb-2">01</div>
+                    <h3 class="font-bold text-gray-900 mb-2">データの収集</h3>
+                    <p class="text-sm text-gray-600">
+                        以下の3つが必須です。<br>
+                        1. <strong>生年月日</strong><br>
+                        2. <strong>出生時間</strong> (母子手帳で確認)<br>
+                        3. <strong>出生地</strong> (緯度経度が必要)
+                    </p>
+                    <p class="text-xs text-red-500 mt-2">※時間が不明な場合、ハウス（分野）が特定できず、精度が大きく下がります。</p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm border-t-4 border-indigo-400">
+                    <div class="text-3xl font-bold text-indigo-100 mb-2">02</div>
+                    <h3 class="font-bold text-gray-900 mb-2">チャート作成</h3>
+                    <p class="text-sm text-gray-600">
+                        かつては天文暦と計算機で手計算していましたが、現在は無料の作成サイトやアプリを使用するのが一般的です。
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm border-t-4 border-indigo-300">
+                    <div class="text-3xl font-bold text-indigo-100 mb-2">03</div>
+                    <h3 class="font-bold text-gray-900 mb-2">要素の分析</h3>
+                    <p class="text-sm text-gray-600">
+                        <strong>「どの天体が（主体）」</strong><br>
+                        <strong>「どの星座にあり（性質）」</strong><br>
+                        <strong>「どのハウスにいるか（場所）」</strong><br>
+                        の3点を組み合わせて読み解きます。
+                    </p>
+                </div>
+
+                <div class="bg-white p-5 rounded-lg shadow-sm border-t-4 border-indigo-200">
+                    <div class="text-3xl font-bold text-indigo-100 mb-2">04</div>
+                    <h3 class="font-bold text-gray-900 mb-2">アスペクトの統合</h3>
+                    <p class="text-sm text-gray-600">
+                        天体同士の角度（アスペクト）を見ます。葛藤しているのか（ハード）、協力しているのか（ソフト）を見て、人格の複雑さを読み取ります。
+                    </p>
+                </div>
+            </div>
+
+            <div class="mt-8 bg-indigo-900 text-white p-6 rounded-xl">
+                <h3 class="text-lg font-bold mb-2">初心者のためのリーディング例</h3>
+                <div class="font-mono text-sm bg-indigo-800 p-4 rounded text-indigo-200">
+                    <p>例：金星（愛と喜び）が、牡牛座（五感・安定）にあり、2ハウス（所有・金銭）にある場合。</p>
+                    <p class="mt-2 text-white">→ 「目に見える美しいものや美味しいものを所有することに、人生の喜びを感じる。金銭感覚はしっかりしており、豊かさを引き寄せる力がある。」</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-gray-100 border-t border-gray-200 mt-auto">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-sm text-gray-500">
+            <p>© 2024 西洋占星術リサーチレポート | インタラクティブ・ガイド</p>
+        </div>
+    </footer>
+
+    <script>
+        // State and Data
+        const appState = {
+            currentTab: 'overview'
+        };
+
+        const logicData = [
+            { id: 'signs', label: '12星座 (Signs)', desc: 'エネルギーの「性質」や「衣装」。牡羊座から魚座まで、魂の成長プロセスを表します。', details: '火・地・風・水の4元素と、活動・不動・柔軟の3区分で分類されます。' },
+            { id: 'planets', label: '10天体 (Planets)', desc: 'あなたの内にある「役者」たち。太陽は「目的」、月は「感情」、水星は「知性」などを担当します。', details: '公転周期の違いにより、個人への影響（月〜火星）と社会/世代への影響（木星〜冥王星）に分かれます。' },
+            { id: 'houses', label: '12ハウス (Houses)', desc: '人生の「舞台」。第1ハウスの「自分自身」から始まり、第10ハウスの「社会的成功」など、天体が活躍する現場を示します。', details: '出生時間が正確でないと割り出すことができません。' }
+        ];
+
+        // Chart 1: Elements Radar Chart Configuration
+        const elementsChartConfig = {
+            type: 'radar',
+            data: {
+                labels: ['火 (直感/情熱)', '地 (感覚/現実)', '風 (思考/情報)', '水 (感情/共感)'],
+                datasets: [{
+                    label: '一般的なバランス例',
+                    data: [7, 5, 8, 4], // Sample data
+                    backgroundColor: 'rgba(79, 70, 229, 0.2)',
+                    borderColor: 'rgba(79, 70, 229, 1)',
+                    pointBackgroundColor: 'rgba(79, 70, 229, 1)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'rgba(79, 70, 229, 1)'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0,0,0,0.1)' },
+                        grid: { color: 'rgba(0,0,0,0.1)' },
+                        pointLabels: {
+                            font: { size: 12, family: "'Noto Sans JP', sans-serif" },
+                            color: '#4B5563'
+                        },
+                        ticks: { display: false, max: 10 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        };
+
+        // Chart 2: Planet Cycles Bar Chart Configuration
+        const planetChartConfig = {
+            type: 'bar',
+            data: {
+                labels: ['月', '水星', '金星', '太陽', '火星', '木星', '土星', '天王星', '海王星', '冥王星'],
+                datasets: [{
+                    label: '公転周期 (年)',
+                    data: [0.07, 0.24, 0.61, 1, 1.88, 11.86, 29.46, 84.02, 164.8, 248],
+                    backgroundColor: [
+                        '#FCD34D', '#93C5FD', '#F9A8D4', '#F59E0B', '#EF4444',
+                        '#D97706', '#4B5563', '#6EE7B7', '#818CF8', '#1E1B4B'
+                    ],
+                    borderWidth: 0,
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                responsive: true,
+                indexAxis: 'y', // Horizontal bar chart
+                scales: {
+                    x: {
+                        type: 'logarithmic', // Using logarithmic scale because Pluto is huge compared to Moon
+                        position: 'bottom',
+                        title: { display: true, text: '公転周期（年）※対数目盛' },
+                        grid: { color: '#F3F4F6' }
+                    },
+                    y: {
+                        grid: { display: false }
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || '';
+                                if (label) {
+                                    label += ': ';
+                                }
+                                if (context.parsed.x < 1) {
+                                    return label + '約28日 (個人的感情の変化)';
+                                } else if (context.parsed.x > 100) {
+                                    return label + Math.round(context.parsed.x) + '年 (歴史的・世代的変化)';
+                                }
+                                return label + Math.round(context.parsed.x) + '年';
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // DOM Loaded Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize Navigation
+            setupNavigation();
+
+            // Initialize Charts
+            renderCharts();
+
+            // Initialize Logic Explorer
+            renderLogicExplorer();
+        });
+
+        function setupNavigation() {
+            const navButtons = document.querySelectorAll('.nav-btn, .mobile-nav-btn');
+            const sections = document.querySelectorAll('.tab-content');
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            // Mobile Menu Toggle
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Tab Switching Logic
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const targetId = btn.getAttribute('data-target');
+
+                    // Update Active State for Buttons
+                    document.querySelectorAll('.nav-btn').forEach(b => {
+                        if (b.getAttribute('data-target') === targetId) {
+                            b.classList.add('active-tab', 'text-gray-900', 'border-indigo-500');
+                            b.classList.remove('text-gray-500', 'border-transparent');
+                        } else {
+                            b.classList.remove('active-tab', 'text-gray-900', 'border-indigo-500');
+                            b.classList.add('text-gray-500', 'border-transparent');
+                        }
+                    });
+
+                    // Hide Mobile Menu on selection
+                    mobileMenu.classList.add('hidden');
+
+                    // Show Content
+                    sections.forEach(sec => {
+                        if (sec.id === targetId) {
+                            sec.classList.add('active');
+                            // Trigger chart resize/update if needed when tab becomes visible
+                            if (targetId === 'mechanics') {
+                                // Small delay to ensure container has size
+                                setTimeout(() => {
+                                    // Charts usually handle resize automatically, but sometimes need a nudge in hidden tabs
+                                }, 100);
+                            }
+                        } else {
+                            sec.classList.remove('active');
+                        }
+                    });
+
+                    window.scrollTo(0, 0);
+                });
+            });
+        }
+
+        function renderCharts() {
+            const ctx1 = document.getElementById('elementsChart').getContext('2d');
+            new Chart(ctx1, elementsChartConfig);
+
+            const ctx2 = document.getElementById('planetCycleChart').getContext('2d');
+            new Chart(ctx2, planetChartConfig);
+        }
+
+        function renderLogicExplorer() {
+            const container = document.getElementById('logic-explorer');
+            const detailPanel = document.getElementById('logic-detail-panel');
+            const titleEl = document.getElementById('detail-title');
+            const descEl = document.getElementById('detail-desc');
+
+            logicData.forEach(item => {
+                const btn = document.createElement('button');
+                btn.className = 'p-4 bg-white border border-gray-200 rounded-lg hover:bg-indigo-50 hover:border-indigo-300 transition text-left focus:outline-none focus:ring-2 focus:ring-indigo-500';
+                btn.innerHTML = `<span class="block font-bold text-indigo-900">${item.label}</span><span class="text-xs text-gray-500">詳しく見る &rarr;</span>`;
+
+                btn.addEventListener('click', () => {
+                    // Update content
+                    titleEl.textContent = item.label;
+                    descEl.innerHTML = `<strong>概要:</strong> ${item.desc}<br><br><strong>ポイント:</strong> ${item.details}`;
+
+                    // Show panel
+                    detailPanel.classList.remove('hidden');
+                    detailPanel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+                    // Highlight active button
+                    Array.from(container.children).forEach(c => c.classList.remove('ring-2', 'ring-indigo-500', 'bg-indigo-50'));
+                    btn.classList.add('ring-2', 'ring-indigo-500', 'bg-indigo-50');
+                });
+
+                container.appendChild(btn);
+            });
+        }
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>手相の科学と神秘 - Palmistry Explorer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <!-- Chosen Palette: Mystic Parchment -->
+    <!-- Background: Warm Neutral (Stone-50/100), Text: Dark Ink (Stone-800), Accent: Deep Indigo (Indigo-900) & Gold (Amber-600) -->
+
+    <!-- Application Structure Plan: 
+         1. Hero Section: Introduction to Palmistry (Sōjutsu) and its unique position.
+         2. Interactive Hand Map (The Core): A Canvas-based interactive diagram where users can explore lines and mounts. This replaces static images and encourages active learning of the anatomy.
+         3. Comparative Analysis (Chart.js): A Radar chart comparing Palmistry to other fortune-telling methods (Astrology, Tarot) to visualize its strengths (Character, Long-term trends) vs weaknesses.
+         4. History Timeline: An interactive vertical flow showing the journey from Ancient India to Modern Japan.
+         5. Methodology Section: A step-by-step interactive guide on "Left vs Right" hand logic and basic reading steps.
+         6. Synthesis/Conclusion: Summary of the "Hand = Visible Brain" theory.
+    -->
+
+    <!-- Visualization & Content Choices:
+         1. Hand Map: HTML5 Canvas. GOAL: Teach anatomy. METHOD: Custom drawing functions (bezier curves) to create a stylized hand. Interaction: Hover/Click detection on lines/mounts updates a detail panel. JUSTIFICATION: Avoids SVGs/Images, allows dynamic highlighting.
+         2. Strengths Radar: Chart.js Radar. GOAL: Compare domains. METHOD: Scores on 'Personality', 'Timing', 'Specific Outcome', 'Fate'. JUSTIFICATION: Clearly shows Palmistry's analytical nature vs chance-based arts.
+         3. Timeline: HTML/Tailwind. GOAL: Show evolution. METHOD: Flexbox layout with hover effects.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        /* bodyスタイルは common.css で定義 */
+        /* h1-h3, .serifスタイルは common.css で定義 */
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        canvas#handCanvas {
+            cursor: pointer;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .info-card {
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn.active {
+            background-color: #312e81;
+            /* Indigo 900 */
+            color: white;
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen flex flex-col">
+
+    <!-- Header -->
+    <header class="bg-stone-900 text-stone-100 shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div
+                    class="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center font-bold serif text-stone-900">
+                    手</div>
+                <h1 class="text-xl md:text-2xl font-bold tracking-wide">Palmistry Explorer <span
+                        class="text-sm font-light text-stone-400 ml-2">手相の科学</span></h1>
+            </div>
+            <nav class="hidden md:flex space-x-6 text-sm font-medium">
+                <a href="#intro" class="hover:text-amber-500 transition-colors">概要</a>
+                <a href="#interactive-map" class="hover:text-amber-500 transition-colors">手相地図</a>
+                <a href="#analysis" class="hover:text-amber-500 transition-colors">特徴分析</a>
+                <a href="#history" class="hover:text-amber-500 transition-colors">歴史</a>
+                <a href="#method" class="hover:text-amber-500 transition-colors">鑑定法</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow container mx-auto px-4 py-8 space-y-16">
+
+        <!-- Section 1: Introduction -->
+        <section id="intro" class="max-w-4xl mx-auto text-center space-y-6 animate-fade-in-up">
+            <h2 class="text-3xl md:text-4xl font-bold text-stone-800 serif">手のひらに刻まれた「脳の縮図」</h2>
+            <p class="text-lg text-stone-600 leading-relaxed">
+                手相（Palmistry）は、単なる占いではありません。それは数千年の統計に基づく「相術（そうじゅつ）」であり、
+                あなたの性格、健康状態、そして人生の可能性を読み解く分析ツールです。
+                手は「外部に露出した脳」とも呼ばれ、あなたの意識や行動の変化と共に、その刻まれた線も日々変化し続けています。
+            </p>
+            <div class="flex justify-center gap-4 text-sm font-semibold text-stone-500">
+                <span class="px-3 py-1 bg-stone-200 rounded-full">相術 (Observation)</span>
+                <span class="px-3 py-1 bg-stone-200 rounded-full">統計学 (Statistics)</span>
+                <span class="px-3 py-1 bg-stone-200 rounded-full">自己分析 (Self-Analysis)</span>
+            </div>
+        </section>
+
+        <!-- Section 2: Interactive Hand Map (The Core) -->
+        <section id="interactive-map" class="bg-stone-100 rounded-3xl p-6 md:p-10 shadow-inner">
+            <div class="text-center mb-8">
+                <h3 class="text-2xl font-bold text-indigo-900 serif mb-2">インタラクティブ手相マップ</h3>
+                <p class="text-stone-600">
+                    下の図は手のひらの主要な線と「丘（おか）」を示しています。<br>
+                    <span class="text-amber-700 font-bold">マウスを動かして（またはタップして）</span>、各部位の意味を探求してください。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+                <!-- Left Column: Canvas -->
+                <div class="flex justify-center relative">
+                    <!-- Tooltip overlay -->
+                    <div id="canvas-tooltip"
+                        class="absolute pointer-events-none bg-stone-900 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity z-10">
+                    </div>
+                    <canvas id="handCanvas" width="500" height="600"
+                        class="w-full max-w-[500px] h-auto border border-stone-200"></canvas>
+                </div>
+
+                <!-- Right Column: Info Panel -->
+                <div class="space-y-6">
+                    <div id="info-panel"
+                        class="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-900 h-full transition-all duration-300">
+                        <div class="flex items-center justify-between mb-4">
+                            <h4 id="info-title" class="text-2xl font-bold text-stone-800 serif">手のひらを探索しましょう</h4>
+                            <span id="info-category"
+                                class="text-xs font-bold tracking-wider text-stone-400 uppercase">Start</span>
+                        </div>
+                        <p id="info-desc" class="text-stone-600 leading-relaxed mb-6">
+                            左の図の線やエリアにカーソルを合わせると、その詳細が表示されます。手相には大きく分けて「線」と「丘（膨らみ）」の2つの重要な要素があります。
+                        </p>
+
+                        <!-- Dynamic Content Area -->
+                        <div id="info-details" class="hidden">
+                            <div class="bg-indigo-50 p-4 rounded-lg mb-4">
+                                <h5 class="font-bold text-indigo-900 mb-2">主な意味</h5>
+                                <p id="info-meaning" class="text-sm text-indigo-800">ここに意味が表示されます。</p>
+                            </div>
+                            <div class="border-t border-stone-100 pt-4">
+                                <h5 class="font-bold text-stone-700 mb-2 text-sm">チェックポイント</h5>
+                                <ul id="info-check" class="list-disc list-inside text-sm text-stone-600 space-y-1">
+                                    <li>線の濃さ</li>
+                                    <li>長さ</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Navigation for Canvas (Alternative if touch is tricky) -->
+            <div class="mt-6 flex flex-wrap justify-center gap-2 lg:hidden">
+                <button onclick="simulateHover('life')"
+                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">生命線</button>
+                <button onclick="simulateHover('head')"
+                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">知能線</button>
+                <button onclick="simulateHover('heart')"
+                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">感情線</button>
+                <button onclick="simulateHover('fate')"
+                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">運命線</button>
+            </div>
+        </section>
+
+        <!-- Section 3: Comparative Analysis -->
+        <section id="analysis" class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+                <h3 class="text-2xl font-bold text-stone-800 serif mb-4">得意・不得意の分析</h3>
+                <p class="text-stone-600 mb-6 leading-relaxed">
+                    手相（相術）は、生まれた瞬間から変わらない「命術（占星術など）」や、偶然性を用いる「卜術（タロットなど）」とは異なる特性を持っています。
+                    具体的に何が分かり、何が分からないのかを可視化しました。
+                </p>
+
+                <div class="space-y-4">
+                    <div class="p-4 bg-white rounded-lg shadow-sm border border-stone-100">
+                        <h4 class="font-bold text-indigo-900 flex items-center"><span class="text-lg mr-2">◎</span>
+                            わかること（得意）</h4>
+                        <ul class="text-sm text-stone-600 mt-2 list-disc list-inside space-y-1">
+                            <li>本来の気質・性格・才能</li>
+                            <li>現在の健康状態・バイオリズム</li>
+                            <li>人生の転機（結婚、転職など）の大まかな時期</li>
+                        </ul>
+                    </div>
+                    <div class="p-4 bg-white rounded-lg shadow-sm border border-stone-100">
+                        <h4 class="font-bold text-amber-700 flex items-center"><span class="text-lg mr-2">✕</span>
+                            わからないこと（不得意）</h4>
+                        <ul class="text-sm text-stone-600 mt-2 list-disc list-inside space-y-1">
+                            <li>「3月5日」のような具体的な日付</li>
+                            <li>相手の具体的な気持ち（タロットの領域）</li>
+                            <li>宝くじの当選番号</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h4 class="text-center font-bold text-stone-500 text-sm mb-4">占術特性比較レーダーチャート</h4>
+                <div class="chart-container">
+                    <canvas id="radarChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: History & Logic -->
+        <section id="history" class="bg-stone-900 text-stone-300 rounded-3xl p-8 md:p-12">
+            <div class="max-w-4xl mx-auto">
+                <h3 class="text-2xl font-bold text-white serif mb-8 text-center">歴史とロジックの系譜</h3>
+
+                <div class="relative border-l-2 border-stone-700 ml-4 md:ml-0 space-y-12">
+                    <!-- Timeline Item 1 -->
+                    <div class="relative md:pl-8">
+                        <span
+                            class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-amber-600 ring-4 ring-stone-900"></span>
+                        <div class="pl-6 md:pl-0">
+                            <span class="text-amber-500 font-bold text-sm tracking-widest">起源 (約3000-5000年前)</span>
+                            <h4 class="text-xl font-bold text-white mt-1">古代インドでの発祥</h4>
+                            <p class="mt-2 text-stone-400 text-sm leading-relaxed">
+                                手相のルーツは古代インドにあります。アーユルヴェーダなどの医学的見地や、星々の動きと身体の関連性を説く思想と結びつき、「手は脳の鏡である」という概念が生まれました。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="relative md:pl-8">
+                        <span
+                            class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-stone-600 ring-4 ring-stone-900"></span>
+                        <div class="pl-6 md:pl-0">
+                            <span class="text-stone-500 font-bold text-sm tracking-widest">伝播と分岐</span>
+                            <h4 class="text-xl font-bold text-white mt-1">東洋と西洋への分岐</h4>
+                            <p class="mt-2 text-stone-400 text-sm leading-relaxed">
+                                インドから中国へ伝わったものは「東洋手相術」として、漢方医学や易学と融合しました。一方、西へ伝わったものはギリシャ・ローマを経て「西洋手相術」となり、性格分析や心理学的側面を強めていきました。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="relative md:pl-8">
+                        <span
+                            class="absolute -left-[9px] top-0 w-4 h-4 rounded-full bg-indigo-500 ring-4 ring-stone-900"></span>
+                        <div class="pl-6 md:pl-0">
+                            <span class="text-indigo-400 font-bold text-sm tracking-widest">近代日本</span>
+                            <h4 class="text-xl font-bold text-white mt-1">西洋式手相の普及</h4>
+                            <p class="mt-2 text-stone-400 text-sm leading-relaxed">
+                                日本には平安時代に東洋式が伝わりましたが、現在主流となっているのは明治・大正期に入ってきた西洋式の手相術です。現代では両者の長所を取り入れた独自のスタイルが確立されています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 bg-stone-800 p-6 rounded-lg border border-stone-700">
+                    <h4 class="font-bold text-white mb-2 flex items-center">
+                        <span class="text-xl mr-2">🧠</span> 根拠となるロジック
+                    </h4>
+                    <p class="text-stone-400 text-sm">
+                        手は人体の外部器官の中で最も大脳と密接に神経がつながっています（ペンフィールドの脳地図）。脳の状態や意識の変化が神経を通じて手のひらの筋肉や血流に微細な影響を与え、長い時間をかけて「シワ（線）」や「肉付き（丘）」を形成するという説が有力です。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Methodology -->
+        <section id="method" class="max-w-5xl mx-auto mb-12">
+            <h3 class="text-2xl font-bold text-stone-800 serif mb-8 text-center">基本的な鑑定ステップ</h3>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Step 1 -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow border-t-4 border-amber-500">
+                    <div class="text-amber-600 font-bold text-4xl mb-4 opacity-20">01</div>
+                    <h4 class="font-bold text-lg mb-2">左右の手を確認</h4>
+                    <p class="text-stone-600 text-sm">
+                        一般的に、<strong>左手は「先天運（生まれ持った才能・過去）」</strong>、<strong>右手は「後天運（自分で切り開いた現在・未来）」</strong>を表すとされます。両手を見比べ、そのギャップから人生の変化を読み取ります。
+                    </p>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow border-t-4 border-indigo-500">
+                    <div class="text-indigo-600 font-bold text-4xl mb-4 opacity-20">02</div>
+                    <h4 class="font-bold text-lg mb-2">4大基本線を見る</h4>
+                    <p class="text-stone-600 text-sm">
+                        生命線（健康・寿命）、知能線（才能・適職）、感情線（性格・恋愛）、運命線（人生の流れ）の4本を中心に観察します。線の濃さ、乱れ、枝分かれが重要なヒントになります。
+                    </p>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                    class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition-shadow border-t-4 border-emerald-500">
+                    <div class="text-emerald-600 font-bold text-4xl mb-4 opacity-20">03</div>
+                    <h4 class="font-bold text-lg mb-2">流年法で時期を読む</h4>
+                    <p class="text-stone-600 text-sm">
+                        線の始点を0歳とし、どの位置に障害線や開運線があるかを測ることで、「何歳頃に転機が訪れるか」を予測します。これを流年法（りゅうねんほう）と呼びます。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Simple Interactive Check -->
+            <div class="mt-12 bg-amber-50 p-6 md:p-8 rounded-2xl">
+                <h4 class="text-xl font-bold text-stone-800 text-center mb-6">簡易セルフチェック: あなたの知能線は？</h4>
+                <div class="flex flex-col md:flex-row justify-center gap-4">
+                    <button onclick="checkResult('straight')"
+                        class="flex-1 bg-white p-4 rounded-lg shadow-sm border border-amber-200 hover:bg-amber-100 transition-colors text-left group">
+                        <span class="block font-bold text-amber-900 group-hover:text-amber-700">A. まっすぐ横に伸びている</span>
+                        <span class="text-xs text-stone-500 mt-1">現実的・論理的タイプ</span>
+                    </button>
+                    <button onclick="checkResult('curved')"
+                        class="flex-1 bg-white p-4 rounded-lg shadow-sm border-amber-200 border hover:bg-amber-100 transition-colors text-left group">
+                        <span class="block font-bold text-amber-900 group-hover:text-amber-700">B. 下に向かってカーブしている</span>
+                        <span class="text-xs text-stone-500 mt-1">芸術的・ロマンチストタイプ</span>
+                    </button>
+                    <button onclick="checkResult('split')"
+                        class="flex-1 bg-white p-4 rounded-lg shadow-sm border border-amber-200 hover:bg-amber-100 transition-colors text-left group">
+                        <span class="block font-bold text-amber-900 group-hover:text-amber-700">C. 先端が二股に分かれている</span>
+                        <span class="text-xs text-stone-500 mt-1">多才・器用貧乏タイプ</span>
+                    </button>
+                </div>
+                <div id="check-result"
+                    class="mt-4 text-center hidden p-4 bg-white rounded-lg border border-amber-200 text-amber-900 font-medium animate-pulse">
+                    <!-- Result text injected here -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-900 text-stone-500 py-8 text-center text-sm">
+        <p>&copy; 2026 Palmistry Explorer. All rights reserved.</p>
+        <p class="mt-2 text-xs">※手相は統計的な傾向を示すものであり、確定した未来を保証するものではありません。</p>
+    </footer>
+
+    <!-- Logic Script -->
+    <script>
+        // --- Data & State ---
+        const handData = {
+            lines: {
+                life: {
+                    name: "生命線 (Life Line)",
+                    desc: "親指と人差し指の間から手首に向かって弧を描く線。",
+                    meaning: "生命力、健康状態、寿命の傾向を表します。長さだけでなく、カーブの張り出し具合がスタミナの有無を示します。",
+                    points: "張り出しが大きい＝エネルギッシュ。切れ切れ＝変化の多い人生。",
+                    color: "#ef4444"
+                },
+                head: {
+                    name: "知能線 (Head Line)",
+                    desc: "生命線と同じ始点から、手のひらを横切る線。",
+                    meaning: "思考パターン、適職、才能を表します。長さは思考の深さ、向きは興味の方向性（現実or理想）を示します。",
+                    points: "横にまっすぐ＝理数系・実務。下にカーブ＝文系・芸術。",
+                    color: "#3b82f6"
+                },
+                heart: {
+                    name: "感情線 (Heart Line)",
+                    desc: "小指の下から人差し指方向へ伸びる線。",
+                    meaning: "感情表現、恋愛傾向、性格の明るさを表します。線の乱れは感受性の豊かさを示します。",
+                    points: "先端が急上昇＝熱しやすく冷めやすい。長い＝愛情深い。",
+                    color: "#ec4899"
+                },
+                fate: {
+                    name: "運命線 (Fate Line)",
+                    desc: "手首付近から中指に向かって縦に伸びる線。",
+                    meaning: "社会的な活躍、人生の充実度、運勢の流れを表します。無い人もいますが、それは「組織に属さない生き方」や「サポート役」を意味する場合もあります。",
+                    points: "太く濃い＝自立心が強い。途切れ＝転職や転機。",
+                    color: "#8b5cf6"
+                }
+            },
+            mounts: {
+                jupiter: {
+                    name: "木星丘 (Jupiter Mount)",
+                    desc: "人差し指の付け根。",
+                    meaning: "野心、向上心、リーダーシップを司る場所です。",
+                    color: "#fbbf24"
+                },
+                saturn: {
+                    name: "土星丘 (Saturn Mount)",
+                    desc: "中指の付け根。",
+                    meaning: "忍耐、孤独、研究心を司ります。",
+                    color: "#a8a29e"
+                },
+                sun: {
+                    name: "太陽丘 (Sun Mount)",
+                    desc: "薬指の付け根。",
+                    meaning: "人気、成功、金運、芸術性を表します。",
+                    color: "#f59e0b"
+                },
+                mercury: {
+                    name: "水星丘 (Mercury Mount)",
+                    desc: "小指の付け根。",
+                    meaning: "商才、コミュニケーション能力、財運を表します。",
+                    color: "#34d399"
+                },
+                venus: {
+                    name: "金星丘 (Venus Mount)",
+                    desc: "親指の付け根の広い膨らみ。",
+                    meaning: "生命力、愛情、家族愛、スタミナのタンクです。",
+                    color: "#fca5a5"
+                },
+                moon: {
+                    name: "月丘 (Moon Mount)",
+                    desc: "小指側の下部。",
+                    meaning: "想像力、神秘性、他人からの援助を表します。",
+                    color: "#c4b5fd"
+                }
+            }
+        };
+
+        // --- Canvas Implementation ---
+        const canvas = document.getElementById('handCanvas');
+        const ctx = canvas.getContext('2d');
+        const tooltip = document.getElementById('canvas-tooltip');
+        let currentHover = null;
+
+        // Coordinates for simplified hit detection (circles for start/mid/end points of lines roughly)
+        // Note: For a real app, we'd use complex path hit detection. Here we use proximity to defined paths.
+
+        function drawHand() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // 1. Draw Hand Outline (Stylized)
+            ctx.beginPath();
+            ctx.strokeStyle = '#e7e5e4'; // Stone-200
+            ctx.lineWidth = 4;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // Wrist left
+            ctx.moveTo(100, 580);
+            ctx.lineTo(100, 450);
+            // Thumb
+            ctx.bezierCurveTo(90, 400, 40, 350, 60, 280);
+            ctx.bezierCurveTo(80, 230, 130, 250, 160, 300);
+            // Index finger
+            ctx.lineTo(160, 150);
+            ctx.bezierCurveTo(160, 100, 200, 100, 200, 150);
+            ctx.lineTo(200, 300);
+            // Middle finger
+            ctx.lineTo(220, 80);
+            ctx.bezierCurveTo(220, 30, 270, 30, 270, 80);
+            ctx.lineTo(270, 300);
+            // Ring finger
+            ctx.lineTo(300, 100);
+            ctx.bezierCurveTo(300, 50, 340, 50, 340, 100);
+            ctx.lineTo(340, 310);
+            // Pinky
+            ctx.lineTo(370, 180);
+            ctx.bezierCurveTo(370, 140, 410, 140, 410, 180);
+            ctx.lineTo(410, 400);
+            // Wrist right
+            ctx.bezierCurveTo(420, 500, 400, 550, 400, 580);
+
+            ctx.fillStyle = '#fffaf0'; // Floral white
+            ctx.fill();
+            ctx.stroke();
+
+            // 2. Draw Mounts (Transparent circles)
+            drawMount('jupiter', 180, 330, 30, handData.mounts.jupiter.color);
+            drawMount('saturn', 245, 330, 30, handData.mounts.saturn.color);
+            drawMount('sun', 320, 335, 30, handData.mounts.sun.color);
+            drawMount('mercury', 390, 360, 25, handData.mounts.mercury.color);
+            drawMount('venus', 130, 450, 50, handData.mounts.venus.color);
+            drawMount('moon', 380, 480, 45, handData.mounts.moon.color);
+
+            // 3. Draw Lines
+            // Life Line
+            drawLine('life', handData.lines.life.color, (c) => {
+                c.moveTo(170, 350);
+                c.bezierCurveTo(200, 400, 180, 500, 150, 550);
+            });
+
+            // Head Line
+            drawLine('head', handData.lines.head.color, (c) => {
+                c.moveTo(170, 350);
+                c.bezierCurveTo(250, 380, 300, 400, 380, 420);
+            });
+
+            // Heart Line
+            drawLine('heart', handData.lines.heart.color, (c) => {
+                c.moveTo(410, 380);
+                c.bezierCurveTo(350, 380, 250, 350, 200, 330);
+            });
+
+            // Fate Line
+            drawLine('fate', handData.lines.fate.color, (c) => {
+                c.moveTo(250, 550);
+                c.lineTo(250, 350);
+            });
+        }
+
+        function drawMount(id, x, y, r, color) {
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI * 2);
+            ctx.fillStyle = color + '40'; // Low opacity
+            if (currentHover === id) {
+                ctx.fillStyle = color + '80'; // Highlight opacity
+                ctx.strokeStyle = color;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
+            ctx.fill();
+        }
+
+        function drawLine(id, color, pathFn) {
+            ctx.beginPath();
+            pathFn(ctx);
+            ctx.lineWidth = currentHover === id ? 8 : 5;
+            ctx.strokeStyle = currentHover === id ? color : '#cbd5e1'; // Grey by default, color on hover
+            if (currentHover === id) ctx.shadowBlur = 10;
+            ctx.shadowColor = color;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            ctx.shadowBlur = 0;
+        }
+
+        // Hit Detection Logic
+        canvas.addEventListener('mousemove', (e) => {
+            const rect = canvas.getBoundingClientRect();
+            // Scale mouse coordinates to canvas resolution
+            const scaleX = canvas.width / rect.width;
+            const scaleY = canvas.height / rect.height;
+            const x = (e.clientX - rect.left) * scaleX;
+            const y = (e.clientY - rect.top) * scaleY;
+
+            let prevHover = currentHover;
+            currentHover = null;
+            tooltip.style.opacity = 0;
+
+            // Check Mounts (Circle collision)
+            const mounts = [
+                { id: 'jupiter', x: 180, y: 330, r: 35 },
+                { id: 'saturn', x: 245, y: 330, r: 35 },
+                { id: 'sun', x: 320, y: 335, r: 35 },
+                { id: 'mercury', x: 390, y: 360, r: 30 },
+                { id: 'venus', x: 130, y: 450, r: 55 },
+                { id: 'moon', x: 380, y: 480, r: 50 }
+            ];
+
+            for (let m of mounts) {
+                const dist = Math.sqrt((x - m.x) ** 2 + (y - m.y) ** 2);
+                if (dist < m.r) {
+                    currentHover = m.id;
+                    break;
+                }
+            }
+
+            // Check Lines (Simplified rectangle zones for this demo)
+            // Real implementation would use isPointInStroke with Path2D
+            if (!currentHover) {
+                if (x > 150 && x < 200 && y > 350 && y < 550) currentHover = 'life';
+                else if (x > 200 && x < 380 && y > 380 && y < 420) currentHover = 'head';
+                else if (x > 200 && x < 410 && y > 330 && y < 380) currentHover = 'heart';
+                else if (x > 230 && x < 270 && y > 350 && y < 550) currentHover = 'fate';
+            }
+
+            if (currentHover !== prevHover) {
+                drawHand();
+                updateInfoPanel(currentHover);
+            }
+
+            // Tooltip positioning
+            if (currentHover) {
+                const data = handData.lines[currentHover] || handData.mounts[currentHover];
+                tooltip.textContent = data.name;
+                tooltip.style.left = (e.clientX - rect.left + 10) + 'px';
+                tooltip.style.top = (e.clientY - rect.top + 10) + 'px';
+                tooltip.style.opacity = 1;
+                canvas.style.cursor = 'pointer';
+            } else {
+                canvas.style.cursor = 'default';
+            }
+        });
+
+        canvas.addEventListener('click', () => {
+            if (currentHover) {
+                const panel = document.getElementById('info-panel');
+                panel.classList.add('ring-2', 'ring-amber-500');
+                setTimeout(() => panel.classList.remove('ring-2', 'ring-amber-500'), 300);
+            }
+        });
+
+        function simulateHover(id) {
+            currentHover = id;
+            drawHand();
+            updateInfoPanel(id);
+        }
+
+        function updateInfoPanel(id) {
+            const titleEl = document.getElementById('info-title');
+            const catEl = document.getElementById('info-category');
+            const descEl = document.getElementById('info-desc');
+            const detailsEl = document.getElementById('info-details');
+            const meaningEl = document.getElementById('info-meaning');
+            const checkEl = document.getElementById('info-check');
+
+            if (!id) {
+                // Reset state is optional, but we keep the last selected item usually
+                // Or we could reset to default text. Let's keep selection or default if fresh.
+                return;
+            }
+
+            const data = handData.lines[id] || handData.mounts[id];
+            const isLine = !!handData.lines[id];
+
+            titleEl.textContent = data.name;
+            titleEl.style.color = isLine ? data.color : '#292524'; // Use color for lines
+            catEl.textContent = isLine ? 'Major Line' : 'Mount';
+            catEl.className = `text-xs font-bold tracking-wider uppercase ${isLine ? 'text-indigo-600' : 'text-amber-600'}`;
+            descEl.textContent = data.desc;
+
+            detailsEl.classList.remove('hidden');
+            meaningEl.textContent = data.meaning;
+
+            if (isLine) {
+                checkEl.parentElement.classList.remove('hidden');
+                checkEl.innerHTML = `<li>${data.points}</li>`;
+            } else {
+                checkEl.parentElement.classList.add('hidden');
+            }
+        }
+
+        // --- Chart.js Radar ---
+        const radarCtx = document.getElementById('radarChart').getContext('2d');
+        new Chart(radarCtx, {
+            type: 'radar',
+            data: {
+                labels: ['性格・気質', '長期運勢', '健康状態', '具体的な日時', '相手の気持ち', '短期的な吉凶'],
+                datasets: [{
+                    label: '手相 (Palmistry)',
+                    data: [9, 8, 9, 2, 3, 5],
+                    backgroundColor: 'rgba(245, 158, 11, 0.2)', // Amber
+                    borderColor: 'rgba(245, 158, 11, 1)',
+                    pointBackgroundColor: 'rgba(245, 158, 11, 1)',
+                }, {
+                    label: 'タロット (Tarot)',
+                    data: [6, 4, 3, 5, 9, 9],
+                    backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo
+                    borderColor: 'rgba(99, 102, 241, 1)',
+                    pointBackgroundColor: 'rgba(99, 102, 241, 1)',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: '#e5e7eb' },
+                        grid: { color: '#e5e7eb' },
+                        pointLabels: {
+                            font: { size: 12, family: "'Noto Sans JP', sans-serif" },
+                            color: '#4b5563'
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 10
+                    }
+                },
+                plugins: {
+                    legend: { position: 'bottom' }
+                }
+            }
+        });
+
+        // --- Interactive Check Logic ---
+        function checkResult(type) {
+            const resultBox = document.getElementById('check-result');
+            resultBox.classList.remove('hidden');
+            let text = "";
+            if (type === 'straight') text = "あなたは「合理的実務家」タイプ。論理的思考に優れ、経理やエンジニア、経営管理に向いています。";
+            if (type === 'curved') text = "あなたは「感性豊かなクリエイター」タイプ。想像力が豊かで、デザイン、芸術、企画職などで才能を発揮します。";
+            if (type === 'split') text = "あなたは「適応力抜群のマルチプレイヤー」。ビジネスセンスと創造性の両方を持ち、副業やライターなども向いています。";
+
+            resultBox.textContent = text;
+        }
+
+        // Initialize
+        drawHand();
+    </script>
+</body>
+
+</html>

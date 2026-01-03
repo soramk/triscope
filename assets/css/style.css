@@ -45,6 +45,7 @@ body {
     height: 100vh;
     position: fixed;
     z-index: 100;
+    overflow-y: auto;
 }
 
 .logo-container {
@@ -56,14 +57,14 @@ body {
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
-    background-image: url('../images/triscope_logo.png');
+    width: 48px;
+    height: 48px;
+    background-image: url('../images/triscope_logo_x4.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 8px;
-    filter: drop-shadow(0 0 8px var(--accent-primary));
+    filter: drop-shadow(0 0 12px rgba(138, 43, 226, 0.6));
 }
 
 .logo-text {
@@ -108,6 +109,38 @@ body {
     position: absolute;
     left: 0;
     border-radius: 0 4px 4px 0;
+}
+
+/* Navigation Groups (Sidebar) */
+.nav-group {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.nav-group-title {
+    display: block;
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+}
+
+.nav-sublist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-sublist li {
+    margin-bottom: 0.1rem;
+}
+
+.nav-sublist .nav-link {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
 }
 
 /* Main Content */
@@ -310,12 +343,26 @@ input:focus {
     }
 
     .logo-text,
-    .nav-text {
+    .nav-text,
+    .nav-group-title {
         display: none;
+    }
+
+    .nav-sublist .nav-link {
+        justify-content: center;
+        padding: 0.5rem;
     }
 
     .main-content {
         margin-left: 80px;
         padding: 2rem;
     }
+}
+
+/* Home Content Styles (for iframe) */
+.home-content {
+    padding: 2rem 4rem;
+    max-width: 1200px;
+    background: var(--bg-color);
+    min-height: 100vh;
 }

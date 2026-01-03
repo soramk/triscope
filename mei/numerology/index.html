@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数秘術：運命の羅針盤 - 詳細レポート＆インタラクティブガイド</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+    <style>
+        /* bodyスタイルは common.css で定義 */
+        /* h1-h3, .serifスタイルは common.css で定義 */
+
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .number-card {
+            transition: all 0.3s ease;
+        }
+
+        .number-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .active-tab {
+            border-bottom: 2px solid #5B21B6;
+            color: #5B21B6;
+            font-weight: 600;
+        }
+
+        .inactive-tab {
+            border-bottom: 2px solid transparent;
+            color: #6B7280;
+        }
+
+        .timeline-dot {
+            transition: background-color 0.3s;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutrals (Background: #FDFBF7) with Mystical Violet (#5B21B6) and Deep Indigo (#312E81) accents for depth and calm harmony. -->
+    <!-- Application Structure Plan:
+        1. **Hero/Calculator**: Immediate engagement. Users input birthdate to see the logic in action instantly. This personalizes the rest of the report.
+        2. **Overview (Dashboard)**: A high-level view of what Numerology is using cards and a Radar Chart to compare it with other divination types (Context).
+        3. **The Numbers (Interactive Grid)**: The core database. Users click numbers (1-9, 11, 22, 33) to learn specific meanings. Replaces static lists.
+        4. **Capabilities (Tabs)**: "What it tells" vs "What it doesn't". Tabbed interface for clean information architecture.
+        5. **Cycles (Line Chart)**: Visualizing the concept of the "9-Year Cycle" to explain the temporal aspect of Numerology.
+        6. **History & Logic (Timeline)**: Vertical timeline to scroll through the evolution from Pythagoras to modern day.
+        Rationale: This structure moves from personal experience -> theoretical understanding -> historical context, keeping the user engaged through self-discovery.
+    -->
+    <!-- Visualization & Content Choices:
+        1. **Calculator (JS)**: Goal: Engagement/Demo. Method: Input forms & instant logic calculation. Justification: Best way to learn the "Method" is to do it.
+        2. **Radar Chart (Chart.js)**: Goal: Compare "Characteristics". Method: Comparison of Numerology vs Tarot vs Astrology on axes like "Fate", "Timing", "Psychology". Justification: Visualizes abstract "characteristics" concretely.
+        3. **Number Grid (HTML/JS)**: Goal: Inform "Meanings". Method: Interactive grid updating a detail panel. Justification: Avoids a wall of text; encourages exploration.
+        4. **Line Chart (Chart.js)**: Goal: Change/Cycle. Method: Waveform graph of the 9-year cycle. Justification: Shows the "Flow" of fortune better than text.
+        5. **Timeline (HTML/Tailwind)**: Goal: History. Method: Vertical stepper. Justification: Organizes chronological data cleanly.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="bg-[#FDFBF7] text-slate-700 antialiased">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-900 serif tracking-wide">数秘術</span>
+                    <span class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Numerology
+                        Report</span>
+                </div>
+                <div class="flex items-center space-x-4 text-sm font-medium">
+                    <button onclick="scrollToSection('calculator')"
+                        class="text-gray-600 hover:text-indigo-700">計算</button>
+                    <button onclick="scrollToSection('overview')"
+                        class="text-gray-600 hover:text-indigo-700">概要</button>
+                    <button onclick="scrollToSection('numbers')"
+                        class="text-gray-600 hover:text-indigo-700">数の意味</button>
+                    <button onclick="scrollToSection('history')" class="text-gray-600 hover:text-indigo-700">歴史</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero / Calculator Section -->
+    <header id="calculator" class="relative bg-white overflow-hidden border-b border-gray-100">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
+                <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block xl:inline">数字に秘められた</span>
+                            <span class="block text-indigo-600 xl:inline serif">宇宙の暗号を解く</span>
+                        </h1>
+                        <p
+                            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            数秘術は、生年月日や名前に隠された数字のメッセージを読み解く古代からの知恵です。まずは、あなたの「ライフ・パス・ナンバー（運命数）」を計算し、その仕組みを体験してみましょう。
+                        </p>
+
+                        <!-- Calculator Interface -->
+                        <div class="mt-8 bg-indigo-50 rounded-xl p-6 shadow-sm border border-indigo-100">
+                            <label for="birthdate"
+                                class="block text-sm font-medium text-indigo-900 mb-2">生年月日を入力してください</label>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <input type="date" id="birthdate"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3">
+                                <button onclick="calculateNumerology()"
+                                    class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors shadow-lg">
+                                    鑑定する
+                                </button>
+                            </div>
+                            <!-- Result Display -->
+                            <div id="result-area" class="mt-6 hidden fade-in">
+                                <div class="flex items-baseline">
+                                    <span class="text-sm text-gray-500 mr-2">あなたの運命数:</span>
+                                    <span id="display-number" class="text-5xl font-bold text-indigo-800 serif"></span>
+                                </div>
+                                <div
+                                    class="mt-2 text-sm text-gray-600 font-mono bg-white p-2 rounded border border-gray-200">
+                                    計算式: <span id="calculation-process"></span>
+                                </div>
+                                <p id="result-description" class="mt-4 text-gray-800 font-medium leading-relaxed"></p>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex items-center justify-center p-8">
+            <!-- Conceptual Visualization of Numbers -->
+            <div class="grid grid-cols-3 gap-4 opacity-20">
+                <div class="text-9xl font-serif text-indigo-900">1</div>
+                <div class="text-9xl font-serif text-indigo-900">2</div>
+                <div class="text-9xl font-serif text-indigo-900">3</div>
+                <div class="text-9xl font-serif text-indigo-900">4</div>
+                <div class="text-9xl font-serif text-indigo-900">5</div>
+                <div class="text-9xl font-serif text-indigo-900">6</div>
+                <div class="text-9xl font-serif text-indigo-900">7</div>
+                <div class="text-9xl font-serif text-indigo-900">8</div>
+                <div class="text-9xl font-serif text-indigo-900">9</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Overview Section -->
+    <section id="overview" class="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-extrabold text-gray-900 serif">数秘術の概要と特性</h2>
+            <p class="mt-4 max-w-2xl text-xl text-gray-500 mx-auto">
+                数秘術は「命術（めいじゅつ）」に分類される占いです。偶然ではなく、生来持っているデータ（誕生日・名前）に基づき、長期的な運命や性質を分析します。
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Text Content -->
+            <div class="space-y-6">
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-indigo-900 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-800 py-1 px-3 rounded-full text-xs mr-3">分類</span>
+                        命術（めいじゅつ）
+                    </h3>
+                    <p class="mt-2 text-gray-600">
+                        四柱推命や占星術と同じく、「変えられない情報」を元にします。その人の「設計図」や「取扱説明書」を読み解くのに適しており、瞬間的な吉凶（卜術）とは異なります。
+                    </p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-100">
+                    <h3 class="text-lg font-bold text-indigo-900 flex items-center">
+                        <span class="bg-indigo-100 text-indigo-800 py-1 px-3 rounded-full text-xs mr-3">特徴</span>
+                        普遍性とシンプルさ
+                    </h3>
+                    <p class="mt-2 text-gray-600">
+                        高度な天文知識や複雑な漢字を必要とせず、万国共通の「数」を用いるため、論理的で現代人にも受け入れやすいのが特徴です。
+                    </p>
+                </div>
+            </div>
+
+            <!-- Radar Chart: Comparison -->
+            <div class="bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                <h4 class="text-center text-sm font-semibold text-gray-500 mb-4">他の占いとの特性比較</h4>
+                <div class="chart-container">
+                    <canvas id="comparisonChart"></canvas>
+                </div>
+                <p class="text-xs text-center text-gray-400 mt-2">※自己理解・長期的な運勢把握に特化しています</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Capabilities Section (Tabs) -->
+    <section class="bg-indigo-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold serif text-center mb-8">得意分野と限界</h2>
+            <div class="max-w-3xl mx-auto">
+                <!-- Tabs -->
+                <div class="flex border-b border-indigo-700 mb-6">
+                    <button onclick="switchTab('can')" id="tab-can"
+                        class="w-1/2 py-4 text-center font-medium text-lg border-b-2 border-white focus:outline-none transition-colors">
+                        わかること (得意)
+                    </button>
+                    <button onclick="switchTab('cannot')" id="tab-cannot"
+                        class="w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors">
+                        わからないこと (苦手)
+                    </button>
+                </div>
+
+                <!-- Content Area -->
+                <div id="content-can" class="fade-in">
+                    <ul class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
+                            <span class="text-2xl mr-3">👤</span>
+                            <div>
+                                <h4 class="font-bold text-indigo-200">本質的な性格・才能</h4>
+                                <p class="text-sm text-indigo-300">社会的な仮面ではない、魂レベルでの欲求や潜在能力。</p>
+                            </div>
+                        </li>
+                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
+                            <span class="text-2xl mr-3">📅</span>
+                            <div>
+                                <h4 class="font-bold text-indigo-200">運勢のバイオリズム</h4>
+                                <p class="text-sm text-indigo-300">人生を9年周期で捉え、今は「種まき」の時か「収穫」の時かを知る。</p>
+                            </div>
+                        </li>
+                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
+                            <span class="text-2xl mr-3">❤️</span>
+                            <div>
+                                <h4 class="font-bold text-indigo-200">相性と関係性</h4>
+                                <p class="text-sm text-indigo-300">お互いの数が持つエネルギーの共鳴度合いや、関係構築のヒント。</p>
+                            </div>
+                        </li>
+                        <li class="bg-indigo-800 p-4 rounded-lg flex items-start">
+                            <span class="text-2xl mr-3">🎯</span>
+                            <div>
+                                <h4 class="font-bold text-indigo-200">人生の使命</h4>
+                                <p class="text-sm text-indigo-300">今世で成し遂げるべきテーマや課題（カルマ）。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="content-cannot" class="hidden fade-in">
+                    <div class="bg-indigo-800 p-6 rounded-lg border-l-4 border-pink-500">
+                        <h3 class="text-xl font-bold mb-4 text-white">以下の内容は「卜術（タロット等）」の分野です</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-center text-indigo-200">
+                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                                「明日の天気がどうなるか」といった具体的な物理現象の予知
+                            </li>
+                            <li class="flex items-center text-indigo-200">
+                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                                「あの人は今、私のことをどう思っているか」という流動的な感情の透視
+                            </li>
+                            <li class="flex items-center text-indigo-200">
+                                <span class="w-2 h-2 bg-pink-500 rounded-full mr-3"></span>
+                                ギャンブルの勝ち負けや、試験の合否そのもの（運気はわかるが結果は行動次第）
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Numbers Logic Section -->
+    <section id="numbers" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-10">
+            <h2 class="text-3xl font-extrabold text-gray-900 serif text-center">数のエネルギーと論理</h2>
+            <p class="mt-4 text-center text-gray-500 max-w-2xl mx-auto">
+                数秘術では、1から9のルートナンバーと、11・22・33のマスターナンバーを用います。それぞれの数字は固有の「周波数」や「意味」を持つ記号として扱われます。
+            </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Interactive Grid -->
+            <div class="lg:w-1/2">
+                <div class="grid grid-cols-3 gap-3 sm:gap-4">
+                    <!-- JS will populate interactive functionality here -->
+                    <button onclick="showNumberDetail(1)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">1</span>
+                        <span class="text-xs text-gray-500">始原・リーダー</span>
+                    </button>
+                    <button onclick="showNumberDetail(2)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">2</span>
+                        <span class="text-xs text-gray-500">調和・サポーター</span>
+                    </button>
+                    <button onclick="showNumberDetail(3)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">3</span>
+                        <span class="text-xs text-gray-500">創造・子供</span>
+                    </button>
+                    <button onclick="showNumberDetail(4)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">4</span>
+                        <span class="text-xs text-gray-500">安定・現実</span>
+                    </button>
+                    <button onclick="showNumberDetail(5)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">5</span>
+                        <span class="text-xs text-gray-500">変化・自由</span>
+                    </button>
+                    <button onclick="showNumberDetail(6)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">6</span>
+                        <span class="text-xs text-gray-500">愛・調和</span>
+                    </button>
+                    <button onclick="showNumberDetail(7)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">7</span>
+                        <span class="text-xs text-gray-500">探求・孤独</span>
+                    </button>
+                    <button onclick="showNumberDetail(8)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">8</span>
+                        <span class="text-xs text-gray-500">力・豊かさ</span>
+                    </button>
+                    <button onclick="showNumberDetail(9)"
+                        class="number-card p-6 bg-white rounded-lg shadow border border-gray-200 text-center hover:bg-indigo-50 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-gray-800">9</span>
+                        <span class="text-xs text-gray-500">完結・賢者</span>
+                    </button>
+                    <button onclick="showNumberDetail(11)"
+                        class="number-card p-6 bg-gray-50 rounded-lg shadow border border-gray-300 text-center hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-indigo-700">11</span>
+                        <span class="text-xs text-indigo-600">直感・メッセンジャー</span>
+                    </button>
+                    <button onclick="showNumberDetail(22)"
+                        class="number-card p-6 bg-gray-50 rounded-lg shadow border border-gray-300 text-center hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-indigo-700">22</span>
+                        <span class="text-xs text-indigo-600">大成・マスタービルダー</span>
+                    </button>
+                    <button onclick="showNumberDetail(33)"
+                        class="number-card p-6 bg-gray-50 rounded-lg shadow border border-gray-300 text-center hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <span class="block text-3xl font-bold text-indigo-700">33</span>
+                        <span class="text-xs text-indigo-600">慈愛・宇宙人</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detail View -->
+            <div class="lg:w-1/2">
+                <div id="number-detail-card"
+                    class="h-full bg-white p-8 rounded-xl shadow-lg border-t-4 border-indigo-500 transition-all duration-300">
+                    <div class="flex items-center justify-between mb-6">
+                        <h3 id="detail-title" class="text-4xl font-bold text-gray-800 serif">1</h3>
+                        <span id="detail-keyword"
+                            class="px-4 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-semibold">自立・リーダーシップ</span>
+                    </div>
+                    <p id="detail-desc" class="text-gray-600 leading-relaxed mb-6">
+                        すべての始まりを表す数字。男性的なエネルギーを持ち、矢のように目標に向かって突き進む性質があります。開拓精神にあふれ、誰もやったことのない道を行くことを好みます。
+                    </p>
+                    <div class="bg-gray-50 p-4 rounded-lg">
+                        <h4 class="text-sm font-bold text-gray-700 mb-2">ポジティブな側面</h4>
+                        <p id="detail-pos" class="text-sm text-gray-600">決断力がある、情熱的、革新的、リーダーシップ</p>
+                        <div class="my-2 border-t border-gray-200"></div>
+                        <h4 class="text-sm font-bold text-gray-700 mb-2">ネガティブな側面</h4>
+                        <p id="detail-neg" class="text-sm text-gray-600">自己中心的、強引、短気、孤立しやすい</p>
+                    </div>
+                    <div class="mt-6">
+                        <p class="text-xs text-gray-400 text-center">数字をクリックして詳細を表示</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cycle Section (Line Chart) -->
+    <section class="bg-indigo-50 py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center serif">運気の波（9年周期）</h2>
+            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
+                数秘術では、人生を9年のサイクルで捉えます。1で種を蒔き、9で手放して土に還す。
+                自分が今どのサイクルにいるかを知ることで、行動の指針が得られます。
+            </p>
+            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-sm chart-container mx-auto">
+                <canvas id="cycleChart"></canvas>
+            </div>
+        </div>
+    </section>
+
+    <!-- History Section -->
+    <section id="history" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-extrabold text-gray-900 serif text-center mb-12">数秘術の歴史と起源</h2>
+
+        <div class="relative border-l-4 border-indigo-200 ml-3 sm:ml-6 space-y-12">
+            <!-- Timeline Item 1 -->
+            <div class="relative pl-8 sm:pl-12">
+                <div class="absolute -left-3.5 bg-indigo-500 h-6 w-6 rounded-full border-4 border-white shadow"></div>
+                <h3 class="text-xl font-bold text-gray-900">古代ギリシャ (紀元前6世紀)</h3>
+                <span class="text-sm text-indigo-600 font-bold block mb-2">ピタゴラスの定理</span>
+                <p class="text-gray-600">
+                    「万物は数である」と説いた数学者ピタゴラスが始祖とされます。彼は数が宇宙の構成要素であり、秩序（コスモス）を生み出すと考えました。これが現代数秘術の基礎理論となっています。
+                </p>
+            </div>
+
+            <!-- Timeline Item 2 -->
+            <div class="relative pl-8 sm:pl-12">
+                <div class="absolute -left-3.5 bg-indigo-400 h-6 w-6 rounded-full border-4 border-white shadow"></div>
+                <h3 class="text-xl font-bold text-gray-900">古代ユダヤ・中世</h3>
+                <span class="text-sm text-indigo-600 font-bold block mb-2">カバラ数秘術 (ゲマトリア)</span>
+                <p class="text-gray-600">
+                    ユダヤ教の神秘主義思想「カバラ」の中で発展しました。ヘブライ文字を数字に変換し、聖書の隠された意味を解読する手法（ゲマトリア）として用いられ、より精神的・神秘的な意味合いが強まりました。
+                </p>
+            </div>
+
+            <!-- Timeline Item 3 -->
+            <div class="relative pl-8 sm:pl-12">
+                <div class="absolute -left-3.5 bg-indigo-300 h-6 w-6 rounded-full border-4 border-white shadow"></div>
+                <h3 class="text-xl font-bold text-gray-900">近代アメリカ (20世紀初頭)</h3>
+                <span class="text-sm text-indigo-600 font-bold block mb-2">モダン・ヌメロロジー</span>
+                <p class="text-gray-600">
+                    ミセス・L・ダウ・バリエットらにより、過去の体系が整理され、現代的な性格分析や心理学的なアプローチとして再構築されました。現在私たちが一般的に目にする数秘術（カバラ数秘術と呼ばれるものも含む）の多くは、この流れを汲んでいます。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Methodology Section (Static Guide) -->
+    <section class="bg-gray-800 text-gray-300 py-16">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-2xl font-bold text-white mb-6 serif">基本的な計算ロジック</h2>
+            <div class="bg-gray-700 p-8 rounded-lg shadow-inner inline-block text-left">
+                <h3 class="text-indigo-300 font-bold mb-4 border-b border-gray-600 pb-2">ライフ・パス・ナンバーの出し方</h3>
+                <ol class="list-decimal list-inside space-y-3">
+                    <li>生年月日を西暦で書き出す (例: 1985年10月24日)</li>
+                    <li>すべての数字を1桁になるまで分解して足す <br>
+                        <span class="font-mono text-sm bg-gray-800 p-1 ml-5">1 + 9 + 8 + 5 + 1 + 0 + 2 + 4 = 30</span>
+                    </li>
+                    <li>合計が2桁以上なら、さらに分解して足す <br>
+                        <span class="font-mono text-sm bg-gray-800 p-1 ml-5">3 + 0 = 3</span>
+                    </li>
+                    <li><strong class="text-white">例外ルール:</strong> 合計が <span class="text-yellow-400 font-bold">11, 22,
+                            33</span> になった場合は、そこで計算を止める（マスターナンバー）。</li>
+                </ol>
+                <div class="mt-6 text-sm bg-gray-800 p-4 rounded text-gray-400">
+                    <p>※ 流派によって、年・月・日を別々に単数換算してから足す方法もありますが、現代数秘術では全桁加算が一般的です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-900 text-gray-500 py-8 text-center text-sm">
+        <p>&copy; 2024 Numerology Interactive Report. Generated for Analysis.</p>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- Data Definitions ---
+        const numberData = {
+            1: {
+                title: "1: The Leader",
+                keyword: "自立・開拓・リーダーシップ",
+                desc: "「1」はすべての始まり。男性的なエネルギーを持ち、矢のように目標に向かって突き進む性質があります。開拓精神にあふれ、誰もやったことのない道を行くことを好みます。",
+                pos: "決断力がある、情熱的、革新的、意志が強い",
+                neg: "自己中心的、強引、短気、協調性に欠ける"
+            },
+            2: {
+                title: "2: The Mediator",
+                keyword: "調和・受容・サポーター",
+                desc: "「2」は結合と受容の数。女性的なエネルギーを持ち、対立するものを繋ぎ合わせるバランサーです。感受性が豊かで、人の気持ちに敏感に寄り添います。",
+                pos: "協調性がある、優しい、繊細、聞き上手",
+                neg: "優柔不断、依存的、傷つきやすい、自己主張が苦手"
+            },
+            3: {
+                title: "3: The Creator",
+                keyword: "創造・表現・子供のような心",
+                desc: "「3」は破壊と創造のエネルギー。無邪気な子供のように人生を楽しむ天才です。クリエイティブな表現力に富み、周囲を明るく照らすムードメーカー。",
+                pos: "楽観的、社交的、想像力豊か、エンターテイナー",
+                neg: "無責任、飽きっぽい、浪費、表面的な付き合い"
+            },
+            4: {
+                title: "4: The Builder",
+                keyword: "安定・秩序・現実的",
+                desc: "「4」は四角形や土台を表します。堅実で真面目、ルールを重んじ、物事を形にしていく力があります。安心と安全を大切にする、信頼できる努力家です。",
+                pos: "誠実、忍耐強い、計画的、実務能力が高い",
+                neg: "頑固、融通が利かない、面白みに欠ける、保守的すぎる"
+            },
+            5: {
+                title: "5: The Adventurer",
+                keyword: "変化・自由・コミュニケーション",
+                desc: "「5」は五体や五感を表し、人間そのものを象徴します。自由を愛し、変化と冒険を求めます。コミュニケーション能力が高く、多才で適応力があります。",
+                pos: "適応力がある、好奇心旺盛、多才、進歩的",
+                neg: "落ち着きがない、無謀、飽きっぽい、責任逃れ"
+            },
+            6: {
+                title: "6: The Nurturer",
+                keyword: "愛・調和・責任・美",
+                desc: "「6」は妊婦のお腹のような形。母性的な愛と奉仕の精神を持ちます。家族やコミュニティの調和を何より大切にし、美と芸術を愛する平和主義者です。",
+                pos: "愛情深い、責任感が強い、家庭的、奉仕的",
+                neg: "おせっかい、自己犠牲、嫉妬深い、完璧主義"
+            },
+            7: {
+                title: "7: The Seeker",
+                keyword: "探求・分析・孤独・精神性",
+                desc: "「7」はひとつのサイクルからの脱却。哲学的で、物事の真理を探求する孤高の研究者です。一人の時間を愛し、独特の世界観と鋭い洞察力を持ちます。",
+                pos: "分析力、洞察力、専門性、精神性が高い",
+                neg: "閉鎖的、批判的、神経質、冷笑的"
+            },
+            8: {
+                title: "8: The Powerhouse",
+                keyword: "力・豊かさ・権威・無限",
+                desc: "「8」は横にすると∞（無限）。物質的な成功や権力を象徴します。組織を動かす統率力と、目標を達成する強い意志を持つ、エネルギッシュなファイターです。",
+                pos: "統率力、実行力、野心家、経済観念が鋭い",
+                neg: "支配的、物質主義、仕事中毒、高圧的"
+            },
+            9: {
+                title: "9: The Humanitarian",
+                keyword: "完結・慈愛・賢者・手放し",
+                desc: "「9」は1桁の最後の数。すべての数の要素を含み、全体を見渡す広い視野を持ちます。世界平和や環境問題など、個人的なことより社会的な理想を追う人道主義者です。",
+                pos: "博愛精神、理解力がある、ロマンチスト、寛容",
+                neg: "現実逃避、複雑、感情の起伏が激しい、つかみどころがない"
+            },
+            11: {
+                title: "11: The Messenger",
+                keyword: "直感・霊感・メッセンジャー",
+                desc: "マスターナンバー。1の革新性と2の感受性を併せ持ちます。鋭い直感力で天啓を受け取り、人々に精神的な気づきを与える役割を持ちます。",
+                pos: "直感力が鋭い、理想が高い、影響力がある、カリスマ性",
+                neg: "神経過敏、緊張しやすい、現実離れ、情緒不安定"
+            },
+            22: {
+                title: "22: The Master Builder",
+                keyword: "大成・具現化・カリスマ",
+                desc: "マスターナンバー。4の堅実さと無限のスケール感を持ちます。高い理想を現実社会で形にする強力なパワーを持ち、大きなプロジェクトを成し遂げる器です。",
+                pos: "スケールが大きい、実行力、天才的発想、社会貢献",
+                neg: "強引、波乱万丈、プレッシャーに弱い、独善的"
+            },
+            33: {
+                title: "33: The Master Teacher",
+                keyword: "普遍的な愛・奉仕・宇宙規模",
+                desc: "マスターナンバー。6の愛情が宇宙規模に拡大した状態。常識の枠を超えた愛と奉仕の人であり、独特の感性で周囲を癒やす、規格外の存在です。",
+                pos: "無償の愛、個性的、慈悲深い、包容力",
+                neg: "自己犠牲が過ぎる、常識が通じない、辛い環境を選びがち"
+            }
+        };
+
+        // --- Functions ---
+
+        // Tab Switching Logic
+        function switchTab(tabName) {
+            document.getElementById('content-can').classList.add('hidden');
+            document.getElementById('content-cannot').classList.add('hidden');
+            document.getElementById('tab-can').className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors";
+            document.getElementById('tab-cannot').className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-transparent text-indigo-300 hover:text-white focus:outline-none transition-colors";
+
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-${tabName}`).className = "w-1/2 py-4 text-center font-medium text-lg border-b-2 border-white focus:outline-none transition-colors";
+        }
+
+        // Detail Card Update Logic
+        function showNumberDetail(num) {
+            const data = numberData[num];
+            const card = document.getElementById('number-detail-card');
+
+            // Simple animation reset
+            card.classList.remove('opacity-100');
+            card.classList.add('opacity-50');
+
+            setTimeout(() => {
+                document.getElementById('detail-title').innerText = num;
+                document.getElementById('detail-keyword').innerText = data.keyword;
+                document.getElementById('detail-desc').innerText = data.desc;
+                document.getElementById('detail-pos').innerText = data.pos;
+                document.getElementById('detail-neg').innerText = data.neg;
+
+                card.classList.remove('opacity-50');
+                card.classList.add('opacity-100');
+            }, 150);
+        }
+
+        // Numerology Calculator Logic
+        function calculateNumerology() {
+            const dateInput = document.getElementById('birthdate').value;
+            if (!dateInput) {
+                alert("生年月日を入力してください。");
+                return;
+            }
+
+            const digits = dateInput.replace(/-/g, '').split('').map(Number);
+            let sum = digits.reduce((a, b) => a + b, 0);
+            let processStr = digits.join(" + ") + " = " + sum;
+
+            // Loop to reduce to single digit or master number
+            while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
+                const tempDigits = String(sum).split('').map(Number);
+                const tempSum = tempDigits.reduce((a, b) => a + b, 0);
+                processStr += ` → ${tempDigits.join(" + ")} = ${tempSum}`;
+                sum = tempSum;
+            }
+
+            const resultArea = document.getElementById('result-area');
+            resultArea.classList.remove('hidden');
+
+            document.getElementById('display-number').innerText = sum;
+            document.getElementById('calculation-process').innerText = processStr;
+
+            const desc = numberData[sum] ? numberData[sum].desc : "計算結果エラー";
+            document.getElementById('result-description').innerHTML = `<strong class="text-indigo-700">【${numberData[sum].keyword}】</strong><br>${desc}`;
+
+            // Scroll to detail view for this number automatically
+            showNumberDetail(sum);
+        }
+
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Chart Generation ---
+        document.addEventListener('DOMContentLoaded', function () {
+            // 1. Comparison Radar Chart
+            const ctxComparison = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(ctxComparison, {
+                type: 'radar',
+                data: {
+                    labels: ['自己分析', '未来予知(具体的)', '長期運勢', '相性分析', '日常の吉凶', '心理・内面'],
+                    datasets: [{
+                        label: '数秘術',
+                        data: [9, 3, 9, 8, 4, 9],
+                        fill: true,
+                        backgroundColor: 'rgba(91, 33, 182, 0.2)', // Indigo
+                        borderColor: 'rgb(91, 33, 182)',
+                        pointBackgroundColor: 'rgb(91, 33, 182)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(91, 33, 182)'
+                    }, {
+                        label: 'タロット (卜術)',
+                        data: [6, 8, 4, 7, 9, 8],
+                        fill: true,
+                        backgroundColor: 'rgba(236, 72, 153, 0.1)', // Pink
+                        borderColor: 'rgba(236, 72, 153, 0.5)',
+                        pointBackgroundColor: 'rgba(236, 72, 153, 1)',
+                        pointBorderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Zen Kaku Gothic New', sans-serif" },
+                                color: '#4B5563'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // 2. Cycle Line Chart
+            const ctxCycle = document.getElementById('cycleChart').getContext('2d');
+            new Chart(ctxCycle, {
+                type: 'line',
+                data: {
+                    labels: ['1:開始', '2:協調', '3:創造', '4:安定', '5:変化', '6:愛情', '7:休息', '8:充実', '9:完結'],
+                    datasets: [{
+                        label: '運気のエネルギーレベル (概念図)',
+                        data: [70, 50, 80, 60, 85, 75, 40, 95, 30], // Conceptual energy flow
+                        borderColor: 'rgb(79, 70, 229)',
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 8
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            display: false, // Hide Y axis numbers as it's conceptual
+                            min: 0,
+                            max: 100
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: {
+                                font: { family: "'Zen Kaku Gothic New', sans-serif" }
+                            }
+                        }
+                    },
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const descriptions = [
+                                        "種まき、新しいスタートの時期",
+                                        "忍耐、人間関係を育てる時期",
+                                        "芽が出る、楽しみ、表現の時期",
+                                        "根を張る、地盤固めの時期",
+                                        "成長、変化、冒険の時期",
+                                        "花が咲く、愛と奉仕の時期",
+                                        "剪定、自己内省、休息の時期",
+                                        "収穫、成果を受け取る時期",
+                                        "土壌改良、手放し、次の準備"
+                                    ];
+                                    return descriptions[context.dataIndex];
+                                }
+                            }
+                        },
+                        legend: { display: false }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

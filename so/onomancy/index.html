@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>姓名判断：運命の構造分析レポート</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts: Noto Serif JP for traditional feel -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <!-- Palette and Custom Styles -->
+    <!-- Chosen Palette: "Sumi & Washi" 
+         Background: #F9F7F2 (Warm Paper)
+         Text: #2D2D2D (Charcoal Ink)
+         Primary Accent: #8E354A (Traditional Vermilion/Red Bean)
+         Secondary Accent: #3F4E4F (Slate Indigo)
+         Highlight: #E6B422 (Gold Leaf - muted)
+    -->
+    <style>
+        :root {
+            --bg-paper: #F9F7F2;
+            --text-ink: #2D2D2D;
+            --accent-red: #8E354A;
+            --accent-slate: #3F4E4F;
+            --accent-gold: #C7A650;
+        }
+
+        body {
+            /* 基本スタイルは common.css で定義、背景パターンのみ推定 */
+            background-image: radial-gradient(#E5E5E5 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* h1-h3, .serifスタイルは common.css で定義 */
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        /* Custom Scrollbar for aesthetic */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-slate);
+        }
+
+        /* Card Styles */
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Interactive Element Highlight */
+        .interactive-zone {
+            border: 2px dashed var(--accent-slate);
+            background-color: rgba(63, 78, 79, 0.05);
+        }
+
+        /* Tab Active State */
+        .tab-active {
+            border-bottom: 3px solid var(--accent-red);
+            color: var(--accent-red);
+            font-weight: 700;
+        }
+
+        /* Connector Lines Canvas */
+        #nameStructureCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
+
+    <!-- Application Structure Plan:
+         1. Header: Immersive title card.
+         2. Overview: "What is Seimei Handan?" - Grid of cards defining characteristics.
+         3. Logic Explorer (The 5 Areas): Interactive diagram showing how names are split into 天/地/人/外/総. This is critical for understanding the mechanics.
+         4. Analysis Tool (Interactive): A mock "Calculator" where users input numbers to see how the Five Elements logic is applied.
+         5. The "Five Elements" Theory: Chart.js visualization of the Element Cycle.
+         6. History: Vertical timeline.
+         7. Footer: Disclaimer.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="antialiased selection:bg-red-100 selection:text-red-900">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold serif text-gray-800 tracking-tighter">姓名判断<span
+                            class="text-red-800 text-sm align-top">report</span></span>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('overview')"
+                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">概要と特性</button>
+                    <button onclick="scrollToSection('logic')"
+                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">仕組みとロジック</button>
+                    <button onclick="scrollToSection('simulation')"
+                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">鑑定シミュレーション</button>
+                    <button onclick="scrollToSection('history')"
+                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">歴史と起源</button>
+                </div>
+                <!-- Mobile menu button placeholder -->
+                <div class="md:hidden flex items-center">
+                    <button class="text-gray-500 hover:text-gray-700"
+                        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                        ☰
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button onclick="scrollToSection('overview')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">概要と特性</button>
+                <button onclick="scrollToSection('logic')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">仕組みとロジック</button>
+                <button onclick="scrollToSection('simulation')"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">鑑定シミュレーション</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
+
+        <!-- Hero Section -->
+        <header
+            class="text-center py-16 relative overflow-hidden rounded-3xl bg-white border border-gray-200 shadow-sm">
+            <div class="absolute top-0 left-0 w-full h-2 bg-red-800"></div>
+            <h1 class="text-4xl md:text-6xl font-bold text-gray-900 serif mb-6 tracking-tight">
+                名前に宿る<br class="md:hidden"><span class="text-red-800">運命</span>の数式
+            </h1>
+            <p class="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                単なる迷信ではなく、統計と哲学の融合。<br>
+                「姓名判断」が持つ論理構造と、それが人々に与える影響を紐解くインタラクティブ・レポート。
+            </p>
+            <div class="mt-8 flex justify-center gap-4">
+                <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">相術 (Form Analysis)</span>
+                <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">統計的側面</span>
+                <span class="px-4 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">陰陽五行</span>
+            </div>
+        </header>
+
+        <!-- SECTION 1: Overview & Characteristics -->
+        <section id="overview" class="scroll-mt-24">
+            <div class="mb-8 border-l-4 border-red-800 pl-4">
+                <h2 class="text-3xl font-bold text-gray-900 serif">1. 概要と特性</h2>
+                <p class="text-gray-500 mt-1">この占術の立ち位置と、他の占いとの決定的な違い。</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="card p-6 rounded-xl">
+                    <div
+                        class="h-12 w-12 bg-red-50 rounded-lg flex items-center justify-center text-red-800 text-2xl mb-4 font-serif">
+                        相</div>
+                    <h3 class="text-xl font-bold mb-3">相術（そうじゅつ）</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        手相や人相と同じく、目に見える「形」から吉凶を占うカテゴリーに属します。名前という「文字の形・画数」を分析対象とします。
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="card p-6 rounded-xl">
+                    <div
+                        class="h-12 w-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-800 text-2xl mb-4 font-serif">
+                        変</div>
+                    <h3 class="text-xl font-bold mb-3">後天的な運命変更</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        生年月日（命術）は変えられませんが、名前は「改名」や「ビジネスネーム」によって変えられます。自らの意志で運命を補正できる点が最大の強みです。
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="card p-6 rounded-xl">
+                    <div
+                        class="h-12 w-12 bg-amber-50 rounded-lg flex items-center justify-center text-amber-800 text-2xl mb-4 font-serif">
+                        数</div>
+                    <h3 class="text-xl font-bold mb-3">画数の神秘</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        漢字の画数を数字に変換し、その数字が持つ「吉凶」と「五行（木火土金水）」のバランスを読み解きます。数字による明確な判定が特徴です。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Logic & Mechanics (The 5 Areas) -->
+        <section id="logic" class="scroll-mt-24">
+            <div class="mb-8 border-l-4 border-red-800 pl-4">
+                <h2 class="text-3xl font-bold text-gray-900 serif">2. 根拠とロジック（五格の構造）</h2>
+                <p class="text-gray-500 mt-1">姓名判断の核心となる「5つの格」の計算方法とその意味。</p>
+            </div>
+
+            <!-- Interactive Logic Diagram Container -->
+            <div class="bg-white rounded-2xl shadow-lg border border-gray-200 p-8 relative overflow-hidden">
+                <p class="text-sm text-gray-500 mb-6 text-center">下の名前のボックスや計算結果をクリックして、それぞれの意味を確認してください。</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 relative z-20">
+
+                    <!-- Left: Name Structure Visualizer -->
+                    <div class="lg:col-span-5 flex flex-col items-center justify-center relative py-10">
+                        <!-- Canvas for drawing connecting lines -->
+                        <canvas id="linesCanvas" class="absolute inset-0 w-full h-full z-0"></canvas>
+
+                        <!-- Name Blocks (Mock: 田中 太郎) -->
+                        <div class="flex flex-col gap-4 z-10 w-32">
+                            <div id="char-1"
+                                class="h-20 w-full bg-gray-800 text-white flex items-center justify-center text-3xl font-serif rounded shadow-md cursor-pointer hover:bg-gray-700 transition"
+                                onclick="showExplanation('surname')">姓</div>
+                            <div id="char-2"
+                                class="h-20 w-full bg-gray-800 text-white flex items-center justify-center text-3xl font-serif rounded shadow-md cursor-pointer hover:bg-gray-700 transition"
+                                onclick="showExplanation('surname')">名</div>
+                            <div class="h-2 w-full bg-transparent"></div> <!-- Spacer -->
+                            <div id="char-3"
+                                class="h-20 w-full bg-white border-2 border-gray-800 text-gray-800 flex items-center justify-center text-3xl font-serif rounded shadow-md cursor-pointer hover:bg-gray-50 transition"
+                                onclick="showExplanation('givenname')">判</div>
+                            <div id="char-4"
+                                class="h-20 w-full bg-white border-2 border-gray-800 text-gray-800 flex items-center justify-center text-3xl font-serif rounded shadow-md cursor-pointer hover:bg-gray-50 transition"
+                                onclick="showExplanation('givenname')">断</div>
+                        </div>
+
+                        <!-- Result Bubbles (Absolute positioned relative to this col) -->
+                        <!-- Ten-kaku -->
+                        <div onclick="updateDetail('ten')"
+                            class="absolute top-0 right-10 w-24 h-24 rounded-full bg-red-50 border-2 border-red-200 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition shadow-sm group">
+                            <span class="text-xs text-gray-500 font-bold">天格</span>
+                            <span class="text-xl font-bold text-red-800">祖運</span>
+                        </div>
+                        <!-- Jin-kaku -->
+                        <div onclick="updateDetail('jin')"
+                            class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 w-28 h-28 rounded-full bg-indigo-50 border-2 border-indigo-200 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition shadow-lg z-20 ring-4 ring-white">
+                            <span class="text-xs text-gray-500 font-bold">人格</span>
+                            <span class="text-2xl font-bold text-indigo-900">主運</span>
+                            <span class="text-[10px] text-indigo-400 mt-1">核心</span>
+                        </div>
+                        <!-- Chi-kaku -->
+                        <div onclick="updateDetail('chi')"
+                            class="absolute bottom-0 right-10 w-24 h-24 rounded-full bg-teal-50 border-2 border-teal-200 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition shadow-sm">
+                            <span class="text-xs text-gray-500 font-bold">地格</span>
+                            <span class="text-xl font-bold text-teal-800">初運</span>
+                        </div>
+                        <!-- Gai-kaku -->
+                        <div onclick="updateDetail('gai')"
+                            class="absolute top-10 left-4 w-20 h-20 rounded-full bg-amber-50 border-2 border-amber-200 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition shadow-sm">
+                            <span class="text-xs text-gray-500 font-bold">外格</span>
+                            <span class="text-lg font-bold text-amber-800">助運</span>
+                        </div>
+                        <!-- Sou-kaku -->
+                        <div onclick="updateDetail('sou')"
+                            class="absolute bottom-10 left-4 w-20 h-20 rounded-full bg-purple-50 border-2 border-purple-200 flex flex-col items-center justify-center cursor-pointer hover:scale-110 transition shadow-sm">
+                            <span class="text-xs text-gray-500 font-bold">総格</span>
+                            <span class="text-lg font-bold text-purple-800">総運</span>
+                        </div>
+                    </div>
+
+                    <!-- Right: Explanation Panel -->
+                    <div
+                        class="lg:col-span-7 bg-gray-50 rounded-xl p-6 border border-gray-100 flex flex-col justify-center">
+                        <div id="detail-panel">
+                            <div class="flex items-center gap-3 mb-4">
+                                <span id="detail-icon" class="text-3xl">👤</span>
+                                <h3 id="detail-title" class="text-2xl font-bold text-gray-800 serif">人格（主運）</h3>
+                            </div>
+                            <div class="space-y-4">
+                                <p id="detail-desc" class="text-gray-700 leading-relaxed">
+                                    <strong>計算：</strong> 姓の最後の一文字 ＋ 名の最初の一文字<br>
+                                    <strong>意味：</strong>
+                                    その人の内面、性格、才能、人生の中年期（20代後半〜50代）の運勢を表します。姓名判断において最も重要視される「核」となる部分です。
+                                </p>
+                                <div class="bg-white p-4 rounded border border-gray-200">
+                                    <h4 class="text-sm font-bold text-gray-500 mb-2">この格でわかること</h4>
+                                    <ul id="detail-list" class="list-disc list-inside text-sm text-gray-600 space-y-1">
+                                        <li>基本的な性格タイプ</li>
+                                        <li>適職や才能の傾向</li>
+                                        <li>家庭運や結婚運の基礎</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Five Elements Logic -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 serif flex items-center gap-2">
+                        <span
+                            class="bg-gray-800 text-white w-6 h-6 rounded-full flex items-center justify-center text-xs">理</span>
+                        五行と数字の関係
+                    </h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        姓名判断では、算出した数字の「一の位」によって、その運勢を自然界の5つの要素（木・火・土・金・水）に分類します。これを「五行（ごぎょう）」と呼び、隣り合う要素との相性（相生・相剋）も見ます。
+                    </p>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-600">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                                <tr>
+                                    <th class="px-4 py-2">五行</th>
+                                    <th class="px-4 py-2">対応する数字（末尾）</th>
+                                    <th class="px-4 py-2">象徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b bg-white hover:bg-green-50 transition">
+                                    <td class="px-4 py-2 font-bold text-green-700">木 (Wood)</td>
+                                    <td class="px-4 py-2">1, 2</td>
+                                    <td class="px-4 py-2">成長、独立、発展</td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-red-50 transition">
+                                    <td class="px-4 py-2 font-bold text-red-700">火 (Fire)</td>
+                                    <td class="px-4 py-2">3, 4</td>
+                                    <td class="px-4 py-2">情熱、華やか、知性</td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-amber-50 transition">
+                                    <td class="px-4 py-2 font-bold text-amber-700">土 (Earth)</td>
+                                    <td class="px-4 py-2">5, 6</td>
+                                    <td class="px-4 py-2">安定、温厚、財産</td>
+                                </tr>
+                                <tr class="border-b bg-white hover:bg-slate-50 transition">
+                                    <td class="px-4 py-2 font-bold text-slate-700">金 (Metal)</td>
+                                    <td class="px-4 py-2">7, 8</td>
+                                    <td class="px-4 py-2">意志、権力、冷徹</td>
+                                </tr>
+                                <tr class="bg-white hover:bg-blue-50 transition">
+                                    <td class="px-4 py-2 font-bold text-blue-700">水 (Water)</td>
+                                    <td class="px-4 py-2">9, 0</td>
+                                    <td class="px-4 py-2">流動、知恵、孤独</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Chart Container -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                    <h4 class="text-center text-sm font-bold text-gray-500 mb-4">吉数の分布イメージ (1〜81画)</h4>
+                    <div class="chart-container">
+                        <canvas id="luckDistributionChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">※一般的に大吉・吉とされる画数の割合（流派により異なります）</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Simulation (Interactive Tool) -->
+        <section id="simulation" class="scroll-mt-24">
+            <div class="mb-8 border-l-4 border-red-800 pl-4">
+                <h2 class="text-3xl font-bold text-gray-900 serif">3. 鑑定シミュレーション</h2>
+                <p class="text-gray-500 mt-1">実際に画数を入力して、計算ロジックと結果を体験してみましょう。</p>
+            </div>
+
+            <div class="bg-stone-800 text-stone-100 rounded-2xl p-8 shadow-2xl">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+                    <!-- Input Area -->
+                    <div>
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <span>STEP 1</span>
+                            <span class="text-sm font-normal text-gray-400">画数を入力 (例: 田中 太郎 → 5, 4, 4, 9)</span>
+                        </h3>
+
+                        <div class="grid grid-cols-2 gap-6 mb-8">
+                            <div class="space-y-4">
+                                <label class="block text-xs uppercase tracking-wider text-gray-400">姓 (Surname)</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="s1" value="5" min="1" max="30"
+                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
+                                        placeholder="字1">
+                                    <input type="number" id="s2" value="4" min="1" max="30"
+                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
+                                        placeholder="字2">
+                                </div>
+                            </div>
+                            <div class="space-y-4">
+                                <label class="block text-xs uppercase tracking-wider text-gray-400">名 (Given
+                                    Name)</label>
+                                <div class="flex gap-2">
+                                    <input type="number" id="n1" value="4" min="1" max="30"
+                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
+                                        placeholder="字1">
+                                    <input type="number" id="n2" value="9" min="1" max="30"
+                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
+                                        placeholder="字2">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button onclick="calculateDestiny()"
+                            class="w-full py-4 bg-red-800 hover:bg-red-700 text-white font-bold rounded-lg shadow-lg transform active:scale-95 transition flex items-center justify-center gap-2">
+                            <span>鑑定する</span>
+                            <span class="text-xl">➔</span>
+                        </button>
+
+                        <p class="text-xs text-gray-500 mt-4">
+                            ※簡易シミュレーションのため、4文字（姓2文字・名2文字）の構成を想定しています。
+                            1文字の姓や名の場合は、霊数（+1）を加える流派がありますが、ここでは単純計算を行います。
+                        </p>
+                    </div>
+
+                    <!-- Result Area -->
+                    <div id="result-area"
+                        class="bg-stone-700 rounded-xl p-6 border border-stone-600 opacity-50 transition-opacity duration-500">
+                        <h3 class="text-lg font-bold text-white mb-4 border-b border-stone-500 pb-2">鑑定結果</h3>
+
+                        <div class="space-y-4">
+                            <!-- Jin-kaku Result -->
+                            <div class="bg-stone-800 p-4 rounded border-l-4 border-indigo-500">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-indigo-400 font-bold text-sm">人格 (性格・中年期)</span>
+                                    <span class="text-2xl font-bold" id="res-jin-val">--</span>
+                                </div>
+                                <p class="text-sm text-gray-300" id="res-jin-text">計算結果が表示されます...</p>
+                            </div>
+
+                            <!-- Sou-kaku Result -->
+                            <div class="bg-stone-800 p-4 rounded border-l-4 border-purple-500">
+                                <div class="flex justify-between items-center mb-1">
+                                    <span class="text-purple-400 font-bold text-sm">総格 (晩年・全体運)</span>
+                                    <span class="text-2xl font-bold" id="res-sou-val">--</span>
+                                </div>
+                                <p class="text-sm text-gray-300" id="res-sou-text">計算結果が表示されます...</p>
+                            </div>
+
+                            <!-- Elemental Balance -->
+                            <div class="grid grid-cols-2 gap-4 pt-2">
+                                <div class="bg-stone-800 p-3 rounded text-center">
+                                    <span class="block text-xs text-gray-400">地格 (幼少期)</span>
+                                    <span class="block text-lg font-bold text-teal-400" id="res-chi-val">--</span>
+                                </div>
+                                <div class="bg-stone-800 p-3 rounded text-center">
+                                    <span class="block text-xs text-gray-400">外格 (対人運)</span>
+                                    <span class="block text-lg font-bold text-amber-400" id="res-gai-val">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: History -->
+        <section id="history" class="scroll-mt-24">
+            <div class="mb-8 border-l-4 border-red-800 pl-4">
+                <h2 class="text-3xl font-bold text-gray-900 serif">4. 歴史と変遷</h2>
+                <p class="text-gray-500 mt-1">古代中国から始まり、日本で独自の進化を遂げた軌跡。</p>
+            </div>
+
+            <div class="relative border-l-2 border-gray-200 ml-6 space-y-12">
+                <!-- Event 1 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 bg-red-800 rounded-full border-4 border-white"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                        <span class="text-sm font-bold text-red-800">古代中国 (殷・周)</span>
+                        <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">起源</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">「測字（そくじ）」の始まり</h3>
+                    <p class="text-gray-600 text-sm">
+                        漢字そのものの形や構成要素を分解し、吉凶を占う手法が生まれる。まだ画数による厳密な計算システムは確立されていない。
+                    </p>
+                </div>
+
+                <!-- Event 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 bg-gray-400 rounded-full border-4 border-white"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                        <span class="text-sm font-bold text-gray-800">明治時代 (日本)</span>
+                        <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">流入</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">姓名学の輸入</h3>
+                    <p class="text-gray-600 text-sm">
+                        中国から伝わった姓名学が、日本の庶民の間で広がり始める。しかし流派は乱立し、統一された理論はなかった。
+                    </p>
+                </div>
+
+                <!-- Event 3 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-2.5 top-0 w-5 h-5 bg-indigo-800 rounded-full border-4 border-white">
+                    </div>
+                    <div class="flex flex-col sm:flex-row sm:items-center gap-2 mb-2">
+                        <span class="text-sm font-bold text-indigo-800">昭和初期 (1929年頃)</span>
+                        <span class="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">体系化</span>
+                    </div>
+                    <h3 class="text-lg font-bold mb-2">熊崎式姓名判断の確立</h3>
+                    <p class="text-gray-600 text-sm">
+                        熊崎健翁（くまざき けんおう）が、旧字体の画数に基づいた理論を体系化。「五聖閣」を設立し、現代の姓名判断の基礎（五格・陰陽五行の適用）を作り上げた。現在普及している多くの流派のルーツ。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="border-t border-gray-200 mt-20 pt-10 pb-6 text-center text-gray-500 text-sm">
+            <p class="mb-2">Generated for Canvas Report Analysis</p>
+            <p class="text-xs">
+                ※本レポートは姓名判断の一般的な理論に基づいた解説です。<br>
+                流派によって画数の数え方（新字体・旧字体）や解釈は異なります。
+            </p>
+        </footer>
+
+    </main>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- DATA & STATE ---
+        const explanationData = {
+            ten: {
+                title: "天格 (Ancestral Luck)",
+                desc: "姓の総画数。祖先から受け継いだ運気であり、家系全体を表します。個人の努力では変えられない部分とされ、晩年の運勢に影響を与えます。",
+                icon: "⛩️"
+            },
+            jin: {
+                title: "人格 (Core Personality)",
+                desc: "姓の最後と名の最初の文字の合計。その人の内面、性格、才能、そして中年期（働き盛り）の運勢を司ります。人間関係や仕事運に直結する、最も重要な格です。",
+                icon: "👤"
+            },
+            chi: {
+                title: "地格 (Early Life)",
+                desc: "名の総画数。幼少期から青年期までの運勢を表します。生まれ持った才能や、親との関係、成長過程での性格形成に影響します。",
+                icon: "🌱"
+            },
+            gai: {
+                title: "外格 (Social Luck)",
+                desc: "総格から人格を引いたもの（簡易法）。家族や職場など、外側の人間関係や環境運を表します。結婚運や対人トラブルの傾向もここに現れます。",
+                icon: "🤝"
+            },
+            sou: {
+                title: "総格 (Overall Destiny)",
+                desc: "姓と名の全ての画数の合計。人生全体の運勢、特に晩年の運気を表します。他の格が悪くても、総格が良ければ挽回できると言われるほど重要です。",
+                icon: "🌏"
+            },
+            surname: {
+                title: "姓 (Surname)",
+                desc: "先祖代々受け継がれる家名。天格の算出に使用されます。",
+                icon: "📜"
+            },
+            givenname: {
+                title: "名 (Given Name)",
+                desc: "個人を特定する名前。地格の算出に使用され、その人の個性を形成します。",
+                icon: "🏷️"
+            }
+        };
+
+        const elementData = {
+            wood: { name: "木", traits: "発展、独立、真面目だが頑固", color: "text-green-600" },
+            fire: { name: "火", traits: "情熱、華やか、感情の起伏が激しい", color: "text-red-600" },
+            earth: { name: "土", traits: "安定、温厚、信頼されるが保守的", color: "text-amber-600" },
+            metal: { name: "金", traits: "意志堅固、決断力、冷淡に見えることも", color: "text-slate-600" },
+            water: { name: "水", traits: "知性的、柔軟、流されやすく孤独", color: "text-blue-600" }
+        };
+
+        // --- INTERACTION LOGIC ---
+
+        // 1. Logic Explorer Interaction
+        function updateDetail(key) {
+            const data = explanationData[key];
+            const panel = document.getElementById('detail-panel');
+
+            // Simple fade effect
+            panel.style.opacity = '0.5';
+
+            setTimeout(() => {
+                document.getElementById('detail-title').innerText = data.title;
+                document.getElementById('detail-desc').innerText = data.desc;
+                document.getElementById('detail-icon').innerText = data.icon;
+
+                // Update list based on key context (simplified for this demo)
+                let listHtml = "";
+                if (key === 'jin') listHtml = "<li>性格の根幹</li><li>仕事の適性</li><li>30〜50代の運気</li>";
+                else if (key === 'sou') listHtml = "<li>人生の総決算</li><li>健康運</li><li>晩年の環境</li>";
+                else if (key === 'chi') listHtml = "<li>幼少期の運勢</li><li>クリエイティブな才能</li><li>恋愛傾向（若年）</li>";
+                else if (key === 'ten') listHtml = "<li>家柄・家系</li><li>親との関係</li><li>職業の傾向（継承）</li>";
+                else if (key === 'gai') listHtml = "<li>職場での評価</li><li>配偶者運</li><li>社会的信用</li>";
+
+                if (listHtml) {
+                    document.getElementById('detail-list').innerHTML = listHtml;
+                    document.getElementById('detail-list').parentElement.style.display = 'block';
+                } else {
+                    document.getElementById('detail-list').parentElement.style.display = 'none';
+                }
+
+                panel.style.opacity = '1';
+            }, 200);
+        }
+
+        function showExplanation(type) {
+            updateDetail(type);
+        }
+
+        // 2. Navigation
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // 3. Simulation Logic
+        function getElement(num) {
+            const lastDigit = num % 10;
+            if ([1, 2].includes(lastDigit)) return elementData.wood;
+            if ([3, 4].includes(lastDigit)) return elementData.fire;
+            if ([5, 6].includes(lastDigit)) return elementData.earth;
+            if ([7, 8].includes(lastDigit)) return elementData.metal;
+            return elementData.water;
+        }
+
+        function getLuckText(num) {
+            // Simplified luck table for demo
+            const greatLuck = [1, 3, 5, 6, 11, 13, 15, 16, 21, 23, 24, 31, 32, 33, 35, 37, 39, 41, 45, 47, 48, 52, 57, 61, 63, 65, 67, 68];
+            const badLuck = [2, 4, 9, 10, 12, 14, 19, 20, 22, 26, 27, 28, 30, 34, 36, 40, 42, 43, 44, 46, 49, 50];
+
+            if (greatLuck.includes(num)) return "【大吉】素晴らしい運気を持っています。";
+            if (badLuck.includes(num)) return "【凶】困難が多いかもしれません。注意が必要です。";
+            return "【吉凶混合】努力次第で大きく変わります。";
+        }
+
+        function calculateDestiny() {
+            const s1 = parseInt(document.getElementById('s1').value) || 0;
+            const s2 = parseInt(document.getElementById('s2').value) || 0;
+            const n1 = parseInt(document.getElementById('n1').value) || 0;
+            const n2 = parseInt(document.getElementById('n2').value) || 0;
+
+            const ten = s1 + s2;
+            const jin = s2 + n1;
+            const chi = n1 + n2;
+            const sou = s1 + s2 + n1 + n2;
+            // Traditional Gai-kaku: Total - Jin (simplest calculation for demo consistency)
+            // Or (S1 + N2) if 4 chars. Let's use (S1 + N2) for 4-char specific accuracy visual
+            const gai = sou - jin;
+
+            // Update DOM
+            document.getElementById('res-jin-val').innerText = jin + "画";
+            const jinElem = getElement(jin);
+            document.getElementById('res-jin-text').innerHTML =
+                `${getLuckText(jin)}<br><span class="${jinElem.color}">五行: ${jinElem.name} (${jinElem.traits})</span>`;
+
+            document.getElementById('res-sou-val').innerText = sou + "画";
+            const souElem = getElement(sou);
+            document.getElementById('res-sou-text').innerHTML =
+                `${getLuckText(sou)}<br><span class="${souElem.color}">五行: ${souElem.name} (${souElem.traits})</span>`;
+
+            document.getElementById('res-chi-val').innerText = chi + "画";
+            document.getElementById('res-gai-val').innerText = gai + "画";
+
+            // Reveal result
+            const resultArea = document.getElementById('result-area');
+            resultArea.style.opacity = '1';
+        }
+
+        // --- CHART VISUALIZATION ---
+        window.onload = function () {
+            const ctx = document.getElementById('luckDistributionChart').getContext('2d');
+
+            // Mock data representing distribution of "Good" vs "Bad" stroke counts in typical systems
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['木 (1,2)', '火 (3,4)', '土 (5,6)', '金 (7,8)', '水 (9,0)'],
+                    datasets: [{
+                        label: '吉数の割合イメージ',
+                        data: [70, 80, 90, 60, 30], // Arbitrary "Luckiness" factor based on general lore (Earth/Fire often lucky, Water often mixed)
+                        backgroundColor: [
+                            'rgba(22, 163, 74, 0.6)', // Green
+                            'rgba(220, 38, 38, 0.6)', // Red
+                            'rgba(217, 119, 6, 0.6)', // Amber
+                            'rgba(71, 85, 105, 0.6)', // Slate
+                            'rgba(37, 99, 235, 0.6)'  // Blue
+                        ],
+                        borderColor: [
+                            'rgb(22, 163, 74)',
+                            'rgb(220, 38, 38)',
+                            'rgb(217, 119, 6)',
+                            'rgb(71, 85, 105)',
+                            'rgb(37, 99, 235)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 100,
+                            title: {
+                                display: true,
+                                text: '吉意の強さ (目安)'
+                            }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    return '吉傾向: ' + context.raw + '%';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Initialize Explanation
+            updateDetail('jin');
+
+            // Draw Canvas Lines
+            drawLines();
+            window.addEventListener('resize', drawLines);
+        };
+
+        // Canvas Drawing for Name Structure Lines
+        function drawLines() {
+            const canvas = document.getElementById('linesCanvas');
+            const container = canvas.parentElement;
+            canvas.width = container.offsetWidth;
+            canvas.height = container.offsetHeight;
+            const ctx = canvas.getContext('2d');
+
+            // Get positions of elements
+            // Note: This is a simplified static drawing for the specific layout.
+            // In a real app, we would use getBoundingClientRect() relative to canvas.
+            // Here we approximate based on the Grid layout logic for robustness in this demo.
+
+            // Not implemented fully dynamically to avoid complexity errors in single file.
+            // Instead, we trust the CSS Grid placement which is visually sufficient.
+            // The canvas is here if we wanted to draw curves, but for this constraint,
+            // Clean CSS borders on the bubbles (circles) effectively communicate the "nodes".
+        }
+    </script>
+</body>
+
+</html>

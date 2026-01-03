@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>水晶球占い：深層心理と予見の技術</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Fonts (統一フォント) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <style>
+        /* Custom Styles & Animation */
+        /* bodyスタイルは common.css で定義 */
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .crystal-ball {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9), rgba(167, 139, 250, 0.4), rgba(76, 29, 149, 0.8));
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.5), inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .crystal-ball:hover {
+            box-shadow: 0 0 40px rgba(139, 92, 246, 0.8), inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+        }
+
+        .active-tab {
+            background-color: #8B5CF6;
+            /* Violet-500 */
+            color: white;
+            border-bottom: 2px solid #4C1D95;
+        }
+
+        .inactive-tab {
+            background-color: transparent;
+            color: #6B7280;
+            border-bottom: 2px solid transparent;
+        }
+
+        .inactive-tab:hover {
+            color: #8B5CF6;
+            background-color: #F5F3FF;
+        }
+
+        /* Chart Container Strict Styling */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #DDD6FE;
+            z-index: 0;
+        }
+
+        .step-card {
+            transition: all 0.3s ease;
+        }
+
+        .step-card.active {
+            border-left: 4px solid #8B5CF6;
+            background-color: #F5F3FF;
+        }
+    </style>
+
+    <!-- Placeholder Comments -->
+    <!-- Chosen Palette: "Mystic Clarity" - A base of light cool grey (#F3F4F6) with primary accents of deep violet (#8B5CF6) and indigo (#4C1D95). This combination evokes spirituality and mystery while maintaining the high contrast and readability required for an analytical report. -->
+
+    <!-- Application Structure Plan: 
+         1. Hero Section: Immediate engagement with the topic, defining the subject.
+         2. Analytical Dashboard (Overview & Scope): Uses charts to compare Crystal Gazing with other methods and define its capabilities. This translates "textual characteristics" into visual comparisons.
+         3. The Mechanism (Logic): A visual flowchart breakdown of how the "trance state" works, demystifying the process.
+         4. Historical Timeline: Interactive vertical journey through time to show evolution.
+         5. Practical Guide (Simulation): A step-by-step interactive "how-to" that lets the user simulate the process to understand the methodology.
+         
+         Logic: The structure moves from "What is it?" (Theory) to "How does it work?" (Logic) to "Where from?" (History) and finally "How to do it?" (Practice), facilitating a deep learning curve.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Radar Chart: Goal -> Compare. Used to visualize the "Characteristics" section, contrasting Crystal Gazing with Astrology/Tarot on axes like Intuition vs. Logic.
+         - Donut Chart: Goal -> Inform. Shows the "Strengths/Weaknesses" distribution (e.g., strong in 'feelings', weak in 'specific dates').
+         - Flow Diagram (HTML/CSS): Goal -> Change/Process. Visualizes the cognitive mechanism (Trance -> Subconscious -> Image).
+         - Interactive Timeline: Goal -> Change. User selects eras to see historical context.
+         - Interactive Simulation: Goal -> Experience. A simple JS-driven "gazing" simulator to explain the interpretation method.
+         
+         NO SVG or Mermaid used. All visuals are Chart.js or styled HTML.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl text-violet-600 mr-2">●</span>
+                    <h1 class="text-xl font-bold tracking-tight text-gray-900">水晶球占い研究レポート</h1>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <button onclick="scrollToSection('overview')"
+                        class="text-gray-500 hover:text-violet-600 px-3 py-2 rounded-md text-sm font-medium">概要と特性</button>
+                    <button onclick="scrollToSection('scope')"
+                        class="text-gray-500 hover:text-violet-600 px-3 py-2 rounded-md text-sm font-medium">得意分野</button>
+                    <button onclick="scrollToSection('logic')"
+                        class="text-gray-500 hover:text-violet-600 px-3 py-2 rounded-md text-sm font-medium">根拠とロジック</button>
+                    <button onclick="scrollToSection('history')"
+                        class="text-gray-500 hover:text-violet-600 px-3 py-2 rounded-md text-sm font-medium">歴史</button>
+                    <button onclick="scrollToSection('practice')"
+                        class="bg-violet-600 text-white hover:bg-violet-700 px-4 py-2 rounded-md text-sm font-medium transition">実践ガイド</button>
+                </div>
+                <!-- Mobile Menu Button -->
+                <div class="flex items-center md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-500 hover:text-violet-600 p-2">
+                        <span class="text-2xl">≡</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu Panel -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="scrollToSection('overview')"
+                    class="block w-full text-left text-gray-700 hover:bg-violet-50 px-3 py-2 rounded-md text-base font-medium">概要と特性</button>
+                <button onclick="scrollToSection('scope')"
+                    class="block w-full text-left text-gray-700 hover:bg-violet-50 px-3 py-2 rounded-md text-base font-medium">得意分野</button>
+                <button onclick="scrollToSection('logic')"
+                    class="block w-full text-left text-gray-700 hover:bg-violet-50 px-3 py-2 rounded-md text-base font-medium">根拠とロジック</button>
+                <button onclick="scrollToSection('history')"
+                    class="block w-full text-left text-gray-700 hover:bg-violet-50 px-3 py-2 rounded-md text-base font-medium">歴史</button>
+                <button onclick="scrollToSection('practice')"
+                    class="block w-full text-left text-violet-600 font-bold bg-violet-50 px-3 py-2 rounded-md text-base">実践ガイド</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative bg-gradient-to-b from-indigo-50 to-white overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div
+                class="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
+                <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
+                    <div class="sm:text-center lg:text-left">
+                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                            <span class="block xl:inline">スクライングの極致</span>
+                            <span class="block text-violet-600 xl:inline">水晶球占い</span>
+                        </h1>
+                        <p
+                            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
+                            「クリスタル・ゲイジング」または「スクライング」と呼ばれるこの技法は、単なる迷信ではありません。それは、高度な集中力を用いた深層心理へのアクセスコードであり、歴史を通じて多くの権力者や賢者に利用されてきた「視覚化の技術」です。
+                        </p>
+                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
+                            <div class="rounded-md shadow">
+                                <a href="#overview"
+                                    class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 md:py-4 md:text-lg transition">
+                                    レポートを読む
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <!-- Decorative Crystal Ball Graphic (CSS) -->
+        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center py-10 lg:py-0">
+            <div
+                class="w-64 h-64 md:w-80 md:h-80 crystal-ball rounded-full flex items-center justify-center animate-pulse">
+                <div class="text-white opacity-80 text-center p-8 font-serif italic text-lg">
+                    "真実は<br>外ではなく<br>内にある"
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">
+
+        <!-- SECTION 1: Overview & Characteristics (Charts) -->
+        <section id="overview" class="scroll-mt-24">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-gray-900">1. 概要と特性分析</h2>
+                <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">
+                    水晶球占いは「卜術（ぼくじゅつ）」の一種であり、特に「スクライング（幻視）」に分類されます。
+                    ここでは、他の主要な占術とパラメーターを比較し、その特異性を可視化します。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Text Content -->
+                <div class="glass-panel p-6 rounded-xl">
+                    <h3 class="text-xl font-bold text-gray-900 mb-4 border-l-4 border-violet-500 pl-3">占術のポジショニング</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start">
+                            <span
+                                class="flex-shrink-0 h-6 w-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-sm mt-0.5">A</span>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">分類：卜術・相術の融合</p>
+                                <p class="text-sm text-gray-500">偶然性（卜）と、観察（相）の要素を併せ持ちますが、最大の特徴は術者の「直感」を増幅する装置としての役割です。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span
+                                class="flex-shrink-0 h-6 w-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-sm mt-0.5">B</span>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">主軸：右脳的アプローチ</p>
+                                <p class="text-sm text-gray-500">占星術のような計算（左脳）ではなく、イメージやシンボルを受け取る右脳的・受動的な能力を極限まで使用します。
+                                </p>
+                            </div>
+                        </li>
+                        <li class="flex items-start">
+                            <span
+                                class="flex-shrink-0 h-6 w-6 rounded-full bg-violet-100 text-violet-600 flex items-center justify-center font-bold text-sm mt-0.5">C</span>
+                            <div class="ml-3">
+                                <p class="text-sm font-medium text-gray-900">特異点：道具への没入</p>
+                                <p class="text-sm text-gray-500">
+                                    水晶自体に力があるというより、水晶という「無」の空間を見つめることで、術者がトランス状態に入るためのスイッチとなります。</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Radar Chart -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h4 class="text-center text-sm font-semibold text-gray-500 mb-2">占術特性比較レーダー</h4>
+                    <div class="chart-container">
+                        <canvas id="characteristicsChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-2">データソース: 一般的な占術理論に基づく比較評価</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Scope (What it reveals) -->
+        <section id="scope" class="scroll-mt-24">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-gray-900">2. 得意分野と限界（スコープ）</h2>
+                <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">
+                    水晶球占いは万能ではありません。映像的・感覚的な情報の取得に長けている反面、論理的な日付の特定などは苦手とします。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Donut Chart -->
+                <div class="lg:col-span-1 bg-white p-6 rounded-xl shadow-lg flex flex-col items-center">
+                    <h3 class="text-lg font-bold text-gray-900 mb-4">適合相談内容の分布</h3>
+                    <div class="chart-container" style="height: 250px;">
+                        <canvas id="specialtyChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-gray-600 text-center">
+                        <p>「感情」や「隠れた現状」の視覚化が<br>全体の約6割を占める。</p>
+                    </div>
+                </div>
+
+                <!-- Interactive Details -->
+                <div class="lg:col-span-2 glass-panel p-6 rounded-xl">
+                    <div class="flex space-x-4 border-b border-gray-200 mb-6">
+                        <button onclick="switchScopeTab('can-do')" id="tab-can-do"
+                            class="active-tab px-4 py-2 font-medium text-sm focus:outline-none transition">わかること（得意）</button>
+                        <button onclick="switchScopeTab('cant-do')" id="tab-cant-do"
+                            class="inactive-tab px-4 py-2 font-medium text-sm focus:outline-none transition">わからないこと（苦手）</button>
+                    </div>
+
+                    <div id="content-can-do" class="grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in">
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">① 相手の気持ち・深層心理</h4>
+                            <p class="text-sm text-gray-600">言葉にできない感情や、本人も気づいていない潜在意識を「色」や「抽象的な映像」として捉えるのに最適です。</p>
+                        </div>
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">② 運気のバイオリズム</h4>
+                            <p class="text-sm text-gray-600">近い未来の「雰囲気」や「流れ」を、曇りや輝きといった視覚的シンボルで予見します。</p>
+                        </div>
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">③ 失せ物探索（リモートビューイング）</h4>
+                            <p class="text-sm text-gray-600">古くから探偵的な用途に使われてきました。無くした場所の「風景」や「周囲の特徴」を幻視します。</p>
+                        </div>
+                        <div class="p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                            <h4 class="font-bold text-indigo-700 mb-2">④ 吉凶の即時判断</h4>
+                            <p class="text-sm text-gray-600">イエス・ノーのような単純な問いに対し、水晶が「明るくなる」「暗くなる」といった直感的な反応で答えます。</p>
+                        </div>
+                    </div>
+
+                    <div id="content-cant-do" class="hidden grid grid-cols-1 sm:grid-cols-2 gap-4 animate-fade-in">
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-100">
+                            <h4 class="font-bold text-red-700 mb-2">① 具体的な「日付」や「数字」</h4>
+                            <p class="text-sm text-gray-600">「何月何日」といったデジタルな情報は映像として現れにくいため、占星術などとの併用が推奨されます。</p>
+                        </div>
+                        <div class="p-4 bg-red-50 rounded-lg border border-red-100">
+                            <h4 class="font-bold text-red-700 mb-2">② 論理的な解決策の提示</h4>
+                            <p class="text-sm text-gray-600">「なぜそうなるのか」という因果関係の説明よりも、「どういう状態か」という現象の提示に留まることが多いです。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Logic & Mechanism -->
+        <section id="logic" class="scroll-mt-24 bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="bg-violet-900 px-6 py-8 text-white text-center">
+                <h2 class="text-3xl font-extrabold">3. 根拠とロジック：幻視のメカニズム</h2>
+                <p class="mt-2 text-indigo-200">なぜ水晶の中に「視える」のか？ その科学的・心理学的仮説。</p>
+            </div>
+
+            <div class="p-8">
+                <!-- Process Flow -->
+                <div
+                    class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0 relative mb-12">
+                    <!-- Step 1 -->
+                    <div class="w-full md:w-1/4 text-center z-10">
+                        <div
+                            class="w-16 h-16 mx-auto bg-gray-200 rounded-full flex items-center justify-center text-2xl mb-3 shadow-inner">
+                            👁️</div>
+                        <h4 class="font-bold text-gray-800">凝視 (Gazing)</h4>
+                        <p class="text-xs text-gray-500 mt-1">光の反射点を<br>見つめ続ける</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-gray-200 z-0"></div>
+                    <div class="hidden md:block absolute top-8 left-1/4 w-1/4 h-1 bg-violet-300 z-0"></div>
+
+                    <!-- Step 2 -->
+                    <div class="w-full md:w-1/4 text-center z-10">
+                        <div
+                            class="w-16 h-16 mx-auto bg-violet-100 rounded-full flex items-center justify-center text-2xl mb-3 shadow-md border-2 border-violet-200">
+                            🌀</div>
+                        <h4 class="font-bold text-gray-800">変性意識 (Trance)</h4>
+                        <p class="text-xs text-gray-500 mt-1">視神経の疲労と<br>脳波のα波/θ波化</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="hidden md:block absolute top-8 left-2/4 w-1/4 h-1 bg-violet-400 z-0"></div>
+
+                    <!-- Step 3 -->
+                    <div class="w-full md:w-1/4 text-center z-10">
+                        <div
+                            class="w-16 h-16 mx-auto bg-violet-500 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-lg">
+                            🧠</div>
+                        <h4 class="font-bold text-gray-800">投影 (Projection)</h4>
+                        <p class="text-xs text-gray-500 mt-1">潜在意識内の情報が<br>水晶表面に再構成される</p>
+                    </div>
+                    <!-- Arrow -->
+                    <div class="hidden md:block absolute top-8 left-3/4 w-1/4 h-1 bg-violet-600 z-0"></div>
+
+                    <!-- Step 4 -->
+                    <div class="w-full md:w-1/4 text-center z-10">
+                        <div
+                            class="w-16 h-16 mx-auto bg-indigo-900 text-white rounded-full flex items-center justify-center text-2xl mb-3 shadow-xl ring-4 ring-indigo-200">
+                            🔮</div>
+                        <h4 class="font-bold text-gray-800">幻視 (Vision)</h4>
+                        <p class="text-xs text-gray-500 mt-1">シンボルや映像として<br>知覚される</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-lg font-bold text-gray-900 border-b pb-2 mb-4">学術的・心理学的解釈</h3>
+                        <p class="text-gray-600 text-sm leading-relaxed mb-4">
+                            <strong class="text-violet-700">【ガンツフェルト効果】</strong><br>
+                            均一な視覚刺激（水晶の透明な深みなど）を見続けると、脳は視覚入力の欠如を補うために、内部から映像を作り出そうとします。これが幻覚や白昼夢の正体とされます。
+                        </p>
+                        <p class="text-gray-600 text-sm leading-relaxed">
+                            <strong class="text-violet-700">【シンクロニシティ（共時性）】</strong><br>
+                            ユング心理学では、偶然現れた心象風景やシンボルが、現実の事象と「意味のある一致」を見せると説明されます。水晶は、集合的無意識へのアクセス端末として機能します。
+                        </p>
+                    </div>
+                    <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">シンボル辞書（インタラクティブ）</h3>
+                        <p class="text-xs text-gray-500 mb-4">水晶に見える代表的なシンボルをクリックして意味を確認してください。</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button onclick="showSymbol('cloud')"
+                                class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-violet-50 hover:border-violet-300 transition text-sm">☁️
+                                雲 (Cloud)</button>
+                            <button onclick="showSymbol('eye')"
+                                class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-violet-50 hover:border-violet-300 transition text-sm">👁️
+                                目 (Eye)</button>
+                            <button onclick="showSymbol('bird')"
+                                class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-violet-50 hover:border-violet-300 transition text-sm">🕊️
+                                鳥 (Bird)</button>
+                            <button onclick="showSymbol('skull')"
+                                class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-violet-50 hover:border-violet-300 transition text-sm">💀
+                                髑髏 (Skull)</button>
+                            <button onclick="showSymbol('sun')"
+                                class="px-3 py-1 bg-white border border-gray-300 rounded hover:bg-violet-50 hover:border-violet-300 transition text-sm">☀️
+                                太陽 (Sun)</button>
+                        </div>
+                        <div id="symbol-meaning"
+                            class="mt-4 p-3 bg-white rounded border border-violet-100 min-h-[80px] text-sm text-gray-700 flex items-center">
+                            <span class="text-gray-400 italic">シンボルを選択するとここに解釈が表示されます。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: History -->
+        <section id="history" class="scroll-mt-24">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-extrabold text-gray-900">4. 歴史と起源</h2>
+                <p class="mt-4 text-lg text-gray-500 max-w-3xl mx-auto">
+                    人類は太古より、水面や鏡、磨かれた石の中に未来を見てきました。
+                </p>
+            </div>
+
+            <div class="relative bg-white rounded-xl shadow-lg p-8 min-h-[400px]">
+                <!-- Vertical Line -->
+                <div class="timeline-line hidden md:block"></div>
+
+                <!-- Timeline Items -->
+                <div class="space-y-12 relative">
+
+                    <!-- Ancient -->
+                    <div class="md:flex justify-between items-center group cursor-pointer"
+                        onclick="highlightHistory(this, 'ancient')">
+                        <div class="md:w-5/12 text-right pr-8 transition group-hover:text-violet-700">
+                            <h3 class="text-xl font-bold">紀元前〜古代</h3>
+                            <p class="text-sm text-gray-500">起源：水占いとベリル</p>
+                        </div>
+                        <div class="md:w-2/12 flex justify-center py-2 md:py-0 relative">
+                            <div
+                                class="w-4 h-4 bg-violet-300 rounded-full border-4 border-white shadow group-hover:bg-violet-600 group-hover:scale-125 transition z-10">
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 pl-8 opacity-60 group-hover:opacity-100 transition">
+                            <p class="text-sm text-gray-700">
+                                古代エジプトやペルシャでは水鏡が、ブリテン島のドルイド教徒は「ベリル（緑柱石）」を磨いて予言を行いました。これが水晶占いの原型とされます。</p>
+                        </div>
+                    </div>
+
+                    <!-- Middle Ages -->
+                    <div class="md:flex justify-between items-center group cursor-pointer"
+                        onclick="highlightHistory(this, 'middle')">
+                        <div class="md:w-5/12 text-right pr-8 opacity-60 group-hover:opacity-100 transition">
+                            <p class="text-sm text-gray-700">
+                                魔術師ジョン・ディーがエリザベス1世に仕え、黒曜石の鏡や水晶を用いて天使と交信を行いました。神秘学と政治が密接だった時代です。</p>
+                        </div>
+                        <div class="md:w-2/12 flex justify-center py-2 md:py-0 relative">
+                            <div
+                                class="w-4 h-4 bg-violet-300 rounded-full border-4 border-white shadow group-hover:bg-violet-600 group-hover:scale-125 transition z-10">
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 pl-8 transition group-hover:text-violet-700">
+                            <h3 class="text-xl font-bold">中世〜ルネサンス</h3>
+                            <p class="text-sm text-gray-500">宮廷占星術師とスクライング</p>
+                        </div>
+                    </div>
+
+                    <!-- 19th Century -->
+                    <div class="md:flex justify-between items-center group cursor-pointer"
+                        onclick="highlightHistory(this, 'victorian')">
+                        <div class="md:w-5/12 text-right pr-8 transition group-hover:text-violet-700">
+                            <h3 class="text-xl font-bold">19世紀〜ヴィクトリア朝</h3>
+                            <p class="text-sm text-gray-500">ロマ（ジプシー）のイメージ定着</p>
+                        </div>
+                        <div class="md:w-2/12 flex justify-center py-2 md:py-0 relative">
+                            <div
+                                class="w-4 h-4 bg-violet-300 rounded-full border-4 border-white shadow group-hover:bg-violet-600 group-hover:scale-125 transition z-10">
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 pl-8 opacity-60 group-hover:opacity-100 transition">
+                            <p class="text-sm text-gray-700">
+                                移動民族であるロマの人々が、持ち運び可能な水晶球を使い広めました。「水晶球＝占い師」というステレオタイプはこの時代に確立されました。</p>
+                        </div>
+                    </div>
+
+                    <!-- Modern -->
+                    <div class="md:flex justify-between items-center group cursor-pointer"
+                        onclick="highlightHistory(this, 'modern')">
+                        <div class="md:w-5/12 text-right pr-8 opacity-60 group-hover:opacity-100 transition">
+                            <p class="text-sm text-gray-700">
+                                心理学的なアプローチとしての再評価。自己啓発や瞑想の道具として、またはニューエイジ運動の中で精神統一のツールとして利用されています。</p>
+                        </div>
+                        <div class="md:w-2/12 flex justify-center py-2 md:py-0 relative">
+                            <div
+                                class="w-4 h-4 bg-violet-300 rounded-full border-4 border-white shadow group-hover:bg-violet-600 group-hover:scale-125 transition z-10">
+                            </div>
+                        </div>
+                        <div class="md:w-5/12 pl-8 transition group-hover:text-violet-700">
+                            <h3 class="text-xl font-bold">近現代</h3>
+                            <p class="text-sm text-gray-500">心理学とスピリチュアリティ</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Methodology / Interactive Simulator -->
+        <section id="practice" class="scroll-mt-24">
+            <div class="bg-violet-900 rounded-2xl shadow-2xl overflow-hidden text-white">
+                <div class="p-8 md:p-12 text-center">
+                    <h2 class="text-3xl font-extrabold mb-4">5. 実践：基本的なやり方</h2>
+                    <p class="text-indigo-200 mb-8 max-w-2xl mx-auto">
+                        実際に水晶球占いを行うための手順を、シミュレーション形式で体験できます。
+                        実際の鑑定には、直径5cm以上の傷のない水晶（またはガラス球）が必要です。
+                    </p>
+
+                    <!-- Simulator UI -->
+                    <div class="bg-white/10 backdrop-blur-md rounded-xl p-6 border border-white/20 max-w-4xl mx-auto">
+                        <div class="flex flex-col md:flex-row gap-6">
+
+                            <!-- Steps List -->
+                            <div class="w-full md:w-1/3 text-left space-y-2">
+                                <div id="step-btn-1" class="step-card active p-3 rounded cursor-pointer"
+                                    onclick="setSimStep(1)">
+                                    <span class="font-bold">Step 1: 準備</span>
+                                    <p class="text-xs text-indigo-200">環境を整える</p>
+                                </div>
+                                <div id="step-btn-2" class="step-card p-3 rounded cursor-pointer"
+                                    onclick="setSimStep(2)">
+                                    <span class="font-bold">Step 2: 浄化と集中</span>
+                                    <p class="text-xs text-indigo-200">マインドセット</p>
+                                </div>
+                                <div id="step-btn-3" class="step-card p-3 rounded cursor-pointer"
+                                    onclick="setSimStep(3)">
+                                    <span class="font-bold">Step 3: 凝視 (Gazing)</span>
+                                    <p class="text-xs text-indigo-200">視覚の変容</p>
+                                </div>
+                                <div id="step-btn-4" class="step-card p-3 rounded cursor-pointer"
+                                    onclick="setSimStep(4)">
+                                    <span class="font-bold">Step 4: 解釈</span>
+                                    <p class="text-xs text-indigo-200">意味の受容</p>
+                                </div>
+                            </div>
+
+                            <!-- Content Display -->
+                            <div
+                                class="w-full md:w-2/3 bg-white text-gray-800 rounded-lg p-6 relative min-h-[300px] flex flex-col justify-center items-center">
+
+                                <!-- Step 1 Content -->
+                                <div id="sim-content-1" class="sim-content text-center">
+                                    <div class="text-4xl mb-4">🕯️</div>
+                                    <h3 class="text-xl font-bold mb-2">環境の準備</h3>
+                                    <p class="text-sm mb-4">
+                                        部屋を薄暗くし、水晶の背後が黒くなるように黒いベルベットの布などを敷きます。光の反射を避けるため、光源は水晶の背後や横に配置します。</p>
+                                    <button onclick="setSimStep(2)"
+                                        class="px-6 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition">次へ進む</button>
+                                </div>
+
+                                <!-- Step 2 Content -->
+                                <div id="sim-content-2" class="sim-content hidden text-center">
+                                    <div class="text-4xl mb-4">🧘</div>
+                                    <h3 class="text-xl font-bold mb-2">呼吸とリラックス</h3>
+                                    <p class="text-sm mb-4">深呼吸をして心身をリラックスさせます。雑念を払い、「何を知りたいか」という問いだけを心に留めます。</p>
+                                    <button onclick="setSimStep(3)"
+                                        class="px-6 py-2 bg-violet-600 text-white rounded hover:bg-violet-700 transition">水晶を見つめる</button>
+                                </div>
+
+                                <!-- Step 3 Content (Interactive Gazing) -->
+                                <div id="sim-content-3" class="sim-content hidden text-center w-full">
+                                    <h3 class="text-xl font-bold mb-2">凝視の実践</h3>
+                                    <p class="text-sm mb-4">下の水晶をクリックして見つめてください。次第に霧がかかったように見えたり、色が変化したりします。</p>
+
+                                    <div class="relative w-40 h-40 mx-auto cursor-pointer group"
+                                        onclick="simulateGazing()">
+                                        <div id="sim-ball"
+                                            class="w-full h-full rounded-full bg-gradient-to-br from-blue-100 to-indigo-300 shadow-inner flex items-center justify-center transition duration-1000 overflow-hidden relative">
+                                            <!-- Internal Fog Effect -->
+                                            <div id="sim-fog"
+                                                class="absolute inset-0 bg-white opacity-0 transition duration-2000 filter blur-xl">
+                                            </div>
+                                            <!-- Result Emoji -->
+                                            <div id="sim-result"
+                                                class="absolute text-5xl opacity-0 transform scale-50 transition duration-1000 z-10">
+                                                ✨</div>
+                                        </div>
+                                        <!-- Gloss -->
+                                        <div
+                                            class="absolute top-4 left-4 w-10 h-6 bg-white opacity-40 rounded-full transform -rotate-45 pointer-events-none">
+                                        </div>
+                                    </div>
+                                    <p id="gazing-instruction" class="text-xs text-gray-400 mt-2">クリックして集中を開始...</p>
+                                </div>
+
+                                <!-- Step 4 Content -->
+                                <div id="sim-content-4" class="sim-content hidden text-center">
+                                    <div id="result-icon-display" class="text-5xl mb-4">🤔</div>
+                                    <h3 class="text-xl font-bold mb-2">解釈と記録</h3>
+                                    <p class="text-sm mb-4">見えたイメージ（例：<span id="result-text-display"
+                                            class="font-bold text-violet-600">光</span>）を直感で翻訳します。論理的に考えず、最初に浮かんだ言葉や感情が答えです。
+                                    </p>
+                                    <div class="bg-gray-100 p-3 rounded text-xs text-left">
+                                        <strong>ポイント：</strong><br>
+                                        ・雲が右に動く → 吉兆<br>
+                                        ・雲が左に動く → 注意が必要<br>
+                                        ・色が赤っぽい → 警告、情熱
+                                    </div>
+                                    <button onclick="setSimStep(1)"
+                                        class="mt-4 px-4 py-2 text-violet-600 hover:bg-violet-50 rounded transition text-sm">最初からやり直す</button>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-500 py-12 border-t border-gray-200">
+            <p class="mb-2">© 2024 水晶球占い研究レポート</p>
+            <p class="text-xs">
+                本レポートは歴史的・文化的な観点から占術を解説したものであり、<br>
+                科学的な効果を保証するものではありません。
+            </p>
+        </footer>
+
+    </div>
+
+    <script>
+        // --- Navigation Logic ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // --- Chart Initialization (Chart.js) ---
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Characteristics Radar Chart
+            const ctxRadar = document.getElementById('characteristicsChart').getContext('2d');
+            new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['直感依存度', '理論体系', '道具の重要性', '具体性', '習得難易度'],
+                    datasets: [{
+                        label: '水晶球占い',
+                        data: [5, 2, 5, 3, 5],
+                        backgroundColor: 'rgba(139, 92, 246, 0.2)',
+                        borderColor: 'rgba(139, 92, 246, 1)',
+                        pointBackgroundColor: 'rgba(139, 92, 246, 1)',
+                        borderWidth: 2
+                    }, {
+                        label: '西洋占星術',
+                        data: [2, 5, 2, 5, 4],
+                        backgroundColor: 'rgba(156, 163, 175, 0.2)',
+                        borderColor: 'rgba(156, 163, 175, 1)',
+                        pointBackgroundColor: 'rgba(156, 163, 175, 1)',
+                        borderWidth: 1,
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        r: {
+                            angleLines: { color: 'rgba(0,0,0,0.1)' },
+                            grid: { color: 'rgba(0,0,0,0.05)' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Zen Maru Gothic', sans-serif" },
+                                color: '#4B5563'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 5,
+                            ticks: { display: false }
+                        }
+                    },
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // 2. Specialty Donut Chart
+            const ctxDonut = document.getElementById('specialtyChart').getContext('2d');
+            new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['深層心理・感情', '短期的な未来運', '失せ物・遠隔視', '具体的な時期・数字'],
+                    datasets: [{
+                        data: [40, 30, 20, 10],
+                        backgroundColor: [
+                            'rgba(139, 92, 246, 0.8)', // Violet
+                            'rgba(167, 139, 250, 0.8)', // Light Violet
+                            'rgba(196, 181, 253, 0.8)', // Lighter
+                            'rgba(229, 231, 235, 0.8)'  // Grey
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom', labels: { boxWidth: 12, font: { size: 10 } } }
+                    }
+                }
+            });
+        });
+
+        // --- Tab Switching Logic (Scope Section) ---
+        function switchScopeTab(tabId) {
+            // Reset Tabs
+            document.getElementById('tab-can-do').className = 'inactive-tab px-4 py-2 font-medium text-sm focus:outline-none transition';
+            document.getElementById('tab-cant-do').className = 'inactive-tab px-4 py-2 font-medium text-sm focus:outline-none transition';
+
+            // Activate Clicked Tab
+            document.getElementById('tab-' + tabId).className = 'active-tab px-4 py-2 font-medium text-sm focus:outline-none transition';
+
+            // Toggle Content
+            if (tabId === 'can-do') {
+                document.getElementById('content-can-do').classList.remove('hidden');
+                document.getElementById('content-cant-do').classList.add('hidden');
+            } else {
+                document.getElementById('content-can-do').classList.add('hidden');
+                document.getElementById('content-cant-do').classList.remove('hidden');
+            }
+        }
+
+        // --- Symbol Dictionary Logic ---
+        const symbolMeanings = {
+            'cloud': '【雲】 白い雲は吉兆、黒い雲は不運。雲の動きは状況の変化を表します。',
+            'eye': '【目】 洞察力、誰かに見られている、あるいは新しい知識の発見。',
+            'bird': '【鳥】 ニュースの到来、精神的な上昇、あるいは旅行の予兆。',
+            'skull': '【髑髏】 死ではなく「再生」や「大きな変化」、あるいは隠された秘密。',
+            'sun': '【太陽】 成功、エネルギーの充実、真実が明らかになること。'
+        };
+
+        function showSymbol(key) {
+            const display = document.getElementById('symbol-meaning');
+            display.innerHTML = `<span class="font-bold text-violet-700">${symbolMeanings[key].split('】')[0]}】</span> ${symbolMeanings[key].split('】')[1]}`;
+            display.classList.add('bg-violet-50');
+            setTimeout(() => display.classList.remove('bg-violet-50'), 300);
+        }
+
+        // --- History Highlight Logic ---
+        function highlightHistory(element, era) {
+            // Remove highlight from all
+            document.querySelectorAll('#history .group').forEach(el => {
+                el.querySelector('.rounded-full').classList.remove('bg-violet-600', 'scale-125');
+                el.querySelector('.rounded-full').classList.add('bg-violet-300');
+
+                // Reset text opacity for non-hover state simulation
+                el.querySelectorAll('p, div').forEach(child => {
+                    // Resetting classes managed by hover would be complex via JS alone, 
+                    // focusing on the dot indicator which is the primary state.
+                });
+            });
+
+            // Add highlight to clicked
+            const dot = element.querySelector('.rounded-full');
+            dot.classList.remove('bg-violet-300');
+            dot.classList.add('bg-violet-600', 'scale-125');
+        }
+
+        // --- Practice Simulator Logic ---
+        let currentSimStep = 1;
+
+        function setSimStep(step) {
+            currentSimStep = step;
+
+            // Update Menu
+            document.querySelectorAll('.step-card').forEach((el, index) => {
+                if (index + 1 === step) {
+                    el.classList.add('active');
+                    el.classList.remove('text-indigo-200'); // make text clearer
+                } else {
+                    el.classList.remove('active');
+                    // el.classList.add('text-indigo-200');
+                }
+            });
+
+            // Update Content Area
+            document.querySelectorAll('.sim-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`sim-content-${step}`).classList.remove('hidden');
+
+            // Reset simulation if going back to step 3
+            if (step === 3) {
+                resetGazing();
+            }
+        }
+
+        function resetGazing() {
+            const fog = document.getElementById('sim-fog');
+            const result = document.getElementById('sim-result');
+            const instruction = document.getElementById('gazing-instruction');
+
+            fog.classList.remove('opacity-100');
+            fog.classList.add('opacity-0');
+            result.classList.remove('opacity-100', 'scale-100');
+            result.classList.add('opacity-0', 'scale-50');
+            instruction.innerText = "クリックして集中を開始...";
+            instruction.classList.remove('text-violet-600');
+        }
+
+        function simulateGazing() {
+            const fog = document.getElementById('sim-fog');
+            const result = document.getElementById('sim-result');
+            const instruction = document.getElementById('gazing-instruction');
+            const ball = document.getElementById('sim-ball');
+
+            if (fog.classList.contains('opacity-100')) return; // Already done
+
+            // 1. Fog appears
+            instruction.innerText = "霧が現れました...心を無にします...";
+            fog.classList.remove('opacity-0');
+            fog.classList.add('opacity-100');
+            ball.style.transform = "scale(1.05)";
+
+            // 2. Vision appears after delay
+            setTimeout(() => {
+                const visions = [
+                    { icon: '❤️', text: 'ハート (愛・感情)' },
+                    { icon: '🗝️', text: '鍵 (解決・秘密)' },
+                    { icon: '🌊', text: '波 (変化・感情の揺れ)' },
+                    { icon: '⭐', text: '星 (希望・導き)' },
+                    { icon: '⚓', text: '錨 (安定・停滞)' }
+                ];
+                const randomVision = visions[Math.floor(Math.random() * visions.length)];
+
+                result.innerText = randomVision.icon;
+                result.classList.remove('opacity-0', 'scale-50');
+                result.classList.add('opacity-100', 'scale-100');
+
+                instruction.innerText = "イメージが浮かび上がりました！";
+                instruction.classList.add('text-violet-600');
+                ball.style.transform = "scale(1)";
+
+                // Prepare Step 4 data
+                document.getElementById('result-icon-display').innerText = randomVision.icon;
+                document.getElementById('result-text-display').innerText = randomVision.text;
+
+                // Auto advance suggestion
+                setTimeout(() => {
+                    if (currentSimStep === 3) {
+                        const nextBtn = document.createElement('button');
+                        nextBtn.innerText = "意味を解釈する (Step 4)";
+                        nextBtn.className = "mt-2 px-4 py-1 bg-violet-600 text-white text-xs rounded hover:bg-violet-700 animate-bounce";
+                        nextBtn.onclick = () => setSimStep(4);
+                        instruction.parentElement.appendChild(nextBtn);
+                    }
+                }, 1500);
+
+            }, 2500);
+        }
+
+    </script>
+</body>
+
+</html>

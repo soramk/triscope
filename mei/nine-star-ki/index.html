@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>九星気学：運勢と方位の科学</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <!-- Chosen Palette: Traditional Japanese Modern -->
+    <!-- Background: Go fun (Oyster White) #f7f3e8 -->
+    <!-- Primary: Ai (Indigo) #1e3a5f for wisdom/trust -->
+    <!-- Accent: Yamabuki (Golden Yellow) #d4af37 for earth/center -->
+    <!-- Text: Sumi (Ink) #2c2c2c -->
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'jp-bg': '#f7f3e8',
+                        'jp-indigo': '#1e3a5f',
+                        'jp-gold': '#d4af37',
+                        'jp-text': '#2c2c2c',
+                        'jp-accent': '#c24a4a', // Traditional Red
+                        'jp-gray': '#787c7e'
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        serif: ['"Noto Serif JP"', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* bodyスタイルは common.css で定義 */
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        .magic-square-cell {
+            transition: all 0.3s ease;
+        }
+
+        .magic-square-cell:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            z-index: 10;
+        }
+
+        .tab-active {
+            border-bottom: 2px solid #1e3a5f;
+            color: #1e3a5f;
+            font-weight: bold;
+        }
+
+        .tab-inactive {
+            color: #787c7e;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #d1d5db;
+            z-index: 0;
+        }
+
+        @media (max-width: 768px) {
+            .timeline-line {
+                left: 20px;
+            }
+        }
+    </style>
+
+    <!-- Application Structure Plan: 
+         1. Hero Section: Title and simple definition.
+         2. Tab Navigation: Overview, What It Tells (Analysis), Logic & History, Practical Tool (Calculator).
+         3. Content Sections:
+            - Overview: Cards defining characteristics (Mei/So/Boku).
+            - Analysis: Chart.js comparing strengths vs weaknesses.
+            - Logic: Interactive Magic Square (Lo Shu) to explain the 9 stars.
+            - History: Vertical timeline.
+            - Calculator: User inputs birth year, gets their star and explanation (Simulates "How to do it").
+         Rationale: This structure allows the user to first understand the "What" and "Why", then deep dive into "How it works", and finally experience it personally.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Suitability Radar/Bar Chart: To visually answer "What is it good for?" compared to other fortune telling.
+         - Interactive 3x3 Grid: Essential for explaining the "Lo Shu Square" logic without using static images or SVG.
+         - Calculator Form: Replaces static text about "how to calculate" with an actual functional tool.
+         - Timeline: CSS/HTML layout for history.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="font-sans antialiased flex flex-col min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-jp-indigo text-white shadow-md">
+        <div class="container mx-auto px-4 py-6 text-center">
+            <h1 class="text-3xl md:text-4xl font-serif font-bold tracking-wider mb-2">九星気学レポート</h1>
+            <p class="text-jp-bg opacity-90 text-sm md:text-base">自然の「気」と「方位」が織りなす運命学の探求</p>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="container mx-auto px-4">
+            <div class="flex overflow-x-auto justify-center space-x-8 py-4 whitespace-nowrap" id="main-nav">
+                <button onclick="switchTab('overview')" id="nav-overview"
+                    class="tab-active px-2 pb-1 transition-colors">概要と特性</button>
+                <button onclick="switchTab('analysis')" id="nav-analysis"
+                    class="tab-inactive px-2 pb-1 transition-colors hover:text-jp-indigo">得意分野</button>
+                <button onclick="switchTab('logic')" id="nav-logic"
+                    class="tab-inactive px-2 pb-1 transition-colors hover:text-jp-indigo">根拠と歴史</button>
+                <button onclick="switchTab('practice')" id="nav-practice"
+                    class="tab-inactive px-2 pb-1 transition-colors hover:text-jp-indigo font-bold text-jp-accent">【実践】本命星鑑定</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow container mx-auto px-4 py-8 max-w-5xl">
+
+        <!-- SECTION 1: OVERVIEW -->
+        <div id="view-overview" class="block animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-serif font-bold text-jp-indigo border-l-4 border-jp-gold pl-4 mb-4">九星気学とは</h2>
+                <p class="leading-relaxed text-jp-text mb-4">
+                    このセクションでは、九星気学の基本的な定義とその位置づけについて解説します。
+                    九星気学は単なる占いではなく、**「動くことで運命を変える」**という能動的な側面を持つ、日本独自の発展を遂げた開運学です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <!-- Card 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-jp-indigo">
+                    <div class="text-4xl mb-3 text-center">🌏</div>
+                    <h3 class="text-xl font-bold text-center mb-2">相術・命術の融合</h3>
+                    <p class="text-sm text-gray-600">
+                        生まれた時間に基づく「命術（めいじゅつ）」と、
+                        環境や方位に基づく「相術（そうじゅつ）」の両方の側面を持ちます。
+                        宿命を知り、環境を利用して運を開きます。
+                    </p>
+                </div>
+                <!-- Card 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-jp-gold">
+                    <div class="text-4xl mb-3 text-center">🧭</div>
+                    <h3 class="text-xl font-bold text-center mb-2">方位学の決定版</h3>
+                    <p class="text-sm text-gray-600">
+                        最大の特徴は「方位」へのアプローチです。
+                        引越しや旅行など、物理的な移動によって「気」を取り込み、
+                        後天的に運勢を好転させる技術に特化しています。
+                    </p>
+                </div>
+                <!-- Card 3 -->
+                <div class="bg-white p-6 rounded-lg shadow-md border-t-4 border-jp-accent">
+                    <div class="text-4xl mb-3 text-center">📊</div>
+                    <h3 class="text-xl font-bold text-center mb-2">循環するエネルギー</h3>
+                    <p class="text-sm text-gray-600">
+                        「気」は9つの性質（九星）に分類され、一定の法則で循環しています。
+                        今の自分がどのサイクルにいるかを知ることで、最適な行動指針が得られます。
+                    </p>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl p-6 shadow-inner bg-opacity-50 border border-stone-200">
+                <h3 class="text-lg font-bold text-jp-indigo mb-3">他の占いとの比較</h3>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-700">
+                        <thead class="text-xs text-gray-700 uppercase bg-stone-100">
+                            <tr>
+                                <th class="px-4 py-3 rounded-tl-lg">占術名</th>
+                                <th class="px-4 py-3">分類</th>
+                                <th class="px-4 py-3">アプローチ</th>
+                                <th class="px-4 py-3 rounded-tr-lg">九星気学との違い</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-4 py-3 font-bold">九星気学</td>
+                                <td class="px-4 py-3">命術 ＋ 相術</td>
+                                <td class="px-4 py-3">気・方位・循環</td>
+                                <td class="px-4 py-3">行動（移動）により運を変えられるとする点が強い。</td>
+                            </tr>
+                            <tr class="bg-stone-50 border-b">
+                                <td class="px-4 py-3 font-bold">西洋占星術</td>
+                                <td class="px-4 py-3">命術</td>
+                                <td class="px-4 py-3">天体配置</td>
+                                <td class="px-4 py-3">個人の資質分析に長けるが、「方位」の概念は希薄。</td>
+                            </tr>
+                            <tr class="bg-white border-b">
+                                <td class="px-4 py-3 font-bold">タロット</td>
+                                <td class="px-4 py-3">卜術（ぼくじゅつ）</td>
+                                <td class="px-4 py-3">偶然性・直感</td>
+                                <td class="px-4 py-3">「今」の感情や短期的な吉凶に強い。長期的サイクルは苦手。</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: ANALYSIS (WHAT IT TELLS) -->
+        <div id="view-analysis" class="hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-serif font-bold text-jp-indigo border-l-4 border-jp-gold pl-4 mb-4">わかること・得意分野
+                </h2>
+                <p class="leading-relaxed text-jp-text mb-4">
+                    九星気学には明確な「得意」と「不得意」があります。
+                    ここでは、九星気学がどのような相談内容に適しているかを可視化しました。
+                    特に**「開運のための行動」**を示唆する点において、他の追随を許しません。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-10">
+                <!-- Text Content -->
+                <div class="space-y-6">
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-green-500 shadow-sm">
+                        <h3 class="font-bold text-lg mb-2 flex items-center">
+                            <span class="text-green-500 mr-2">●</span> 得意なこと（わかること）
+                        </h3>
+                        <ul class="list-disc list-inside text-sm space-y-2 text-gray-700">
+                            <li><strong>吉方位・凶方位：</strong> 引っ越し、旅行、病院選びに最適な方角。</li>
+                            <li><strong>運勢のバイオリズム：</strong> スタートに適した時期、静観すべき時期。</li>
+                            <li><strong>本質的な性格：</strong> 生まれた時の「気」の影響による気質。</li>
+                            <li><strong>相性と関係性：</strong> お互いの「気」が助け合うか、反発するか。</li>
+                            <li><strong>開運アクション：</strong> 祐気取り（お水取り）など具体的な行動。</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-white p-5 rounded-lg border-l-4 border-gray-400 shadow-sm">
+                        <h3 class="font-bold text-lg mb-2 flex items-center">
+                            <span class="text-gray-400 mr-2">●</span> 苦手なこと（わからないこと）
+                        </h3>
+                        <ul class="list-disc list-inside text-sm space-y-2 text-gray-700">
+                            <li><strong>相手の「今」の気持ち：</strong> 心理描写はタロット等の卜術が有利。</li>
+                            <li><strong>偶然の出来事の結果：</strong> 「明日の試験結果」などの偶然性の強いもの。</li>
+                            <li><strong>詳細な未来予知：</strong> 「何時何分に何が起きる」といった予言的なこと。</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Chart Content -->
+                <div class="bg-white p-4 rounded-xl shadow-lg">
+                    <h3 class="text-center font-bold text-jp-indigo mb-2">適性分野レーダーチャート</h3>
+                    <div class="chart-container">
+                        <canvas id="suitabilityChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-2">※ 10段階評価（一般的解釈による）</p>
+                </div>
+            </div>
+
+            <div class="bg-indigo-50 p-6 rounded-lg text-center">
+                <p class="font-bold text-jp-indigo text-lg">結論：</p>
+                <p class="text-gray-700 mt-2">
+                    「相手の気持ちを知りたい」ならタロットへ。<br>
+                    <strong>「今の状況を変えるために、いつ・どこへ動けば良いか」</strong>を知りたいなら九星気学が最適です。
+                </p>
+            </div>
+        </div>
+
+        <!-- SECTION 3: LOGIC & HISTORY -->
+        <div id="view-logic" class="hidden animate-fade-in">
+            <!-- Logic Part -->
+            <div class="mb-12">
+                <h2 class="text-2xl font-serif font-bold text-jp-indigo border-l-4 border-jp-gold pl-4 mb-4">
+                    根拠とロジック：魔法陣の秘密</h2>
+                <p class="leading-relaxed text-jp-text mb-6">
+                    九星気学の根底には、約4000年前の中国で発見された「洛書（らくしょ）」という図形（魔法陣）があります。
+                    これは縦・横・斜め、どの列を足しても「15」になる不思議な数字の配置です。
+                    この9つの数字に「五行（木・火・土・金・水）」や自然象意を割り当てたものが**九星**です。
+                </p>
+
+                <!-- Interactive Lo Shu Square -->
+                <div
+                    class="flex flex-col md:flex-row items-center justify-center gap-8 bg-white p-8 rounded-xl shadow-inner">
+                    <div
+                        class="relative w-64 h-64 grid grid-cols-3 gap-2 bg-stone-300 p-2 rounded-lg shadow-2xl flex-shrink-0">
+                        <!-- Row 1 -->
+                        <div onclick="showStarDetail(4)"
+                            class="magic-square-cell bg-green-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-green-800 hover:bg-green-200">
+                            4<span class="text-xs block ml-1">木</span></div>
+                        <div onclick="showStarDetail(9)"
+                            class="magic-square-cell bg-red-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-red-800 hover:bg-red-200">
+                            9<span class="text-xs block ml-1">火</span></div>
+                        <div onclick="showStarDetail(2)"
+                            class="magic-square-cell bg-yellow-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-yellow-800 hover:bg-yellow-200">
+                            2<span class="text-xs block ml-1">土</span></div>
+                        <!-- Row 2 -->
+                        <div onclick="showStarDetail(3)"
+                            class="magic-square-cell bg-green-200 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-green-900 hover:bg-green-300">
+                            3<span class="text-xs block ml-1">木</span></div>
+                        <div onclick="showStarDetail(5)"
+                            class="magic-square-cell bg-yellow-300 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-yellow-900 hover:bg-yellow-400 border-2 border-jp-gold">
+                            5<span class="text-xs block ml-1">土</span></div>
+                        <div onclick="showStarDetail(7)"
+                            class="magic-square-cell bg-orange-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-orange-800 hover:bg-orange-200">
+                            7<span class="text-xs block ml-1">金</span></div>
+                        <!-- Row 3 -->
+                        <div onclick="showStarDetail(8)"
+                            class="magic-square-cell bg-yellow-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-yellow-800 hover:bg-yellow-200">
+                            8<span class="text-xs block ml-1">土</span></div>
+                        <div onclick="showStarDetail(1)"
+                            class="magic-square-cell bg-blue-100 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-blue-800 hover:bg-blue-200">
+                            1<span class="text-xs block ml-1">水</span></div>
+                        <div onclick="showStarDetail(6)"
+                            class="magic-square-cell bg-gray-200 flex items-center justify-center text-2xl font-bold cursor-pointer rounded text-gray-800 hover:bg-gray-300">
+                            6<span class="text-xs block ml-1">金</span></div>
+                    </div>
+
+                    <div id="star-detail-panel"
+                        class="w-full max-w-md bg-stone-50 p-6 rounded border border-stone-200 min-h-[16rem]">
+                        <h3 class="text-xl font-bold text-jp-indigo mb-2" id="detail-title">数字をクリックしてください</h3>
+                        <p class="text-sm text-gray-600 mb-4" id="detail-desc">
+                            左の魔法陣（後天定位盤）の数字をクリックすると、それぞれの星が持つ意味、対応する自然現象、方位が表示されます。<br><br>
+                            中央の「5」は「帝王」の位置とされ、周囲の8つの星を支配します。これが「五黄土星」の強力な作用の根拠です。
+                        </p>
+                        <div id="detail-metrics" class="hidden grid grid-cols-2 gap-2 text-sm">
+                            <div class="bg-white p-2 rounded shadow-sm"><span
+                                    class="block text-xs text-gray-400">五行</span><span id="metric-element"
+                                    class="font-bold">-</span></div>
+                            <div class="bg-white p-2 rounded shadow-sm"><span
+                                    class="block text-xs text-gray-400">定位置</span><span id="metric-direction"
+                                    class="font-bold">-</span></div>
+                            <div class="bg-white p-2 rounded shadow-sm col-span-2"><span
+                                    class="block text-xs text-gray-400">象意（キーワード）</span><span id="metric-keywords"
+                                    class="font-bold">-</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- History Part -->
+            <div>
+                <h2 class="text-2xl font-serif font-bold text-jp-indigo border-l-4 border-jp-gold pl-4 mb-6">歴史と変遷</h2>
+                <div class="relative pl-8 md:pl-0">
+                    <!-- Timeline Line (Mobile: Left, Desktop: Center) -->
+                    <div class="timeline-line hidden md:block"></div>
+                    <div class="absolute left-8 top-0 bottom-0 w-0.5 bg-gray-300 md:hidden"></div>
+
+                    <!-- Timeline Item 1 -->
+                    <div class="mb-8 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-5/12 md:text-right pr-0 md:pr-8 mb-2 md:mb-0 order-1">
+                            <h3 class="font-bold text-lg text-jp-indigo">古代中国（夏・殷時代）</h3>
+                            <p class="text-sm text-gray-600">約4000年前、治水工事の際に亀の甲羅に見つかった模様から「洛書」が発見される。</p>
+                        </div>
+                        <div
+                            class="w-6 h-6 bg-jp-gold rounded-full border-4 border-white shadow absolute left-5 md:left-1/2 md:transform md:-translate-x-1/2 z-10 order-2">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-8 order-3 hidden md:block"></div>
+                    </div>
+
+                    <!-- Timeline Item 2 -->
+                    <div class="mb-8 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-5/12 order-1 hidden md:block"></div>
+                        <div
+                            class="w-6 h-6 bg-jp-indigo rounded-full border-4 border-white shadow absolute left-5 md:left-1/2 md:transform md:-translate-x-1/2 z-10 order-2">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-0 md:pl-8 mb-2 md:mb-0 order-3">
+                            <h3 class="font-bold text-lg text-jp-indigo">日本への伝来（推古天皇時代）</h3>
+                            <p class="text-sm text-gray-600">550〜600年頃、暦や易とともに日本へ伝来。陰陽寮で扱われる国家機密の学問となる。</p>
+                        </div>
+                    </div>
+
+                    <!-- Timeline Item 3 -->
+                    <div class="mb-8 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-5/12 md:text-right pr-0 md:pr-8 mb-2 md:mb-0 order-1">
+                            <h3 class="font-bold text-lg text-jp-indigo">江戸時代</h3>
+                            <p class="text-sm text-gray-600">「家相」として一般庶民にも浸透し始める。松下村塾などでも戦略として学ばれる。</p>
+                        </div>
+                        <div
+                            class="w-6 h-6 bg-jp-indigo rounded-full border-4 border-white shadow absolute left-5 md:left-1/2 md:transform md:-translate-x-1/2 z-10 order-2">
+                        </div>
+                        <div class="w-full md:w-5/12 order-3 hidden md:block"></div>
+                    </div>
+
+                    <!-- Timeline Item 4 -->
+                    <div class="mb-8 flex flex-col md:flex-row items-center w-full">
+                        <div class="w-full md:w-5/12 order-1 hidden md:block"></div>
+                        <div
+                            class="w-6 h-6 bg-jp-accent rounded-full border-4 border-white shadow absolute left-5 md:left-1/2 md:transform md:-translate-x-1/2 z-10 order-2">
+                        </div>
+                        <div class="w-full md:w-5/12 pl-0 md:pl-8 mb-2 md:mb-0 order-3">
+                            <h3 class="font-bold text-lg text-jp-indigo">大正・明治（園田真次郎）</h3>
+                            <p class="text-sm text-gray-600">園田真次郎が「気学」として体系化。複雑な理論を整理し、現在普及している「九星気学」の基礎を確立。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: PRACTICE (CALCULATOR) -->
+        <div id="view-practice" class="hidden animate-fade-in">
+            <div class="mb-8">
+                <h2 class="text-2xl font-serif font-bold text-jp-indigo border-l-4 border-jp-gold pl-4 mb-4">
+                    【実践】あなたの本命星を調べる</h2>
+                <p class="leading-relaxed text-jp-text mb-6">
+                    九星気学の鑑定手順の第一歩は、自分の「本命星（ほんめいせい）」を知ることです。
+                    生まれた年（西暦）から、あなたがどの星のエネルギーを帯びて生まれてきたかを計算します。
+                </p>
+                <div class="bg-yellow-50 border border-yellow-200 rounded p-4 text-sm text-yellow-800 mb-6">
+                    <strong>⚠️ 重要：1月1日〜2月3日生まれの方へ</strong><br>
+                    九星気学の1年は「立春（2月4日頃）」から始まります。<br>
+                    2月3日以前（節分まで）に生まれた方は、<strong>「前年の星」</strong>となります。
+                </div>
+            </div>
+
+            <div class="bg-white p-8 rounded-xl shadow-lg max-w-lg mx-auto border border-stone-200">
+                <div class="mb-6 text-center">
+                    <label for="birthYear" class="block text-gray-700 font-bold mb-2">生まれた年（西暦）を入力</label>
+                    <div class="flex justify-center items-center gap-2">
+                        <input type="number" id="birthYear" placeholder="例: 1990"
+                            class="shadow appearance-none border rounded w-32 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-jp-indigo text-center text-lg">
+                        <span class="text-gray-500">年</span>
+                    </div>
+
+                    <div class="mt-4 flex items-center justify-center gap-2 text-sm text-gray-600">
+                        <input type="checkbox" id="beforeSetsubun" class="form-checkbox h-4 w-4 text-jp-indigo">
+                        <label for="beforeSetsubun" class="cursor-pointer select-none">1月1日 〜 2月3日生まれ</label>
+                    </div>
+
+                    <button onclick="calculateStar()"
+                        class="mt-6 bg-jp-indigo hover:bg-blue-900 text-white font-bold py-3 px-8 rounded-full shadow transition-transform transform hover:-translate-y-1">
+                        鑑定する
+                    </button>
+                </div>
+
+                <!-- Result Display -->
+                <div id="result-area" class="hidden mt-8 border-t pt-6 animate-fade-in">
+                    <div class="text-center">
+                        <p class="text-gray-500 text-sm mb-1">あなたの本命星は</p>
+                        <h3 id="result-star-name" class="text-3xl font-serif font-bold text-jp-indigo mb-2">-</h3>
+                        <p id="result-element" class="text-sm font-bold text-jp-gold mb-4">-</p>
+                    </div>
+
+                    <div class="bg-stone-50 rounded p-4 text-left">
+                        <h4 class="font-bold text-gray-800 mb-2 border-b pb-1">基本性格・特性</h4>
+                        <p id="result-personality" class="text-sm text-gray-700 leading-relaxed">-</p>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-4">
+                        <div class="bg-white p-3 rounded shadow-sm text-center">
+                            <span class="block text-xs text-gray-400">ラッキーカラー</span>
+                            <span id="result-color" class="font-bold text-jp-indigo">-</span>
+                        </div>
+                        <div class="bg-white p-3 rounded shadow-sm text-center">
+                            <span class="block text-xs text-gray-400">象徴する自然</span>
+                            <span id="result-nature" class="font-bold text-jp-indigo">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-stone-400 py-8 text-center text-sm mt-8">
+        <div class="container mx-auto px-4">
+            <p class="mb-2">九星気学インタラクティブレポート</p>
+            <p>※本レポートの鑑定結果は一般的な傾向を示すものです。</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // --- Data Definitions ---
+        const starData = {
+            1: { name: "一白水星 (いっぱくすいせい)", element: "水", color: "白・黒", nature: "水・雨", keywords: "柔軟、知性、秘密、苦労、始まり", personality: "柔軟で適応力が高いが、芯は強い。人当たりは良いが秘密主義な一面も。苦労を乗り越えて大成するタイプ。", direction: "北" },
+            2: { name: "二黒土星 (じこくどせい)", element: "土", color: "黒・黄", nature: "大地・母", keywords: "育成、真面目、努力、家庭、補佐", personality: "真面目で温厚、母のような優しさを持つ。派手さはないが、堅実な努力で信頼を勝ち取る大器晩成型。", direction: "南西" },
+            3: { name: "三碧木星 (さんぺきもくせい)", element: "木", color: "青", nature: "雷・若木", keywords: "発展、若さ、活動、音、短気", personality: "明るく活動的で、新しいものが好き。感情表現が豊かだが、少しせっかちなところも。声が大きく元気な人が多い。", direction: "東" },
+            4: { name: "四緑木星 (しろくもくせい)", element: "木", color: "緑", nature: "風・大木", keywords: "信用、整う、社交、迷い、遠方", personality: "社交的で人当たりが良く、誰からも好かれる。風のように爽やかだが、優柔不断になりがちな一面も。", direction: "南東" },
+            5: { name: "五黄土星 (ごおうどせい)", element: "土", color: "黄", nature: "荒野・帝王", keywords: "支配、破壊、再生、中心、強烈", personality: "圧倒的なリーダーシップとバイタリティを持つ。周囲を巻き込む力が強く、吉凶の波が激しいドラマチックな人生。", direction: "中央" },
+            6: { name: "六白金星 (ろっぱくきんせい)", element: "金", color: "白・銀", nature: "天・原石", keywords: "高貴、完成、活動、権威、プライド", personality: "正義感が強く、完璧主義。リーダーの資質があるが、プライドが高く頑固に見られることも。責任感が強い。", direction: "北西" },
+            7: { name: "七赤金星 (しちせききんせい)", element: "金", color: "赤・橙", nature: "沢・精錬", keywords: "悦び、金運、雄弁、不足、社交", personality: "愛嬌があり、話術に長けた人気者。楽しいことが大好き。金運に恵まれるが、一言多い失敗には注意。", direction: "西" },
+            8: { name: "八白土星 (はっぱくどせい)", element: "土", color: "白・茶", nature: "山", keywords: "変化、停止、継承、蓄積、高山", personality: "どっしりとした山のように落ち着いている。意志が固く、一度決めたことはやり抜く。変化の多い人生を送る傾向。", direction: "北東" },
+            9: { name: "九紫火星 (きゅうしかせい)", element: "火", color: "紫・赤", nature: "火・太陽", keywords: "名誉、知恵、離別、華やか、情熱", personality: "美的センスに優れ、華やかで目立つ存在。頭の回転が速いが、熱しやすく冷めやすいところがある。", direction: "南" }
+        };
+
+        // --- Interaction Logic ---
+
+        // 1. Tab Switching
+        function switchTab(tabId) {
+            // Hide all views
+            ['overview', 'analysis', 'logic', 'practice'].forEach(id => {
+                document.getElementById(`view-${id}`).classList.add('hidden');
+                document.getElementById(`nav-${id}`).classList.replace('tab-active', 'tab-inactive');
+                document.getElementById(`nav-${id}`).classList.remove('font-bold');
+            });
+
+            // Show selected view
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            const activeNav = document.getElementById(`nav-${tabId}`);
+            activeNav.classList.replace('tab-inactive', 'tab-active');
+
+            // Trigger chart render if analysis tab is chosen and chart not yet drawn
+            if (tabId === 'analysis' && !window.suitabilityChartInstance) {
+                renderChart();
+            }
+        }
+
+        // 2. Logic: Show Star Details
+        function showStarDetail(number) {
+            const data = starData[number];
+            document.getElementById('detail-title').innerText = `${number}: ${data.name}`;
+            document.getElementById('detail-desc').innerText = data.personality;
+            document.getElementById('detail-metrics').classList.remove('hidden');
+
+            document.getElementById('metric-element').innerText = data.element;
+            document.getElementById('metric-direction').innerText = data.direction;
+            document.getElementById('metric-keywords').innerText = data.keywords;
+        }
+
+        // 3. Calculator Logic
+        function calculateStar() {
+            const yearInput = document.getElementById('birthYear').value;
+            const isBeforeSetsubun = document.getElementById('beforeSetsubun').checked;
+
+            if (!yearInput) {
+                alert('生まれた年を入力してください');
+                return;
+            }
+
+            let year = parseInt(yearInput);
+
+            // Adjust year for Setsubun (If born Jan 1 - Feb 3, count as previous year)
+            if (isBeforeSetsubun) {
+                year -= 1;
+            }
+
+            // Calculation Logic:
+            // Sum all digits until single digit, then subtract from 11.
+            // Simplified Formula: (11 - (Year % 9)) % 9. If result is 0, it is 9.
+            // Let's use standard reduction method
+            let sum = 0;
+            // Sum of digits
+            let yStr = year.toString();
+            for (let i = 0; i < yStr.length; i++) sum += parseInt(yStr[i]);
+
+            // Reduce to single digit
+            while (sum > 9) {
+                let sStr = sum.toString();
+                sum = 0;
+                for (let i = 0; i < sStr.length; i++) sum += parseInt(sStr[i]);
+            }
+
+            let starNum = 11 - sum;
+            if (starNum > 9) starNum -= 9;
+            if (starNum === 0) starNum = 9; // Should not happen with 11-sum logic usually but safe guard
+
+            // Specific check:
+            // 1990 -> 1+9+9+0 = 19 -> 10 -> 1. 11-1 = 1 (Ippaku) Correct.
+            // 1985 -> 1+9+8+5 = 23 -> 5. 11-5 = 6 (Roppaku) Correct.
+
+            const result = starData[starNum];
+
+            // Display Result
+            document.getElementById('result-area').classList.remove('hidden');
+            document.getElementById('result-star-name').innerText = result.name;
+            document.getElementById('result-element').innerText = `五行：${result.element}`;
+            document.getElementById('result-personality').innerText = result.personality;
+            document.getElementById('result-color').innerText = result.color;
+            document.getElementById('result-nature').innerText = result.nature;
+        }
+
+        // 4. Chart.js Implementation
+        function renderChart() {
+            const ctx = document.getElementById('suitabilityChart').getContext('2d');
+
+            // Data for "What it's good at" vs "What it's bad at"
+            // Categories: 引越し/方位 (Moving), 相性 (Compatibility), 性格分析 (Personality), 年間の運勢 (Annual Luck), 日々の吉凶 (Daily Luck), 相手の気持ち (Feelings), 具体的事象 (Specific Outcomes)
+
+            window.suitabilityChartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['吉方位・引越し', '年間の運気', '性格・資質', '相性診断', '日々の吉凶', '相手の心理', '具体的予言'],
+                    datasets: [{
+                        label: '九星気学の適合度 (10点満点)',
+                        data: [10, 9, 8, 8, 6, 3, 2],
+                        backgroundColor: [
+                            'rgba(30, 58, 95, 0.9)', // Indigo
+                            'rgba(30, 58, 95, 0.8)',
+                            'rgba(30, 58, 95, 0.7)',
+                            'rgba(30, 58, 95, 0.6)',
+                            'rgba(212, 175, 55, 0.6)', // Gold (Medium)
+                            'rgba(194, 74, 74, 0.4)', // Red (Low)
+                            'rgba(194, 74, 74, 0.4)'
+                        ],
+                        borderColor: [
+                            '#1e3a5f', '#1e3a5f', '#1e3a5f', '#1e3a5f', '#d4af37', '#c24a4a', '#c24a4a'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    indexAxis: 'y', // Horizontal bar chart for better label readability
+                    scales: {
+                        x: {
+                            beginAtZero: true,
+                            max: 10,
+                            grid: { color: '#f0f0f0' },
+                            ticks: { font: { family: "'Noto Sans JP', sans-serif" } }
+                        },
+                        y: {
+                            grid: { display: false },
+                            ticks: { font: { family: "'Noto Sans JP', sans-serif", weight: 'bold' } }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    const comments = [
+                                        "最強。最大の特徴であり独壇場。",
+                                        "9年サイクルのバイオリズム把握に最適。",
+                                        "本質的な気質理解に非常に有効。",
+                                        "お互いの気の相克・相生で論理的に診断。",
+                                        "日盤もあるが、長期的な視点の方が得意。",
+                                        "苦手。「今」の揺れ動く感情はタロット等へ。",
+                                        "「明日財布を落とすか？」等はわからない。"
+                                    ];
+                                    return `適合度: ${context.raw}/10 - ${comments[context.dataIndex]}`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

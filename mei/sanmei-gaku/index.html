@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>算命学：運命のロジックと体系</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <!-- Tailwind Config for Warm Neutrals Palette -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans JP"', 'sans-serif'],
+                        serif: ['"Noto Serif JP"', 'serif'],
+                    },
+                    colors: {
+                        'sanmei-bg': '#FDFCF8',      /* Paper White */
+                        'sanmei-light': '#F2EFE9',   /* Warm Grey */
+                        'sanmei-accent': '#D4AF37',  /* Muted Gold */
+                        'sanmei-dark': '#4A4036',    /* Deep Brown */
+                        'sanmei-text': '#2C241B',    /* Ink Black */
+                        'element-wood': '#5D737E',   /* Muted Blue/Green */
+                        'element-fire': '#C05746',   /* Muted Red */
+                        'element-earth': '#8C705F',  /* Earth Brown */
+                        'element-metal': '#A9A9A9',  /* Silver Grey */
+                        'element-water': '#1D2D44',  /* Deep Navy */
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* bodyスタイルは common.css で定義 */
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #F2EFE9;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #D4AF37;
+            border-radius: 4px;
+        }
+
+        /* Chart Container Utilities */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            margin: 0 auto;
+        }
+
+        /* Smooth Transitions */
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Card Hover Effects */
+        .info-card {
+            transition: all 0.3s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .info-card:hover {
+            transform: translateX(5px);
+            border-left: 4px solid #D4AF37;
+            background-color: #FFF;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+
+    <!-- Placeholder Comments -->
+    <!-- Chosen Palette: Warm Neutrals (Paper White, Deep Brown, Muted Gold) to reflect history and academic seriousness. -->
+    <!-- Application Structure Plan: Dashboard layout. 1. Hero (Identity), 2. Radar/Analysis (Logic), 3. Interaction Cards (Scope), 4. Timeline (History), 5. Process Simulator (Method). Structure chosen to demystify the "complex" image of Sanmeigaku by breaking it into visual logical components. -->
+    <!-- Visualization & Content Choices: 
+         1. Radar Chart for "Five Elements": Shows the balance concept visually. Goal: Explain Logic. 
+         2. Bar Chart for "Comparison": Compare Sanmeigaku vs General Fortune Telling. Goal: Context.
+         3. Interactive Grid for "Meishiki": Simulates the result without complex backend. Goal: Process.
+         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+
+<body class="antialiased min-h-screen flex flex-col md:flex-row">
+
+    <!-- Mobile Navigation Toggle -->
+    <div
+        class="md:hidden fixed top-0 left-0 w-full bg-sanmei-dark text-white z-50 p-4 flex justify-between items-center shadow-md">
+        <span class="font-bold text-lg">算命学：帝王の運命学</span>
+        <button id="mobile-menu-btn" class="text-sanmei-accent focus:outline-none">
+            ☰ メニュー
+        </button>
+    </div>
+
+    <!-- Sidebar Navigation (Desktop) / Drawer (Mobile) -->
+    <nav id="sidebar"
+        class="fixed inset-y-0 left-0 transform -translate-x-full md:relative md:translate-x-0 transition duration-200 ease-in-out z-40 w-64 bg-sanmei-dark text-sanmei-light flex flex-col shadow-2xl pt-16 md:pt-0">
+        <div class="p-6 border-b border-gray-700">
+            <h1 class="text-2xl font-bold text-sanmei-accent mb-1">算命学</h1>
+            <p class="text-xs opacity-75">自然の法則と統計の知恵</p>
+        </div>
+        <div class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1">
+                <li><button onclick="scrollToSection('intro')"
+                        class="w-full text-left px-6 py-3 hover:bg-gray-700 transition flex items-center gap-3 border-l-4 border-transparent hover:border-sanmei-accent"><span>🔍</span>
+                        概要と特性</button></li>
+                <li><button onclick="scrollToSection('logic')"
+                        class="w-full text-left px-6 py-3 hover:bg-gray-700 transition flex items-center gap-3 border-l-4 border-transparent hover:border-sanmei-accent"><span>⚖️</span>
+                        根拠とロジック</button></li>
+                <li><button onclick="scrollToSection('scope')"
+                        class="w-full text-left px-6 py-3 hover:bg-gray-700 transition flex items-center gap-3 border-l-4 border-transparent hover:border-sanmei-accent"><span>🎯</span>
+                        得意・不得意</button></li>
+                <li><button onclick="scrollToSection('history')"
+                        class="w-full text-left px-6 py-3 hover:bg-gray-700 transition flex items-center gap-3 border-l-4 border-transparent hover:border-sanmei-accent"><span>📜</span>
+                        歴史と起源</button></li>
+                <li><button onclick="scrollToSection('method')"
+                        class="w-full text-left px-6 py-3 hover:bg-gray-700 transition flex items-center gap-3 border-l-4 border-transparent hover:border-sanmei-accent"><span>🔮</span>
+                        基本的なやり方</button></li>
+            </ul>
+        </div>
+        <div class="p-6 text-xs text-center opacity-50 border-t border-gray-700">
+            Sanmeigaku Interactive Report
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 h-screen overflow-y-auto bg-sanmei-bg p-4 md:p-8 pt-20 md:pt-8 scroll-smooth" id="main-scroll">
+
+        <!-- Section 1: Introduction -->
+        <section id="intro" class="max-w-5xl mx-auto mb-16 fade-in">
+            <header class="mb-8">
+                <span class="text-sanmei-accent font-bold tracking-widest uppercase text-sm">Overview</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-sanmei-text mt-2 mb-4">自然法算命学：帝王のための戦略術</h2>
+                <div class="p-6 bg-white rounded-lg shadow-sm border border-sanmei-light">
+                    <p class="text-lg leading-relaxed text-gray-700">
+                        このセクションでは、算命学の全体像を提示します。算命学は単なる「予言」ではなく、古代中国で生まれた<strong>「命術（めいじゅつ）」</strong>の最高峰であり、自然界の法則を人間に当てはめて宿命を読み解く学問です。生年月日を鍵として、その人が持つエネルギーの質や量を客観的に分析する点に特徴があります。
+                    </p>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Characteristics Card -->
+                <div class="bg-sanmei-light rounded-xl p-6 shadow-sm">
+                    <h3 class="text-xl font-bold mb-4 flex items-center"><span
+                            class="bg-sanmei-dark text-white rounded-full w-8 h-8 flex items-center justify-center mr-3 text-sm">特</span>
+                        特徴と分類</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start bg-white p-3 rounded">
+                            <span class="text-2xl mr-3">📅</span>
+                            <div>
+                                <strong class="block text-sanmei-dark">命術（めいじゅつ）</strong>
+                                <span
+                                    class="text-sm text-gray-600">生年月日・時間など不変の情報を基にする占い。タロット（卜術）や手相（相術）とは異なるアプローチ。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-white p-3 rounded">
+                            <span class="text-2xl mr-3">🏯</span>
+                            <div>
+                                <strong class="block text-sanmei-dark">帝王学としての側面</strong>
+                                <span class="text-sm text-gray-600">個人の幸福だけでなく、国や組織を存続させるための軍略・処世術として発展。</span>
+                            </div>
+                        </li>
+                        <li class="flex items-start bg-white p-3 rounded">
+                            <span class="text-2xl mr-3">📊</span>
+                            <div>
+                                <strong class="block text-sanmei-dark">高い論理性</strong>
+                                <span class="text-sm text-gray-600">「霊感」ではなく「法則」に基づくため、学習すれば誰でも同じ結果を導き出せる再現性がある。</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Comparison Chart Area -->
+                <div class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col">
+                    <h3 class="text-xl font-bold mb-2">他の占いとの比較特性</h3>
+                    <p class="text-sm text-gray-500 mb-4">算命学が重視する要素を視覚化しました。</p>
+                    <div class="chart-container flex-grow">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Logic & Theory -->
+        <section id="logic" class="max-w-5xl mx-auto mb-16 pt-8 border-t border-sanmei-light">
+            <header class="mb-8">
+                <span class="text-sanmei-accent font-bold tracking-widest uppercase text-sm">Logic & Theory</span>
+                <h2 class="text-3xl font-bold text-sanmei-text mt-2 mb-4">根拠となるロジック：陰陽五行説</h2>
+                <p class="text-gray-700 max-w-3xl">
+                    算命学の根底には<strong>「陰陽五行説（いんようごぎょうせつ）」</strong>があります。これは「宇宙の万物は木・火・土・金・水の5つの要素から成り、それぞれに陰と陽がある」という思想です。
+                    以下のチャートは、この5つのエネルギーがどのように循環し、個人の宿命を形成しているかを視覚的に理解するためのものです。各要素をクリックして詳細を確認してください。
+                </p>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-center">
+                <!-- Interactive 5 Elements Chart -->
+                <div class="lg:col-span-1 bg-white p-4 rounded-xl shadow-lg border border-gray-100">
+                    <div class="chart-container" style="height: 300px;">
+                        <canvas id="elementsChart"></canvas>
+                    </div>
+                    <p class="text-center text-xs text-gray-400 mt-2">※チャートをクリックして要素を選択</p>
+                </div>
+
+                <!-- Dynamic Explanation Box -->
+                <div
+                    class="lg:col-span-2 bg-sanmei-light rounded-xl p-8 relative overflow-hidden min-h-[300px] flex flex-col justify-center">
+                    <div id="element-detail-view">
+                        <h3 class="text-2xl font-bold text-sanmei-dark mb-2 border-b border-gray-300 pb-2">陰陽五行の世界</h3>
+                        <p class="text-gray-600 mb-6">左のチャートの要素をクリック（タップ）すると、算命学におけるその要素の意味と、人間の本能との関係が表示されます。</p>
+
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-sm text-sanmei-accent mb-1">相生（そうしょう）</h4>
+                                <p class="text-xs text-gray-600">相手を生かし強める関係（例：木は燃えて火を生む）。</p>
+                            </div>
+                            <div class="bg-white p-4 rounded shadow-sm">
+                                <h4 class="font-bold text-sm text-sanmei-accent mb-1">相剋（そうこく）</h4>
+                                <p class="text-xs text-gray-600">相手を抑制し鍛える関係（例：水は火を消す）。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logic Summary -->
+            <div class="mt-8 bg-white p-6 rounded-lg border-l-4 border-sanmei-dark">
+                <h4 class="font-bold text-lg mb-2">ロジックの体系化</h4>
+                <p class="text-sm text-gray-700 leading-relaxed">
+                    算命学では、生年月日を<strong>「干支（かんし）」</strong>という60種類の記号に変換します。これは「十干（空間・精神）」と「十二支（時間・現実）」の組み合わせです。
+                    このコードを人体図（星の配置図）に展開し、五行のバランスを見ることで、その人のエネルギー構造を読み解きます。統計学的な側面と、自然哲学的な側面が融合した高度な論理体系です。
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 3: Scope (What it can/can't do) -->
+        <section id="scope" class="max-w-5xl mx-auto mb-16 pt-8 border-t border-sanmei-light">
+            <header class="mb-8">
+                <span class="text-sanmei-accent font-bold tracking-widest uppercase text-sm">Capabilities</span>
+                <h2 class="text-3xl font-bold text-sanmei-text mt-2 mb-4">得意分野と限界</h2>
+                <p class="text-gray-700">
+                    万能な占いというものは存在しません。算命学が最も力を発揮する領域と、不得意とする領域を理解することで、より効果的に活用することができます。下のトグルスイッチで視点を切り替えて確認しましょう。
+                </p>
+            </header>
+
+            <div class="bg-white rounded-2xl shadow-lg overflow-hidden border border-gray-200">
+                <!-- Toggle Controls -->
+                <div class="flex border-b border-gray-200 bg-gray-50">
+                    <button onclick="updateScope('strengths')" id="btn-strengths"
+                        class="flex-1 py-4 font-bold text-sanmei-dark bg-white border-b-2 border-sanmei-accent transition-all focus:outline-none hover:bg-white">
+                        ✅ わかること（得意）
+                    </button>
+                    <button onclick="updateScope('weaknesses')" id="btn-weaknesses"
+                        class="flex-1 py-4 font-bold text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all focus:outline-none">
+                        ❌ わからないこと（苦手）
+                    </button>
+                </div>
+
+                <!-- Dynamic Content Area -->
+                <div id="scope-content" class="p-8 min-h-[300px] flex flex-col justify-center">
+                    <!-- Content injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4: History -->
+        <section id="history" class="max-w-5xl mx-auto mb-16 pt-8 border-t border-sanmei-light">
+            <header class="mb-8">
+                <span class="text-sanmei-accent font-bold tracking-widest uppercase text-sm">History & Origin</span>
+                <h2 class="text-3xl font-bold text-sanmei-text mt-2 mb-4">歴史と起源：4000年の旅</h2>
+                <p class="text-gray-700">
+                    算命学は古代中国の戦国時代に発祥し、長い間「秘伝」として扱われてきました。その歴史的変遷を辿ることで、なぜこれほどまでに戦略的な性質を持つのかが見えてきます。
+                </p>
+            </header>
+
+            <div class="relative border-l-4 border-sanmei-light ml-4 md:ml-8 space-y-12">
+                <!-- Timeline Item 1 -->
+                <div class="relative pl-8">
+                    <div
+                        class="absolute -left-3 top-0 bg-sanmei-accent w-6 h-6 rounded-full border-4 border-white shadow">
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <span class="text-xs font-bold text-sanmei-accent uppercase tracking-wide">紀元前 (戦国時代)</span>
+                        <h3 class="text-lg font-bold text-sanmei-dark mt-1">発祥：中国の鬼谷子</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            中国・戦国時代の戦略家、鬼谷子（きこくし）が創始したとされる。当初は軍略や政治のために用いられ、個人の運勢を見るものではなかった。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 2 -->
+                <div class="relative pl-8">
+                    <div class="absolute -left-3 top-0 bg-gray-300 w-6 h-6 rounded-full border-4 border-white shadow">
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">秦の始皇帝時代 ～</span>
+                        <h3 class="text-lg font-bold text-sanmei-dark mt-1">一子相伝の秘儀</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            その的中率の高さから、権力者たちはこの知識が民間に流出することを恐れ、王朝内部でのみ継承される「一子相伝」の秘儀となった。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Timeline Item 3 -->
+                <div class="relative pl-8">
+                    <div
+                        class="absolute -left-3 top-0 bg-sanmei-dark w-6 h-6 rounded-full border-4 border-white shadow">
+                    </div>
+                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 hover:shadow-md transition">
+                        <span class="text-xs font-bold text-gray-500 uppercase tracking-wide">戦後 (昭和)</span>
+                        <h3 class="text-lg font-bold text-sanmei-dark mt-1">日本での体系化と普及</h3>
+                        <p class="text-sm text-gray-600 mt-2">
+                            文化大革命などを経て、伝承者が日本へ亡命。<strong>高尾義政（たかお
+                                よしかず）</strong>氏によって理論が体系化・整理され、「算命学」として日本で確立・普及した。現在の算命学の多くは高尾氏の功績による。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 5: Methodology (How-to) -->
+        <section id="method" class="max-w-5xl mx-auto mb-24 pt-8 border-t border-sanmei-light">
+            <header class="mb-8">
+                <span class="text-sanmei-accent font-bold tracking-widest uppercase text-sm">Methodology</span>
+                <h2 class="text-3xl font-bold text-sanmei-text mt-2 mb-4">基本的な鑑定の流れ</h2>
+                <p class="text-gray-700">
+                    実際の鑑定では、複雑な暦（こよみ）を使用しますが、ここではそのプロセスを簡略化したシミュレーションで体験します。算命学がどのように「命式（データ）」を構築するかを見てみましょう。
+                </p>
+            </header>
+
+            <div class="bg-sanmei-dark text-white rounded-xl p-8 shadow-2xl relative overflow-hidden">
+                <!-- Background Decoration -->
+                <div class="absolute top-0 right-0 text-9xl opacity-5 pointer-events-none select-none">命</div>
+
+                <!-- Step Logic Container -->
+                <div id="method-stepper">
+                    <!-- Step 1: Input -->
+                    <div id="step-1" class="text-center py-8">
+                        <h3 class="text-xl font-bold mb-6 text-sanmei-accent">Step 1: データの入力</h3>
+                        <p class="mb-6 text-gray-300 text-sm">鑑定に必要なのは「生年月日」と「性別」のみです。<br>これにより、宇宙の配置図を特定します。</p>
+                        <div class="max-w-xs mx-auto space-y-4">
+                            <div class="bg-gray-700 p-2 rounded text-left opacity-50 cursor-not-allowed">
+                                <span class="text-xs text-gray-400 block">生年月日</span>
+                                <span class="text-white">1990年 1月 1日</span>
+                            </div>
+                            <button onclick="methodNextStep(2)"
+                                class="w-full bg-sanmei-accent hover:bg-yellow-600 text-sanmei-dark font-bold py-3 rounded transition shadow-lg transform active:scale-95">
+                                命式を算出する ➔
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Calculation (Visualizing the grid) -->
+                    <div id="step-2" class="hidden text-center py-4">
+                        <h3 class="text-xl font-bold mb-4 text-sanmei-accent">Step 2: 陰占と陽占の作成</h3>
+                        <p class="mb-6 text-gray-300 text-sm">生年月日を「干支」に変換し（陰占）、そこからエネルギーの星を導き出し人体図（陽占）に配置します。</p>
+
+                        <!-- Mock Meishiki Grid -->
+                        <div class="grid grid-cols-2 gap-4 max-w-lg mx-auto mb-6">
+                            <!-- In-sen (Basic) -->
+                            <div class="bg-white text-sanmei-dark p-2 rounded">
+                                <h4 class="text-xs font-bold border-b mb-2 text-gray-500">陰占（精神・無意識）</h4>
+                                <div class="grid grid-cols-3 gap-1 text-center text-sm font-serif">
+                                    <div class="bg-gray-100 p-1">日</div>
+                                    <div class="bg-gray-100 p-1">月</div>
+                                    <div class="bg-gray-100 p-1">年</div>
+                                    <div class="font-bold">甲</div>
+                                    <div>丙</div>
+                                    <div>戊</div>
+                                    <div class="font-bold">子</div>
+                                    <div>午</div>
+                                    <div>辰</div>
+                                </div>
+                            </div>
+                            <!-- Yo-sen (Personality) -->
+                            <div class="bg-white text-sanmei-dark p-2 rounded">
+                                <h4 class="text-xs font-bold border-b mb-2 text-gray-500">陽占（現実・性格）</h4>
+                                <div class="grid grid-cols-3 gap-1 text-center text-xs">
+                                    <div class="bg-gray-50 border border-gray-100 flex items-center justify-center h-8">
+                                        辰</div>
+                                    <div
+                                        class="bg-sanmei-accent text-white flex items-center justify-center h-8 font-bold">
+                                        鳳閣</div>
+                                    <div class="bg-gray-50 border border-gray-100 flex items-center justify-center h-8">
+                                        天印</div>
+
+                                    <div class="bg-gray-200 flex items-center justify-center h-8 font-bold">玉堂</div>
+                                    <div class="bg-gray-800 text-white flex items-center justify-center h-8">己</div>
+                                    <div class="bg-gray-200 flex items-center justify-center h-8 font-bold">禄存</div>
+
+                                    <div class="bg-gray-50 border border-gray-100 flex items-center justify-center h-8">
+                                        天恍</div>
+                                    <div class="bg-gray-200 flex items-center justify-center h-8 font-bold">牽牛</div>
+                                    <div class="bg-gray-50 border border-gray-100 flex items-center justify-center h-8">
+                                        天庫</div>
+                                </div>
+                            </div>
+                        </div>
+                        <button onclick="methodNextStep(3)"
+                            class="bg-white hover:bg-gray-100 text-sanmei-dark font-bold py-2 px-6 rounded transition shadow-lg">
+                            解釈へ進む ➔
+                        </button>
+                    </div>
+
+                    <!-- Step 3: Interpretation -->
+                    <div id="step-3" class="hidden text-center py-8">
+                        <h3 class="text-xl font-bold mb-4 text-sanmei-accent">Step 3: 解釈と運勢判断</h3>
+                        <p class="mb-6 text-gray-300 text-sm max-w-md mx-auto">
+                            算出された星の組み合わせから、以下の要素を読み解きます。<br>
+                            「良い・悪い」ではなく「どう活かすか」を考えるのが算命学の真骨頂です。
+                        </p>
+                        <ul class="text-left max-w-sm mx-auto space-y-2 mb-6 text-sm">
+                            <li class="flex items-center"><span class="text-sanmei-accent mr-2">✔</span>
+                                <strong>性格・才能：</strong> 無意識の行動パターンや適職
+                            </li>
+                            <li class="flex items-center"><span class="text-sanmei-accent mr-2">✔</span>
+                                <strong>運気の流れ：</strong> 10年ごとの「大運」と1年ごとの「年運」
+                            </li>
+                            <li class="flex items-center"><span class="text-sanmei-accent mr-2">✔</span>
+                                <strong>天中殺：</strong> 運気が不安定になる時期と過ごし方
+                            </li>
+                        </ul>
+                        <button onclick="methodNextStep(1)" class="text-xs text-gray-400 hover:text-white underline">
+                            最初に戻る
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="text-center text-gray-400 text-xs pb-8">
+            <p>© 2024 Sanmeigaku Interactive Report. Generated for educational purposes.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // State Management
+        const state = {
+            scopeView: 'strengths',
+            elementsData: {
+                labels: ['木 (守備)', '火 (伝達)', '土 (魅力)', '金 (攻撃)', '水 (習得)'],
+                data: [4, 5, 3, 2, 4], // Example balanced data
+                descriptions: [
+                    { title: "木性 (もくせい)", meaning: "守備本能", detail: "頑固、マイペース、平和愛好。樹木や草花のように、自分の世界を守り育てる質。" },
+                    { title: "火性 (かせい)", meaning: "伝達本能", detail: "情熱、表現、感受性。太陽や灯火のように、周りを明るく照らし、何かを伝える質。" },
+                    { title: "土性 (どせい)", meaning: "魅力本能", detail: "引力、信頼、愛。山や大地のように、人を惹きつけ、育て、不動の存在となる質。" },
+                    { title: "金性 (きんせい)", meaning: "攻撃本能", detail: "行動力、前進、正義感。刀や宝石のように、鋭く切り込み、結果を出すために動く質。" },
+                    { title: "水性 (すいせい)", meaning: "習得本能", detail: "知恵、創造、流動性。海や雨のように、形を変えながら全てを知り尽くそうとする質。" }
+                ]
+            }
+        };
+
+        // --- 1. Initialization & Charts ---
+        document.addEventListener('DOMContentLoaded', () => {
+            initComparisonChart();
+            initElementsChart();
+            updateScope('strengths'); // Initial render
+        });
+
+        // Chart 1: Comparison Bar Chart
+        function initComparisonChart() {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['論理・統計性', '直感・霊感', '長期計画', '短期的な吉凶', '自己分析'],
+                    datasets: [{
+                        label: '算命学',
+                        data: [9, 2, 10, 6, 9],
+                        backgroundColor: '#D4AF37',
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }, {
+                        label: '一般的な卜占（タロット等）',
+                        data: [4, 9, 3, 10, 5],
+                        backgroundColor: '#E5E7EB',
+                        borderRadius: 4,
+                        barPercentage: 0.6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            backgroundColor: '#4A4036',
+                            titleFont: { family: "'Noto Sans JP', sans-serif" },
+                            bodyFont: { family: "'Noto Sans JP', sans-serif" }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 10,
+                            ticks: { display: false },
+                            grid: { display: false }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Chart 2: Five Elements Radar/Polar Area
+        let elementsChart; // Store instance to potential updates
+        function initElementsChart() {
+            const ctx = document.getElementById('elementsChart').getContext('2d');
+            elementsChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: state.elementsData.labels,
+                    datasets: [{
+                        data: state.elementsData.data,
+                        backgroundColor: [
+                            'rgba(93, 115, 126, 0.7)', // Wood
+                            'rgba(192, 87, 70, 0.7)',  // Fire
+                            'rgba(140, 112, 95, 0.7)', // Earth
+                            'rgba(169, 169, 169, 0.7)',// Metal
+                            'rgba(29, 45, 68, 0.7)'    // Water
+                        ],
+                        borderColor: '#FDFCF8',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }, // Hide legend to save space
+                        tooltip: { enabled: false } // Disable default tooltip, use custom click
+                    },
+                    scales: {
+                        r: {
+                            ticks: { display: false },
+                            grid: { color: '#E5E7EB' }
+                        }
+                    },
+                    onClick: (e, activeElements) => {
+                        if (activeElements.length > 0) {
+                            const index = activeElements[0].index;
+                            updateElementDetail(index);
+                        }
+                    },
+                    onHover: (event, chartElement) => {
+                        event.native.target.style.cursor = chartElement[0] ? 'pointer' : 'default';
+                    }
+                }
+            });
+        }
+
+        // --- 2. Interactive Logic ---
+
+        // Update Element Detail Text
+        function updateElementDetail(index) {
+            const data = state.elementsData.descriptions[index];
+            const container = document.getElementById('element-detail-view');
+
+            // Fade out effect
+            container.style.opacity = '0.5';
+
+            setTimeout(() => {
+                container.innerHTML = `
+                    <div class="fade-in">
+                        <div class="flex items-center mb-2 border-b border-gray-300 pb-2">
+                            <span class="text-3xl mr-3">${getIconForIndex(index)}</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-sanmei-dark">${data.title}</h3>
+                                <span class="text-sm text-sanmei-accent font-bold uppercase">${data.meaning}</span>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 leading-relaxed text-lg mb-4">${data.detail}</p>
+                        <p class="text-xs text-gray-500">※ この要素があなたの宿命にどう配分されているかを見るのが算命学の基本です。</p>
+                    </div>
+                `;
+                container.style.opacity = '1';
+            }, 200);
+        }
+
+        function getIconForIndex(index) {
+            const icons = ['🌲', '🔥', '⛰️', '⚔️', '💧'];
+            return icons[index];
+        }
+
+        // Scope Toggle Logic
+        function updateScope(viewType) {
+            state.scopeView = viewType;
+            const contentDiv = document.getElementById('scope-content');
+            const btnStrength = document.getElementById('btn-strengths');
+            const btnWeakness = document.getElementById('btn-weaknesses');
+
+            // Style Buttons
+            if (viewType === 'strengths') {
+                btnStrength.className = "flex-1 py-4 font-bold text-sanmei-dark bg-white border-b-2 border-sanmei-accent transition-all focus:outline-none";
+                btnWeakness.className = "flex-1 py-4 font-bold text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all focus:outline-none bg-gray-50";
+
+                contentDiv.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
+                        <div class="info-card p-4 rounded bg-gray-50">
+                            <h4 class="font-bold text-sanmei-dark text-lg mb-2">👤 本質・性格</h4>
+                            <p class="text-sm text-gray-600">自分でも気づいていない潜在的な能力、思考の癖、行動パターン。</p>
+                        </div>
+                        <div class="info-card p-4 rounded bg-gray-50">
+                            <h4 class="font-bold text-sanmei-dark text-lg mb-2">📈 運勢のバイオリズム</h4>
+                            <p class="text-sm text-gray-600">10年単位、1年単位、月単位でのエネルギーの強弱。いつ攻め、いつ守るべきか。</p>
+                        </div>
+                        <div class="info-card p-4 rounded bg-gray-50">
+                            <h4 class="font-bold text-sanmei-dark text-lg mb-2">🤝 相性と人間関係</h4>
+                            <p class="text-sm text-gray-600">恋人、上司、部下とのエネルギー的な相性。単に「良い悪い」ではなく「どう付き合うべきか」。</p>
+                        </div>
+                        <div class="info-card p-4 rounded bg-gray-50">
+                            <h4 class="font-bold text-sanmei-dark text-lg mb-2">🏢 適職・才能</h4>
+                            <p class="text-sm text-gray-600">組織に向くか、フリーランスに向くか。財を成す力があるか、芸術に向くか。</p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                btnStrength.className = "flex-1 py-4 font-bold text-gray-400 border-b-2 border-transparent hover:text-gray-600 transition-all focus:outline-none bg-gray-50";
+                btnWeakness.className = "flex-1 py-4 font-bold text-sanmei-dark bg-white border-b-2 border-sanmei-accent transition-all focus:outline-none";
+
+                contentDiv.innerHTML = `
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 fade-in">
+                        <div class="p-4 rounded border border-red-100 bg-red-50">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2">👻 霊的な事象・前世</h4>
+                            <p class="text-sm text-gray-600">算命学は現世のエネルギー論です。霊視や前世を見ることはできません。</p>
+                        </div>
+                        <div class="p-4 rounded border border-red-100 bg-red-50">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2">🎲 偶然の吉凶・ギャンブル</h4>
+                            <p class="text-sm text-gray-600">「明日宝くじが当たるか？」といった偶然性の高い事象や、明確な根拠のない予言は苦手です。</p>
+                        </div>
+                        <div class="p-4 rounded border border-red-100 bg-red-50">
+                            <h4 class="font-bold text-gray-800 text-lg mb-2">❤️ 相手の今の気持ち</h4>
+                            <p class="text-sm text-gray-600">「今、あの人はどう思っているか」という流動的な感情は、タロット等の卜術の方が得意です。</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Method Stepper Logic
+        function methodNextStep(step) {
+            // Hide all steps
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+
+            // Show loading brief transition if going to step 2
+            if (step === 2) {
+                const container = document.getElementById('method-stepper');
+                container.style.opacity = 0;
+                setTimeout(() => {
+                    document.getElementById(`step-${step}`).classList.remove('hidden');
+                    container.style.opacity = 1;
+                }, 300);
+            } else {
+                document.getElementById(`step-${step}`).classList.remove('hidden');
+            }
+        }
+
+        // Navigation Scroll
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            const mainScroll = document.getElementById('main-scroll');
+
+            // Adjust calculation because of scrollable main area
+            // Simple approach: scrollIntoView
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Close mobile menu if open
+            const sidebar = document.getElementById('sidebar');
+            if (!sidebar.classList.contains('-translate-x-full') && window.innerWidth < 768) {
+                sidebar.classList.add('-translate-x-full');
+            }
+        }
+
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+    </script>
+</body>
+
+</html>

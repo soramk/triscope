@@ -1,0 +1,259 @@
+/* ==============================================
+   Triscope 共通スタイル (common.css)
+   統一されたデザインシステム
+   ============================================== */
+
+/* Google Fonts (各HTMLで読み込み)
+   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap');
+*/
+
+/* =====================
+   基本スタイル
+   ===================== */
+
+body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background-color: #FDFBF7;
+    color: #1F2937;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6, .serif {
+    font-family: 'Noto Serif JP', serif;
+}
+
+/* =====================
+   カラーパレット (CSS変数)
+   ===================== */
+
+:root {
+    /* プライマリカラー */
+    --color-primary: #312e81;        /* Indigo-900 */
+    --color-primary-light: #3730a3;  /* Indigo-800 */
+    --color-primary-dark: #1e1b4b;   /* Indigo-950 */
+    
+    /* セカンダリカラー */
+    --color-secondary: #d97706;      /* Amber-600 */
+    --color-secondary-light: #f59e0b; /* Amber-500 */
+    --color-secondary-dark: #b45309;  /* Amber-700 */
+    
+    /* 背景色 */
+    --color-bg: #FDFBF7;             /* クリーム白 */
+    --color-bg-alt: #f3f0e8;         /* 暖かいグレー */
+    
+    /* テキスト色 */
+    --color-text: #1F2937;           /* Gray-800 */
+    --color-text-light: #6B7280;     /* Gray-500 */
+    --color-text-muted: #9CA3AF;     /* Gray-400 */
+    
+    /* ボーダー色 */
+    --color-border: #E5E7EB;         /* Gray-200 */
+    --color-border-light: #F3F4F6;   /* Gray-100 */
+}
+
+/* =====================
+   チャートコンテナ
+   ===================== */
+
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 400px;
+}
+
+@media (max-width: 640px) {
+    .chart-container {
+        height: 300px;
+    }
+}
+
+/* =====================
+   共通パネルスタイル
+   ===================== */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border-radius: 0.75rem;
+}
+
+.card {
+    background: white;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    border: 1px solid var(--color-border-light);
+}
+
+/* =====================
+   タブスタイル
+   ===================== */
+
+.active-tab {
+    border-bottom: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+.inactive-tab {
+    border-bottom: 2px solid transparent;
+    color: var(--color-text-light);
+}
+
+.inactive-tab:hover {
+    color: var(--color-text);
+    border-bottom-color: var(--color-border);
+}
+
+/* =====================
+   タイムラインスタイル
+   ===================== */
+
+.timeline-line {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: var(--color-border);
+    z-index: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    width: 1rem;
+    height: 1rem;
+    background-color: var(--color-secondary);
+    border-radius: 50%;
+    border: 3px solid var(--color-bg);
+    z-index: 1;
+}
+
+@media (max-width: 768px) {
+    .timeline-line {
+        left: 20px;
+    }
+}
+
+/* =====================
+   アニメーション
+   ===================== */
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================
+   ナビゲーションスタイル
+   ===================== */
+
+.nav-link {
+    color: var(--color-text-light);
+    transition: color 0.2s ease;
+}
+
+.nav-link:hover {
+    color: var(--color-primary);
+}
+
+.nav-link.active {
+    color: var(--color-primary);
+    font-weight: 600;
+}
+
+/* =====================
+   ボタンスタイル
+   ===================== */
+
+.btn-primary {
+    background-color: var(--color-primary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--color-primary-light);
+}
+
+.btn-secondary {
+    background-color: var(--color-secondary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-secondary-light);
+}
+
+/* =====================
+   カスタムスクロールバー
+   ===================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--color-bg-alt);
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}
+
+/* =====================
+   ユーティリティクラス
+   ===================== */
+
+.text-primary {
+    color: var(--color-primary);
+}
+
+.text-secondary {
+    color: var(--color-secondary);
+}
+
+.bg-primary {
+    background-color: var(--color-primary);
+}
+
+.bg-secondary {
+    background-color: var(--color-secondary);
+}
+
+.border-primary {
+    border-color: var(--color-primary);
+}
+
+.border-secondary {
+    border-color: var(--color-secondary);
+}

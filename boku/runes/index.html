@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>古代北欧の叡智：ルーン占い (Rune Divination Report)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500;700&display=swap"
+        rel="stylesheet">
+    <!-- 共通CSS -->
+    <link rel="stylesheet" href="../../assets/common.css">
+
+    <!-- Chosen Palette: Earthy Mysticism -->
+    <!-- Background: Stone Gray (#f3f4f6) to Deep Forest Green (#1c2e2a) -->
+    <!-- Accents: Wood Brown (#8b5e3c), Gold/Amber (#d4af37) for magic/highlights -->
+    <!-- Text: Charcoal (#374151) for readability -->
+
+    <!-- Application Structure Plan: 
+         1. Hero: Immersive intro setting the tone.
+         2. Overview (Charts): Analytical comparison of Rune properties using Radar Chart.
+         3. Capabilities (Cards): Interactive grid to explore what it can/cannot do.
+         4. Logic (Flow): Visual breakdown of Synchronicity.
+         5. History (Timeline): Vertical journey through time.
+         6. Interactive Oracle: A functional One-Oracle simulator to experience the method.
+    -->
+
+    <!-- Visualization & Content Choices:
+         - Radar Chart (Chart.js): To visually compare Rune divination against Astrology (Meijutsu) and Tarot. 
+           Goal: Compare characteristics like 'Immediacy' vs 'Destiny'.
+         - Interactive Cards: To toggle between 'Strengths' and 'Weaknesses'. Goal: Inform.
+         - Digital Rune Caster (JS): A randomizer using an array of Rune data to simulate the divination process. 
+           Goal: Experience/Engage. 
+         - Vertical Timeline: Tailwind flex-col layout. Goal: History/Context.
+    -->
+
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+    <style>
+        /* bodyスタイルは common.css で定義 */
+        /* h1-h3, .serifスタイルは common.css で定義 */
+
+        .rune-font {
+            font-size: 3rem;
+            line-height: 1;
+        }
+
+        /* Chart Container Styling per requirements */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 350px;
+            max-height: 400px;
+        }
+
+        @media (max-width: 640px) {
+            .chart-container {
+                height: 300px;
+            }
+        }
+
+        .active-tab {
+            background-color: #3f6212;
+            /* lime-800 */
+            color: white;
+            border-bottom: 2px solid #a3e635;
+        }
+
+        .inactive-tab {
+            background-color: transparent;
+            color: #4b5563;
+            border-bottom: 2px solid transparent;
+        }
+
+        .inactive-tab:hover {
+            border-bottom: 2px solid #cbd5e1;
+        }
+
+        /* Custom scrollbar for timeline if needed */
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center gap-2 cursor-pointer" onclick="scrollToSection('hero')">
+                    <span class="text-3xl text-lime-900">ᚠ</span>
+                    <span class="font-bold text-lg text-slate-800 serif">ルーン占い研究レポート</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <button onclick="scrollToSection('overview')"
+                        class="text-slate-600 hover:text-lime-800 font-medium transition">概要・特性</button>
+                    <button onclick="scrollToSection('capabilities')"
+                        class="text-slate-600 hover:text-lime-800 font-medium transition">得意分野</button>
+                    <button onclick="scrollToSection('logic')"
+                        class="text-slate-600 hover:text-lime-800 font-medium transition">理論・歴史</button>
+                    <button onclick="scrollToSection('simulator')"
+                        class="px-4 py-2 rounded-full bg-lime-800 text-white hover:bg-lime-900 transition shadow-md">体験する</button>
+                </div>
+                <!-- Mobile menu button (Simplified) -->
+                <div class="md:hidden flex items-center">
+                    <button onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                        class="text-slate-600 p-2">
+                        <span class="text-2xl">☰</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 flex flex-col">
+                <button onclick="scrollToSection('overview')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 text-left">概要・特性</button>
+                <button onclick="scrollToSection('capabilities')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 text-left">得意分野</button>
+                <button onclick="scrollToSection('logic')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-slate-700 hover:bg-slate-50 text-left">理論・歴史</button>
+                <button onclick="scrollToSection('simulator')"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-lime-800 font-bold bg-lime-50 text-left">体験する</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="hero"
+        class="relative bg-gradient-to-br from-slate-800 to-slate-900 text-white py-20 lg:py-32 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none">
+            <!-- Decorative runes in background -->
+            <div class="absolute top-10 left-10 text-6xl rotate-12">ᚢ</div>
+            <div class="absolute bottom-20 right-20 text-8xl -rotate-12">ᛉ</div>
+            <div class="absolute top-1/2 left-1/2 text-9xl opacity-20 transform -translate-x-1/2 -translate-y-1/2">ᚱ
+            </div>
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-bold mb-6 tracking-wide serif">偶然に宿る神託</h1>
+            <p class="text-xl md:text-2xl text-slate-300 mb-10 max-w-2xl mx-auto leading-relaxed">
+                古代北欧から伝わる神秘の文字「ルーン」。<br>
+                石や木片を用いたこの占術は、<br>
+                あなたの潜在意識と共鳴し、"今" 必要なメッセージを映し出します。
+            </p>
+            <button onclick="scrollToSection('overview')"
+                class="group bg-transparent border-2 border-lime-500 text-lime-400 px-8 py-3 rounded-full text-lg font-semibold hover:bg-lime-500 hover:text-slate-900 transition-all duration-300 flex items-center mx-auto gap-2">
+                探求を始める
+                <span class="group-hover:translate-y-1 transition-transform">↓</span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Section 1: Overview & Characteristics -->
+    <section id="overview" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">Overview</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2 mb-4 serif">ルーン占いとは何か？</h2>
+                <p class="text-slate-600 max-w-2xl mx-auto">
+                    ルーン占いは、偶然抽出されたシンボルから意味を読み解く「卜術（ぼくじゅつ）」に分類されます。
+                    固定された運命を読むのではなく、刻々と変化する状況や、行動によって変わる未来を照らし出すのが特徴です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <!-- Text Content -->
+                <div class="space-y-6">
+                    <div
+                        class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="text-2xl">🎲</span> 卜術（ぼくじゅつ）の性質
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            命術（星座や四柱推命）のように生年月日から変わらない宿命を見るのではなく、タロットや易と同様に「偶然性（シンクロニシティ）」を重視します。
+                            「今、この瞬間に引いたルーン」にこそ、問いに対する答えが凝縮されていると考えます。
+                        </p>
+                    </div>
+                    <div
+                        class="bg-slate-50 p-6 rounded-xl border border-slate-100 shadow-sm hover:shadow-md transition">
+                        <h3 class="text-xl font-bold text-slate-800 mb-2 flex items-center gap-2">
+                            <span class="text-2xl">⚔️</span> 具体的な行動指針
+                        </h3>
+                        <p class="text-slate-600 leading-relaxed">
+                            ルーン文字は元々、呪術的な力を持つと同時に「日常の文字」でもありました。
+                            そのため、抽象的な概念だけでなく、「戦うべきか、待つべきか」「守るべきか、進むべきか」といった具体的かつ現実的なアドバイスを得意とします。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Radar Chart Container -->
+                <div class="bg-white p-4 rounded-xl shadow-lg border border-slate-100">
+                    <div class="text-center mb-4">
+                        <h4 class="font-bold text-slate-700">占術特性の比較</h4>
+                        <p class="text-xs text-slate-500">ルーン vs 命術(占星術等) vs 相術(手相等)</p>
+                    </div>
+                    <!-- CHART CONTAINER DIV -->
+                    <div class="chart-container">
+                        <canvas id="comparisonChart"></canvas>
+                    </div>
+                    <div class="mt-4 text-sm text-slate-500 text-center bg-slate-50 p-2 rounded">
+                        <span class="font-semibold text-lime-700">分析:</span>
+                        ルーンは「即時性」と「行動指針」において突出しており、長期的な宿命分析よりも、直近の決断支援に向いています。
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: What it Reveals (Capabilities) -->
+    <section id="capabilities" class="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="mb-12">
+                <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">Capabilities</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-slate-800 mt-2 serif">得意・不得意の境界線</h2>
+                <p class="text-slate-600 mt-4 max-w-3xl">
+                    ルーン占いは万能ではありません。その特性を理解することで、より的確なメッセージを受け取ることができます。
+                    下のタブを切り替えて、詳細を確認してください。
+                </p>
+            </div>
+
+            <!-- Interactive Tabs -->
+            <div class="flex space-x-2 mb-6 border-b border-slate-200" id="capabilityTabs">
+                <button onclick="switchTab('strengths')" id="tab-strengths"
+                    class="px-6 py-3 font-medium text-lg rounded-t-lg transition-colors active-tab">
+                    得意なこと (Yes)
+                </button>
+                <button onclick="switchTab('weaknesses')" id="tab-weaknesses"
+                    class="px-6 py-3 font-medium text-lg rounded-t-lg transition-colors inactive-tab">
+                    苦手なこと (No)
+                </button>
+            </div>
+
+            <!-- Content Area -->
+            <div id="content-strengths" class="grid grid-cols-1 md:grid-cols-3 gap-6 fade-in">
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-lime-600">
+                    <div class="text-3xl mb-3">⚡</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">直近の未来・現状</h3>
+                    <p class="text-slate-600 text-sm">3ヶ月〜半年程度の近い未来や、現在置かれている状況を鋭く読み解きます。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-lime-600">
+                    <div class="text-3xl mb-3">⚖️</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">Yes / No の決断</h3>
+                    <p class="text-slate-600 text-sm">白黒はっきりさせたい質問に対して、明確な答えを出すのが得意です。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-lime-600">
+                    <div class="text-3xl mb-3">🛡️</div>
+                    <h3 class="text-lg font-bold text-slate-800 mb-2">具体的な対策</h3>
+                    <p class="text-slate-600 text-sm">「どう動くべきか」「何に気をつけるべきか」という実践的なアドバイスを提供します。</p>
+                </div>
+            </div>
+
+            <div id="content-weaknesses" class="hidden grid grid-cols-1 md:grid-cols-3 gap-6 fade-in">
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-slate-400 bg-slate-100">
+                    <div class="text-3xl mb-3 text-slate-400">📅</div>
+                    <h3 class="text-lg font-bold text-slate-600 mb-2">長期的な宿命</h3>
+                    <p class="text-slate-500 text-sm">「晩年の運勢」や「生まれ持った寿命」など、数十年にわたる運命論は苦手です。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-slate-400 bg-slate-100">
+                    <div class="text-3xl mb-3 text-slate-400">👥</div>
+                    <h3 class="text-lg font-bold text-slate-600 mb-2">他人の詳細な情報</h3>
+                    <p class="text-slate-500 text-sm">接点のない他人のことや、プライバシーに関わる詳細は読み取れません。</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-sm border-l-4 border-slate-400 bg-slate-100">
+                    <div class="text-3xl mb-3 text-slate-400">🔢</div>
+                    <h3 class="text-lg font-bold text-slate-600 mb-2">正確な日時の特定</h3>
+                    <p class="text-slate-500 text-sm">「何月何日に起こるか」といったピンポイントな時期の特定には不向きです。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Logic & History -->
+    <section id="logic" class="py-16 md:py-24 bg-white overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+                <!-- Logic Column -->
+                <div>
+                    <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">Logic</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2 mb-6 serif">根拠とロジック</h2>
+
+                    <div class="space-y-8 relative">
+                        <!-- Connecting Line -->
+                        <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-slate-200"></div>
+
+                        <!-- Step 1 -->
+                        <div class="relative pl-12">
+                            <div
+                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                1</div>
+                            <h3 class="font-bold text-lg text-slate-800">集合的無意識</h3>
+                            <p class="text-slate-600 text-sm mt-1">
+                                ユング心理学で提唱される、人類共通の無意識の領域。ここに全ての情報が繋がっていると考えます。
+                            </p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="relative pl-12">
+                            <div
+                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                2</div>
+                            <h3 class="font-bold text-lg text-slate-800">シンクロニシティ (意味のある偶然)</h3>
+                            <p class="text-slate-600 text-sm mt-1">
+                                無作為に引いたルーンは、単なる確率ではなく、問いかけた瞬間の心理状態や状況と「共鳴」して現れるという考え方です。
+                            </p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="relative pl-12">
+                            <div
+                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                3</div>
+                            <h3 class="font-bold text-lg text-slate-800">象徴の解釈</h3>
+                            <p class="text-slate-600 text-sm mt-1">
+                                ルーン文字はそれぞれが自然現象（氷、太陽、家畜など）や神々を象徴しています。この象徴を現代の状況に当てはめて解釈します。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- History Column -->
+                <div>
+                    <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">History</span>
+                    <h2 class="text-3xl font-bold text-slate-800 mt-2 mb-6 serif">歴史と変遷</h2>
+                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                        <ul class="space-y-6">
+                            <li class="flex gap-4">
+                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">2世紀頃</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">ゲルマン民族の間で発祥</h4>
+                                    <p class="text-sm text-slate-600">北欧神話の主神オーディンが発見したとされる伝説も。当初は魔術や護符、筆記文字として使用。</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">中世</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">ラテン文字への移行と衰退</h4>
+                                    <p class="text-sm text-slate-600">
+                                        キリスト教の普及とともにラテン文字が主流となり、ルーンは日常から姿を消し、一部の暦や碑文に残るのみとなる。</p>
+                                </div>
+                            </li>
+                            <li class="flex gap-4">
+                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">20世紀</span>
+                                <div>
+                                    <h4 class="font-bold text-slate-800">現代の復興</h4>
+                                    <p class="text-sm text-slate-600">
+                                        ラルフ・ブラム等の研究者により、占術としてのシステムが再構築され、「ルーン・ストーン」やカードとして世界中に普及。</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Basic Method & Simulator (The Core Interactive Part) -->
+    <section id="simulator" class="py-16 md:py-24 bg-slate-900 text-white relative">
+        <!-- Background Elements -->
+        <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-lime-600 rounded-full filter blur-[100px]"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-slate-600 rounded-full filter blur-[100px]"></div>
+        </div>
+
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <span class="text-lime-400 font-bold tracking-widest uppercase text-sm">Experience</span>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-6 serif">ルーンの神託 (One Oracle)</h2>
+            <p class="text-slate-300 mb-10 max-w-2xl mx-auto">
+                心を落ち着かせ、今最も知りたいことを思い浮かべてください。<br>
+                準備ができたら、下のボタンを押してルーンを一つ選び取ります。
+            </p>
+
+            <!-- Simulator UI -->
+            <div
+                class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 max-w-xl mx-auto shadow-2xl">
+
+                <!-- Display Area -->
+                <div id="rune-display"
+                    class="min-h-[200px] flex flex-col items-center justify-center transition-all duration-500">
+                    <!-- Initial State -->
+                    <div id="rune-placeholder" class="text-slate-500 animate-pulse">
+                        <span class="text-6xl md:text-8xl opacity-30">᚛᚜</span>
+                    </div>
+
+                    <!-- Result State (Hidden by default) -->
+                    <div id="rune-result" class="hidden flex flex-col items-center animate-fade-in-up">
+                        <div id="rune-symbol"
+                            class="text-8xl md:text-9xl text-lime-400 mb-4 drop-shadow-[0_0_15px_rgba(163,230,53,0.5)] rune-font">
+                        </div>
+                        <h3 id="rune-name" class="text-2xl md:text-3xl font-bold text-white mb-2 serif"></h3>
+                        <p id="rune-meaning" class="text-lg text-lime-200 font-medium mb-4"></p>
+                        <div class="bg-slate-700/50 rounded-lg p-4 w-full text-left">
+                            <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Keywords</p>
+                            <p id="rune-keywords" class="text-slate-200 text-sm leading-relaxed"></p>
+                            <div class="mt-3 pt-3 border-t border-slate-600">
+                                <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Message</p>
+                                <p id="rune-message" class="text-slate-300 text-sm leading-relaxed italic"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controls -->
+                <div class="mt-8">
+                    <button onclick="castRune()" id="cast-btn"
+                        class="w-full bg-gradient-to-r from-lime-700 to-lime-600 hover:from-lime-600 hover:to-lime-500 text-white font-bold py-4 rounded-lg text-lg shadow-lg transform transition hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
+                        <span>🪄</span> ルーンを引く
+                    </button>
+                    <button onclick="resetRune()" id="reset-btn"
+                        class="hidden w-full bg-transparent border border-slate-600 text-slate-400 hover:text-white hover:border-slate-400 font-medium py-3 rounded-lg mt-4 transition">
+                        もう一度占う
+                    </button>
+                </div>
+            </div>
+
+            <div class="mt-12 text-left bg-slate-800/30 p-6 rounded-lg border border-slate-700">
+                <h4 class="text-lime-400 font-bold mb-2">基本的なやり方（ワンオラクル）</h4>
+                <ol class="list-decimal list-inside text-slate-300 space-y-2 text-sm">
+                    <li><strong class="text-white">道具の準備:</strong> ルーンストーン（石や木片）を袋（ポーチ）に入れます。</li>
+                    <li><strong class="text-white">浄化と集中:</strong> 深呼吸をして心を鎮め、質問を具体的にイメージします。</li>
+                    <li><strong class="text-white">抽出:</strong> 袋の中に手を入れ、石を混ぜながら「これだ」と感じる一つを取り出します。</li>
+                    <li><strong class="text-white">解釈:</strong> 出たルーンの意味を、質問の文脈に合わせて読み解きます。</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-500 py-8 border-t border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="mb-2 text-sm">本レポートは、ルーン占いの歴史的・文化的背景と実践方法をまとめたものです。</p>
+            <p class="text-xs">&copy; 2026 Rune Divination Research Report. Generated by Canvas.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Implementation -->
+    <script>
+        // --- Rune Data (Elder Futhark + Blank) ---
+        const runes = [
+            { symbol: 'ᚠ', name: 'フェフ (Fehu)', meaning: '富・豊かさ', keywords: '所有、獲得、家畜、財産、始まり、エネルギーの循環', message: '努力が実り、物質的・精神的な豊かさを手にする時です。得たものは循環させましょう。' },
+            { symbol: 'ᚢ', name: 'ウルズ (Uruz)', meaning: '野生の力・健康', keywords: '生命力、勇気、変化、本能、衝動、挑戦', message: 'あなたの中に眠る野生のエネルギーを解放してください。変化を恐れず突き進む強さがあります。' },
+            { symbol: 'ᚦ', name: 'スリサズ (Thurisaz)', meaning: '巨人・棘', keywords: '試練、防御、警告、混沌、衝動的な行動、雷', message: '慎重さが求められています。進む前に一度立ち止まり、内なる声に耳を傾けてください。' },
+            { symbol: 'ᚨ', name: 'アンズール (Ansuz)', meaning: '言葉・神託', keywords: 'コミュニケーション、知恵、情報、伝達、年長者からの助言', message: '言葉による伝達が鍵となります。情報を正しく受け取り、自分の思いを素直に表現しましょう。' },
+            { symbol: 'ᚱ', name: 'ライズ (Raido)', meaning: '旅・車輪', keywords: '移動、旅行、正しい方向、リズム、進展、秩序', message: '物事が正しいリズムで動き出します。流れに身を任せ、目的地に向かって進んでください。' },
+            { symbol: 'ᚲ', name: 'ケナズ (Kenaz)', meaning: '松明・炎', keywords: '情熱、創造性、ひらめき、技術、知識、光', message: '暗闇に光が差し込みます。新しいアイデアや情熱が、道を切り開く鍵となるでしょう。' },
+            { symbol: 'ᚷ', name: 'ゲーボ (Gebo)', meaning: '贈り物', keywords: 'パートナーシップ、愛情、才能、交換、調和、犠牲', message: '与えることと受け取ることのバランスが大切です。信頼できる関係性が深まる予感があります。' },
+            { symbol: 'ᚹ', name: 'ヴニョ (Wunjo)', meaning: '喜び', keywords: '幸福、成就、満足、平和、友情、調和', message: '困難が去り、喜びの時が訪れます。心を開いて、今の幸せを十分に味わってください。' },
+            { symbol: 'ᚺ', name: 'ハガル (Hagalaz)', meaning: '雹（ひょう）', keywords: '破壊、急変、不可抗力、浄化、再構築の前触れ', message: '予期せぬ変化が訪れるかもしれません。しかしそれは、不要なものを壊し、新しく生まれ変わるための浄化です。' },
+            { symbol: 'ᚾ', name: 'ナウシズ (Nauthiz)', meaning: '必要性・欠乏', keywords: '忍耐、制約、苦難、必要な学び、内省', message: '今は忍耐の時です。焦らず、自分に本当に必要なものは何かを見つめ直してください。' },
+            { symbol: 'ᛁ', name: 'イサ (Isa)', meaning: '氷', keywords: '停滞、静止、集中、孤独、冷却期間、現状維持', message: '物事が動かないように感じるかもしれません。無理に動かそうとせず、内面を磨く時期です。' },
+            { symbol: 'ᛃ', name: 'ジェラ (Jera)', meaning: '収穫・一年', keywords: '結果、収穫、継続、サイクルの完了、努力の結実', message: '蒔いた種が実る時です。これまでの地道な努力が、具体的な成果として現れるでしょう。' },
+            { symbol: 'ᛇ', name: 'エイワズ (Eihwaz)', meaning: 'イチイの木', keywords: '死と再生、軸、耐久力、変容、守護', message: '終わりと始まりの境界線にいます。大きな変化の中でも、自分の軸をしっかりと持ってください。' },
+            { symbol: 'ᛈ', name: 'ペース (Perthro)', meaning: '秘密・運命', keywords: 'ギャンブル、意外な展開、露見、神秘、ハプニング', message: '隠されていたものが明らかになるかもしれません。運命的な展開を楽しんでください。' },
+            { symbol: 'ᛉ', name: 'アルジズ (Algiz)', meaning: '保護・大鹿', keywords: '守護、友情、本能的な防御、高次とのつながり', message: 'あなたは守られています。直感に従い、危険を回避してください。助けを求めても良いでしょう。' },
+            { symbol: 'ᛋ', name: 'ソウェイル (Sowilo)', meaning: '太陽', keywords: '成功、勝利、活力、名誉、全体性、自信', message: '圧倒的なエネルギーに満ちています。迷わず進めば、成功と勝利はあなたのものです。' },
+            { symbol: 'ᛏ', name: 'ティワズ (Tiwaz)', meaning: '戦士の神', keywords: '正義、勝利、自己犠牲、勇気、法、規律', message: '信念を持って戦う時です。正義と公平さを大切にし、勇気ある決断をしてください。' },
+            { symbol: 'ᛒ', name: 'ベルカナ (Berkana)', meaning: 'カバの木', keywords: '成長、誕生、母性、育成、新しい始まり、癒し', message: '新しい何かが生まれようとしています。優しく育み、成長を見守る姿勢が大切です。' },
+            { symbol: 'ᛖ', name: 'エワズ (Ehwaz)', meaning: '馬', keywords: '移動、進歩、協力関係、信頼、変化、スムーズな流れ', message: 'パートナーとの協力により、物事がスムーズに進みます。変化を受け入れ、共に進んでください。' },
+            { symbol: 'ᛗ', name: 'マンナズ (Mannaz)', meaning: '人間', keywords: '自己、人類、社会、協力、知性、相互依存', message: '人との関わりの中で自分自身を知る時です。協力し合うことで、より大きな視点を持てるでしょう。' },
+            { symbol: 'ᛚ', name: 'ラグズ (Laguz)', meaning: '水', keywords: '感情、直感、潜在意識、流れ、生命力、芸術', message: '論理よりも感情や直感を大切にしてください。水の流れのように、柔軟に状況に対応しましょう。' },
+            { symbol: 'ᛝ', name: 'イングズ (Ingwaz)', meaning: '豊穣の神', keywords: '完成、達成、安心、家庭、区切り、次のステージ', message: '一つのサイクルが完了し、満ち足りた状態です。安心して次のステージへの準備を始めましょう。' },
+            { symbol: 'ᛟ', name: 'オガラ (Othala)', meaning: '故郷・遺産', keywords: '伝統、家族、不動産、継承、ルーツ、所属', message: '自分のルーツや居場所を見つめ直す時です。古いものを大切にしつつ、必要な継承を行ってください。' },
+            { symbol: 'ᛞ', name: 'ダガズ (Dagaz)', meaning: '夜明け', keywords: 'ブレイクスルー、覚醒、希望、好転、無限の可能性', message: '長い夜が明け、新しい光が差し込みます。劇的な状況の好転が期待できるでしょう。' },
+            { symbol: '⠀', name: 'ウィルド (Wyrd)', meaning: '空白 (ブランクルーン)', keywords: '未知、宿命、可能性、神の意志、予測不能', message: '全ては白紙です。未来はまだ決まっていません。あなたの意志と神の采配に委ねられています。' }
+        ];
+
+        // --- Navigation Logic ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const navHeight = document.querySelector('nav').offsetHeight;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                mobileMenu.classList.add('hidden');
+            }
+        }
+
+        // --- Capability Tabs Logic ---
+        function switchTab(tabName) {
+            // Reset Tabs
+            document.getElementById('tab-strengths').className = 'px-6 py-3 font-medium text-lg rounded-t-lg transition-colors inactive-tab';
+            document.getElementById('tab-weaknesses').className = 'px-6 py-3 font-medium text-lg rounded-t-lg transition-colors inactive-tab';
+
+            // Activate Clicked Tab
+            document.getElementById(`tab-${tabName}`).className = 'px-6 py-3 font-medium text-lg rounded-t-lg transition-colors active-tab';
+
+            // Hide/Show Content
+            document.getElementById('content-strengths').classList.add('hidden');
+            document.getElementById('content-weaknesses').classList.add('hidden');
+            document.getElementById(`content-${tabName}`).classList.remove('hidden');
+        }
+
+        // --- Rune Simulator Logic ---
+        function castRune() {
+            const btn = document.getElementById('cast-btn');
+            const placeholder = document.getElementById('rune-placeholder');
+            const resultDiv = document.getElementById('rune-result');
+            const resetBtn = document.getElementById('reset-btn');
+
+            // Animation state
+            btn.disabled = true;
+            btn.innerHTML = '<span>🔮</span> 交信中...';
+            placeholder.classList.add('animate-spin'); // Add spin effect temporarily
+
+            setTimeout(() => {
+                // Random Selection
+                const randomIndex = Math.floor(Math.random() * runes.length);
+                const selectedRune = runes[randomIndex];
+
+                // Update DOM
+                document.getElementById('rune-symbol').innerText = selectedRune.symbol;
+                document.getElementById('rune-name').innerText = selectedRune.name;
+                document.getElementById('rune-meaning').innerText = selectedRune.meaning;
+                document.getElementById('rune-keywords').innerText = selectedRune.keywords;
+                document.getElementById('rune-message').innerText = selectedRune.message;
+
+                // UI Transition
+                placeholder.classList.add('hidden');
+                placeholder.classList.remove('animate-spin');
+                resultDiv.classList.remove('hidden');
+
+                // Button Switch
+                btn.classList.add('hidden');
+                resetBtn.classList.remove('hidden');
+
+            }, 1000); // 1 second delay for effect
+        }
+
+        function resetRune() {
+            const btn = document.getElementById('cast-btn');
+            const placeholder = document.getElementById('rune-placeholder');
+            const resultDiv = document.getElementById('rune-result');
+            const resetBtn = document.getElementById('reset-btn');
+
+            // Reset UI
+            resultDiv.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            btn.classList.remove('hidden');
+            resetBtn.classList.add('hidden');
+
+            // Reset Button Text
+            btn.disabled = false;
+            btn.innerHTML = '<span>🪄</span> ルーンを引く';
+        }
+
+        // --- Chart.js Initialization ---
+        document.addEventListener('DOMContentLoaded', function () {
+            const ctx = document.getElementById('comparisonChart').getContext('2d');
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: ['即時性 (Now)', '行動指針 (Action)', '具体的 (Specific)', '心理描写 (Mind)', '長期的宿命 (Fate)'],
+                    datasets: [{
+                        label: 'ルーン占い',
+                        data: [9, 10, 8, 7, 3],
+                        fill: true,
+                        backgroundColor: 'rgba(132, 204, 22, 0.2)', // Lime-500 low opacity
+                        borderColor: 'rgba(132, 204, 22, 1)', // Lime-500
+                        pointBackgroundColor: 'rgba(132, 204, 22, 1)',
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgba(132, 204, 22, 1)'
+                    }, {
+                        label: '西洋占星術 (参考)',
+                        data: [4, 5, 6, 9, 10],
+                        fill: true,
+                        backgroundColor: 'rgba(148, 163, 184, 0.2)', // Slate-400
+                        borderColor: 'rgba(148, 163, 184, 1)',
+                        pointBackgroundColor: 'rgba(148, 163, 184, 1)',
+                        pointBorderColor: '#fff',
+                        borderDash: [5, 5]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Noto Sans JP', sans-serif" },
+                                color: '#475569'
+                            },
+                            suggestedMin: 0,
+                            suggestedMax: 10,
+                            ticks: { display: false } // Hide numbers for cleaner look
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { family: "'Noto Sans JP', sans-serif" },
+                                color: '#475569'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 41, 59, 0.9)',
+                            titleFont: { family: "'Noto Sans JP', sans-serif" },
+                            bodyFont: { family: "'Noto Sans JP', sans-serif" }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
