@@ -102,8 +102,8 @@
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
                     <span class="text-2xl font-bold text-indigo-900 serif tracking-wide">数秘術</span>
-                    <span class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Numerology
-                        Report</span>
+                    <span
+                        class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Numerology</span>
                 </div>
                 <div class="flex items-center space-x-4 text-sm font-medium">
                     <button onclick="scrollToSection('calculator')"
@@ -136,46 +136,181 @@
 
                         <!-- Calculator Interface -->
                         <div class="mt-8 bg-indigo-50 rounded-xl p-6 shadow-sm border border-indigo-100">
-                            <label for="birthdate"
-                                class="block text-sm font-medium text-indigo-900 mb-2">生年月日を入力してください</label>
-                            <div class="flex flex-col sm:flex-row gap-4">
-                                <input type="date" id="birthdate"
-                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3">
+                            <div class="flex flex-col gap-6">
+                                <!-- Personal Info Grid -->
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <!-- Birthdate -->
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-bold text-indigo-900 ml-1">生年月日</label>
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <select id="birth-year"
+                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                            <select id="birth-month"
+                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                            <select id="birth-day"
+                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                        </div>
+                                    </div>
+                                    <!-- Name -->
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-bold text-indigo-900 ml-1">氏名 (ローマ字)</label>
+                                        <input type="text" id="name-input" placeholder="例: TARO YAMADA"
+                                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md p-3 uppercase">
+                                        <p class="text-[10px] text-indigo-400 ml-1">※名前から社会的な使命や深層心理を読み解きます</p>
+                                    </div>
+                                </div>
+
+                                <!-- Compatibility Toggle -->
+                                <div class="relative flex items-start">
+                                    <div class="flex items-center h-5">
+                                        <input id="compatibility-toggle" type="checkbox"
+                                            onchange="toggleCompatibility()"
+                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                    </div>
+                                    <div class="ml-3 text-sm">
+                                        <label for="compatibility-toggle"
+                                            class="font-medium text-gray-700 cursor-pointer">相性診断を追加する</label>
+                                    </div>
+                                </div>
+
+                                <!-- Partner Info (Hidden by default) -->
+                                <div id="partner-section"
+                                    class="hidden animate-fade-in p-4 bg-white/50 rounded-lg border border-dashed border-indigo-200">
+                                    <h4 class="text-xs font-bold text-indigo-400 mb-3 uppercase tracking-widest">パートナー情報
+                                    </h4>
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="grid grid-cols-3 gap-2">
+                                            <select id="p-year"
+                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                                            <select id="p-month"
+                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                                            <select id="p-day"
+                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                                        </div>
+                                        <input type="text" id="p-name" placeholder="相手の氏名 (ローマ字)"
+                                            class="text-sm border-gray-300 rounded p-2 uppercase">
+                                    </div>
+                                </div>
+
                                 <button onclick="calculateNumerology()"
-                                    class="inline-flex justify-center items-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors shadow-lg">
-                                    鑑定する
+                                    class="inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group">
+                                    <span>運命の羅針盤を動かす</span>
+                                    <svg class="ml-2 w-5 h-5 transition-transform group-hover:rotate-45" fill="none"
+                                        stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                                    </svg>
                                 </button>
                             </div>
-                            <!-- Result Display -->
-                            <div id="result-area" class="mt-6 hidden fade-in">
-                                <div class="flex items-baseline">
-                                    <span class="text-sm text-gray-500 mr-2">あなたの運命数:</span>
-                                    <span id="display-number" class="text-5xl font-bold text-indigo-800 serif"></span>
+                            <div class="bg-indigo-900 text-white p-6 rounded-xl shadow-2xl relative overflow-hidden">
+                                <div id="aura-bg"
+                                    class="absolute inset-0 opacity-20 blur-3xl transition-all duration-1000"></div>
+                                <div class="relative z-10">
+                                    <h4 class="text-lg font-bold mb-2 flex items-center">
+                                        <span class="mr-2">✨</span> Destiny Message
+                                    </h4>
+                                    <p id="result-description"
+                                        class="text-indigo-100 text-sm leading-relaxed mb-4 italic"></p>
+
+                                    <!-- Core Numbers Grid -->
+                                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 text-center mb-6">
+                                        <div class="bg-white/10 p-2 rounded">
+                                            <span class="block text-[10px] uppercase text-indigo-300">Expression</span>
+                                            <span id="res-destiny" class="text-xl font-bold">--</span>
+                                            <span class="block text-[9px] text-indigo-400 leading-none">社会的な役割</span>
+                                        </div>
+                                        <div class="bg-white/10 p-2 rounded">
+                                            <span class="block text-[10px] uppercase text-indigo-300">Soul Urge</span>
+                                            <span id="res-soul" class="text-xl font-bold">--</span>
+                                            <span class="block text-[9px] text-indigo-400 leading-none">内なる願望</span>
+                                        </div>
+                                        <div class="bg-white/10 p-2 rounded">
+                                            <span class="block text-[10px] uppercase text-indigo-300">Personality</span>
+                                            <span id="res-personality" class="text-xl font-bold">--</span>
+                                            <span class="block text-[9px] text-indigo-400 leading-none">他人の評価</span>
+                                        </div>
+                                        <div class="bg-white/10 p-2 rounded">
+                                            <span class="block text-[10px] uppercase text-indigo-300">Personal
+                                                Day</span>
+                                            <span id="res-today" class="text-xl font-bold">--</span>
+                                            <span class="block text-[9px] text-indigo-400 leading-none">今日のテーマ</span>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        class="pt-4 border-t border-indigo-800 grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                                        <div>
+                                            <span class="text-indigo-400 block font-bold mb-1">仕事・才能:</span>
+                                            <span id="result-work" class="text-indigo-200"></span>
+                                        </div>
+                                        <div>
+                                            <span class="text-indigo-400 block font-bold mb-1">恋愛・対人:</span>
+                                            <span id="result-love" class="text-indigo-200"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div
-                                    class="mt-2 text-sm text-gray-600 font-mono bg-white p-2 rounded border border-gray-200">
-                                    計算式: <span id="calculation-process"></span>
+                            </div>
+
+                            <!-- Compatibility Result Area (Target only) -->
+                            <div id="compatibility-result"
+                                class="hidden animate-fade-in bg-gradient-to-r from-pink-500 to-indigo-600 p-1 rounded-xl">
+                                <div class="bg-white rounded-lg p-6 flex flex-col items-center">
+                                    <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Relationship
+                                        Resonance</span>
+                                    <div class="flex items-center gap-4 my-2">
+                                        <div class="text-center">
+                                            <span class="text-[10px] block text-gray-400">You</span>
+                                            <span id="comp-you" class="text-3xl font-bold text-gray-800"></span>
+                                        </div>
+                                        <div class="text-2xl text-pink-400 font-serif">×</div>
+                                        <div class="text-center">
+                                            <span class="text-[10px] block text-gray-400">Partner</span>
+                                            <span id="comp-partner" class="text-3xl font-bold text-gray-800"></span>
+                                        </div>
+                                    </div>
+                                    <div id="comp-score-bar"
+                                        class="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
+                                        <div id="comp-score-fill"
+                                            class="bg-pink-500 h-full transition-all duration-1000" style="width: 0%">
+                                        </div>
+                                    </div>
+                                    <div class="text-2xl font-bold text-pink-600 mb-2">共鳴度: <span
+                                            id="comp-percent">0</span>%</div>
+                                    <p id="comp-message" class="text-sm text-gray-600 text-center leading-relaxed"></p>
                                 </div>
-                                <p id="result-description" class="mt-4 text-gray-800 font-medium leading-relaxed"></p>
+                            </div>
+
+                            <!-- Famous People Match Section -->
+                            <div id="famous-section" class="hidden animate-fade-in">
+                                <h4 class="text-xs font-bold text-indigo-400 mb-3 ml-2 uppercase tracking-tighter">
+                                    同じエネルギーを持つ先駆者たち</h4>
+                                <div id="famous-list" class="flex flex-wrap gap-2">
+                                    <!-- JS populate -->
+                                </div>
                             </div>
                         </div>
                     </div>
-                </main>
             </div>
+            </main>
         </div>
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex items-center justify-center p-8">
-            <!-- Conceptual Visualization of Numbers -->
-            <div class="grid grid-cols-3 gap-4 opacity-20">
-                <div class="text-9xl font-serif text-indigo-900">1</div>
-                <div class="text-9xl font-serif text-indigo-900">2</div>
-                <div class="text-9xl font-serif text-indigo-900">3</div>
-                <div class="text-9xl font-serif text-indigo-900">4</div>
-                <div class="text-9xl font-serif text-indigo-900">5</div>
-                <div class="text-9xl font-serif text-indigo-900">6</div>
-                <div class="text-9xl font-serif text-indigo-900">7</div>
-                <div class="text-9xl font-serif text-indigo-900">8</div>
-                <div class="text-9xl font-serif text-indigo-900">9</div>
+        </div>
+        <div
+            class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex flex-col items-center justify-center p-8 overflow-hidden">
+            <!-- Dynamic Geometric Background -->
+            <div id="geometric-art" class="relative w-72 h-72 md:w-96 md:h-96">
+                <div
+                    class="absolute inset-0 rounded-full border-4 border-indigo-200 opacity-20 animate-[spin_20s_linear_infinite]">
+                </div>
+                <div
+                    class="absolute inset-4 rounded-lg border-2 border-indigo-300 opacity-10 animate-[spin_15s_linear_infinite_reverse]">
+                </div>
+                <div class="absolute inset-0 flex items-center justify-center">
+                    <span id="hero-num-display"
+                        class="text-[150px] md:text-[200px] font-serif text-indigo-900 opacity-10 transition-all duration-1000">∞</span>
+                </div>
             </div>
+            <p class="mt-8 text-indigo-300 text-xs tracking-[0.5em] uppercase font-light">The Sacred Geometry of Numbers
+            </p>
         </div>
     </header>
 
@@ -385,12 +520,29 @@
                     <p id="detail-desc" class="text-gray-600 leading-relaxed mb-6">
                         すべての始まりを表す数字。男性的なエネルギーを持ち、矢のように目標に向かって突き進む性質があります。開拓精神にあふれ、誰もやったことのない道を行くことを好みます。
                     </p>
-                    <div class="bg-gray-50 p-4 rounded-lg">
-                        <h4 class="text-sm font-bold text-gray-700 mb-2">ポジティブな側面</h4>
-                        <p id="detail-pos" class="text-sm text-gray-600">決断力がある、情熱的、革新的、リーダーシップ</p>
-                        <div class="my-2 border-t border-gray-200"></div>
-                        <h4 class="text-sm font-bold text-gray-700 mb-2">ネガティブな側面</h4>
-                        <p id="detail-neg" class="text-sm text-gray-600">自己中心的、強引、短気、孤立しやすい</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-700 mb-2">ポジティブな側面</h4>
+                            <p id="detail-pos" class="text-sm text-gray-600">決断力がある、情熱的、革新的、リーダーシップ</p>
+                        </div>
+                        <div>
+                            <h4 class="text-sm font-bold text-gray-700 mb-2">ネガティブな側面</h4>
+                            <p id="detail-neg" class="text-sm text-gray-600">自己中心的、強引、短気、孤立しやすい</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 space-y-4">
+                        <div class="border-l-4 border-indigo-200 pl-4">
+                            <h4 class="text-sm font-bold text-indigo-900">適職・ビジネス</h4>
+                            <p id="detail-work" class="text-sm text-gray-600 mt-1"></p>
+                        </div>
+                        <div class="border-l-4 border-pink-200 pl-4">
+                            <h4 class="text-sm font-bold text-pink-900">恋愛・対人傾向</h4>
+                            <p id="detail-love" class="text-sm text-gray-600 mt-1"></p>
+                        </div>
+                        <div class="bg-indigo-50 p-4 rounded-lg">
+                            <h4 class="text-sm font-bold text-indigo-900">開運アドバイス</h4>
+                            <p id="detail-advice" class="text-sm text-indigo-800 italic mt-1"></p>
+                        </div>
                     </div>
                     <div class="mt-6">
                         <p class="text-xs text-gray-400 text-center">数字をクリックして詳細を表示</p>
@@ -485,87 +637,147 @@
         const numberData = {
             1: {
                 title: "1: The Leader",
-                keyword: "自立・開拓・リーダーシップ",
-                desc: "「1」はすべての始まり。男性的なエネルギーを持ち、矢のように目標に向かって突き進む性質があります。開拓精神にあふれ、誰もやったことのない道を行くことを好みます。",
-                pos: "決断力がある、情熱的、革新的、意志が強い",
-                neg: "自己中心的、強引、短気、協調性に欠ける"
+                keyword: "独立・開拓・自信",
+                color: "#ff4d4d",
+                desc: "無から有を生む強大な意志の力。前例のない道を開拓し、周囲を牽引する。自立心が強く、常にナンバーワンを目指すエネルギーです。",
+                pos: "リーダーシップ、独創性、行動力、野心",
+                neg: "傲慢、支配的、せっかち、孤独",
+                work: "起業家、経営者、プロジェクトマネージャー、軍人、政治家。自由度の高い環境で真価を発揮します。",
+                love: "主導権を握りたい情熱家。ハンター気質があり、ストレートにアプローチします。",
+                advice: "他者の意見に耳を傾ける「余裕」を持つことで、あなたのリーダーシップはさらに盤石になります。",
+                famous: ["スティーブ・ジョブズ", "ウォルト・ディズニー", "トム・クルーズ", "レディー・ガガ", "ナポレオン", "タイガー・ウッズ", "マーチン・ルーサー・キング", "ニコラ・テスラ", "明石家さんま", "矢沢永吉"]
             },
             2: {
                 title: "2: The Mediator",
-                keyword: "調和・受容・サポーター",
-                desc: "「2」は結合と受容の数。女性的なエネルギーを持ち、対立するものを繋ぎ合わせるバランサーです。感受性が豊かで、人の気持ちに敏感に寄り添います。",
-                pos: "協調性がある、優しい、繊細、聞き上手",
-                neg: "優柔不断、依存的、傷つきやすい、自己主張が苦手"
+                keyword: "調和・受容・協力",
+                color: "#ffb347",
+                desc: "対立するものを結びつけ、平和を創り出すエネルギー。優れた感受性と共感力を持ち、陰で支える役割において最強の力を発揮します。",
+                pos: "協調性、外交的、直感的、思慮深い",
+                neg: "優柔不断、依存的、臆病、過敏",
+                work: "外交官、秘書、カウンセラー、セラピスト、中間管理職。円滑な運営を支える仕事が最適。",
+                love: "受動的で献身的。情緒的な深い繋がりを大切にし、パートナーに安心感を与えます。",
+                advice: "自分と他人の境界線を意識して。他人の感情に飲み込まれないようにすることで、本来の知恵が輝きます。",
+                famous: ["バラク・オバマ", "ビル・クリントン", "マドンナ", "ジェニファー・アニストン", "モーツァルト", "ロナルド・レーガン", "ジャッキー・ロビンソン", "美智子さま", "和田アキ子", "草彅剛"]
             },
             3: {
                 title: "3: The Creator",
-                keyword: "創造・表現・子供のような心",
-                desc: "「3」は破壊と創造のエネルギー。無邪気な子供のように人生を楽しむ天才です。クリエイティブな表現力に富み、周囲を明るく照らすムードメーカー。",
-                pos: "楽観的、社交的、想像力豊か、エンターテイナー",
-                neg: "無責任、飽きっぽい、浪費、表面的な付き合い"
+                keyword: "創造・楽観・表現",
+                color: "#ffff4d",
+                desc: "人生を謳歌する悦びのエネルギー。子供のような好奇心を持ち、クリエイティブな表現を通じて周囲を明るく照らす太陽のような存在です。",
+                pos: "創造性、社交性、ユーモア、多才",
+                neg: "無責任、散漫、浪費家、表面的な付き合い",
+                work: "アーティスト、芸人、企画職、広報、ライター、デザイナー。自己表現が必要な場がステージです。",
+                love: "楽しくて刺激的な恋。束縛を嫌い、知的な面白さをパートナーに求めます。",
+                advice: "「一点集中」を覚えることで、あなたの豊かな才能は形になり、社会に大きな影響を与えます。",
+                famous: ["オードリー・ヘップバーン", "サルバドール・ダリ", "ケイティ・ペリー", "チャールズ・ディケンズ", "デヴィッド・ボウイ", "ジョニ・デップ", "スヌープ・ドッグ", "マライア・キャリー", "松任谷由実", "木村拓哉"]
             },
             4: {
                 title: "4: The Builder",
-                keyword: "安定・秩序・現実的",
-                desc: "「4」は四角形や土台を表します。堅実で真面目、ルールを重んじ、物事を形にしていく力があります。安心と安全を大切にする、信頼できる努力家です。",
-                pos: "誠実、忍耐強い、計画的、実務能力が高い",
-                neg: "頑固、融通が利かない、面白みに欠ける、保守的すぎる"
+                keyword: "安定・規律・実現力",
+                color: "#4dff4d",
+                desc: "高い理想を具現化し、強固な基盤を築くエネルギー。誠実さと忍耐強さを持ち、社会の秩序と安全を守る建設者です。",
+                pos: "誠実、組織化能力、忍耐、実務的",
+                neg: "頑固、保守的、融通が利かない、批判的",
+                work: "建築家、会計士、エンジニア、法執行機関、公務員。正確さと責任が求められる職務が適しています。",
+                love: "真面目で一途。浮ついた関係よりも、長期的な安定と信頼を重んじ、家族を大切にします。",
+                advice: "変化を「脅威」ではなく「成長のチャンス」と捉えてみてください。柔軟性があなたの土台をより強くします。",
+                famous: ["ビル・ゲイツ", "マーガレット・サッチャー", "フランク・シナトラ", "マリー・キュリー", "クエンティン・タランティーノ", "アーノルド・シュワルツェネッガー", "ジークムント・フロイト", "北野武", "桑田佳祐", "松下幸之助"]
             },
             5: {
                 title: "5: The Adventurer",
-                keyword: "変化・自由・コミュニケーション",
-                desc: "「5」は五体や五感を表し、人間そのものを象徴します。自由を愛し、変化と冒険を求めます。コミュニケーション能力が高く、多才で適応力があります。",
-                pos: "適応力がある、好奇心旺盛、多才、進歩的",
-                neg: "落ち着きがない、無謀、飽きっぽい、責任逃れ"
+                keyword: "自由・変化・探求",
+                color: "#4dd2ff",
+                desc: "未知の世界へ飛び出す冒険心のエネルギー。変化を愛し、多才で順応性が高く、五感を通じて人生の多様性を体験しようとします。",
+                pos: "順応力、多才、進歩的、魅力的",
+                neg: "無謀、落ち着きがない、情緒不安定、責任逃れ",
+                work: "営業マン、旅行家、ジャーナリスト、マーケティング、翻訳家。常に新しい環境を求める仕事が吉。",
+                love: "ドラマチックで刺激的な恋。お互いの自由を尊重できるパートナーシップを好みます。",
+                advice: "自由には「自己責任」が伴うことを意識して。経験を深めることで、あなたは真の賢者へと成長します。",
+                famous: ["アブラハム・リンカーン", "ミック・ジャガー", "アンジェリーナ・ジョリー", "スティーブン・スピルバーグ", "マーク・ザッカーバーグ", "J.K.ローリング", "ベンジャミン・フランクリン", "宇多田ヒカル", "福山雅治", "本田圭佑"]
             },
             6: {
                 title: "6: The Nurturer",
-                keyword: "愛・調和・責任・美",
-                desc: "「6」は妊婦のお腹のような形。母性的な愛と奉仕の精神を持ちます。家族やコミュニティの調和を何より大切にし、美と芸術を愛する平和主義者です。",
-                pos: "愛情深い、責任感が強い、家庭的、奉仕的",
-                neg: "おせっかい、自己犠牲、嫉妬深い、完璧主義"
+                keyword: "奉仕・愛情・責任",
+                color: "#4d4dff",
+                desc: "全てを包み込む慈愛と教育のエネルギー。調和を重んじ、周囲の面倒を見ることに喜びを感じます。美と芸術への深い造詣も持ち合わせています。",
+                pos: "責任感、献身、美的センス、公正",
+                neg: "おせっかい、自己犠牲が過ぎる、嫉妬、完璧主義",
+                work: "教育者、医療、育児、デザイナー、人事、農家。人を育てる、癒やす、整える仕事で輝きます。",
+                love: "家庭的で安定した愛。パートナーに対して献身的ですが、過保護にならないよう注意が必要です。",
+                advice: "「自分自身への奉仕」を忘れないで。あなたが満たされてこそ、その愛は本当の意味で世界を癒やします。",
+                famous: ["アルバート・アインシュタイン", "ジョン・レノン", "マイケル・ジャクソン", "トーマス・エジソン", "マザー・テレサ", "メリル・ストリープ", "ジョージ・H・W・ブッシュ", "イチロー", "笑福亭鶴瓶", "荒木飛呂彦"]
             },
             7: {
                 title: "7: The Seeker",
-                keyword: "探求・分析・孤独・精神性",
-                desc: "「7」はひとつのサイクルからの脱却。哲学的で、物事の真理を探求する孤高の研究者です。一人の時間を愛し、独特の世界観と鋭い洞察力を持ちます。",
-                pos: "分析力、洞察力、専門性、精神性が高い",
-                neg: "閉鎖的、批判的、神経質、冷笑的"
+                keyword: "探求・孤独・精神性",
+                color: "#9933ff",
+                desc: "真理を突き止める鋭い洞察力のエネルギー。世俗的な成功よりも、精神的な深まりや知識の完成を求め、一人の時間の中で高度な思考を展開します。",
+                pos: "分析力、専門性、独創的、内省的",
+                neg: "冷笑的、社交性に欠ける、神経質、秘密主義",
+                work: "研究者、哲学者、プログラマー、鑑定士、作家。独自の専門性を極める環境が最適です。",
+                love: "精神的な絆を最重視します。お互いに独立した、ベタベタしない高尚な関係を求めます。",
+                advice: "自分の知恵を「社会に還元」することを意識して。あなたの発見は、多くの人を導く光になります。",
+                famous: ["エロン・マスク", "スティーブン・ホーキング", "レオナルド・ディカプリオ", "ウィリアム・シェイクスピア", "マリリン・モンロー", "ジュリア・ロバーツ", "チャールズ・ダーウィン", "タモリ", "新海誠", "藤井聡太"]
             },
             8: {
                 title: "8: The Powerhouse",
-                keyword: "力・豊かさ・権威・無限",
-                desc: "「8」は横にすると∞（無限）。物質的な成功や権力を象徴します。組織を動かす統率力と、目標を達成する強い意志を持つ、エネルギッシュなファイターです。",
-                pos: "統率力、実行力、野心家、経済観念が鋭い",
-                neg: "支配的、物質主義、仕事中毒、高圧的"
+                keyword: "権威・豊かさ・成功",
+                color: "#ffd700",
+                desc: "物質世界を統治するパワーと現実化のエネルギー。高い野心と組織運営能力を持ち、無から富や権力を生み出すダイナミズムを持っています。",
+                pos: "統率力、実行力、経営センス、不屈の精神",
+                neg: "物質主義、支配的、仕事中毒、無慈悲",
+                work: "経営者、投資家、不動産、プロデューサー、スポーツ選手。競争が激しく、成果が巨額な分野で真価を発揮。",
+                love: "リッチで堂々としたアプローチ。大切な人を守る包容力が非常に強く、頼もしい存在です。",
+                advice: "「寛大さ」を力として使って。成功を他者と分かち合うことで、運命の無限の循環が始まります。",
+                famous: ["ネルソン・マンデラ", "Pablo Picasso", "ニール・アームストロング", "エリザベス・テイラー", "アレクサンダー・グラハム・ベル", "50セント", "ジョージ・ハリソン", "浜崎あゆみ", "安室奈美恵", "孫正義"]
             },
             9: {
                 title: "9: The Humanitarian",
-                keyword: "完結・慈愛・賢者・手放し",
-                desc: "「9」は1桁の最後の数。すべての数の要素を含み、全体を見渡す広い視野を持ちます。世界平和や環境問題など、個人的なことより社会的な理想を追う人道主義者です。",
-                pos: "博愛精神、理解力がある、ロマンチスト、寛容",
-                neg: "現実逃避、複雑、感情の起伏が激しい、つかみどころがない"
+                keyword: "完了・慈愛・智慧",
+                color: "#e6e6e6",
+                desc: "全ての経験を統合し、手放す究極のエネルギー。特定の利害を超えた博愛主義を持ち、世界をより良い場所にするためのグローバルな視点を持っています。",
+                pos: "情熱的、博愛、ロマンチック、理解力",
+                neg: "感情の起伏、理想主義、つかみどころのなさ",
+                work: "社会活動家、慈善、教育者、アーティスト、翻訳家。境界線を越えて影響を与える仕事が適しています。",
+                love: "ドラマチックで献身的。運命を感じるような相手に対しては、全てを捧げる深い愛情を持ちます。",
+                advice: "過去に執着せず「今この瞬間」を生きて。完了し、手放していくことがあなたの魂の本当の自由です。",
+                famous: ["マハトマ・ガンジー", "ボブ・マーリー", "エルヴィス・プレスリー", "ハリソン・フォード", "ジム・キャリー", "マザー・テレサ", "ホイットニー・ヒューストン", "美空ひばり", "中居正広", "志村けん"]
             },
             11: {
                 title: "11: The Messenger",
-                keyword: "直感・霊感・メッセンジャー",
-                desc: "マスターナンバー。1の革新性と2の感受性を併せ持ちます。鋭い直感力で天啓を受け取り、人々に精神的な気づきを与える役割を持ちます。",
-                pos: "直感力が鋭い、理想が高い、影響力がある、カリスマ性",
-                neg: "神経過敏、緊張しやすい、現実離れ、情緒不安定"
+                keyword: "直感・霊感・超越",
+                color: "#c0c0c0",
+                desc: "マスターナンバー。天と地を繋ぐ繊細なアンテナのエネルギー。圧倒的な直感力を持ち、人々の魂を揺さぶるメッセージを届け、意識を覚醒させます。",
+                pos: "カリスマ、霊感、先見の明、変革力",
+                neg: "情緒不安定、極度の緊張、矛盾、非現実的",
+                work: "アーティスト、ヒーラー、宗教家、思想家、インフルエンサー。感性を生かした先導的な仕事。",
+                love: "魂の共鳴を求める、極めて純粋で高い理想の恋。相手に求める精神的ハードルが高くなりがち。",
+                advice: "自分の「揺らぎ」を否定しないで。その繊細さこそが、多くの人を救うギフトです。",
+                famous: ["ミシェル・オバマ", "アンデルセン", "モーツァルト (またの名を2)", "デイヴィッド・ベッカム", "レディー・ガガ (またの名を1)", "ココ・シャネル", "三島由紀夫", "香取慎吾", "細木数子", "戸田恵梨香"]
             },
             22: {
                 title: "22: The Master Builder",
                 keyword: "大成・具現化・カリスマ",
-                desc: "マスターナンバー。4の堅実さと無限のスケール感を持ちます。高い理想を現実社会で形にする強力なパワーを持ち、大きなプロジェクトを成し遂げる器です。",
-                pos: "スケールが大きい、実行力、天才的発想、社会貢献",
-                neg: "強引、波乱万丈、プレッシャーに弱い、独善的"
+                color: "#ffd700",
+                desc: "マスターナンバー。壮大なビジョンを現実化させる「宇宙規模の建設者」。不可能を可能にするエネルギーを持ち、社会に歴史的な足跡を残します。",
+                pos: "圧倒的な実行力、スケール感、強運、社会貢献",
+                neg: "強欲、プレッシャーによる崩壊、独善的",
+                work: "国際企業のトップ、発明家、政治家、大建築家、起業家。社会のインフラを変えるような仕事。",
+                love: "パートナーと共に壮大な人生を歩もうとします。高い理想を共有できるタフな相手を求めます。",
+                advice: "謙虚さを忘れないで。あなたの才能は「世界をより良くする」ために託された力であることを意識しましょう。",
+                famous: ["ビル・ゲイツ (またの名を4)", "ポール・マッカートニー", "フランク・シナトラ (またの名を4)", "オプラ・ウィンフリー", "ウディ・アレン", "スティーブ・ジョブズ (一部計算方法による)", "坂本龍一", "松田聖子", "小泉純一郎", "デヴィ・スカルノ"]
             },
             33: {
                 title: "33: The Master Teacher",
-                keyword: "普遍的な愛・奉仕・宇宙規模",
-                desc: "マスターナンバー。6の愛情が宇宙規模に拡大した状態。常識の枠を超えた愛と奉仕の人であり、独特の感性で周囲を癒やす、規格外の存在です。",
-                pos: "無償の愛、個性的、慈悲深い、包容力",
-                neg: "自己犠牲が過ぎる、常識が通じない、辛い環境を選びがち"
+                keyword: "無償の愛・宇宙・慈悲",
+                color: "#ffc0cb",
+                desc: "マスターナンバー。人類愛の極致、菩薩のエネルギー。自らの全てを無償の愛として捧げ、常識を超えたスケールで周囲を導き、癒やします。",
+                pos: "普遍的愛、癒やし、規格外、インスピレーション",
+                neg: "深刻な自己犠牲、現実生活とのギャップ、混乱",
+                work: "ボランティア、特殊技能職、芸術家、宗教家、セラピスト。型にはまらない自由な奉仕活動。",
+                love: "全人類への愛に近い、慈悲深いパートナーシップ。特定の一人に対しても、執着のない深い愛を注ぎます。",
+                advice: "「この世の常識」に合わせようとしないで。あなたのユニークな愛は、理解されずとも世界を確実に変えています。",
+                famous: ["アインシュタイン (一部算出)", "ジョン・レノン (一部算出)", "メリル・ストリープ", "スティーブン・キング", "マザー・テレサ (一部算出)", "美輪明宏", "黒柳徹子", "福山雅治 (算出方法による)", "安美佳", "カズレーザー"]
             }
         };
 
@@ -587,9 +799,9 @@
             const data = numberData[num];
             const card = document.getElementById('number-detail-card');
 
-            // Simple animation reset
-            card.classList.remove('opacity-100');
-            card.classList.add('opacity-50');
+            // Simple animation effect
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(10px)';
 
             setTimeout(() => {
                 document.getElementById('detail-title').innerText = num;
@@ -597,51 +809,210 @@
                 document.getElementById('detail-desc').innerText = data.desc;
                 document.getElementById('detail-pos').innerText = data.pos;
                 document.getElementById('detail-neg').innerText = data.neg;
+                document.getElementById('detail-work').innerText = data.work || "情報準備中";
+                document.getElementById('detail-love').innerText = data.love || "情報準備中";
+                document.getElementById('detail-advice').innerText = data.advice || "自分らしく進みましょう。";
 
-                card.classList.remove('opacity-50');
-                card.classList.add('opacity-100');
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
             }, 150);
         }
 
-        // Numerology Calculator Logic
-        function calculateNumerology() {
-            const dateInput = document.getElementById('birthdate').value;
-            if (!dateInput) {
-                alert("生年月日を入力してください。");
-                return;
-            }
-
-            const digits = dateInput.replace(/-/g, '').split('').map(Number);
-            let sum = digits.reduce((a, b) => a + b, 0);
-            let processStr = digits.join(" + ") + " = " + sum;
-
-            // Loop to reduce to single digit or master number
+        // Helper to reduce numbers to single digits or master numbers
+        function reduceNumber(num) {
+            let sum = num;
             while (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) {
-                const tempDigits = String(sum).split('').map(Number);
-                const tempSum = tempDigits.reduce((a, b) => a + b, 0);
-                processStr += ` → ${tempDigits.join(" + ")} = ${tempSum}`;
-                sum = tempSum;
+                sum = String(sum).split('').map(Number).reduce((a, b) => a + b, 0);
+            }
+            return sum;
+        }
+
+        // Pythagorean Gematria Mapping
+        const gematriaMap = {
+            A: 1, J: 1, S: 1, B: 2, K: 2, T: 2, C: 3, L: 3, U: 3, D: 4, M: 4, V: 4,
+            E: 5, N: 5, W: 5, F: 6, O: 6, X: 6, G: 7, P: 7, Y: 7, H: 8, Q: 8, Z: 8, I: 9, R: 9
+        };
+
+        function toggleCompatibility() {
+            const section = document.getElementById('partner-section');
+            section.classList.toggle('hidden');
+        }
+
+        function calculateNameNumbers(name) {
+            const cleanName = name.toUpperCase().replace(/[^A-Z]/g, '');
+            const letters = cleanName.split('');
+            const vowels = ['A', 'E', 'I', 'O', 'U'];
+
+            let expression = 0;
+            let soul = 0;
+            let personality = 0;
+
+            letters.forEach(char => {
+                const val = gematriaMap[char] || 0;
+                expression += val;
+                if (vowels.includes(char)) soul += val;
+                else personality += val;
+            });
+
+            return {
+                expression: reduceNumber(expression),
+                soul: reduceNumber(soul),
+                personality: reduceNumber(personality)
+            };
+        }
+
+        function calculateNumerology() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const day = parseInt(document.getElementById('birth-day').value);
+            const name = document.getElementById('name-input').value;
+
+            if (!year || !month || !day) {
+                alert("生年月日を選択してください。"); return;
             }
 
-            const resultArea = document.getElementById('result-area');
-            resultArea.classList.remove('hidden');
+            // A. Life Path
+            const digits = `${year}${month < 10 ? '0' + month : month}${day < 10 ? '0' + day : day}`.split('').map(Number);
+            const lifePath = reduceNumber(digits.reduce((a, b) => a + b, 0));
 
-            document.getElementById('display-number').innerText = sum;
-            document.getElementById('calculation-process').innerText = processStr;
+            // B. Name Analysis
+            let expression = "--", soul = "--", personality = "--";
+            if (name) {
+                const res = calculateNameNumbers(name);
+                expression = res.expression;
+                soul = res.soul;
+                personality = res.personality;
+            }
 
-            const desc = numberData[sum] ? numberData[sum].desc : "計算結果エラー";
-            document.getElementById('result-description').innerHTML = `<strong class="text-indigo-700">【${numberData[sum].keyword}】</strong><br>${desc}`;
+            // C. Today's Personal Day
+            const now = new Date();
+            const todayDigits = `${now.getFullYear()}${now.getMonth() + 1}${now.getDate()}${month}${day}`.split('').map(Number);
+            const todayNum = reduceNumber(todayDigits.reduce((a, b) => a + b, 0));
 
-            // Scroll to detail view for this number automatically
-            showNumberDetail(sum);
+            // UI Update
+            document.getElementById('result-area').classList.remove('hidden');
+            document.getElementById('hero-num-display').innerText = lifePath;
+            document.getElementById('res-destiny').innerText = expression;
+            document.getElementById('res-soul').innerText = soul;
+            document.getElementById('res-personality').innerText = personality;
+            document.getElementById('res-today').innerText = todayNum;
+
+            const data = numberData[lifePath];
+            document.getElementById('result-description').innerText = data.desc;
+            document.getElementById('result-work').innerText = data.work;
+            document.getElementById('result-love').innerText = data.love;
+            document.getElementById('aura-bg').style.backgroundColor = data.color;
+
+            // Famous People
+            const famousDiv = document.getElementById('famous-section');
+            famousDiv.classList.remove('hidden');
+            const famousList = document.getElementById('famous-list');
+            famousList.innerHTML = '';
+            data.famous.forEach(person => {
+                const span = document.createElement('span');
+                span.className = "px-3 py-1 bg-white/50 text-[10px] rounded-full border border-indigo-100 text-indigo-700 shadow-sm";
+                span.innerText = person;
+                famousList.appendChild(span);
+            });
+
+            // Compatibility
+            if (document.getElementById('compatibility-toggle').checked) {
+                const pYear = parseInt(document.getElementById('p-year').value);
+                const pMonth = parseInt(document.getElementById('p-month').value);
+                const pDay = parseInt(document.getElementById('p-day').value);
+                if (pYear && pMonth && pDay) {
+                    const pDigits = `${pYear}${pMonth < 10 ? '0' + pMonth : pMonth}${pDay < 10 ? '0' + pDay : pDay}`.split('').map(Number);
+                    const pLifePath = reduceNumber(pDigits.reduce((a, b) => a + b, 0));
+
+                    document.getElementById('compatibility-result').classList.remove('hidden');
+                    document.getElementById('comp-you').innerText = lifePath;
+                    document.getElementById('comp-partner').innerText = pLifePath;
+
+                    // Simple logic: Difference based resonance
+                    const diff = Math.abs((lifePath % 9) - (pLifePath % 9));
+                    const score = 100 - (diff * 10) - (Math.random() * 5); // Some randomness for charm
+                    document.getElementById('comp-percent').innerText = Math.round(score);
+                    document.getElementById('comp-score-fill').style.width = score + '%';
+
+                    const msgs = {
+                        90: "魂の双子。説明不要で理解し合える最高の相性です。",
+                        80: "調和の取れた二人。お互いの長所を高め合える関係です。",
+                        70: "刺激的なパートナー。違いを楽しみ、学び合える良い相性です。",
+                        50: "努力が必要な関係。お互いの価値観を認め合うことが鍵となります。",
+                        0: "鏡のような関係。自分に無いものを持つ相手に惹かれますが、対話が重要です。"
+                    };
+                    const msgKey = Object.keys(msgs).sort((a, b) => b - a).find(k => score >= k);
+                    document.getElementById('comp-message').innerText = msgs[msgKey];
+                }
+            } else {
+                document.getElementById('compatibility-result').classList.add('hidden');
+            }
+
+            showNumberDetail(lifePath);
+            updateCycleChart(lifePath);
+            if (window.innerWidth < 768) document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
         }
 
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
         }
 
-        // --- Chart Generation ---
+        // Adjust Days based on Month/Year
+        function updateDays() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const daySelect = document.getElementById('birth-day');
+            const prevDay = daySelect.value;
+
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            daySelect.innerHTML = '';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '日';
+                if (parseInt(prevDay) === i) opt.selected = true;
+                daySelect.appendChild(opt);
+            }
+        }
+
+        // --- Initialization ---
         document.addEventListener('DOMContentLoaded', function () {
+            // Populate Dropdowns
+            const yearSelect = document.getElementById('birth-year');
+            const monthSelect = document.getElementById('birth-month');
+            const daySelect = document.getElementById('birth-day');
+
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i >= 1900; i--) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '年';
+                if (i === 1990) opt.selected = true; // Default
+                yearSelect.appendChild(opt);
+            }
+
+            for (let i = 1; i <= 12; i++) {
+                const opt = document.createElement('option');
+                opt.value = i;
+                opt.textContent = i + '月';
+                if (i === 1) opt.selected = true;
+                monthSelect.appendChild(opt);
+            }
+
+            // Initial Days
+            updateDays();
+            yearSelect.addEventListener('change', updateDays);
+            monthSelect.addEventListener('change', updateDays);
+
+            // Populate Partner Dropdowns
+            const pYear = document.getElementById('p-year');
+            const pMonth = document.getElementById('p-month');
+            const pDay = document.getElementById('p-day');
+            for (let i = currentYear; i >= 1900; i--) { pYear.appendChild(new Option(i + '年', i)); }
+            for (let i = 1; i <= 12; i++) { pMonth.appendChild(new Option(i + '月', i)); }
+            for (let i = 1; i <= 31; i++) { pDay.appendChild(new Option(i + '日', i)); }
+
             // 1. Comparison Radar Chart
             const ctxComparison = document.getElementById('comparisonChart').getContext('2d');
             new Chart(ctxComparison, {
@@ -690,63 +1061,37 @@
             });
 
             // 2. Cycle Line Chart
-            const ctxCycle = document.getElementById('cycleChart').getContext('2d');
-            new Chart(ctxCycle, {
+            window.cycleChart = new Chart(document.getElementById('cycleChart').getContext('2d'), {
                 type: 'line',
                 data: {
                     labels: ['1:開始', '2:協調', '3:創造', '4:安定', '5:変化', '6:愛情', '7:休息', '8:充実', '9:完結'],
                     datasets: [{
-                        label: '運気のエネルギーレベル (概念図)',
-                        data: [70, 50, 80, 60, 85, 75, 40, 95, 30], // Conceptual energy flow
+                        label: 'エネルギーレベル',
+                        data: [70, 50, 80, 60, 85, 75, 40, 95, 20],
                         borderColor: 'rgb(79, 70, 229)',
-                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
-                        borderWidth: 3,
                         tension: 0.4,
                         fill: true,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
+                        backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                        pointBackgroundColor: 'white',
+                        pointRadius: (ctx) => (ctx.dataIndex === window.currentYearIdx ? 12 : 5),
+                        pointBorderWidth: (ctx) => (ctx.dataIndex === window.currentYearIdx ? 4 : 2)
                     }]
                 },
                 options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        y: {
-                            display: false, // Hide Y axis numbers as it's conceptual
-                            min: 0,
-                            max: 100
-                        },
-                        x: {
-                            grid: { display: false },
-                            ticks: {
-                                font: { family: "'Zen Kaku Gothic New', sans-serif" }
-                            }
-                        }
-                    },
-                    plugins: {
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    const descriptions = [
-                                        "種まき、新しいスタートの時期",
-                                        "忍耐、人間関係を育てる時期",
-                                        "芽が出る、楽しみ、表現の時期",
-                                        "根を張る、地盤固めの時期",
-                                        "成長、変化、冒険の時期",
-                                        "花が咲く、愛と奉仕の時期",
-                                        "剪定、自己内省、休息の時期",
-                                        "収穫、成果を受け取る時期",
-                                        "土壌改良、手放し、次の準備"
-                                    ];
-                                    return descriptions[context.dataIndex];
-                                }
-                            }
-                        },
-                        legend: { display: false }
-                    }
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { y: { display: false, min: 0, max: 120 }, x: { grid: { display: false } } },
+                    plugins: { legend: { display: false } }
                 }
             });
         });
+
+        function updateCycleChart(lifePath) {
+            const currentYear = new Date().getFullYear();
+            // Simple logic for plotting: (Current Year - Birth Year + LifePath) % 9
+            const yearIndex = (lifePath + 1) % 9; // Placeholder for demo logic
+            window.currentYearIdx = yearIndex;
+            window.cycleChart.update();
+        }
     </script>
 </body>
 
