@@ -151,7 +151,9 @@
                     <button onclick="scrollToSection('interpretation')"
                         class="nav-link text-gray-600 hover:text-indigo-700 px-2 py-2 text-sm font-medium transition-colors">解釈</button>
                     <button onclick="scrollToSection('cards-list')"
-                        class="nav-link text-gray-600 hover:text-indigo-700 px-2 py-2 text-sm font-medium transition-colors">一覧</button>
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-2 py-2 text-sm font-medium transition-colors">大アルカナ</button>
+                    <button onclick="scrollToSection('minor-arcana')"
+                        class="nav-link text-gray-600 hover:text-indigo-700 px-2 py-2 text-sm font-medium transition-colors">小アルカナ</button>
                     <button onclick="scrollToSection('qa')"
                         class="nav-link text-gray-600 hover:text-indigo-700 px-2 py-2 text-sm font-medium transition-colors">Q&A</button>
                     <button onclick="scrollToSection('ethics')"
@@ -179,7 +181,9 @@
                 <button onclick="scrollToSection('interpretation'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">解釈</button>
                 <button onclick="scrollToSection('cards-list'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">一覧</button>
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">大アルカナ</button>
+                <button onclick="scrollToSection('minor-arcana'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">小アルカナ</button>
                 <button onclick="scrollToSection('qa'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-gray-600 hover:bg-indigo-50 rounded-md">Q&A</button>
                 <button onclick="scrollToSection('ethics'); toggleMobileMenu()"
@@ -648,355 +652,361 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
 
-                            <!-- Celtic Cross EXPANDED -->
-                            <div
-                                class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200 shadow-lg">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Celtic Cross EXPANDED -->
+                    <div
+                        class="bg-gradient-to-br from-violet-50 to-purple-50 rounded-2xl p-8 border-2 border-violet-200 shadow-lg">
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <div class="flex items-start mb-4">
+                                    <span class="text-4xl mr-3">✝️</span>
                                     <div>
-                                        <div class="flex items-start mb-4">
-                                            <span class="text-4xl mr-3">✝️</span>
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ケルト十字法
-                                                    (10枚)</h3>
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    <span
-                                                        class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-semibold">上級者向け</span>
-                                                    <span
-                                                        class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">多角的な分析</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-700 mb-4 leading-relaxed">
-                                            世界で最も有名な展開法。現状から未来、表面的な意識から潜在意識まで、10枚のカードで問題の全てを浮き彫りにします。
-                                        </p>
-                                        <div class="bg-white rounded-lg p-5">
-                                            <h4 class="font-bold text-violet-800 mb-3 text-sm">各位置の意味:</h4>
-                                            <div
-                                                class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs text-gray-700">
-                                                <div><span class="font-bold text-violet-600">1. 現状:</span> 今置かれている状況
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">2. 障害:</span> 進行を妨げているもの
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">3. 潜在意識:</span> 本人も気づかぬ本音
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">4. 顕在意識:</span> 頭で考えていること
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">5. 過去:</span> 原因となった過去
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">6. 未来:</span> 近いうちに起こること
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">7. 立場:</span> あなた自身の今の状態
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">8. 周囲:</span> 外部環境や他人の目
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">9. 期待・不安:</span> あなたの心理
-                                                </div>
-                                                <div><span class="font-bold text-violet-600">10. 最終結果:</span> 出るべき結論
-                                                </div>
-                                            </div>
+                                        <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ケルト十字法
+                                            (10枚)</h3>
+                                        <div class="flex flex-wrap gap-2 mb-3">
+                                            <span
+                                                class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full font-semibold">上級者向け</span>
+                                            <span
+                                                class="bg-indigo-100 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold">多角的な分析</span>
                                         </div>
                                     </div>
-                                    <!-- Visual Layout -->
-                                    <div class="flex items-center justify-center p-4">
-                                        <div class="relative w-[280px] h-[320px]">
-                                            <!-- Cross -->
-                                            <div
-                                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-600 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
-                                                1</div>
-                                            <div
-                                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-500 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm rotate-90 z-10 shadow-lg">
-                                                2</div>
-
-                                            <div
-                                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
-                                                3</div>
-                                            <div
-                                                class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
-                                                5</div>
-                                            <div
-                                                class="absolute left-1/2 top-0 -translate-x-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
-                                                4</div>
-                                            <div
-                                                class="absolute right-[80px] top-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
-                                                6</div>
-
-                                            <!-- Staff -->
-                                            <div
-                                                class="absolute right-0 bottom-0 w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                7</div>
-                                            <div
-                                                class="absolute right-0 bottom-[75px] w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                8</div>
-                                            <div
-                                                class="absolute right-0 bottom-[150px] w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                9</div>
-                                            <div
-                                                class="absolute right-0 bottom-[225px] w-12 h-16 bg-violet-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs">
-                                                10</div>
+                                </div>
+                                <p class="text-gray-700 mb-4 leading-relaxed">
+                                    世界で最も有名な展開法。現状から未来、表面的な意識から潜在意識まで、10枚のカードで問題の全てを浮き彫りにします。
+                                </p>
+                                <div class="bg-white rounded-lg p-5">
+                                    <h4 class="font-bold text-violet-800 mb-3 text-sm">各位置の意味:</h4>
+                                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2 text-xs text-gray-700">
+                                        <div><span class="font-bold text-violet-600">1. 現状:</span> 今置かれている状況
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">2. 障害:</span> 進行を妨げているもの
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">3. 潜在意識:</span> 本人も気づかぬ本音
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">4. 顕在意識:</span> 頭で考えていること
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">5. 過去:</span> 原因となった過去
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">6. 未来:</span> 近いうちに起こること
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">7. 立場:</span> あなた自身の今の状態
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">8. 周囲:</span> 外部環境や他人の目
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">9. 期待・不安:</span> あなたの心理
+                                        </div>
+                                        <div><span class="font-bold text-violet-600">10. 最終結果:</span> 出るべき結論
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!-- Visual Layout -->
+                            <div class="flex items-center justify-center p-4">
+                                <div class="relative w-[280px] h-[320px]">
+                                    <!-- Cross -->
+                                    <div
+                                        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-600 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
+                                        1</div>
+                                    <div
+                                        class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-500 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm rotate-90 z-10 shadow-lg">
+                                        2</div>
 
-                            <!-- Horseshoe EXPANDED -->
-                            <div
-                                class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-blue-200 shadow-lg">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    <div>
-                                        <div class="flex items-start mb-4">
-                                            <span class="text-4xl mr-3">🧲</span>
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ホースシュー
-                                                    (7枚)</h3>
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    <span
-                                                        class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
-                                                    <span
-                                                        class="bg-teal-100 text-teal-700 text-xs px-3 py-1 rounded-full font-semibold">運気の流れ</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-700 mb-4 leading-relaxed">
-                                            馬の蹄(ひづめ)のような形で並べるスプレッド。時間軸に沿った具体的なアドバイスが欲しい場合に最適です。
-                                        </p>
-                                        <div class="bg-white rounded-lg p-4">
-                                            <h4 class="font-bold text-blue-800 mb-3 text-sm text-center">配置の意味</h4>
-                                            <div class="flex flex-col gap-1 text-xs text-gray-700">
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>1.
-                                                        過去</span><span>背景と原因</span></div>
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>2.
-                                                        現在</span><span>今のあなたの心境</span></div>
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>3.
-                                                        未来</span><span>このまま進んだ結果</span></div>
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>4.
-                                                        対策</span><span>現状を変えるアドバイス</span></div>
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>5.
-                                                        周囲</span><span>他者や環境の影響</span></div>
-                                                <div class="flex justify-between border-b border-gray-100 py-1"><span>6.
-                                                        障害</span><span>乗り越えるべき壁</span></div>
-                                                <div class="flex justify-between py-1"><span>7.
-                                                        最終結果</span><span>導き出される答え</span></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Visual Layout -->
-                                    <div class="flex items-center justify-center p-4">
-                                        <div class="relative w-[280px] h-[180px]">
-                                            <div
-                                                class="absolute left-0 bottom-0 w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                1</div>
-                                            <div
-                                                class="absolute left-[30px] bottom-[60px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                2</div>
-                                            <div
-                                                class="absolute left-[70px] bottom-[110px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                3</div>
-                                            <div
-                                                class="absolute left-[120px] bottom-[125px] w-10 h-14 bg-blue-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs z-10 shadow-lg">
-                                                4</div>
-                                            <div
-                                                class="absolute right-[70px] bottom-[110px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                5</div>
-                                            <div
-                                                class="absolute right-[30px] bottom-[60px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                6</div>
-                                            <div
-                                                class="absolute right-0 bottom-0 w-10 h-14 bg-cyan-800 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                7</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                    <div
+                                        class="absolute left-1/2 bottom-0 -translate-x-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
+                                        3</div>
+                                    <div
+                                        class="absolute left-0 top-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
+                                        5</div>
+                                    <div
+                                        class="absolute left-1/2 top-0 -translate-x-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
+                                        4</div>
+                                    <div
+                                        class="absolute right-[80px] top-1/2 -translate-y-1/2 w-14 h-20 bg-indigo-400 rounded border border-white shadow-md flex items-center justify-center text-white font-bold text-sm">
+                                        6</div>
 
-                            <!-- Hexagram Spread NEW -->
-                            <div
-                                class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 border-2 border-rose-200 shadow-lg">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    <div>
-                                        <div class="flex items-start mb-4">
-                                            <span class="text-4xl mr-3">✡️</span>
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ヘキサグラム
-                                                    (7枚)</h3>
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    <span
-                                                        class="bg-rose-100 text-rose-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
-                                                    <span
-                                                        class="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full font-semibold">人間関係・選択</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-700 mb-4 leading-relaxed">
-                                            六芒星の形に配置するスプレッド。自分と相手、あるいは相反する事象のバランスと今後の行方を占うのに適しています。
-                                        </p>
-                                        <div class="bg-white rounded-lg p-5">
-                                            <h4 class="font-bold text-rose-800 mb-3 text-sm">各位置の意味:</h4>
-                                            <div class="grid grid-cols-1 gap-1 text-xs text-gray-700">
-                                                <div><span class="font-bold text-rose-600">1. 過去:</span> これまでの経緯</div>
-                                                <div><span class="font-bold text-rose-600">2. 現在:</span> 今の状態</div>
-                                                <div><span class="font-bold text-rose-600">3. 近未来:</span> やがて訪れる展開</div>
-                                                <div><span class="font-bold text-rose-600">4. 対策:</span> バランスを取るための助言
-                                                </div>
-                                                <div><span class="font-bold text-rose-600">5. 相手の心境:</span> 対象者の本音や環境
-                                                </div>
-                                                <div><span class="font-bold text-rose-600">6. あなたの心境:</span> あなた自身の潜在意識
-                                                </div>
-                                                <div><span class="font-bold text-rose-600">7. 最終結果:</span> 調和した末の答え
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Visual Layout -->
-                                    <div class="flex items-center justify-center p-4">
-                                        <div class="relative w-[220px] h-[220px]">
-                                            <!-- Triangle Up -->
-                                            <div
-                                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                1</div>
-                                            <div
-                                                class="absolute left-0 bottom-[40px] w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                2</div>
-                                            <div
-                                                class="absolute right-0 bottom-[40px] w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                3</div>
-
-                                            <!-- Triangle Down -->
-                                            <div
-                                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                4</div>
-                                            <div
-                                                class="absolute left-0 top-[40px] w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                5</div>
-                                            <div
-                                                class="absolute right-0 top-[40px] w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                6</div>
-
-                                            <!-- Center -->
-                                            <div
-                                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 bg-rose-700 rounded-lg border-2 border-white shadow-lg flex items-center justify-center text-white font-bold text-sm z-10">
-                                                7</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Diamond Spread NEW -->
-                            <div
-                                class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border-2 border-emerald-200 shadow-lg">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    <div>
-                                        <div class="flex items-start mb-4">
-                                            <span class="text-4xl mr-3">💎</span>
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ダイヤモンド展開
-                                                    (4枚)</h3>
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    <span
-                                                        class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full font-semibold">初心者向け</span>
-                                                    <span
-                                                        class="bg-teal-100 text-teal-700 text-xs px-3 py-1 rounded-full font-semibold">現状打開・恋愛</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-700 mb-4 leading-relaxed">
-                                            4枚のカードで「現状・相手・自分・結末」を簡潔に占います。特に人間関係で、自分と相手の立ち位置を客観的に見たい時に有効です。
-                                        </p>
-                                        <div class="bg-white rounded-lg p-5">
-                                            <h4 class="font-bold text-emerald-800 mb-3 text-sm">各位置の意味:</h4>
-                                            <div class="grid grid-cols-1 gap-2 text-xs text-gray-700">
-                                                <div><span class="font-bold text-emerald-600">1. 二人の関係:</span>
-                                                    現在の距離感や問題点</div>
-                                                <div><span class="font-bold text-emerald-600">2. 相手の現状:</span>
-                                                    相手の状態やあなたへの関心</div>
-                                                <div><span class="font-bold text-emerald-600">3. あなたの現状:</span>
-                                                    今のあなたの気持ちや立場</div>
-                                                <div><span class="font-bold text-emerald-600">4. 最終結果:</span>
-                                                    このまま進んだ将来の姿</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- Visual Layout -->
-                                    <div class="flex items-center justify-center p-4">
-                                        <div class="relative w-[180px] h-[180px]">
-                                            <div
-                                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-emerald-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs uppercase">
-                                                1</div>
-                                            <div
-                                                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-emerald-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                2</div>
-                                            <div
-                                                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-emerald-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                3</div>
-                                            <div
-                                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-teal-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs uppercase">
-                                                4</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Greek Cross NEW -->
-                            <div
-                                class="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 border-2 border-slate-200 shadow-lg">
-                                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                                    <div>
-                                        <div class="flex items-start mb-4">
-                                            <span class="text-4xl mr-3">✖️</span>
-                                            <div>
-                                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ギリシャ十字
-                                                    (5枚)</h3>
-                                                <div class="flex flex-wrap gap-2 mb-3">
-                                                    <span
-                                                        class="bg-slate-200 text-slate-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
-                                                    <span
-                                                        class="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full font-semibold">問題解決・現状分析</span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <p class="text-gray-700 mb-4 leading-relaxed">
-                                            十字の形に並べるスプレッド。問題の核心、障害、解決策、そして最終的な結果を明確に示します。
-                                        </p>
-                                        <div class="bg-white rounded-lg p-5">
-                                            <h4 class="font-bold text-slate-800 mb-3 text-sm">各位置の意味:</h4>
-                                            <ul class="text-xs text-gray-700 space-y-1">
-                                                <li><span class="font-bold text-slate-600">1. 現状・活力:</span> 今の状況や動いている力
-                                                </li>
-                                                <li><span class="font-bold text-slate-600">2. 障害・困難:</span>
-                                                    乗り越えるべき壁や不足しているもの</li>
-                                                <li><span class="font-bold text-slate-600">3. 解決策・助言:</span> どう行動すべきか
-                                                </li>
-                                                <li><span class="font-bold text-slate-600">4. 結果・行方:</span> 解決策をとった後の展開
-                                                </li>
-                                                <li><span class="font-bold text-slate-600">5. 核心:</span> 全てを統合した最終的な答え
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <!-- Visual Layout -->
-                                    <div class="flex items-center justify-center p-4">
-                                        <div class="relative w-[180px] h-[180px]">
-                                            <div
-                                                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-slate-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                1</div>
-                                            <div
-                                                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-slate-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs uppercase">
-                                                2</div>
-                                            <div
-                                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-slate-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                3</div>
-                                            <div
-                                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-slate-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
-                                                4</div>
-                                            <div
-                                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 bg-slate-800 rounded-lg border-2 border-white shadow-lg flex items-center justify-center text-white font-bold text-sm z-10">
-                                                5</div>
-                                        </div>
-                                    </div>
+                                    <!-- Staff -->
+                                    <div
+                                        class="absolute right-0 bottom-0 w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                        7</div>
+                                    <div
+                                        class="absolute right-0 bottom-[75px] w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                        8</div>
+                                    <div
+                                        class="absolute right-0 bottom-[150px] w-12 h-16 bg-violet-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                        9</div>
+                                    <div
+                                        class="absolute right-0 bottom-[225px] w-12 h-16 bg-violet-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs">
+                                        10</div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <!-- Horseshoe EXPANDED -->
+                <div
+                    class="bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-8 border-2 border-blue-200 shadow-lg">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <div class="flex items-start mb-4">
+                                <span class="text-4xl mr-3">🧲</span>
+                                <div>
+                                    <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ホースシュー
+                                        (7枚)</h3>
+                                    <div class="flex flex-wrap gap-2 mb-3">
+                                        <span
+                                            class="bg-green-100 text-green-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
+                                        <span
+                                            class="bg-teal-100 text-teal-700 text-xs px-3 py-1 rounded-full font-semibold">運気の流れ</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-gray-700 mb-4 leading-relaxed">
+                                馬の蹄(ひづめ)のような形で並べるスプレッド。時間軸に沿った具体的なアドバイスが欲しい場合に最適です。
+                            </p>
+                            <div class="bg-white rounded-lg p-4">
+                                <h4 class="font-bold text-blue-800 mb-3 text-sm text-center">配置の意味</h4>
+                                <div class="flex flex-col gap-1 text-xs text-gray-700">
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>1.
+                                            過去</span><span>背景と原因</span></div>
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>2.
+                                            現在</span><span>今のあなたの心境</span></div>
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>3.
+                                            未来</span><span>このまま進んだ結果</span></div>
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>4.
+                                            対策</span><span>現状を変えるアドバイス</span></div>
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>5.
+                                            周囲</span><span>他者や環境の影響</span></div>
+                                    <div class="flex justify-between border-b border-gray-100 py-1"><span>6.
+                                            障害</span><span>乗り越えるべき壁</span></div>
+                                    <div class="flex justify-between py-1"><span>7.
+                                            最終結果</span><span>導き出される答え</span></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Visual Layout -->
+                        <div class="flex items-center justify-center p-4">
+                            <div class="relative w-[280px] h-[180px]">
+                                <div
+                                    class="absolute left-0 bottom-0 w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    1</div>
+                                <div
+                                    class="absolute left-[30px] bottom-[60px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    2</div>
+                                <div
+                                    class="absolute left-[70px] bottom-[110px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    3</div>
+                                <div
+                                    class="absolute left-[120px] bottom-[125px] w-10 h-14 bg-blue-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs z-10 shadow-lg">
+                                    4</div>
+                                <div
+                                    class="absolute right-[70px] bottom-[110px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    5</div>
+                                <div
+                                    class="absolute right-[30px] bottom-[60px] w-10 h-14 bg-cyan-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    6</div>
+                                <div
+                                    class="absolute right-0 bottom-0 w-10 h-14 bg-cyan-800 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                    7</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+            <!-- Hexagram Spread NEW -->
+            <div class="bg-gradient-to-br from-rose-50 to-pink-50 rounded-2xl p-8 border-2 border-rose-200 shadow-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <div class="flex items-start mb-4">
+                            <span class="text-4xl mr-3">✡️</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ヘキサグラム
+                                    (7枚)</h3>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span
+                                        class="bg-rose-100 text-rose-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
+                                    <span
+                                        class="bg-pink-100 text-pink-700 text-xs px-3 py-1 rounded-full font-semibold">人間関係・選択</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            六芒星の形に配置するスプレッド。自分と相手、あるいは相反する事象のバランスと今後の行方を占うのに適しています。
+                        </p>
+                        <div class="bg-white rounded-lg p-5">
+                            <h4 class="font-bold text-rose-800 mb-3 text-sm">各位置の意味:</h4>
+                            <div class="grid grid-cols-1 gap-1 text-xs text-gray-700">
+                                <div><span class="font-bold text-rose-600">1. 過去:</span> これまでの経緯</div>
+                                <div><span class="font-bold text-rose-600">2. 現在:</span> 今の状態</div>
+                                <div><span class="font-bold text-rose-600">3. 近未来:</span> やがて訪れる展開</div>
+                                <div><span class="font-bold text-rose-600">4. 対策:</span> バランスを取るための助言
+                                </div>
+                                <div><span class="font-bold text-rose-600">5. 相手の心境:</span> 対象者の本音や環境
+                                </div>
+                                <div><span class="font-bold text-rose-600">6. あなたの心境:</span> あなた自身の潜在意識
+                                </div>
+                                <div><span class="font-bold text-rose-600">7. 最終結果:</span> 調和した末の答え
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visual Layout -->
+                    <div class="flex items-center justify-center p-4">
+                        <div class="relative w-[220px] h-[220px]">
+                            <!-- Triangle Up -->
+                            <div
+                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                1</div>
+                            <div
+                                class="absolute left-0 bottom-[40px] w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                2</div>
+                            <div
+                                class="absolute right-0 bottom-[40px] w-10 h-14 bg-rose-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                3</div>
+
+                            <!-- Triangle Down -->
+                            <div
+                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                4</div>
+                            <div
+                                class="absolute left-0 top-[40px] w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                5</div>
+                            <div
+                                class="absolute right-0 top-[40px] w-10 h-14 bg-pink-400 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                6</div>
+
+                            <!-- Center -->
+                            <div
+                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 bg-rose-700 rounded-lg border-2 border-white shadow-lg flex items-center justify-center text-white font-bold text-sm z-10">
+                                7</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- Diamond Spread NEW -->
+            <div
+                class="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-2xl p-8 border-2 border-emerald-200 shadow-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <div class="flex items-start mb-4">
+                            <span class="text-4xl mr-3">💎</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ダイヤモンド展開
+                                    (4枚)</h3>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span
+                                        class="bg-emerald-100 text-emerald-700 text-xs px-3 py-1 rounded-full font-semibold">初心者向け</span>
+                                    <span
+                                        class="bg-teal-100 text-teal-700 text-xs px-3 py-1 rounded-full font-semibold">現状打開・恋愛</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            4枚のカードで「現状・相手・自分・結末」を簡潔に占います。特に人間関係で、自分と相手の立ち位置を客観的に見たい時に有効です。
+                        </p>
+                        <div class="bg-white rounded-lg p-5">
+                            <h4 class="font-bold text-emerald-800 mb-3 text-sm">各位置の意味:</h4>
+                            <div class="grid grid-cols-1 gap-2 text-xs text-gray-700">
+                                <div><span class="font-bold text-emerald-600">1. 二人の関係:</span>
+                                    現在の距離感や問題点</div>
+                                <div><span class="font-bold text-emerald-600">2. 相手の現状:</span>
+                                    相手の状態やあなたへの関心</div>
+                                <div><span class="font-bold text-emerald-600">3. あなたの現状:</span>
+                                    今のあなたの気持ちや立場</div>
+                                <div><span class="font-bold text-emerald-600">4. 最終結果:</span>
+                                    このまま進んだ将来の姿</div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Visual Layout -->
+                    <div class="flex items-center justify-center p-4">
+                        <div class="relative w-[180px] h-[180px]">
+                            <div
+                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-emerald-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs uppercase">
+                                1</div>
+                            <div
+                                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-emerald-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                2</div>
+                            <div
+                                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-emerald-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                3</div>
+                            <div
+                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-teal-700 rounded border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-xs uppercase">
+                                4</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
+            </div>
+
+            <!-- Greek Cross NEW -->
+            <div
+                class="bg-gradient-to-br from-slate-50 to-gray-100 rounded-2xl p-8 border-2 border-slate-200 shadow-lg">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        <div class="flex items-start mb-4">
+                            <span class="text-4xl mr-3">✖️</span>
+                            <div>
+                                <h3 class="text-2xl font-bold text-indigo-900 mb-2 serif-font">ギリシャ十字
+                                    (5枚)</h3>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span
+                                        class="bg-slate-200 text-slate-700 text-xs px-3 py-1 rounded-full font-semibold">中級者向け</span>
+                                    <span
+                                        class="bg-gray-200 text-gray-700 text-xs px-3 py-1 rounded-full font-semibold">問題解決・現状分析</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-700 mb-4 leading-relaxed">
+                            十字の形に並べるスプレッド。問題の核心、障害、解決策、そして最終的な結果を明確に示します。
+                        </p>
+                        <div class="bg-white rounded-lg p-5">
+                            <h4 class="font-bold text-slate-800 mb-3 text-sm">各位置の意味:</h4>
+                            <ul class="text-xs text-gray-700 space-y-1">
+                                <li><span class="font-bold text-slate-600">1. 現状・活力:</span> 今の状況や動いている力
+                                </li>
+                                <li><span class="font-bold text-slate-600">2. 障害・困難:</span>
+                                    乗り越えるべき壁や不足しているもの</li>
+                                <li><span class="font-bold text-slate-600">3. 解決策・助言:</span> どう行動すべきか
+                                </li>
+                                <li><span class="font-bold text-slate-600">4. 結果・行方:</span> 解決策をとった後の展開
+                                </li>
+                                <li><span class="font-bold text-slate-600">5. 核心:</span> 全てを統合した最終的な答え
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Visual Layout -->
+                    <div class="flex items-center justify-center p-4">
+                        <div class="relative w-[180px] h-[180px]">
+                            <div
+                                class="absolute left-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-slate-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                1</div>
+                            <div
+                                class="absolute right-0 top-1/2 -translate-y-1/2 w-10 h-14 bg-slate-600 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs uppercase">
+                                2</div>
+                            <div
+                                class="absolute left-1/2 top-0 -translate-x-1/2 w-10 h-14 bg-slate-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                3</div>
+                            <div
+                                class="absolute left-1/2 bottom-0 -translate-x-1/2 w-10 h-14 bg-slate-500 rounded border border-white shadow-sm flex items-center justify-center text-white font-bold text-xs">
+                                4</div>
+                            <div
+                                class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-16 bg-slate-800 rounded-lg border-2 border-white shadow-lg flex items-center justify-center text-white font-bold text-sm z-10">
+                                5</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </div>
         </section>
 
         <!-- Section 5: Methodology (Interactive) -->
@@ -1238,10 +1248,10 @@
         </section>
 
         <!-- Section: Cards List -->
-        <section id="cards-list" class="py-16 bg-white">
+        <section id="cards-list" class="py-16 bg-white border-b border-gray-100">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
-                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">大アルカナ22枚 一覧</h2>
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">大アルカナ 22枚 一覧</h2>
                     <p class="text-gray-600 max-w-3xl mx-auto">
                         大アルカナの各カードには、人生の様々な局面を象徴する意味が込められています。
                     </p>
@@ -1249,6 +1259,109 @@
 
                 <div id="cards-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     <!-- カードはJavaScriptで動的に生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section: Minor Arcana -->
+        <section id="minor-arcana" class="py-16 bg-slate-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-indigo-900 mb-4 serif-font">小アルカナ 56枚 一覧</h2>
+                    <p class="text-gray-600 max-w-3xl mx-auto">
+                        小アルカナは、日常生活の具体的な出来事や感情を表します。4つの「スート（属性）」に分かれています。
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Wands -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-orange-500 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">🔥</span>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">ワンド (杖 / Wands)</h3>
+                                <p class="text-xs text-orange-600 font-bold">火の属性 | 情熱・創造・行動</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            仕事、キャリア、エネルギー、情熱を象徴。何かに向かって進む力や、意志の強さを表します。
+                        </p>
+                        <div class="bg-orange-50 rounded-lg p-3">
+                            <h4 class="text-xs font-bold text-orange-800 mb-2">構成カード:</h4>
+                            <p class="text-[11px] text-gray-700 leading-relaxed">
+                                エースから10までの数札、およびコートカード（ペイジ、ナイト、クイーン、キング）の計14枚。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Cups -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-blue-500 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">💧</span>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">カップ (聖杯 / Cups)</h3>
+                                <p class="text-xs text-blue-600 font-bold">水の属性 | 感情・愛・直感</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            心の世界、人間関係、愛情、感性を象徴。喜びや悲しみ、受容性など内面的な動きを表します。
+                        </p>
+                        <div class="bg-blue-50 rounded-lg p-3">
+                            <h4 class="text-xs font-bold text-blue-800 mb-2">構成カード:</h4>
+                            <p class="text-[11px] text-gray-700 leading-relaxed">
+                                エースから10までの数札、およびコートカード（ペイジ、ナイト、クイーン、キング）の計14枚。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Swords -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-slate-500 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">⚔️</span>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">ソード (剣 / Swords)</h3>
+                                <p class="text-xs text-slate-600 font-bold">風の属性 | 知性・思考・決断</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            論理、言葉、分析、時には葛藤や困難を象徴。思考の鋭さや、物事を切り拓く決断力を表します。
+                        </p>
+                        <div class="bg-slate-100 rounded-lg p-3">
+                            <h4 class="text-xs font-bold text-slate-800 mb-2">構成カード:</h4>
+                            <p class="text-[11px] text-gray-700 leading-relaxed">
+                                エースから10までの数札、およびコートカード（ペイジ、ナイト、クイーン、キング）の計14枚。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Pentacles -->
+                    <div
+                        class="bg-white rounded-2xl p-6 shadow-md border-t-4 border-yellow-600 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center mb-4">
+                            <span class="text-4xl mr-3">🪙</span>
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">ペンタクル (金貨 / Pentacles)</h3>
+                                <p class="text-xs text-amber-700 font-bold">地の属性 | 物質・現実・継続</p>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mb-4 leading-relaxed">
+                            お金、健康、住まい、身体的感覚を象徴。地道な努力や成果、現実的な基盤を表します。
+                        </p>
+                        <div class="bg-yellow-50 rounded-lg p-3">
+                            <h4 class="text-xs font-bold text-amber-900 mb-2">構成カード:</h4>
+                            <p class="text-[11px] text-gray-700 leading-relaxed">
+                                エースから10までの数札、およびコートカード（ペイジ、ナイト、クイーン、キング）の計14枚。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="mt-8 text-center p-6 bg-indigo-50 rounded-2xl border border-indigo-100 italic text-sm text-gray-700">
+                    「大アルカナは人生の根源的なテーマを、小アルカナは日々の具体的な事象を描き出します。」
                 </div>
             </div>
         </section>
