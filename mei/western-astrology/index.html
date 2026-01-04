@@ -60,9 +60,9 @@
         }
 
         .input-focus:focus {
-            ring: 2px;
-            ring-color: #4F46E5;
+            box-shadow: 0 0 0 2px #4F46E5;
             border-color: #4F46E5;
+            outline: none;
         }
     </style>
 </head>
@@ -74,6 +74,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
                 <div class="flex items-center">
+                    <div class="w-8 h-8 bg-indigo-900/10 rounded-lg flex items-center justify-center mr-3">
+                        <i data-lucide="orbit" class="w-5 h-5 text-indigo-900"></i>
+                    </div>
                     <span class="text-2xl font-bold text-indigo-900 serif tracking-tight">西洋占星術</span>
                     <span class="ml-2 text-xs text-indigo-400 uppercase tracking-widest hidden sm:block">Western
                         Astrology</span>
