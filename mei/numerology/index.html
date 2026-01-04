@@ -102,18 +102,27 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
                 <div class="flex items-center">
-                    <span class="text-2xl font-bold text-indigo-900 serif tracking-wide">数秘術</span>
+                    <span class="text-2xl font-bold text-indigo-900 serif tracking-tight">数秘術</span>
                     <span
                         class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Numerology</span>
                 </div>
-                <div class="flex items-center space-x-4 text-sm font-medium">
+                <div class="flex items-center gap-1 text-sm font-medium">
                     <button onclick="scrollToSection('calculator')"
-                        class="text-gray-600 hover:text-indigo-700">計算</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
+                        <i data-lucide="calculator" class="w-4 h-4"></i> 計算
+                    </button>
                     <button onclick="scrollToSection('overview')"
-                        class="text-gray-600 hover:text-indigo-700">概要</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> 概要
+                    </button>
                     <button onclick="scrollToSection('numbers')"
-                        class="text-gray-600 hover:text-indigo-700">数の意味</button>
-                    <button onclick="scrollToSection('history')" class="text-gray-600 hover:text-indigo-700">歴史</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4"></i> 数の意味
+                    </button>
+                    <button onclick="scrollToSection('history')"
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
+                        <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                    </button>
                 </div>
             </div>
         </div>
@@ -755,8 +764,17 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-gray-500 py-8 text-center text-sm">
-        <p>&copy; 2024 Numerology Interactive Report. Generated for Analysis.</p>
+    <footer class="bg-gray-900 pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div
+                class="pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-500 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. Dedicated to Wisdom.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
+            </div>
+        </div>
     </footer>
 
     <!-- JavaScript Logic -->

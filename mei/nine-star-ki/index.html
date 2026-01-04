@@ -137,21 +137,31 @@
         <div class="container mx-auto px-4">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
-                    <span class="text-2xl font-serif font-bold text-jp-indigo tracking-wider">九星気学</span>
+                    <span class="text-2xl font-bold text-jp-indigo serif tracking-tight">九星気学</span>
                     <span class="ml-2 text-xs text-jp-gold uppercase tracking-widest hidden sm:block">Nine Star
                         Ki</span>
                 </div>
-                <div class="flex space-x-6 text-sm font-medium">
+                <div class="flex items-center gap-1 text-sm font-medium">
                     <button onclick="scrollToSection('practice')"
-                        class="text-jp-accent font-bold hover:opacity-70 transition-opacity">【鑑定】</button>
+                        class="px-4 py-2 rounded-full text-jp-accent font-bold hover:bg-jp-accent/10 transition-all flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-4 h-4"></i> 鑑定
+                    </button>
                     <button onclick="scrollToSection('overview')"
-                        class="text-gray-600 hover:text-jp-indigo transition-colors">概要</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-jp-indigo/10 hover:text-jp-indigo transition-all flex items-center gap-2">
+                        <i data-lucide="search" class="w-4 h-4"></i> 概要
+                    </button>
                     <button onclick="scrollToSection('logic')"
-                        class="text-gray-600 hover:text-jp-indigo transition-colors">ロジック</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-jp-indigo/10 hover:text-jp-indigo transition-all flex items-center gap-2">
+                        <i data-lucide="brain" class="w-4 h-4"></i> ロジック
+                    </button>
                     <button onclick="scrollToSection('stars')"
-                        class="text-gray-600 hover:text-jp-indigo transition-colors">九星の意味</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-jp-indigo/10 hover:text-jp-indigo transition-all flex items-center gap-2">
+                        <i data-lucide="layers" class="w-4 h-4"></i> 九星の意味
+                    </button>
                     <button onclick="scrollToSection('history')"
-                        class="text-gray-600 hover:text-jp-indigo transition-colors">歴史</button>
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-jp-indigo/10 hover:text-jp-indigo transition-all flex items-center gap-2">
+                        <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                    </button>
                 </div>
             </div>
         </div>
@@ -737,9 +747,16 @@
                     </p>
                 </div>
             </div>
-            <p class="text-[10px] uppercase tracking-[0.5em] font-black mb-2 text-jp-gold/80">Celestial Mechanics &copy;
-                2026</p>
-            <p class="text-xs text-jp-gray/60">※掲載されている内容は伝統的な解釈に基づくものであり、絶対的な未来を保証するものではありません。</p>
+            <div
+                class="pt-8 border-t border-stone-200/30 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-jp-gray/60 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. Dedicated to Wisdom.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
+            </div>
+            <p class="text-[10px] text-jp-gray/40 mt-4 leading-relaxed">※掲載されている内容は伝統的な解釈に基づくものであり、絶対的な未来を保証するものではありません。
+            </p>
         </div>
         <!-- Decorative Background Element -->
         <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-jp-gold/5 rounded-full blur-3xl"></div>
