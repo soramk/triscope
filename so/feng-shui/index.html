@@ -152,17 +152,29 @@
 
             <nav class="hidden md:flex gap-1 items-center text-sm font-medium">
                 <button onclick="scrollToSection('intro')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">概要</button>
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
+                    <i data-lucide="info" class="w-4 h-4"></i> 概要
+                </button>
                 <button onclick="scrollToSection('bagua')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">八卦マップ</button>
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
+                    <i data-lucide="compass" class="w-4 h-4"></i> 八卦マップ
+                </button>
                 <button onclick="scrollToSection('logic')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">五行・理論</button>
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
+                    <i data-lucide="zap" class="w-4 h-4"></i> 五行・理論
+                </button>
                 <button onclick="scrollToSection('diagnostic')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">セルフチェック</button>
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> セルフチェック
+                </button>
                 <button onclick="scrollToSection('history')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">歴史</button>
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
+                    <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                </button>
                 <button onclick="scrollToSection('practice')"
-                    class="px-6 py-2 rounded-full bg-fs-dark text-white hover:bg-opacity-90 transition-all ml-2">実践方法</button>
+                    class="px-6 py-2 rounded-full bg-fs-dark text-white hover:bg-opacity-90 transition-all ml-2 flex items-center gap-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> 実践方法
+                </button>
             </nav>
 
             <button id="mobile-menu-btn" class="md:hidden p-2 text-fs-dark hover:bg-gray-100 rounded-lg">
@@ -173,17 +185,29 @@
         <div id="mobile-menu"
             class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 p-4 space-y-2">
             <button onclick="scrollToSection('intro'); toggleMobileMenu()"
-                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">概要</button>
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg flex items-center gap-3">
+                <i data-lucide="info" class="w-5 h-5 text-fs-sage"></i> 概要
+            </button>
             <button onclick="scrollToSection('bagua'); toggleMobileMenu()"
-                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">八卦マップ</button>
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg flex items-center gap-3">
+                <i data-lucide="compass" class="w-5 h-5 text-fs-sage"></i> 八卦マップ
+            </button>
             <button onclick="scrollToSection('logic'); toggleMobileMenu()"
-                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">五行・理論</button>
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg flex items-center gap-3">
+                <i data-lucide="zap" class="w-5 h-5 text-fs-sage"></i> 五行・理論
+            </button>
             <button onclick="scrollToSection('diagnostic'); toggleMobileMenu()"
-                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">セルフチェック</button>
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg flex items-center gap-3">
+                <i data-lucide="clipboard-check" class="w-5 h-5 text-fs-sage"></i> セルフチェック
+            </button>
             <button onclick="scrollToSection('history'); toggleMobileMenu()"
-                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">歴史</button>
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg flex items-center gap-3">
+                <i data-lucide="history" class="w-5 h-5 text-fs-sage"></i> 歴史
+            </button>
             <button onclick="scrollToSection('practice'); toggleMobileMenu()"
-                class="w-full text-left p-3 font-bold text-fs-earth">実践方法</button>
+                class="w-full text-left p-3 font-bold text-fs-earth flex items-center gap-3">
+                <i data-lucide="sparkles" class="w-5 h-5"></i> 実践方法
+            </button>
         </div>
     </header>
 
