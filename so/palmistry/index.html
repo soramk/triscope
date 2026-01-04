@@ -203,36 +203,49 @@
             <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
                 <!-- Left Column: Both Hands -->
                 <div class="xl:col-span-8 space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- Left Hand Container -->
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center relative">
-                            <h4 class="font-bold text-stone-800 serif mb-2">左手 <span
-                                    class="text-xs font-normal text-stone-400 block sm:inline">| 先天運・内面・過去</span></h4>
-                            <div class="relative inline-block w-full">
-                                <canvas id="leftHandCanvas" width="400" height="480"
-                                    class="w-full h-auto cursor-pointer rounded-lg bg-[#fffaf0]"></canvas>
-                                <div id="left-tooltip"
-                                    class="absolute pointer-events-none bg-stone-900/90 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity z-10 whitespace-nowrap">
-                                </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center justify-items-center">
+                        <!-- Right Hand (Acquired) - Now on the left side of screen -->
+                        <div class="relative group">
+                            <div
+                                class="absolute -inset-4 bg-orange-500/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-duration-700">
                             </div>
-                            <p class="text-[11px] text-stone-500 mt-2">遺伝や宿命、35歳までの運勢、右脳の影響</p>
-                        </div>
-                        <!-- Right Hand Container -->
-                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center relative">
-                            <h4 class="font-bold text-stone-800 serif mb-2">右手 <span
-                                    class="text-xs font-normal text-stone-400 block sm:inline">| 後天運・外面・未来</span></h4>
-                            <div class="relative inline-block w-full">
-                                <canvas id="rightHandCanvas" width="400" height="480"
-                                    class="w-full h-auto cursor-pointer rounded-lg bg-[#fffaf0]"></canvas>
+                            <h4 class="text-sm font-bold text-stone-500 mb-2">右手 <span
+                                    class="text-[10px] font-normal opacity-70">後天運・外面</span></h4>
+                            <div
+                                class="relative border-2 border-stone-100 rounded-[3rem] p-4 bg-white/50 backdrop-blur-sm shadow-inner group-hover:border-orange-200 transition-colors">
+                                <canvas id="rightHandCanvas" width="280" height="340"
+                                    class="relative z-10 drop-shadow-sm"></canvas>
                                 <div id="right-tooltip"
-                                    class="absolute pointer-events-none bg-stone-900/90 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity z-10 whitespace-nowrap">
+                                    class="absolute pointer-events-none bg-stone-900/90 text-white px-2 py-1 rounded text-[10px] opacity-0 transition-opacity z-20 whitespace-nowrap font-bold tracking-wider">
                                 </div>
                             </div>
-                            <p class="text-[11px] text-stone-500 mt-2">自力で切り拓いた運勢、これからの希望、左脳の影響</p>
+                            <div class="mt-4 text-center">
+                                <span class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Current &
+                                    Future</span>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Common Controls -->
+                        <!-- Left Hand (Innate) - Now on the right side of screen -->
+                        <div class="relative group">
+                            <div
+                                class="absolute -inset-4 bg-indigo-500/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-duration-700">
+                            </div>
+                            <h4 class="text-sm font-bold text-stone-500 mb-2">左手 <span
+                                    class="text-[10px] font-normal opacity-70">先天運・内面</span></h4>
+                            <div
+                                class="relative border-2 border-stone-100 rounded-[3rem] p-4 bg-white/50 backdrop-blur-sm shadow-inner group-hover:border-indigo-200 transition-colors">
+                                <canvas id="leftHandCanvas" width="280" height="340"
+                                    class="relative z-10 drop-shadow-sm"></canvas>
+                                <div id="left-tooltip"
+                                    class="absolute pointer-events-none bg-stone-900/90 text-white px-2 py-1 rounded text-[10px] opacity-0 transition-opacity z-20 whitespace-nowrap font-bold tracking-wider">
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <span class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Innate &
+                                    Past</span>
+                            </div>
+                        </div>
+                    </div> <!-- Common Controls -->
                     <div class="flex flex-wrap justify-center gap-2">
                         <button onclick="simulateHover('life')"
                             class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">生命線</button>
