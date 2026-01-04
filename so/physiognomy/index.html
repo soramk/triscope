@@ -85,51 +85,53 @@
 
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-stone-50/90 backdrop-blur-sm border-b border-stone-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
-                    <div
-                        class="w-10 h-10 bg-amber-700 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-amber-900/20">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-stone-900 leading-none serif">Triscope</h1>
-                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Physiognomy</p>
-                    </div>
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                <div
+                    class="w-10 h-10 bg-amber-700 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-amber-900/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </div>
-
-                <div class="hidden md:flex space-x-8 text-sm font-medium">
-                    <button onclick="scrollToSection('overview')"
-                        class="hover:text-amber-700 transition-colors">概要と特性</button>
-                    <button onclick="scrollToSection('facemap')"
-                        class="hover:text-amber-700 transition-colors">顔の地図</button>
-                    <button onclick="scrollToSection('capabilities')"
-                        class="hover:text-amber-700 transition-colors">得意分野</button>
-                    <button onclick="scrollToSection('logic')"
-                        class="hover:text-amber-700 transition-colors">根拠と歴史</button>
-                    <button onclick="scrollToSection('practice')"
-                        class="hover:text-amber-700 transition-colors">実践手順</button>
+                <div>
+                    <h1 class="text-xl font-bold text-stone-900 leading-none serif">Triscope</h1>
+                    <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Physiognomy Explorer</p>
                 </div>
-                <!-- Mobile Menu Btn -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-amber-900 hover:bg-gray-100 rounded-lg">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
             </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-1">
+                <button onclick="scrollToSection('overview')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all">概要</button>
+                <button onclick="scrollToSection('facemap')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all">顔の地図</button>
+                <button onclick="scrollToSection('capabilities')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all">得意分野</button>
+                <button onclick="scrollToSection('logic')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all">歴史</button>
+                <button onclick="scrollToSection('practice')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all border border-amber-200 bg-amber-50/50">実践手順</button>
+            </div>
+
+            <!-- Mobile Menu Btn -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-600 hover:bg-stone-100 rounded-lg">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
+
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">概要と特性</button>
-                <button onclick="scrollToSection('facemap'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">顔の地図</button>
-                <button onclick="scrollToSection('capabilities'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">得意分野</button>
-                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">根拠と歴史</button>
-                <button onclick="scrollToSection('practice'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">実践手順</button>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 animate-fade-in">
+            <div class="px-4 pt-2 pb-6 space-y-3">
+                <button onclick="scrollToSection('overview')"
+                    class="block w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">概要と特性</button>
+                <button onclick="scrollToSection('facemap')"
+                    class="block w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">顔の地図</button>
+                <button onclick="scrollToSection('capabilities')"
+                    class="block w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">得意分野</button>
+                <button onclick="scrollToSection('logic')"
+                    class="block w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">根拠と歴史</button>
+                <button onclick="scrollToSection('practice')"
+                    class="block w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">実践手順</button>
             </div>
         </div>
     </nav>
@@ -452,20 +454,24 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-stone-800 text-stone-400 py-12 border-t border-stone-700">
+    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
                 <div class="space-y-4">
-                    <h3 class="text-xl font-bold text-stone-100 serif">人相学・顔相</h3>
-                    <p class="text-sm opacity-70 leading-relaxed">
+                    <h3
+                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-amber-500"></i>
+                        Triscope Physiognomy
+                    </h3>
+                    <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
                         顔は、運命の履歴書であり未来への地図である。心身一如の思想に基づき、表情に刻まれた運命の軌跡を読み解く。
                     </p>
                 </div>
                 <div class="md:ml-20">
-                    <h4 class="font-bold text-sm text-stone-100 mb-4 uppercase tracking-widest">Quick Links</h4>
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
                     <ul class="text-sm space-y-2 opacity-70">
                         <li><button onclick="scrollToSection('overview')"
-                                class="hover:text-amber-500 transition-colors">概要と特性</button></li>
+                                class="hover:text-amber-500 transition-colors">概略</button></li>
                         <li><button onclick="scrollToSection('facemap')"
                                 class="hover:text-amber-500 transition-colors">顔の地図</button></li>
                         <li><button onclick="scrollToSection('logic')"
@@ -473,7 +479,7 @@
                     </ul>
                 </div>
                 <div>
-                    <h4 class="font-bold text-sm text-stone-100 mb-4 uppercase tracking-widest">Connect</h4>
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
                     <p class="text-sm opacity-70">
                         Email: <a href="mailto:info@triscope.com"
                             class="text-amber-500 hover:underline">info@triscope.com</a>
@@ -481,14 +487,14 @@
                 </div>
             </div>
             <div
-                class="pt-8 border-t border-stone-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-500 uppercase tracking-widest font-bold">
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
                 <span>© 2026 Triscope Project. All rights reserved.</span>
                 <div class="flex gap-6">
                     <span>Powered by Ancient Logic</span>
                     <span>Built with AI Technology</span>
                 </div>
             </div>
-            <p class="mt-4 text-[10px] text-stone-600 text-center">
+            <p class="mt-4 text-[10px] text-indigo-700 text-center">
                 ※本レポートは人相学の一般的な理論に基づくものであり、個人の運命を断定するものではありません。
             </p>
         </div>
@@ -575,7 +581,21 @@
 
         // Scroll Logic
         function scrollToSection(id) {
-            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+            const element = document.getElementById(id);
+            if (element) {
+                const headerOffset = 64;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            }
         }
 
         // Chart.js Implementation
@@ -652,7 +672,10 @@
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
         }
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
     </script>

@@ -17,6 +17,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Chosen Palette: Wa-Modern (Japanese Modern) -->
     <!-- Background: Washi White (#F9F7F2) -->
@@ -137,8 +138,15 @@
     <nav class="sticky top-0 z-50 bg-washi/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl text-torii font-serif font-bold tracking-widest">おみくじ</span>
+                <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                    <div
+                        class="w-10 h-10 bg-torii rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-torii/20">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-sumi leading-none serif">Triscope</h1>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Omikuji Analysis</p>
+                    </div>
                 </div>
                 <div class="hidden md:flex space-x-8">
                     <button onclick="scrollToSection('overview')"
@@ -151,20 +159,22 @@
                         class="text-sumi hover:text-torii transition-colors font-medium">作法</button>
                 </div>
                 <div class="md:hidden">
-                    <!-- Mobile menu button placeholder -->
-                    <button class="text-sumi p-2" onclick="toggleMobileMenu()">☰</button>
+                    <button id="mobile-menu-btn" class="text-sumi p-2 hover:bg-stone-100 rounded-lg">
+                        <i data-lucide="menu" class="w-6 h-6"></i>
+                    </button>
                 </div>
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-washi border-t border-stone-200 px-4 py-2 shadow-lg">
-            <button onclick="scrollToSection('overview')"
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-washi border-t border-stone-200 px-4 py-2 shadow-lg animate-fade-in">
+            <button onclick="scrollToSection('overview'); toggleMobileMenu()"
                 class="block w-full text-left py-2 text-sumi hover:bg-stone-100">概要と論理</button>
-            <button onclick="scrollToSection('analysis')"
+            <button onclick="scrollToSection('analysis'); toggleMobileMenu()"
                 class="block w-full text-left py-2 text-sumi hover:bg-stone-100">読み解き</button>
-            <button onclick="scrollToSection('history')"
+            <button onclick="scrollToSection('history'); toggleMobileMenu()"
                 class="block w-full text-left py-2 text-sumi hover:bg-stone-100">歴史</button>
-            <button onclick="scrollToSection('ritual')"
+            <button onclick="scrollToSection('ritual'); toggleMobileMenu()"
                 class="block w-full text-left py-2 text-sumi hover:bg-stone-100">作法</button>
         </div>
     </nav>
@@ -551,15 +561,49 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <h2 class="text-2xl font-serif font-bold text-stone-200 mb-4">おみくじ研究レポート</h2>
-            <p class="mb-8 text-sm">作成：占術研究家・歴史家AI</p>
-            <div class="flex justify-center space-x-6 text-sm">
-                <a href="#" class="hover:text-white transition-colors">トップへ戻る</a>
-                <span class="text-stone-700">|</span>
-                <span class="cursor-default">© 2024 Omikuji Research</span>
+    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                <div class="space-y-4">
+                    <h3
+                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-torii"></i>
+                        Triscope Omikuji
+                    </h3>
+                    <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
+                        古代の神意伺いから現代の心の指針へ。偶然の中に宿る必然を読み解き、あなたの歩むべき道を照らし出す。
+                    </p>
+                </div>
+                <div class="md:ml-20">
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
+                    <ul class="text-sm space-y-2 opacity-70">
+                        <li><button onclick="scrollToSection('overview')"
+                                class="hover:text-torii transition-colors">概要</button></li>
+                        <li><button onclick="scrollToSection('analysis')"
+                                class="hover:text-torii transition-colors">読み解き</button></li>
+                        <li><button onclick="scrollToSection('ritual')"
+                                class="hover:text-torii transition-colors">作法</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
+                    <p class="text-sm opacity-70">
+                        Email: <a href="mailto:info@triscope.com"
+                            class="text-torii hover:underline">info@triscope.com</a>
+                    </p>
+                </div>
             </div>
+            <div
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. All rights reserved.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
+            </div>
+            <p class="mt-4 text-[10px] text-indigo-700 text-center">
+                ※おみくじは統計的な傾向を示すものであり、確定した未来を保証するものではありません。
+            </p>
         </div>
     </footer>
 
@@ -569,7 +613,13 @@
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+                const headerOffset = 64;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
             }
             // Close mobile menu if open
             const menu = document.getElementById('mobile-menu');
@@ -580,8 +630,16 @@
 
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
         }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
 
         function toggleDetail(id) {
             const content = document.getElementById(id);

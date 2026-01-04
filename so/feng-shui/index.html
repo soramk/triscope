@@ -125,34 +125,47 @@
 
 
     <!-- Header -->
-    <header
-        class="bg-fs-stone bg-opacity-10 border-b border-fs-stone border-opacity-20 sticky top-0 z-50 backdrop-blur-md">
-        <div class="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
-            <h1 class="text-xl md:text-2xl font-bold text-fs-dark flex items-center gap-2">
-                <i data-lucide="wind" class="text-fs-sage w-8 h-8"></i> 風水レポート
-            </h1>
-            <nav class="hidden md:flex gap-6 text-sm font-medium text-gray-600">
-                <button onclick="switchTab('overview')" class="hover:text-fs-sage transition-colors">概要と特性</button>
-                <button onclick="switchTab('logic')" class="hover:text-fs-sage transition-colors">根拠とロジック</button>
-                <button onclick="switchTab('history')" class="hover:text-fs-sage transition-colors">歴史と変遷</button>
-                <button onclick="switchTab('practice')" class="hover:text-fs-sage transition-colors">実践方法</button>
+    <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                <div
+                    class="w-10 h-10 bg-fs-sage rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-fs-sage/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-fs-dark leading-none serif">Triscope</h1>
+                    <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Feng Shui Analysis</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex gap-1 text-sm font-medium">
+                <button onclick="switchTab('overview')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">概要と特性</button>
+                <button onclick="switchTab('logic')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">根拠とロジック</button>
+                <button onclick="switchTab('history')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">歴史と変遷</button>
+                <button onclick="switchTab('practice')"
+                    class="px-8 py-2 rounded-full bg-fs-dark text-white hover:bg-opacity-90 transition-all ml-2">実践方法</button>
             </nav>
+
             <!-- Mobile Menu Btn -->
             <button id="mobile-menu-btn" class="md:hidden p-2 text-fs-dark hover:bg-gray-100 rounded-lg">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1">
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 animate-fade-in">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <button onclick="switchTab('overview'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">概要と特性</button>
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-fs-sage/10 rounded-md">概要と特性</button>
                 <button onclick="switchTab('logic'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">根拠とロジック</button>
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-fs-sage/10 rounded-md">根拠とロジック</button>
                 <button onclick="switchTab('history'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">歴史と変遷</button>
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-fs-sage/10 rounded-md">歴史と変遷</button>
                 <button onclick="switchTab('practice'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">実践方法</button>
+                    class="block w-full text-left px-3 py-2 text-fs-dark font-bold hover:bg-fs-sage/10 rounded-md">実践方法</button>
             </div>
         </div>
     </header>
@@ -170,8 +183,7 @@
                 それは「気（Qi）」の力を利用し、環境を整えることで運命を開く<br>
                 古代中国発祥の「環境地理学」であり「相術」です。
             </p>
-            <button
-                onclick="switchTab('overview'); document.getElementById('main-content').scrollIntoView({behavior: 'smooth'})"
+            <button onclick="switchTab('overview'); scrollToSection('main-content')"
                 class="bg-fs-dark text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all shadow-lg transform hover:-translate-y-1">
                 探求を始める
             </button>
@@ -201,12 +213,16 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-fs-dark text-white py-12 border-t border-gray-100">
+    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
         <div class="max-w-7xl mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
                 <div class="space-y-4">
-                    <h3 class="text-xl font-bold text-white serif">風水</h3>
-                    <p class="text-sm opacity-70 leading-relaxed">
+                    <h3
+                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-fs-sage"></i>
+                        Triscope Feng Shui
+                    </h3>
+                    <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
                         環境と運気の調和を解き明かす。目に見えない「気」の力を制御し、住む人の可能性を最大限に引き出す環境地理学。
                     </p>
                 </div>
@@ -230,13 +246,16 @@
                 </div>
             </div>
             <div
-                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/40 uppercase tracking-widest font-bold">
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
                 <span>© 2026 Triscope Project. All rights reserved.</span>
                 <div class="flex gap-6">
                     <span>Powered by Ancient Logic</span>
                     <span>Built with AI Technology</span>
                 </div>
             </div>
+            <p class="mt-4 text-[10px] text-indigo-700 text-center">
+                ※風水は環境を整えることで運気をサポートするものであり、科学的な効果を保証するものではありません。
+            </p>
         </div>
     </footer>
 
@@ -334,9 +353,26 @@
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
         }
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        // --- NAVIGATION LOGIC ---
+        function scrollToSection(id) {
+            const element = document.getElementById(id);
+            if (element) {
+                const headerOffset = 64;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
 
         // --- NAVIGATION LOGIC ---
         function switchTab(tabId) {
@@ -388,7 +424,7 @@
                             <div class="grid grid-cols-1 gap-4">
                                 <div class="bg-green-50 p-4 rounded-lg">
                                     <h5 class="font-bold text-green-800 mb-2 flex items-center">
-                                        <span class="mr-2">✓</span> 得意 (Strength)
+                                        <i data-lucide="check-circle-2" class="w-5 h-5 mr-2"></i> 得意 (Strength)
                                     </h5>
                                     <ul class="text-sm text-gray-700 space-y-1 list-disc list-inside">
                                         ${data.details[1].items.map(i => `<li>${i}</li>`).join('')}
@@ -396,7 +432,7 @@
                                 </div>
                                 <div class="bg-red-50 p-4 rounded-lg">
                                     <h5 class="font-bold text-red-800 mb-2 flex items-center">
-                                        <span class="mr-2">✕</span> 苦手 (Weakness)
+                                        <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i> 苦手 (Weakness)
                                     </h5>
                                     <ul class="text-sm text-gray-700 space-y-1 list-disc list-inside">
                                         ${data.details[2].items.map(i => `<li>${i}</li>`).join('')}

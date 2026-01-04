@@ -127,47 +127,45 @@
 
 
     <!-- Navigation -->
-    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
-                    <div
-                        class="w-10 h-10 bg-red-800 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-red-900/20">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
-                    </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-gray-800 leading-none serif">Triscope</h1>
-                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Onomancy Profile</p>
-                    </div>
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                <div
+                    class="w-10 h-10 bg-red-800 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-red-900/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
                 </div>
-
-                <div class="hidden md:flex space-x-8 items-center">
-                    <button onclick="scrollToSection('overview')"
-                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">概要と特性</button>
-                    <button onclick="scrollToSection('logic')"
-                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">仕組みとロジック</button>
-                    <button onclick="scrollToSection('simulation')"
-                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">鑑定シミュレーション</button>
-                    <button onclick="scrollToSection('history')"
-                        class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">歴史と起源</button>
+                <div>
+                    <h1 class="text-xl font-bold text-gray-800 leading-none serif">Triscope</h1>
+                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Onomancy Explorer</p>
                 </div>
-                <!-- Mobile Menu Btn -->
-                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-800 hover:bg-gray-100 rounded-lg">
-                    <i data-lucide="menu" class="w-6 h-6"></i>
-                </button>
             </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-1">
+                <button onclick="scrollToSection('overview')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all">概要</button>
+                <button onclick="scrollToSection('logic')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all">ロジック</button>
+                <button onclick="scrollToSection('simulation')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all border border-red-200 bg-red-50/50 text-red-700">鑑定体験</button>
+            </div>
+
+            <!-- Mobile Menu Btn -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 hover:bg-gray-100 rounded-lg">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
+
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
-            <div class="px-2 pt-2 pb-3 space-y-1">
-                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">概要と特性</button>
-                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">仕組みとロジック</button>
-                <button onclick="scrollToSection('simulation'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">鑑定シミュレーション</button>
-                <button onclick="scrollToSection('history'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">歴史と起源</button>
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 animate-fade-in">
+            <div class="px-4 pt-2 pb-6 space-y-3">
+                <button onclick="scrollToSection('overview')"
+                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">概要と特性</button>
+                <button onclick="scrollToSection('logic')"
+                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">仕組みとロジック</button>
+                <button onclick="scrollToSection('simulation')"
+                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">鑑定シミュレーション</button>
             </div>
         </div>
     </nav>
@@ -540,43 +538,47 @@
         </section>
 
         <!-- Footer -->
-        <footer class="bg-white py-12 border-t border-gray-200">
+        <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
             <div class="max-w-7xl mx-auto px-4">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left text-gray-600">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
                     <div class="space-y-4">
-                        <h3 class="text-xl font-bold text-gray-900 serif">姓名判断</h3>
-                        <p class="text-sm leading-relaxed text-gray-500">
-                            名前に宿る運命の数式。統計と哲学の融合により、あなたの潜在的な可能性と未来を紐解くインタラクティブ・レポート。
+                        <h3
+                            class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-red-500"></i>
+                            Triscope Onomancy
+                        </h3>
+                        <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
+                            古代の叡智「姓名判断」を現代の論理で再構成。五行説に基づき、名前が発するエネルギーの調和を読み解きます。
                         </p>
                     </div>
                     <div class="md:ml-20">
-                        <h4 class="font-bold text-sm text-gray-900 mb-4 uppercase tracking-widest">Quick Links</h4>
-                        <ul class="text-sm space-y-2">
+                        <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
+                        <ul class="text-sm space-y-2 opacity-70">
                             <li><button onclick="scrollToSection('overview')"
-                                    class="hover:text-red-800 transition-colors">概要と特性</button></li>
+                                    class="hover:text-red-500 transition-colors">概要</button></li>
                             <li><button onclick="scrollToSection('logic')"
-                                    class="hover:text-red-800 transition-colors">仕組みとロジック</button></li>
+                                    class="hover:text-red-500 transition-colors">ロジック</button></li>
                             <li><button onclick="scrollToSection('simulation')"
-                                    class="hover:text-red-800 transition-colors">鑑定シミュレーション</button></li>
+                                    class="hover:text-red-500 transition-colors">体験</button></li>
                         </ul>
                     </div>
                     <div>
-                        <h4 class="font-bold text-sm text-gray-900 mb-4 uppercase tracking-widest">Connect</h4>
-                        <p class="text-sm">
+                        <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
+                        <p class="text-sm opacity-70">
                             Email: <a href="mailto:info@triscope.com"
-                                class="text-red-800 hover:underline">info@triscope.com</a>
+                                class="text-red-500 hover:underline">info@triscope.com</a>
                         </p>
                     </div>
                 </div>
                 <div
-                    class="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+                    class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
                     <span>© 2026 Triscope Project. All rights reserved.</span>
                     <div class="flex gap-6">
                         <span>Powered by Ancient Logic</span>
                         <span>Built with AI Technology</span>
                     </div>
                 </div>
-                <p class="mt-4 text-[10px] text-gray-400 text-center">
+                <p class="mt-4 text-[10px] text-indigo-700 text-center">
                     ※本レポートは姓名判断の一般的な理論に基づいた解説です。流派によって画数の数え方（新字体・旧字体）や解釈は異なります。
                 </p>
             </div>
@@ -676,7 +678,18 @@
         function scrollToSection(id) {
             const element = document.getElementById(id);
             if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
+                const headerOffset = 64;
+                const elementPosition = element.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+                // Close mobile menu if open
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (!mobileMenu.classList.contains('hidden')) {
+                    mobileMenu.classList.add('hidden');
+                }
             }
         }
 
@@ -800,7 +813,10 @@
         // Mobile Menu Toggle
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
         }
         document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
