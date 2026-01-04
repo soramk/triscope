@@ -189,66 +189,114 @@
         <!-- Section 2: Interactive Hand Map (The Core) -->
         <section id="interactive-map" class="bg-stone-100 rounded-3xl p-6 md:p-10 shadow-inner">
             <div class="text-center mb-8">
-                <h3 class="text-2xl font-bold text-indigo-900 serif mb-2">インタラクティブ手相マップ</h3>
-                <p class="text-stone-600">
-                    下の図は手のひらの主要な線と「丘（おか）」を示しています。<br>
-                    <span class="text-amber-700 font-bold">マウスを動かして（またはタップして）</span>、各部位の意味を探求してください。
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold mb-4 uppercase tracking-widest">
+                    Dual Hand Exploration
+                </div>
+                <h3 class="text-3xl font-bold text-indigo-900 serif mb-4">インタラクティブ両手マップ</h3>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    手相は片手だけでは完結しません。<span class="text-amber-700 font-bold">左手（先天的な資質）</span>と<span
+                        class="text-amber-700 font-bold">右手（現在と未来）</span>の違いを読み解くことが、真の手相鑑定の第一歩です。
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
-
-                <!-- Left Column: Canvas -->
-                <div class="flex justify-center relative">
-                    <!-- Tooltip overlay -->
-                    <div id="canvas-tooltip"
-                        class="absolute pointer-events-none bg-stone-900 text-white text-xs px-2 py-1 rounded opacity-0 transition-opacity z-10">
+            <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
+                <!-- Left Column: Both Hands -->
+                <div class="xl:col-span-8 space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Left Hand Container -->
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center relative">
+                            <h4 class="font-bold text-stone-800 serif mb-2">左手 <span
+                                    class="text-xs font-normal text-stone-400 block sm:inline">| 先天運・内面・過去</span></h4>
+                            <div class="relative inline-block w-full">
+                                <canvas id="leftHandCanvas" width="400" height="480"
+                                    class="w-full h-auto cursor-pointer rounded-lg bg-[#fffaf0]"></canvas>
+                                <div id="left-tooltip"
+                                    class="absolute pointer-events-none bg-stone-900/90 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity z-10 whitespace-nowrap">
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-stone-500 mt-2">遺伝や宿命、35歳までの運勢、右脳の影響</p>
+                        </div>
+                        <!-- Right Hand Container -->
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-stone-200 text-center relative">
+                            <h4 class="font-bold text-stone-800 serif mb-2">右手 <span
+                                    class="text-xs font-normal text-stone-400 block sm:inline">| 後天運・外面・未来</span></h4>
+                            <div class="relative inline-block w-full">
+                                <canvas id="rightHandCanvas" width="400" height="480"
+                                    class="w-full h-auto cursor-pointer rounded-lg bg-[#fffaf0]"></canvas>
+                                <div id="right-tooltip"
+                                    class="absolute pointer-events-none bg-stone-900/90 text-white text-[10px] px-2 py-1 rounded opacity-0 transition-opacity z-10 whitespace-nowrap">
+                                </div>
+                            </div>
+                            <p class="text-[11px] text-stone-500 mt-2">自力で切り拓いた運勢、これからの希望、左脳の影響</p>
+                        </div>
                     </div>
-                    <canvas id="handCanvas" width="500" height="600"
-                        class="w-full max-w-[500px] h-auto border border-stone-200"></canvas>
+
+                    <!-- Common Controls -->
+                    <div class="flex flex-wrap justify-center gap-2">
+                        <button onclick="simulateHover('life')"
+                            class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">生命線</button>
+                        <button onclick="simulateHover('head')"
+                            class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-blue-50 hover:border-blue-200 transition-all">知能線</button>
+                        <button onclick="simulateHover('heart')"
+                            class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-pink-50 hover:border-pink-200 transition-all">感情線</button>
+                        <button onclick="simulateHover('fate')"
+                            class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-purple-50 hover:border-purple-200 transition-all">運命線</button>
+                        <button onclick="simulateHover('jupiter')"
+                            class="px-4 py-2 text-xs bg-stone-200 border border-stone-300 rounded-full hover:bg-amber-100">木星丘</button>
+                        <button onclick="simulateHover('venus')"
+                            class="px-4 py-2 text-xs bg-stone-200 border border-stone-300 rounded-full hover:bg-amber-100">金星丘</button>
+                    </div>
                 </div>
 
                 <!-- Right Column: Info Panel -->
-                <div class="space-y-6">
+                <div class="xl:col-span-4 sticky top-24">
                     <div id="info-panel"
-                        class="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-900 h-full transition-all duration-300">
-                        <div class="flex items-center justify-between mb-4">
-                            <h4 id="info-title" class="text-2xl font-bold text-stone-800 serif">手のひらを探索しましょう</h4>
+                        class="bg-white p-8 rounded-2xl shadow-xl border-l-8 border-indigo-900 h-full min-h-[400px] transition-all duration-500">
+                        <div class="flex items-center justify-between mb-6">
+                            <h4 id="info-title" class="text-3xl font-bold text-stone-800 serif">手相の地図</h4>
                             <span id="info-category"
-                                class="text-xs font-bold tracking-wider text-stone-400 uppercase">Start</span>
+                                class="px-3 py-1 bg-stone-100 text-stone-400 rounded text-[10px] font-bold tracking-widest uppercase">Select
+                                Part</span>
                         </div>
-                        <p id="info-desc" class="text-stone-600 leading-relaxed mb-6">
-                            左の図の線やエリアにカーソルを合わせると、その詳細が表示されます。手相には大きく分けて「線」と「丘（膨らみ）」の2つの重要な要素があります。
-                        </p>
+
+                        <div id="info-placeholder" class="text-stone-400 space-y-4">
+                            <div class="flex items-center gap-3">
+                                <i data-lucide="mouse-pointer-2" class="w-5 h-5"></i>
+                                <p class="text-sm">いずれかの線や丘に触れてください。</p>
+                            </div>
+                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
+                                <p class="text-xs text-indigo-700 leading-relaxed italic">
+                                    「左手は先天的な資質、右手は後天的な変化」という解釈が一般的です。両手を組み合わせて総合的に判断します。
+                                </p>
+                            </div>
+                        </div>
 
                         <!-- Dynamic Content Area -->
-                        <div id="info-details" class="hidden">
-                            <div class="bg-indigo-50 p-4 rounded-lg mb-4">
-                                <h5 class="font-bold text-indigo-900 mb-2">主な意味</h5>
-                                <p id="info-meaning" class="text-sm text-indigo-800">ここに意味が表示されます。</p>
+                        <div id="info-details" class="hidden animate-fade-in space-y-6">
+                            <div
+                                class="bg-gradient-to-br from-indigo-50 to-white p-5 rounded-xl border border-indigo-100">
+                                <h5 class="font-bold text-indigo-900 mb-2 flex items-center gap-2">
+                                    <i data-lucide="scroll" class="w-4 h-4"></i> 主な意味と役割
+                                </h5>
+                                <p id="info-meaning" class="text-sm text-stone-600 leading-relaxed"></p>
                             </div>
-                            <div class="border-t border-stone-100 pt-4">
-                                <h5 class="font-bold text-stone-700 mb-2 text-sm">チェックポイント</h5>
-                                <ul id="info-check" class="list-disc list-inside text-sm text-stone-600 space-y-1">
-                                    <li>線の濃さ</li>
-                                    <li>長さ</li>
-                                </ul>
+
+                            <div class="space-y-4">
+                                <div>
+                                    <h5 class="font-bold text-stone-700 mb-1 text-sm">部位の説明</h5>
+                                    <p id="info-desc" class="text-xs text-stone-500 italic"></p>
+                                </div>
+                                <div id="line-points-section">
+                                    <h5 class="font-bold text-stone-700 mb-2 text-sm">鑑定のチェックポイント</h5>
+                                    <ul id="info-check" class="space-y-2">
+                                        <!-- Dynamic points -->
+                                    </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Mobile Navigation for Canvas (Alternative if touch is tricky) -->
-            <div class="mt-6 flex flex-wrap justify-center gap-2 lg:hidden">
-                <button onclick="simulateHover('life')"
-                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">生命線</button>
-                <button onclick="simulateHover('head')"
-                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">知能線</button>
-                <button onclick="simulateHover('heart')"
-                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">感情線</button>
-                <button onclick="simulateHover('fate')"
-                    class="px-3 py-1 text-xs bg-white border border-stone-300 rounded-full shadow-sm hover:bg-stone-50">運命線</button>
             </div>
         </section>
 
@@ -482,68 +530,248 @@
             </div>
         </section>
 
-        <!-- Section: Hand Shapes (New Content) -->
-        <section id="hand-shapes" class="bg-[#FDFBF7] rounded-3xl p-8 md:p-12 border border-stone-100">
-            <div class="flex flex-col lg:flex-row gap-12 items-center">
-                <div class="lg:w-1/2 space-y-6">
-                    <div
-                        class="inline-block px-3 py-1 bg-indigo-50 text-indigo-700 text-xs font-bold rounded-full uppercase tracking-widest">
-                        Type Analysis</div>
-                    <h3 class="text-3xl font-bold text-stone-800 serif">線だけではない、「手の形」の力</h3>
-                    <p class="text-stone-600 leading-relaxed">
-                        手相術では、線の前に「手の形」を見ることも重要です。これは四大元素（火・地・風・水）の考え方に基づき、その人の根本的な気質を分類するものです。
-                    </p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="p-4 bg-white rounded-xl shadow-sm border border-stone-50">
-                            <h5 class="font-bold text-stone-800 flex items-center gap-2"><i data-lucide="flame"
-                                    class="w-4 h-4 text-orange-500"></i> 火の手</h5>
-                            <p class="text-[11px] text-stone-500 mt-1">掌が長く、指が短い。情熱的で行動力があり、直感で動くリーダータイプ。</p>
+        <!-- Section: Comprehensive Self-Check Gallery -->
+        <section id="self-check-gallery" class="space-y-16">
+            <div class="text-center max-w-3xl mx-auto">
+                <div
+                    class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-bold mb-4 uppercase tracking-widest">
+                    Quick Diagnostics
+                </div>
+                <h3 class="text-3xl md:text-4xl font-bold text-stone-900 serif">線で紐解く、あなたの本質と言動</h3>
+                <p class="text-stone-600 mt-4 leading-relaxed">
+                    代表的な線のパターンをイラストで比較しました。自分の両手を見比べて、最も近いものを選んでみましょう。左右で違う場合は、<span
+                        class="text-indigo-600 font-bold">右手を「今の自分」</span>、<span
+                        class="text-amber-600 font-bold">左手を「眠っている自分」</span>として読み解きます。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Group 1: Intelligence (Head Line) -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center">
+                            <i data-lucide="brain" class="w-6 h-6 text-blue-600"></i>
                         </div>
-                        <div class="p-4 bg-white rounded-xl shadow-sm border border-stone-50">
-                            <h5 class="font-bold text-stone-800 flex items-center gap-2"><i data-lucide="mountain"
-                                    class="w-4 h-4 text-emerald-600"></i> 地の手</h5>
-                            <p class="text-[11px] text-stone-500 mt-1">掌が四角く、指が短い。現実的で粘り強く、実務や伝統を重んじるタイプ。</p>
-                        </div>
-                        <div class="p-4 bg-white rounded-xl shadow-sm border border-stone-50">
-                            <h5 class="font-bold text-stone-800 flex items-center gap-2"><i data-lucide="wind"
-                                    class="w-4 h-4 text-blue-400"></i> 風の手</h5>
-                            <p class="text-[11px] text-stone-500 mt-1">掌が四角く、指が長い。知的好奇心が旺盛で、論理と対話を好むタイプ。</p>
-                        </div>
-                        <div class="p-4 bg-white rounded-xl shadow-sm border border-stone-50">
-                            <h5 class="font-bold text-stone-800 flex items-center gap-2"><i data-lucide="droplets"
-                                    class="w-4 h-4 text-indigo-400"></i> 水の手</h5>
-                            <p class="text-[11px] text-stone-500 mt-1">掌が長く、指も長い。感受性が極めて高く、芸術的で精神世界を重んじるタイプ。</p>
-                        </div>
+                        <h4 class="text-xl font-bold text-stone-800">1. 知能線 <span
+                                class="text-xs font-normal text-stone-400">(思考・適職)</span></h4>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="diagnose('head', 'straight')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M20,60 Q50,60 85,60" fill="none" stroke="#3b82f6" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M20,60 Q35,80 40,90" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">直線・横向き</div>
+                                        <div class="text-[10px] text-stone-500">論理、実務、現実主義</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('head', 'curved')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M20,60 Q50,65 70,85" fill="none" stroke="#3b82f6" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M20,60 Q35,80 40,90" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">ゆるやかな下降</div>
+                                        <div class="text-[10px] text-stone-500">想像力、クリエイティブ、共感</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('head', 'split')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M20,60 Q40,62 60,65" fill="none" stroke="#3b82f6" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M60,65 Q80,68 85,62" fill="none" stroke="#3b82f6" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M60,65 Q75,75 80,85" fill="none" stroke="#3b82f6" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M20,60 Q35,80 40,90" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">先端が二股</div>
+                                        <div class="text-[10px] text-stone-500">複眼的思考、多才、器用</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
-                <div class="lg:w-1/2">
-                    <div class="relative group">
-                        <div
-                            class="absolute -inset-1 bg-gradient-to-r from-amber-200 to-indigo-200 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000">
+
+                <!-- Group 2: Heart (Heart Line) -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-pink-50 rounded-full flex items-center justify-center">
+                            <i data-lucide="heart" class="w-6 h-6 text-pink-500"></i>
                         </div>
-                        <div class="relative bg-white p-8 rounded-2xl border border-stone-100 shadow-sm text-center">
-                            <h4 class="text-xl font-bold text-stone-800 mb-6 font-serif">簡易セルフチェック: あなたの知能線は？</h4>
-                            <div class="space-y-3">
-                                <button onclick="checkResult('straight')"
-                                    class="w-full bg-stone-50 p-4 rounded-xl border border-stone-200 hover:bg-amber-50 hover:border-amber-200 transition-all text-left">
-                                    <span class="block font-bold text-stone-800">A. まっすぐ横に伸びている</span>
-                                    <span class="text-[11px] text-stone-500 mt-1">現実的・論理的・実務家タイプ</span>
-                                </button>
-                                <button onclick="checkResult('curved')"
-                                    class="w-full bg-stone-50 p-4 rounded-xl border border-stone-200 hover:bg-amber-50 hover:border-amber-200 transition-all text-left">
-                                    <span class="block font-bold text-stone-800">B. 下に向かってカーブしている</span>
-                                    <span class="text-[11px] text-stone-500 mt-1">芸術的・ロマンチスト・感性タイプ</span>
-                                </button>
-                                <button onclick="checkResult('split')"
-                                    class="w-full bg-stone-50 p-4 rounded-xl border border-stone-200 hover:bg-amber-50 hover:border-amber-200 transition-all text-left">
-                                    <span class="block font-bold text-stone-800">C. 先端が二股に分かれている</span>
-                                    <span class="text-[11px] text-stone-500 mt-1">多才・適応力抜群・マルチプレイヤー</span>
-                                </button>
+                        <h4 class="text-xl font-bold text-stone-800">2. 感情線 <span
+                                class="text-xs font-normal text-stone-400">(情緒・対人)</span></h4>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="diagnose('heart', 'upward')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M85,45 Q50,45 20,20" fill="none" stroke="#ec4899" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M15,40 Q15,10 40,10" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">先端が急カーブ</div>
+                                        <div class="text-[10px] text-stone-500">情熱的、ストレートな表現、独占欲</div>
+                                    </div>
+                                </div>
                             </div>
-                            <div id="check-result"
-                                class="mt-6 hidden p-4 bg-indigo-50 rounded-xl border border-indigo-100 text-indigo-900 text-sm font-medium animate-fade-in">
-                                <!-- Result text injected here -->
+                        </button>
+                        <button onclick="diagnose('heart', 'straight')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M85,45 Q50,45 35,45" fill="none" stroke="#ec4899" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M15,40 Q15,10 40,10" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">まっすぐで標準的</div>
+                                        <div class="text-[10px] text-stone-500">冷静、理性的、バランス、一途</div>
+                                    </div>
+                                </div>
                             </div>
+                        </button>
+                        <button onclick="diagnose('heart', 'branch')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M85,45 Q60,45 45,45" fill="none" stroke="#ec4899" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M45,45 Q35,40 25,30" fill="none" stroke="#ec4899" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M45,45 Q35,50 30,55" fill="none" stroke="#ec4899" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M15,40 Q15,10 40,10" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">数本に枝分かれ</div>
+                                        <div class="text-[10px] text-stone-500">社交的、気配り上手、モテ線</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 3: Life (Life Line) -->
+                <div class="bg-white p-8 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-10 h-10 bg-red-50 rounded-full flex items-center justify-center">
+                            <i data-lucide="zap" class="w-6 h-6 text-red-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-stone-800">3. 生命線 <span
+                                class="text-xs font-normal text-stone-400">(体力・意欲)</span></h4>
+                    </div>
+
+                    <div class="space-y-4">
+                        <button onclick="diagnose('life', 'wide')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M40,90 L60,95 L65,70" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">張り出しが広い</div>
+                                        <div class="text-[10px] text-stone-500">タフ、精力的、活動的、回復力</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'narrow')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q40,40 25,90" fill="none" stroke="#ef4444" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M40,90 L60,95 L65,70" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">張り出しが狭い</div>
+                                        <div class="text-[10px] text-stone-500">繊細、内向的、知的、慎重</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'upward')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="60" height="60" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q60,40 30,90" fill="none" stroke="#ef4444" stroke-width="4"
+                                            stroke-linecap="round" />
+                                        <path d="M35,35 L50,15" fill="none" stroke="#ef4444" stroke-width="3"
+                                            stroke-linecap="round" />
+                                        <path d="M40,90 L60,95 L65,70" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div>
+                                        <div class="font-bold text-stone-800">上に伸びる枝線</div>
+                                        <div class="text-[10px] text-stone-500">努力、向上心、大きな成功</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Display Modal-like Reveal -->
+            <div id="self-diagnose-result"
+                class="hidden mt-12 bg-stone-900 text-white p-8 md:p-12 rounded-[40px] shadow-2xl relative overflow-hidden group">
+                <div
+                    class="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all duration-1000">
+                </div>
+
+                <div class="flex flex-col md:flex-row items-center gap-8 relative z-10">
+                    <div id="diagnose-icon-container"
+                        class="w-24 h-24 bg-white/10 rounded-full flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="sparkles" class="w-12 h-12 text-amber-400"></i>
+                    </div>
+                    <div class="space-y-4 text-center md:text-left">
+                        <h4 id="diagnose-title" class="text-2xl font-bold serif text-amber-400">診断結果</h4>
+                        <p id="diagnose-text" class="text-stone-300 leading-relaxed text-lg">
+                            選択した線の傾向から、あなたの特性を詳しく解説します。
+                        </p>
+                        <div
+                            class="pt-4 border-t border-white/10 text-stone-500 text-xs uppercase tracking-widest font-bold">
+                            Practitioner Profile
                         </div>
                     </div>
                 </div>
@@ -677,133 +905,139 @@
         };
 
         // --- Canvas Implementation ---
-        const canvas = document.getElementById('handCanvas');
-        const ctx = canvas.getContext('2d');
-        const tooltip = document.getElementById('canvas-tooltip');
+        const leftCanvas = document.getElementById('leftHandCanvas');
+        const rightCanvas = document.getElementById('rightHandCanvas');
+        const leftCtx = leftCanvas.getContext('2d');
+        const rightCtx = rightCanvas.getContext('2d');
+        const leftTooltip = document.getElementById('left-tooltip');
+        const rightTooltip = document.getElementById('right-tooltip');
+
         let currentHover = null;
 
-        // Coordinates for simplified hit detection (circles for start/mid/end points of lines roughly)
-        // Note: For a real app, we'd use complex path hit detection. Here we use proximity to defined paths.
+        function drawAllHands() {
+            drawHand(leftCanvas, leftCtx, true);
+            drawHand(rightCanvas, rightCtx, false);
+        }
 
-        function drawHand() {
+        function drawHand(canvas, ctx, isLeft) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            const scale = canvas.width / 500;
+            const mirrorX = (x) => isLeft ? (500 - x) * scale : x * scale;
+            const fixX = (x) => x * scale;
 
-            // 1. Draw Hand Outline (Stylized)
+            // 1. Draw Hand Outline
             ctx.beginPath();
-            ctx.strokeStyle = '#e7e5e4'; // Stone-200
+            ctx.strokeStyle = '#e7e5e4';
             ctx.lineWidth = 4;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
-            // Wrist left
-            ctx.moveTo(100, 580);
-            ctx.lineTo(100, 450);
-            // Thumb
-            ctx.bezierCurveTo(90, 400, 40, 350, 60, 280);
-            ctx.bezierCurveTo(80, 230, 130, 250, 160, 300);
-            // Index finger
-            ctx.lineTo(160, 150);
-            ctx.bezierCurveTo(160, 100, 200, 100, 200, 150);
-            ctx.lineTo(200, 300);
-            // Middle finger
-            ctx.lineTo(220, 80);
-            ctx.bezierCurveTo(220, 30, 270, 30, 270, 80);
-            ctx.lineTo(270, 300);
-            // Ring finger
-            ctx.lineTo(300, 100);
-            ctx.bezierCurveTo(300, 50, 340, 50, 340, 100);
-            ctx.lineTo(340, 310);
-            // Pinky
-            ctx.lineTo(370, 180);
-            ctx.bezierCurveTo(370, 140, 410, 140, 410, 180);
-            ctx.lineTo(410, 400);
-            // Wrist right
-            ctx.bezierCurveTo(420, 500, 400, 550, 400, 580);
+            // Coordinates are based on a "Right Hand" (thumb left).
+            // To draw Left Hand, we mirror X.
 
-            ctx.fillStyle = '#fffaf0'; // Floral white
+            // Wrist
+            ctx.moveTo(mirrorX(100), fixX(580));
+            ctx.lineTo(mirrorX(100), fixX(450));
+            ctx.bezierCurveTo(mirrorX(90), fixX(400), mirrorX(40), fixX(350), mirrorX(60), fixX(280));
+            ctx.bezierCurveTo(mirrorX(80), fixX(230), mirrorX(130), fixX(250), mirrorX(160), fixX(300));
+            ctx.lineTo(mirrorX(160), fixX(150));
+            ctx.bezierCurveTo(mirrorX(160), fixX(100), mirrorX(200), fixX(100), mirrorX(200), fixX(150));
+            ctx.lineTo(mirrorX(200), fixX(300));
+            ctx.lineTo(mirrorX(220), fixX(80));
+            ctx.bezierCurveTo(mirrorX(220), fixX(30), mirrorX(270), fixX(30), mirrorX(270), fixX(80));
+            ctx.lineTo(mirrorX(270), fixX(300));
+            ctx.lineTo(mirrorX(300), fixX(100));
+            ctx.bezierCurveTo(mirrorX(300), fixX(50), mirrorX(340), fixX(50), mirrorX(340), fixX(100));
+            ctx.lineTo(mirrorX(340), fixX(310));
+            ctx.lineTo(mirrorX(370), fixX(180));
+            ctx.bezierCurveTo(mirrorX(370), fixX(140), mirrorX(410), fixX(140), mirrorX(410), fixX(180));
+            ctx.lineTo(mirrorX(410), fixX(400));
+            ctx.bezierCurveTo(mirrorX(420), fixX(500), mirrorX(400), fixX(550), mirrorX(400), fixX(580));
+
+            ctx.fillStyle = '#fffaf0';
             ctx.fill();
             ctx.stroke();
 
-            // 2. Draw Mounts (Transparent circles)
-            drawMount('jupiter', 180, 330, 30, handData.mounts.jupiter.color);
-            drawMount('saturn', 245, 330, 30, handData.mounts.saturn.color);
-            drawMount('sun', 320, 335, 30, handData.mounts.sun.color);
-            drawMount('mercury', 390, 360, 25, handData.mounts.mercury.color);
-            drawMount('venus', 130, 450, 50, handData.mounts.venus.color);
-            drawMount('moon', 380, 480, 45, handData.mounts.moon.color);
+            // 2. Draw Mounts
+            function dMount(id, x, y, r, color) {
+                const mx = mirrorX(x);
+                const my = fixX(y);
+                const mr = r * scale;
+                ctx.beginPath();
+                ctx.arc(mx, my, mr, 0, Math.PI * 2);
+                ctx.fillStyle = color + (currentHover === id ? '80' : '30');
+                if (currentHover === id) {
+                    ctx.strokeStyle = color;
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+                ctx.fill();
+            }
+
+            dMount('jupiter', 180, 330, 35, handData.mounts.jupiter.color);
+            dMount('saturn', 245, 330, 35, handData.mounts.saturn.color);
+            dMount('sun', 320, 335, 35, handData.mounts.sun.color);
+            dMount('mercury', 390, 360, 30, handData.mounts.mercury.color);
+            dMount('venus', 130, 450, 55, handData.mounts.venus.color);
+            dMount('moon', 380, 480, 50, handData.mounts.moon.color);
 
             // 3. Draw Lines
-            // Life Line
-            drawLine('life', handData.lines.life.color, (c) => {
-                c.moveTo(170, 350);
-                c.bezierCurveTo(200, 400, 180, 500, 150, 550);
-            });
-
-            // Head Line
-            drawLine('head', handData.lines.head.color, (c) => {
-                c.moveTo(170, 350);
-                c.bezierCurveTo(250, 380, 300, 400, 380, 420);
-            });
-
-            // Heart Line
-            drawLine('heart', handData.lines.heart.color, (c) => {
-                c.moveTo(410, 380);
-                c.bezierCurveTo(350, 380, 250, 350, 200, 330);
-            });
-
-            // Fate Line
-            drawLine('fate', handData.lines.fate.color, (c) => {
-                c.moveTo(250, 550);
-                c.lineTo(250, 350);
-            });
-        }
-
-        function drawMount(id, x, y, r, color) {
-            ctx.beginPath();
-            ctx.arc(x, y, r, 0, Math.PI * 2);
-            ctx.fillStyle = color + '40'; // Low opacity
-            if (currentHover === id) {
-                ctx.fillStyle = color + '80'; // Highlight opacity
-                ctx.strokeStyle = color;
-                ctx.lineWidth = 2;
+            function dLine(id, color, drawFn) {
+                ctx.beginPath();
+                drawFn(ctx, mirrorX, fixX);
+                ctx.lineWidth = currentHover === id ? 8 : 4;
+                ctx.strokeStyle = currentHover === id ? color : '#cbd5e1';
+                if (currentHover === id) {
+                    ctx.shadowBlur = 10;
+                    ctx.shadowColor = color;
+                }
+                ctx.lineCap = 'round';
                 ctx.stroke();
+                ctx.shadowBlur = 0;
             }
-            ctx.fill();
+
+            dLine('life', handData.lines.life.color, (c, mx, fy) => {
+                c.moveTo(mx(170), fy(350));
+                c.bezierCurveTo(mx(200), fy(400), mx(180), fy(500), mx(150), fy(550));
+            });
+
+            dLine('head', handData.lines.head.color, (c, mx, fy) => {
+                c.moveTo(mx(170), fy(350));
+                c.bezierCurveTo(mx(250), fy(380), mx(300), fy(400), mx(380), fy(420));
+            });
+
+            dLine('heart', handData.lines.heart.color, (c, mx, fy) => {
+                c.moveTo(mx(410), fy(380));
+                c.bezierCurveTo(mx(350), fy(380), mx(250), fy(350), mx(200), fy(330));
+            });
+
+            dLine('fate', handData.lines.fate.color, (c, mx, fy) => {
+                c.moveTo(mx(250), fy(550));
+                c.lineTo(mx(250), fy(350));
+            });
         }
 
-        function drawLine(id, color, pathFn) {
-            ctx.beginPath();
-            pathFn(ctx);
-            ctx.lineWidth = currentHover === id ? 8 : 5;
-            ctx.strokeStyle = currentHover === id ? color : '#cbd5e1'; // Grey by default, color on hover
-            if (currentHover === id) ctx.shadowBlur = 10;
-            ctx.shadowColor = color;
-            ctx.lineCap = 'round';
-            ctx.stroke();
-            ctx.shadowBlur = 0;
-        }
-
-        // Hit Detection Logic
-        canvas.addEventListener('mousemove', (e) => {
+        function handleHover(e, canvas, isLeft) {
             const rect = canvas.getBoundingClientRect();
-            // Scale mouse coordinates to canvas resolution
-            const scaleX = canvas.width / rect.width;
-            const scaleY = canvas.height / rect.height;
-            const x = (e.clientX - rect.left) * scaleX;
-            const y = (e.clientY - rect.top) * scaleY;
+            const scaleX = 500 / rect.width;
+            const scaleY = 600 / rect.height; // Logic width/height of hand coordinate system
+            let x = (e.clientX - rect.left) * scaleX;
+            let y = (e.clientY - rect.top) * scaleY;
 
-            let prevHover = currentHover;
+            // Normalize X for hit detection based on right-hand logic
+            if (isLeft) x = 500 - x;
+
+            const prevHover = currentHover;
             currentHover = null;
-            tooltip.style.opacity = 0;
 
-            // Check Mounts (Circle collision)
+            // Mounts hit detection
             const mounts = [
-                { id: 'jupiter', x: 180, y: 330, r: 35 },
-                { id: 'saturn', x: 245, y: 330, r: 35 },
-                { id: 'sun', x: 320, y: 335, r: 35 },
-                { id: 'mercury', x: 390, y: 360, r: 30 },
-                { id: 'venus', x: 130, y: 450, r: 55 },
-                { id: 'moon', x: 380, y: 480, r: 50 }
+                { id: 'jupiter', x: 180, y: 330, r: 40 },
+                { id: 'saturn', x: 245, y: 330, r: 40 },
+                { id: 'sun', x: 320, y: 335, r: 40 },
+                { id: 'mercury', x: 390, y: 360, r: 35 },
+                { id: 'venus', x: 130, y: 450, r: 60 },
+                { id: 'moon', x: 380, y: 480, r: 55 }
             ];
 
             for (let m of mounts) {
@@ -814,44 +1048,41 @@
                 }
             }
 
-            // Check Lines (Simplified rectangle zones for this demo)
-            // Real implementation would use isPointInStroke with Path2D
+            // Lines hit detection (Simplified zones)
             if (!currentHover) {
                 if (x > 150 && x < 200 && y > 350 && y < 550) currentHover = 'life';
-                else if (x > 200 && x < 380 && y > 380 && y < 420) currentHover = 'head';
-                else if (x > 200 && x < 410 && y > 330 && y < 380) currentHover = 'heart';
+                else if (x > 200 && x < 380 && y > 380 && y < 450) currentHover = 'head';
+                else if (x > 200 && x < 410 && y > 300 && y < 380) currentHover = 'heart';
                 else if (x > 230 && x < 270 && y > 350 && y < 550) currentHover = 'fate';
             }
 
             if (currentHover !== prevHover) {
-                drawHand();
+                drawAllHands();
                 updateInfoPanel(currentHover);
             }
 
-            // Tooltip positioning
+            const tt = isLeft ? leftTooltip : rightTooltip;
             if (currentHover) {
                 const data = handData.lines[currentHover] || handData.mounts[currentHover];
-                tooltip.textContent = data.name;
-                tooltip.style.left = (e.clientX - rect.left + 10) + 'px';
-                tooltip.style.top = (e.clientY - rect.top + 10) + 'px';
-                tooltip.style.opacity = 1;
+                tt.textContent = data.name;
+                tt.style.left = (e.clientX - rect.left + 15) + 'px';
+                tt.style.top = (e.clientY - rect.top + 15) + 'px';
+                tt.style.opacity = 1;
                 canvas.style.cursor = 'pointer';
             } else {
+                tt.style.opacity = 0;
                 canvas.style.cursor = 'default';
             }
-        });
+        }
 
-        canvas.addEventListener('click', () => {
-            if (currentHover) {
-                const panel = document.getElementById('info-panel');
-                panel.classList.add('ring-2', 'ring-amber-500');
-                setTimeout(() => panel.classList.remove('ring-2', 'ring-amber-500'), 300);
-            }
-        });
+        leftCanvas.addEventListener('mousemove', (e) => handleHover(e, leftCanvas, true));
+        rightCanvas.addEventListener('mousemove', (e) => handleHover(e, rightCanvas, false));
+        leftCanvas.addEventListener('mouseleave', () => { leftTooltip.style.opacity = 0; });
+        rightCanvas.addEventListener('mouseleave', () => { rightTooltip.style.opacity = 0; });
 
         function simulateHover(id) {
             currentHover = id;
-            drawHand();
+            drawAllHands();
             updateInfoPanel(id);
         }
 
@@ -860,33 +1091,39 @@
             const catEl = document.getElementById('info-category');
             const descEl = document.getElementById('info-desc');
             const detailsEl = document.getElementById('info-details');
+            const placeholderEl = document.getElementById('info-placeholder');
             const meaningEl = document.getElementById('info-meaning');
             const checkEl = document.getElementById('info-check');
+            const linePointsSection = document.getElementById('line-points-section');
 
-            if (!id) {
-                // Reset state is optional, but we keep the last selected item usually
-                // Or we could reset to default text. Let's keep selection or default if fresh.
-                return;
-            }
+            if (!id) return;
 
             const data = handData.lines[id] || handData.mounts[id];
             const isLine = !!handData.lines[id];
 
-            titleEl.textContent = data.name;
-            titleEl.style.color = isLine ? data.color : '#292524'; // Use color for lines
-            catEl.textContent = isLine ? 'Major Line' : 'Mount';
-            catEl.className = `text-xs font-bold tracking-wider uppercase ${isLine ? 'text-indigo-600' : 'text-amber-600'}`;
-            descEl.textContent = data.desc;
-
+            placeholderEl.classList.add('hidden');
             detailsEl.classList.remove('hidden');
+
+            titleEl.textContent = data.name;
+            titleEl.className = `text-2xl md:text-3xl font-bold serif ${isLine ? 'text-indigo-900' : 'text-stone-800'}`;
+            catEl.textContent = isLine ? 'Major Line' : 'Hill/Mount';
+            catEl.className = `px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase ${isLine ? 'bg-indigo-100 text-indigo-700' : 'bg-amber-100 text-amber-700'}`;
+
+            descEl.textContent = data.desc;
             meaningEl.textContent = data.meaning;
 
             if (isLine) {
-                checkEl.parentElement.classList.remove('hidden');
-                checkEl.innerHTML = `<li>${data.points}</li>`;
+                linePointsSection.classList.remove('hidden');
+                checkEl.innerHTML = `
+                    <li class="flex items-start gap-2 text-sm text-stone-600">
+                        <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-500 mt-0.5 flex-shrink-0"></i>
+                        <span>${data.points}</span>
+                    </li>
+                `;
             } else {
-                checkEl.parentElement.classList.add('hidden');
+                linePointsSection.classList.add('hidden');
             }
+            lucide.createIcons();
         }
 
         // --- Chart.js Radar ---
@@ -930,20 +1167,52 @@
             }
         });
 
-        // --- Interactive Check Logic ---
-        function checkResult(type) {
-            const resultBox = document.getElementById('check-result');
-            resultBox.classList.remove('hidden');
-            let text = "";
-            if (type === 'straight') text = "あなたは「合理的実務家」タイプ。論理的思考に優れ、経理やエンジニア、経営管理に向いています。";
-            if (type === 'curved') text = "あなたは「感性豊かなクリエイター」タイプ。想像力が豊かで、デザイン、芸術、企画職などで才能を発揮します。";
-            if (type === 'split') text = "あなたは「適応力抜群のマルチプレイヤー」。ビジネスセンスと創造性の両方を持ち、副業やライターなども向いています。";
+        // --- Comprehensive Diagnostics Logic ---
+        const diagData = {
+            head: {
+                straight: { title: "【論理的実務家タイプ】", text: "知能線が直線的な人は、非常に合理的で現実的です。感情に流されず、事実とデータに基づいて判断を下す能力に長けています。事務、経理、技術職、法律関係など、緻密な思考が求められる分野で圧倒的な実力を発揮します。", icon: "file-text" },
+                curved: { title: "【感性豊かなクリエイタータイプ】", text: "知能線が緩やかに下降する人は、想像力と感性が豊かです。共感能力が高く、物語を紡いだりデザインしたりすることを得意とします。芸術、企画、カウンセラー、教育など、人の心に触れる仕事に向いています。", icon: "palette" },
+                split: { title: "【適応力抜群のマルチプレイヤー】", text: "先端が分かれている人は、複数の視点を同時に持つことができます。ビジネス的な合理性と芸術的な感性の両立が可能で、副業やパラレルキャリアで成功しやすい傾向があります。ライターやプロデューサーにも多い相です。", icon: "layers" }
+            },
+            heart: {
+                upward: { title: "【情熱的なロマンチスト】", text: "感情線が急角度で立ち上がる人は、喜怒哀楽がはっきりしており、非常に情熱的です。一度好きになると周りが見えなくなるほど一途ですが、独占欲も強い傾向にあります。対面接客や表現活動で人気を集めます。", icon: "flame" },
+                straight: { title: "【冷静沈着なリアリスト】", text: "感情線がまっすぐ平坦な人は、常に冷静で感情の起伏が穏やかです。パニックに強く、安定した人間関係を築くことができます。組織の調整役やディレクターなど、全体を俯瞰するポジションで信頼を得ます。", icon: "shield-check" },
+                branch: { title: "【社交性抜群の気配り達人】", text: "先端が細かく分かれている人は、感受性が非常に高く、相手の求めることを瞬時に察知できます。いわゆる「サービス精神旺盛な人」です。営業やPR、コンサルタントなど、人と深く関わる分野で大成します。", icon: "users" }
+            },
+            life: {
+                wide: { title: "【バイタリティ溢れるリーダー】", text: "生命線のカーブが大きく親指側に張り出している人は、驚異的な生命力と肉体的なタフさを持っています。困難に直面しても跳ね除けるパワーがあり、自ら先頭に立って道を切り拓く起業家やスポーツ選手に多い相です。", icon: "zap" },
+                narrow: { title: "【思慮深いデリケート派】", text: "生命線のカーブが狭い人は、肉体的なパワーよりも知性や精神性を重視するタイプです。控えめですが粘り強く、集中力が必要な研究職や創作活動で力を発揮します。自分のリズムを守ることで運気が安定します。", icon: "search" },
+                upward: { title: "【向上心燃える努力家】", text: "生命線から上に向かって勢いよく枝線が出ているのは、運気が上昇しているサインです。自らの努力によって夢を掴み取る力が強く、これまでの苦労が報われる時期が近いことを示唆しています。", icon: "trending-up" }
+            }
+        };
 
-            resultBox.textContent = text;
+        function diagnose(category, type) {
+            const resultBox = document.getElementById('self-diagnose-result');
+            const titleEl = document.getElementById('diagnose-title');
+            const textEl = document.getElementById('diagnose-text');
+            const iconContainer = document.getElementById('diagnose-icon-container');
+
+            const data = diagData[category][type];
+
+            resultBox.classList.remove('hidden');
+            resultBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+            titleEl.textContent = data.title;
+            textEl.textContent = data.text;
+            iconContainer.innerHTML = `<i data-lucide="${data.icon}" class="w-12 h-12 text-amber-400"></i>`;
+
+            lucide.createIcons();
+
+            // Highlight chosen button
+            document.querySelectorAll(`[onclick^="diagnose('${category}'"]`).forEach(btn => {
+                btn.querySelector('div').classList.remove('ring-4', 'ring-blue-400', 'ring-pink-400', 'ring-red-400', 'bg-blue-50', 'bg-pink-50', 'bg-red-50');
+            });
+            const colorClass = category === 'head' ? 'blue' : (category === 'heart' ? 'pink' : 'red');
+            event.currentTarget.querySelector('div').classList.add('ring-4', `ring-${colorClass}-400`, `bg-${colorClass}-50`);
         }
 
         // Initialize
-        drawHand();
+        drawAllHands();
         lucide.createIcons();
 
         function toggleMobileMenu() {
