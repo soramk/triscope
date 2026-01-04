@@ -204,28 +204,7 @@
                 <!-- Left Column: Both Hands -->
                 <div class="xl:col-span-8 space-y-8">
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 items-center justify-items-center">
-                        <!-- Right Hand (Acquired) - Now on the left side of screen -->
-                        <div class="relative group">
-                            <div
-                                class="absolute -inset-4 bg-orange-500/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-duration-700">
-                            </div>
-                            <h4 class="text-sm font-bold text-stone-500 mb-2">右手 <span
-                                    class="text-[10px] font-normal opacity-70">後天運・外面</span></h4>
-                            <div
-                                class="relative border-2 border-stone-100 rounded-[3rem] p-4 bg-white/50 backdrop-blur-sm shadow-inner group-hover:border-orange-200 transition-colors">
-                                <canvas id="rightHandCanvas" width="280" height="340"
-                                    class="relative z-10 drop-shadow-sm"></canvas>
-                                <div id="right-tooltip"
-                                    class="absolute pointer-events-none bg-stone-900/90 text-white px-2 py-1 rounded text-[10px] opacity-0 transition-opacity z-20 whitespace-nowrap font-bold tracking-wider">
-                                </div>
-                            </div>
-                            <div class="mt-4 text-center">
-                                <span class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Current &
-                                    Future</span>
-                            </div>
-                        </div>
-
-                        <!-- Left Hand (Innate) - Now on the right side of screen -->
+                        <!-- Left Hand (Innate) - On the left side of screen -->
                         <div class="relative group">
                             <div
                                 class="absolute -inset-4 bg-indigo-500/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-duration-700">
@@ -245,7 +224,29 @@
                                     Past</span>
                             </div>
                         </div>
-                    </div> <!-- Common Controls -->
+
+                        <!-- Right Hand (Acquired) - On the right side of screen -->
+                        <div class="relative group">
+                            <div
+                                class="absolute -inset-4 bg-orange-500/5 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-duration-700">
+                            </div>
+                            <h4 class="text-sm font-bold text-stone-500 mb-2">右手 <span
+                                    class="text-[10px] font-normal opacity-70">後天運・外面</span></h4>
+                            <div
+                                class="relative border-2 border-stone-100 rounded-[3rem] p-4 bg-white/50 backdrop-blur-sm shadow-inner group-hover:border-orange-200 transition-colors">
+                                <canvas id="rightHandCanvas" width="280" height="340"
+                                    class="relative z-10 drop-shadow-sm"></canvas>
+                                <div id="right-tooltip"
+                                    class="absolute pointer-events-none bg-stone-900/90 text-white px-2 py-1 rounded text-[10px] opacity-0 transition-opacity z-20 whitespace-nowrap font-bold tracking-wider">
+                                </div>
+                            </div>
+                            <div class="mt-4 text-center">
+                                <span class="text-[10px] text-stone-400 uppercase tracking-widest font-bold">Current &
+                                    Future</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Common Controls -->
                     <div class="flex flex-wrap justify-center gap-2">
                         <button onclick="simulateHover('life')"
                             class="px-4 py-2 text-xs font-bold bg-white border border-stone-300 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">生命線</button>
@@ -928,14 +929,18 @@
         let currentHover = null;
 
         function drawAllHands() {
-            drawHand(leftCanvas, leftCtx, true);
-            drawHand(rightCanvas, rightCtx, false);
+            // Updated Mirroring Logic:
+            // Base coords (thumb left) are used for Left side (Left Hand) -> isMirror=false
+            // Mirrored coords (thumb right) are used for Right side (Right Hand) -> isMirror=true
+            // This creates a "Mirror View" perspective.
+            drawHand(leftCanvas, leftCtx, false);
+            drawHand(rightCanvas, rightCtx, true);
         }
 
-        function drawHand(canvas, ctx, isLeft) {
+        function drawHand(canvas, ctx, isMirror) {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             const scale = canvas.width / 500;
-            const mirrorX = (x) => isLeft ? (500 - x) * scale : x * scale;
+            const mirrorX = (x) => isMirror ? (500 - x) * scale : x * scale;
             const fixX = (x) => x * scale;
 
             // 1. Draw Hand Outline
@@ -1030,15 +1035,15 @@
             });
         }
 
-        function handleHover(e, canvas, isLeft) {
+        function handleHover(e, canvas, isMirror) {
             const rect = canvas.getBoundingClientRect();
             const scaleX = 500 / rect.width;
-            const scaleY = 600 / rect.height; // Logic width/height of hand coordinate system
+            const scaleY = 600 / rect.height;
             let x = (e.clientX - rect.left) * scaleX;
             let y = (e.clientY - rect.top) * scaleY;
 
-            // Normalize X for hit detection based on right-hand logic
-            if (isLeft) x = 500 - x;
+            // Normalize X based on mirroring state
+            if (isMirror) x = 500 - x;
 
             const prevHover = currentHover;
             currentHover = null;
@@ -1088,8 +1093,8 @@
             }
         }
 
-        leftCanvas.addEventListener('mousemove', (e) => handleHover(e, leftCanvas, true));
-        rightCanvas.addEventListener('mousemove', (e) => handleHover(e, rightCanvas, false));
+        leftCanvas.addEventListener('mousemove', (e) => handleHover(e, leftCanvas, false));
+        rightCanvas.addEventListener('mousemove', (e) => handleHover(e, rightCanvas, true));
         leftCanvas.addEventListener('mouseleave', () => { leftTooltip.style.opacity = 0; });
         rightCanvas.addEventListener('mouseleave', () => { rightTooltip.style.opacity = 0; });
 
