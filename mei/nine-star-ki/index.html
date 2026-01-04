@@ -77,6 +77,11 @@
         }
 
         /* Timeline adjustments for single page */
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
         .timeline-line {
             position: absolute;
             left: 50%;
@@ -88,9 +93,22 @@
             z-index: 0;
         }
 
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
         @media (max-width: 768px) {
             .timeline-line {
                 left: 20px;
+                transform: none;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                transform: translateY(-50%);
             }
         }
     </style>
@@ -124,27 +142,28 @@
     </nav>
 
     <!-- Hero Section -->
-    <header class="bg-jp-indigo text-white relative overflow-hidden py-24">
+    <header
+        class="bg-gradient-to-br from-white via-jp-bg to-jp-gold/20 text-jp-indigo relative overflow-hidden py-24 border-b border-stone-200">
         <div class="container mx-auto px-4 text-center relative z-10">
             <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-widest mb-6">自然の「気」を味方にする</h1>
-            <p class="text-jp-bg opacity-90 text-lg md:text-xl max-w-3xl mx-auto leading-relaxed">
+            <p class="text-jp-gray text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
                 九星気学は、宇宙の循環エネルギーを9つの星に分類し、あなたの宿命と開運の方位を導き出す知恵の結晶です。
                 「動くことで運命を変える」能動的な開運学の世界へようこそ。
             </p>
             <div class="mt-12">
                 <button onclick="scrollToSection('practice')"
-                    class="bg-jp-gold hover:bg-yellow-600 text-jp-indigo font-bold py-5 px-12 rounded-full shadow-2xl transition-transform hover:scale-105 active:scale-95">
+                    class="bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 px-12 rounded-full shadow-2xl transition-transform hover:scale-105 active:scale-95">
                     今すぐ自分の星を鑑定する
                 </button>
             </div>
         </div>
         <!-- Abstract Decorative Elements -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 border border-jp-gold/10 rounded-full pointer-events-none">
+        <div class="absolute -top-20 -left-20 w-96 h-96 border border-jp-gold/20 rounded-full pointer-events-none">
         </div>
-        <div class="absolute -bottom-20 -right-20 w-96 h-96 border border-jp-gold/10 rounded-full pointer-events-none">
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 border border-jp-gold/20 rounded-full pointer-events-none">
         </div>
         <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-white/5 rounded-full pointer-events-none">
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-jp-indigo/5 rounded-full pointer-events-none">
         </div>
     </header>
 
@@ -161,31 +180,57 @@
                     </p>
                 </div>
 
-                <div class="max-w-2xl mx-auto">
+                <div class="max-w-3xl mx-auto">
                     <div class="bg-stone-50 p-8 rounded-2xl border border-stone-200 mb-10">
                         <div class="space-y-8">
-                            <div class="text-center">
-                                <label for="birthYear"
-                                    class="block text-sm font-bold text-jp-indigo mb-4 uppercase tracking-widest">Year
-                                    of Birth</label>
-                                <div class="flex justify-center items-center gap-4">
-                                    <input type="number" id="birthYear" placeholder="1990"
-                                        class="w-full max-w-[240px] text-center text-3xl font-serif py-4 px-6 rounded-2xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none transition-all shadow-inner">
-                                    <span class="text-xl font-serif text-jp-indigo">年</span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <!-- Year Select -->
+                                <div class="text-center md:text-left">
+                                    <label for="birth-year"
+                                        class="block text-sm font-bold text-jp-indigo mb-3 uppercase tracking-widest">Year
+                                        of Birth</label>
+                                    <select id="birth-year"
+                                        class="w-full text-center text-xl py-3 px-4 rounded-xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none bg-white"></select>
                                 </div>
-                                <div class="mt-6 flex items-center justify-center gap-3">
+                                <!-- Month Select -->
+                                <div class="text-center md:text-left">
+                                    <label for="birth-month"
+                                        class="block text-sm font-bold text-jp-indigo mb-3 uppercase tracking-widest">Month
+                                        of Birth</label>
+                                    <select id="birth-month"
+                                        class="w-full text-center text-xl py-3 px-4 rounded-xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none bg-white">
+                                        <option value="1">1月</option>
+                                        <option value="2">2月 (立春以降)</option>
+                                        <option value="3">3月</option>
+                                        <option value="4">4月</option>
+                                        <option value="5">5月</option>
+                                        <option value="6">6月</option>
+                                        <option value="7">7月</option>
+                                        <option value="8">8月</option>
+                                        <option value="9">9月</option>
+                                        <option value="10">10月</option>
+                                        <option value="11">11月</option>
+                                        <option value="12">12月</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="text-center">
+                                <div
+                                    class="flex items-center justify-center gap-3 bg-white p-4 rounded-xl border border-stone-200 inline-block px-8 mx-auto">
                                     <input type="checkbox" id="beforeSetsubun"
                                         class="w-5 h-5 text-jp-gold border-stone-300 rounded focus:ring-jp-gold cursor-pointer">
                                     <label for="beforeSetsubun"
                                         class="text-sm text-jp-gray cursor-pointer select-none font-medium">1月1日 〜
-                                        2月3日（節分）生まれ</label>
+                                        2月3日（節分）生まれの方</label>
                                 </div>
+                                <p class="text-[10px] text-stone-400 mt-2">※旧暦を使用するため、2月3日以前の方は前年・前月の星として計算します</p>
                             </div>
 
                             <button onclick="calculateStar()"
                                 class="w-full bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 text-lg tracking-widest group">
                                 <span class="flex items-center justify-center">
-                                    運命を読み解く
+                                    精密集計を実行
                                     <i data-lucide="sparkles"
                                         class="ml-2 w-5 h-5 group-hover:rotate-12 transition-transform"></i>
                                 </span>
@@ -195,13 +240,31 @@
 
                     <!-- Result Display -->
                     <div id="result-area" class="hidden mt-16 animate-fade-in">
-                        <div class="text-center mb-12">
-                            <div
-                                class="inline-block px-4 py-1 bg-jp-gold/10 text-jp-gold text-[10px] font-bold uppercase tracking-[0.4em] rounded-full mb-4">
-                                Your Destiny Star</div>
-                            <h3 id="result-star-name"
-                                class="text-4xl md:text-5xl font-serif font-bold text-jp-indigo mb-4 tracking-wider">-
-                            </h3>
+                        <div class="flex flex-col md:flex-row gap-8 items-center justify-center mb-12">
+                            <!-- Honmei -->
+                            <div class="text-center">
+                                <div
+                                    class="inline-block px-3 py-0.5 bg-jp-gold/10 text-jp-gold text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-2">
+                                    本命星 (Year Star)</div>
+                                <h3 id="result-star-name"
+                                    class="text-3xl md:text-4xl font-serif font-bold text-jp-indigo tracking-wider">-
+                                </h3>
+                                <p class="text-[10px] text-jp-gray mt-1">一生変わらない「本質」</p>
+                            </div>
+                            <div class="hidden md:block w-[1px] h-16 bg-stone-200"></div>
+                            <!-- Getsumei -->
+                            <div class="text-center">
+                                <div
+                                    class="inline-block px-3 py-0.5 bg-jp-indigo/10 text-jp-indigo text-[10px] font-bold uppercase tracking-[0.3em] rounded-full mb-2">
+                                    月命星 (Month Star)</div>
+                                <h3 id="result-getsumei-name"
+                                    class="text-3xl md:text-4xl font-serif font-bold text-jp-indigo tracking-wider">-
+                                </h3>
+                                <p class="text-[10px] text-jp-gray mt-1">精神面や子供時代の運勢</p>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center mb-10">
                             <div id="result-element"
                                 class="inline-flex items-center px-6 py-2 bg-jp-indigo text-white text-sm font-bold rounded-full shadow-lg">
                                 <i data-lucide="layers" class="w-4 h-4 mr-2"></i>
@@ -261,6 +324,57 @@
                                 <span id="result-keywords" class="font-bold text-jp-indigo text-xs">-</span>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION: THREE STARS EXPLANATION (ADDED) -->
+        <section id="three-stars" class="mb-32">
+            <div class="bg-indigo-50/50 p-10 md:p-16 rounded-[2.5rem] border border-indigo-100">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="text-2xl md:text-3xl font-serif font-bold text-jp-indigo mb-6 text-center">
+                        気学は「生年月日」全ての要素が重要です</h3>
+                    <p class="text-gray-600 mb-10 leading-relaxed text-center">
+                        九星気学は「生まれた年」だけで占うものと思われがちですが、実は「年・月・日」の三つのバランスで一人の運命を多層的に読み解きます。
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-100">
+                            <span class="text-jp-gold font-black text-xl mb-2 block">本命星</span>
+                            <span class="text-[10px] text-jp-gray font-bold mb-3 block uppercase tracking-widest">Year
+                                Star</span>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                生まれた「年」の星。その人の核心的な性質、宿命、そして20歳以降の人生の主要な運勢を司ります。
+                            </p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-100">
+                            <span class="text-jp-indigo font-black text-xl mb-2 block">月命星</span>
+                            <span class="text-[10px] text-jp-gray font-bold mb-3 block uppercase tracking-widest">Month
+                                Star</span>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                生まれた「月」の星。精神面、潜在意識、身体的特徴、そして子供時代（〜15歳頃）の運勢に強い影響を与えます。
+                            </p>
+                        </div>
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-100">
+                            <span class="text-jp-accent font-black text-xl mb-2 block">日命星</span>
+                            <span class="text-[10px] text-jp-gray font-bold mb-3 block uppercase tracking-widest">Day
+                                Star</span>
+                            <p class="text-sm text-gray-700 leading-relaxed">
+                                生まれた「日」の星。日々の生活リズムや、ふとした時に出る無意識の癖、健康運などをさらに詳細に鑑定します。
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="mt-10 pt-10 border-t border-indigo-100 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div class="bg-white p-6 rounded-2xl shadow-sm border border-indigo-100 italic">
+                            <span class="text-indigo-900 font-black text-lg mb-2 block">さらに深く...</span>
+                            <p class="text-[11px] text-gray-500 leading-relaxed">
+                                上記に加え、人生の影の才能を示す<strong>「傾斜宮（けいしゃきゅう）」</strong>や、周囲からの影響を読み解く<strong>「同会（どうかい）」</strong>など、さらに多くの要素を組み合わせて鑑定します。
+                            </p>
+                        </div>
+                        <p class="text-center text-xs text-jp-gray font-medium italic">
+                            ※当ツールでは最も影響力の強い「本命星」と「月命星」を同時に算出しています。
+                        </p>
                     </div>
                 </div>
             </div>
@@ -497,7 +611,7 @@
                         </div>
                     </div>
                     <div
-                        class="timeline-dot bg-jp-gold w-6 h-6 border-4 border-[#f7f3e8] shadow-lg z-10 hidden md:block">
+                        class="timeline-dot bg-jp-gold w-6 h-6 border-4 border-jp-bg shadow-lg transform translate-y-[-50%] md:translate-x-[-50%] top-1/2">
                     </div>
                     <div class="w-full md:w-5/12 pl-0 md:pl-12 order-3 hidden md:block"></div>
                 </div>
@@ -505,7 +619,7 @@
                 <div class="relative mb-24 md:mb-32 flex flex-col md:flex-row items-center w-full">
                     <div class="w-full md:w-5/12 order-1 hidden md:block"></div>
                     <div
-                        class="timeline-dot bg-jp-indigo w-6 h-6 border-4 border-[#f7f3e8] shadow-lg z-10 hidden md:block">
+                        class="timeline-dot bg-jp-indigo w-6 h-6 border-4 border-jp-bg shadow-lg transform translate-y-[-50%] md:translate-x-[-50%] top-1/2">
                     </div>
                     <div class="w-full md:w-5/12 pl-0 md:pl-12 mb-8 md:mb-0 order-3">
                         <div class="bg-white p-8 rounded-3xl shadow-xl border border-stone-100 star-card">
@@ -531,7 +645,7 @@
                         </div>
                     </div>
                     <div
-                        class="timeline-dot bg-jp-indigo w-6 h-6 border-4 border-[#f7f3e8] shadow-lg z-10 hidden md:block">
+                        class="timeline-dot bg-jp-indigo w-6 h-6 border-4 border-jp-bg shadow-lg transform translate-y-[-50%] md:translate-x-[-50%] top-1/2">
                     </div>
                     <div class="w-full md:w-5/12 order-3 hidden md:block"></div>
                 </div>
@@ -539,7 +653,7 @@
                 <div class="relative flex flex-col md:flex-row items-center w-full">
                     <div class="w-full md:w-5/12 order-1 hidden md:block"></div>
                     <div
-                        class="timeline-dot bg-jp-accent w-6 h-6 border-4 border-[#f7f3e8] shadow-lg z-10 hidden md:block">
+                        class="timeline-dot bg-jp-accent w-6 h-6 border-4 border-jp-bg shadow-lg transform translate-y-[-50%] md:translate-x-[-50%] top-1/2">
                     </div>
                     <div class="w-full md:w-5/12 pl-0 md:pl-12 order-3">
                         <div class="bg-white p-8 rounded-3xl shadow-xl border border-stone-100 star-card">
@@ -584,9 +698,22 @@
         // --- Initialization ---
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
+            populateYearSelect();
             renderChart();
             renderStarCards();
         });
+
+        function populateYearSelect() {
+            const yearSelect = document.getElementById('birth-year');
+            const currentYear = new Date().getFullYear();
+            for (let y = currentYear; y >= 1900; y--) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y + '年';
+                if (y === 1990) opt.selected = true;
+                yearSelect.appendChild(opt);
+            }
+        }
 
         // --- Navigation Logic ---
         function scrollToSection(id) {
@@ -705,7 +832,8 @@
         }
 
         function calculateStar() {
-            const yearInput = document.getElementById('birthYear').value;
+            const yearInput = document.getElementById('birth-year').value;
+            const monthInput = parseInt(document.getElementById('birth-month').value);
             const isBeforeSetsubun = document.getElementById('beforeSetsubun').checked;
 
             if (!yearInput) {
@@ -714,8 +842,13 @@
             }
 
             let year = parseInt(yearInput);
-            if (isBeforeSetsubun) year -= 1;
 
+            // Adjust for Setsubun (If born Jan 1 - Feb 3, count as previous year)
+            if (isBeforeSetsubun) {
+                year -= 1;
+            }
+
+            // --- Honmei-sei Calculation ---
             let sum = 0;
             let yStr = year.toString();
             for (let i = 0; i < yStr.length; i++) sum += parseInt(yStr[i]);
@@ -726,24 +859,55 @@
                 for (let i = 0; i < sStr.length; i++) sum += parseInt(sStr[i]);
             }
 
-            let starNum = 11 - sum;
-            if (starNum > 9) starNum -= 9;
-            if (starNum === 0) starNum = 9;
+            let honmeiNum = 11 - sum;
+            if (honmeiNum > 9) honmeiNum -= 9;
+            if (honmeiNum === 0) honmeiNum = 9;
 
-            const result = starData[starNum];
+            // --- Getsumei-sei Calculation ---
+            // Adjusted month for KiGaku (Feb is the start of the year)
+            // If Jan, it's counted as the previous year's 12th month usually, 
+            // but the checkbox handled the 'year' part. 
+            // For the month calculation, we need the star of the month.
+
+            let month = monthInput;
+            if (isBeforeSetsubun) {
+                month = 12; // Simplified logic: Feb 3 before is considered Jan or previous Dec
+            }
+
+            const getsumeiTable = {
+                // Group 1: Honmei 1, 4, 7 (Feb start: 8)
+                1: [0, 6, 8, 7, 6, 5, 4, 3, 2, 1, 9, 8, 7],
+                4: [0, 6, 8, 7, 6, 5, 4, 3, 2, 1, 9, 8, 7],
+                7: [0, 6, 8, 7, 6, 5, 4, 3, 2, 1, 9, 8, 7],
+                // Group 2: Honmei 3, 6, 9 (Feb start: 5)
+                3: [0, 3, 5, 4, 3, 2, 1, 9, 8, 7, 6, 5, 4],
+                6: [0, 3, 5, 4, 3, 2, 1, 9, 8, 7, 6, 5, 4],
+                9: [0, 3, 5, 4, 3, 2, 1, 9, 8, 7, 6, 5, 4],
+                // Group 3: Honmei 2, 5, 8 (Feb start: 2)
+                2: [0, 9, 2, 1, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+                5: [0, 9, 2, 1, 9, 8, 7, 6, 5, 4, 3, 2, 1],
+                8: [0, 9, 2, 1, 9, 8, 7, 6, 5, 4, 3, 2, 1]
+            };
+
+            let getsumeiNum = getsumeiTable[honmeiNum][month];
+
+            const resultHonmei = starData[honmeiNum];
+            const resultGetsumei = starData[getsumeiNum];
 
             // Display Result
             document.getElementById('result-area').classList.remove('hidden');
-            document.getElementById('result-star-name').innerText = result.name;
-            document.getElementById('result-element-text').innerText = `五行：${result.element}`;
-            document.getElementById('result-personality').innerText = result.personality;
-            document.getElementById('result-work').innerText = result.work;
-            document.getElementById('result-love').innerText = result.love;
-            document.getElementById('result-advice').innerText = result.advice;
-            document.getElementById('result-color').innerText = result.color;
-            document.getElementById('result-nature').innerText = result.nature;
-            document.getElementById('result-direction').innerText = result.direction;
-            document.getElementById('result-keywords').innerText = result.keywords;
+            document.getElementById('result-star-name').innerText = resultHonmei.name.split(' ')[0];
+            document.getElementById('result-getsumei-name').innerText = resultGetsumei.name.split(' ')[0];
+            document.getElementById('result-element-text').innerText = `本命五行：${resultHonmei.element} / 月命五行：${resultGetsumei.element}`;
+
+            document.getElementById('result-personality').innerText = resultHonmei.personality;
+            document.getElementById('result-work').innerText = resultHonmei.work;
+            document.getElementById('result-love').innerText = resultHonmei.love;
+            document.getElementById('result-advice').innerText = resultHonmei.advice;
+            document.getElementById('result-color').innerText = resultHonmei.color;
+            document.getElementById('result-nature').innerText = resultHonmei.nature;
+            document.getElementById('result-direction').innerText = resultHonmei.direction;
+            document.getElementById('result-keywords').innerText = resultHonmei.keywords;
 
             // Smooth scroll to results
             setTimeout(() => {
