@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>風水：環境と運気の調和</title>
+    <title>風水：環境と運気の調和 - Triscope Feng Shui</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <link
@@ -17,7 +17,7 @@
     <!-- Chosen Palette: Earth & Harmony -->
     <!-- Primary: Warm Taupe/Stone (#A89F91) - Stability -->
     <!-- Secondary: Sage Green (#84A59D) - Nature/Growth -->
-    <!-- Accent: Muted Cinnabar (#BC6C25) - Vitality/Qi (sparingly used) -->
+    <!-- Accent: Muted Cinnabar (#BC6C25) - Vitality/Qi -->
     <!-- Background: Off-white/Cream (#FDFCF8) - Clarity -->
 
     <script>
@@ -48,613 +48,951 @@
     </script>
 
     <style>
-        /* bodyスタイルは common.css で定義 */
+        /* Base scrolling behaviors */
+        html {
+            scroll-behavior: smooth;
+        }
 
-        /* Chart Container Constraint Logic */
         .chart-container {
             position: relative;
             width: 100%;
             max-width: 600px;
-            /* Max width constraint */
             margin-left: auto;
             margin-right: auto;
             height: 350px;
-            /* Base height */
             max-height: 400px;
         }
 
-        @media (max-width: 640px) {
-            .chart-container {
-                height: 300px;
+        /* Bagua Map Interactive */
+        .bagua-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .bagua-cell {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 4px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            border: 1px solid rgba(168, 159, 145, 0.2);
+        }
+
+        .bagua-cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border-color: #84A59D;
+        }
+
+        .bagua-cell.active {
+            background-color: #84A59D;
+            color: white;
+            border-color: #2C3E50;
+        }
+
+        /* Element circles */
+        .element-circle {
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .element-circle:hover {
+            transform: scale(1.15) rotate(5deg);
+        }
+
+        /* Vertical Timeline */
+        .timeline-line-fs {
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, transparent, #A89F91, transparent);
+        }
+
+        @media (min-width: 768px) {
+            .timeline-line-fs {
+                left: 50%;
+                margin-left: -1px;
             }
         }
 
-        /* Custom Scrollbar for clean look */
-        ::-webkit-scrollbar {
-            width: 8px;
+        /* Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
         }
 
-        ::-webkit-scrollbar-track {
-            background: #F1F1F1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #A89F91;
-            border-radius: 4px;
-        }
-
-        /* Five Elements Animation */
-        .element-circle {
-            transition: all 0.3s ease;
-        }
-
-        .element-circle:hover,
-        .element-circle.active {
-            transform: scale(1.1);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            border-width: 3px;
-        }
-
-        .tab-btn.active {
-            background-color: #84A59D;
-            color: white;
-            border-bottom: 2px solid #2C3E50;
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
         }
     </style>
-
-    <!-- Application Structure Plan: 
-         1. Hero Section: Sets the tone, defines Feng Shui briefly.
-         2. Interactive Dashboard (Tabs):
-            - "Overview (概要)": Radar chart comparing Feng Shui to other divination types.
-            - "The Logic (理)": Interactive Five Elements (Wu Xing) diagram. This is the core engine of Feng Shui.
-            - "History (歴史)": Vertical timeline of evolution.
-            - "Practice (実践)": Step-by-step guide card stack.
-         This structure allows users to jump between "Theory" and "Practice" easily without being overwhelmed by text walls.
-    -->
-
-    <!-- Visualization & Content Choices:
-         - Radar Chart: To clearly show what Feng Shui is GOOD at vs. BAD at (Goal: Compare/Inform).
-         - Five Elements Interactive: Clickable circular layout. Shows relationships (Generative/Destructive cycles) dynamically (Goal: Relationships/Logic). NO SVG used, CSS layout only.
-         - Timeline: CSS-styled vertical list (Goal: Inform/History).
-    -->
-
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 
-<body class="antialiased min-h-screen flex flex-col font-sans">
-
+<body class="antialiased min-h-screen flex flex-col font-sans bg-fs-base text-gray-800">
 
     <!-- Header -->
     <header class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
                 <div class="w-8 h-8 bg-fs-sage/10 rounded-lg flex items-center justify-center mr-3">
-                    <i data-lucide="sparkles" class="w-5 h-5 text-fs-sage"></i>
+                    <i data-lucide="wind" class="w-5 h-5 text-fs-sage"></i>
                 </div>
                 <span class="text-2xl font-bold text-fs-dark serif tracking-tight">風水</span>
                 <span class="ml-2 text-xs text-stone-500 uppercase tracking-widest hidden sm:block">Feng Shui</span>
             </div>
 
             <nav class="hidden md:flex gap-1 items-center text-sm font-medium">
-                <button onclick="switchTab('overview')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
-                    <i data-lucide="search" class="w-4 h-4"></i> 概要・特性
-                </button>
-                <button onclick="switchTab('logic')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
-                    <i data-lucide="brain" class="w-4 h-4"></i> 根拠
-                </button>
-                <button onclick="switchTab('history')"
-                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all flex items-center gap-2">
-                    <i data-lucide="history" class="w-4 h-4"></i> 歴史
-                </button>
-                <button onclick="switchTab('practice')"
-                    class="px-6 py-2 rounded-full bg-fs-dark text-white hover:bg-opacity-90 transition-all flex items-center gap-2 ml-2">
-                    <i data-lucide="sparkles" class="w-4 h-4"></i> 実践方法
-                </button>
+                <button onclick="scrollToSection('intro')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">概要</button>
+                <button onclick="scrollToSection('bagua')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">八卦マップ</button>
+                <button onclick="scrollToSection('logic')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">五行・理論</button>
+                <button onclick="scrollToSection('diagnostic')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">セルフチェック</button>
+                <button onclick="scrollToSection('history')"
+                    class="px-4 py-2 rounded-full text-stone-600 hover:bg-fs-sage/10 hover:text-fs-dark transition-all">歴史</button>
+                <button onclick="scrollToSection('practice')"
+                    class="px-6 py-2 rounded-full bg-fs-dark text-white hover:bg-opacity-90 transition-all ml-2">実践方法</button>
             </nav>
 
-            <!-- Mobile Menu Btn -->
             <button id="mobile-menu-btn" class="md:hidden p-2 text-fs-dark hover:bg-gray-100 rounded-lg">
                 <i data-lucide="menu" class="w-6 h-6"></i>
             </button>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu"
-            class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 animate-fade-in">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <button onclick="switchTab('overview'); toggleMobileMenu()"
-                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-600 hover:bg-fs-sage/10 rounded-lg">
-                    <i data-lucide="search" class="w-5 h-5"></i> 概要・特性
-                </button>
-                <button onclick="switchTab('logic'); toggleMobileMenu()"
-                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-600 hover:bg-fs-sage/10 rounded-lg">
-                    <i data-lucide="brain" class="w-5 h-5"></i> 根拠とロジック
-                </button>
-                <button onclick="switchTab('history'); toggleMobileMenu()"
-                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-600 hover:bg-fs-sage/10 rounded-lg">
-                    <i data-lucide="history" class="w-5 h-5"></i> 歴史と変遷
-                </button>
-                <button onclick="switchTab('practice'); toggleMobileMenu()"
-                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-fs-dark font-bold hover:bg-fs-sage/10 rounded-lg border border-fs-sage/20">
-                    <i data-lucide="sparkles" class="w-5 h-5"></i> 実践方法
-                </button>
-            </div>
+            class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 p-4 space-y-2">
+            <button onclick="scrollToSection('intro'); toggleMobileMenu()"
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">概要</button>
+            <button onclick="scrollToSection('bagua'); toggleMobileMenu()"
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">八卦マップ</button>
+            <button onclick="scrollToSection('logic'); toggleMobileMenu()"
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">五行・理論</button>
+            <button onclick="scrollToSection('diagnostic'); toggleMobileMenu()"
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">セルフチェック</button>
+            <button onclick="scrollToSection('history'); toggleMobileMenu()"
+                class="w-full text-left p-3 hover:bg-fs-sage/10 rounded-lg">歴史</button>
+            <button onclick="scrollToSection('practice'); toggleMobileMenu()"
+                class="w-full text-left p-3 font-bold text-fs-earth">実践方法</button>
         </div>
     </header>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-b from-fs-base to-gray-100 py-12 md:py-20 text-center px-4">
-        <div class="max-w-3xl mx-auto">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-fs-sage text-white text-xs tracking-widest mb-4">ENVIRONMENTAL
-                SCIENCE</span>
-            <h2 class="text-4xl md:text-5xl font-bold text-fs-dark mb-6 tracking-tight">環境と運気の<br><span
-                    class="text-fs-earth">調和</span>を解き明かす</h2>
-            <p class="text-lg text-gray-600 leading-relaxed mb-8">
-                風水（Feng Shui）は、単なる占いではありません。<br>
-                それは「気（Qi）」の力を利用し、環境を整えることで運命を開く<br>
-                古代中国発祥の「環境地理学」であり「相術」です。
-            </p>
-            <button onclick="switchTab('overview'); scrollToSection('main-content')"
-                class="bg-fs-dark text-white px-8 py-3 rounded-full hover:bg-opacity-90 transition-all shadow-lg transform hover:-translate-y-1">
-                探求を始める
-            </button>
+    <section class="relative min-h-[90vh] flex items-center justify-center overflow-hidden pt-16">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-gradient-to-b from-fs-base via-transparent to-fs-base opacity-90"></div>
+            <!-- Decorative Large Kanji -->
+            <div
+                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[40vw] font-serif text-fs-stone/5 pointer-events-none select-none">
+                風水
+            </div>
+        </div>
+
+        <div class="max-w-5xl mx-auto px-4 text-center relative z-10">
+            <div class="reveal animate-fade-in-up">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-fs-sage/20 text-fs-wood text-xs font-bold tracking-widest mb-6 border border-fs-sage/30 uppercase">environmental
+                    harmony art</span>
+                <h1 class="text-5xl md:text-8xl font-bold text-fs-dark mb-8 tracking-tighter serif leading-tight">
+                    環境を整え、<br><span class="text-fs-earth">運命</span>を加速させる。
+                </h1>
+                <p class="text-lg md:text-2xl text-gray-600 leading-relaxed max-w-3xl mx-auto mb-12">
+                    風水（Feng Shui）は、目に見えないエネルギー「気」の力を使い、<br class="hidden md:block">
+                    あなたの住居や行動を「パワースポット」へと変える環境地理学です。
+                </p>
+                <div class="flex flex-wrap justify-center gap-4">
+                    <button onclick="scrollToSection('diagnostic')"
+                        class="bg-fs-dark text-white px-8 py-4 rounded-full font-bold hover:scale-105 transition-all shadow-xl shadow-fs-dark/20 flex items-center gap-2">
+                        <i data-lucide="sparkles" class="w-5 h-5"></i> 部屋の運気を診断する
+                    </button>
+                    <button onclick="scrollToSection('intro')"
+                        class="bg-white text-fs-dark border border-gray-200 px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-all flex items-center gap-2">
+                        <i data-lucide="book-open" class="w-5 h-5"></i> 風水の理論を学ぶ
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce">
+            <i data-lucide="chevron-down" class="w-6 h-6 text-fs-stone"></i>
         </div>
     </section>
 
-    <!-- Main Content Area -->
-    <main id="main-content" class="max-w-6xl mx-auto px-4 py-10 flex-grow">
-
-        <!-- Tab Navigation (Mobile & Desktop) -->
-        <div class="flex flex-wrap justify-center border-b border-gray-200 mb-8 sticky top-[60px] bg-fs-base z-40 py-2">
-            <button onclick="switchTab('overview')" id="tab-overview"
-                class="tab-btn active px-4 py-2 mx-1 md:mx-2 text-sm md:text-base font-medium text-gray-500 rounded-t-lg transition-all">概要・得意分野</button>
-            <button onclick="switchTab('logic')" id="tab-logic"
-                class="tab-btn px-4 py-2 mx-1 md:mx-2 text-sm md:text-base font-medium text-gray-500 rounded-t-lg transition-all">論理・五行説</button>
-            <button onclick="switchTab('history')" id="tab-history"
-                class="tab-btn px-4 py-2 mx-1 md:mx-2 text-sm md:text-base font-medium text-gray-500 rounded-t-lg transition-all">歴史・起源</button>
-            <button onclick="switchTab('practice')" id="tab-practice"
-                class="tab-btn px-4 py-2 mx-1 md:mx-2 text-sm md:text-base font-medium text-gray-500 rounded-t-lg transition-all">実践・やり方</button>
+    <!-- Section: Intro & Radar Chart -->
+    <section id="intro" class="py-24 bg-white reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-16">
+                <div class="md:w-1/2 space-y-8">
+                    <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif">
+                        変化は、<br><span class="text-fs-sage">身近な環境</span>から始まる。
+                    </h2>
+                    <p class="text-gray-600 leading-relaxed text-lg">
+                        風水は、手相や生年月日による「待つ」占いとは決定的に異なります。それは、物理的な空間配置（相術）を自らの手で変えることで、停滞している運気を動かす「動」の技術です。
+                    </p>
+                    <div class="grid grid-cols-2 gap-6">
+                        <div class="p-4 rounded-2xl bg-fs-base border border-fs-sage/20">
+                            <h4 class="font-bold text-fs-wood mb-2 flex items-center gap-2">
+                                <i data-lucide="trending-up" class="w-4 h-4"></i> 改運
+                            </h4>
+                            <p class="text-sm text-gray-500">環境を整えることで、能動的に運気を改善させます。</p>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-fs-base border border-fs-sage/20">
+                            <h4 class="font-bold text-fs-wood mb-2 flex items-center gap-2">
+                                <i data-lucide="shield-check" class="w-4 h-4"></i> 化殺
+                            </h4>
+                            <p class="text-sm text-gray-500">外部からの悪いエネルギー（殺気）を中和・防御します。</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="md:w-1/2 w-full bg-fs-base p-8 rounded-[3rem] shadow-inner">
+                    <h4 class="text-center font-bold text-fs-stone mb-6 uppercase tracking-widest text-sm">風水の特性分析</h4>
+                    <div class="chart-container">
+                        <canvas id="overviewChart"></canvas>
+                    </div>
+                    <p class="text-xs text-center text-gray-400 mt-6">※四柱推命や西洋占星術と比較した、風水の得意分野スコア</p>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <!-- Content Views -->
-        <div id="content-display" class="min-h-[500px]">
-            <!-- Dynamic Content Injected Here via JS -->
+    <!-- Section: Bagua Map (Interactive) -->
+    <section id="bagua" class="py-24 bg-fs-base reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif mb-6">八卦マップ：空間のエネルギー分布</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">
+                    家の中を9つのエリアに分ける「八卦（バグア）」は、空間とあなたの人生の各分野がどのようにリンクしているかを示します。エリアを選択してください。</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="flex justify-center">
+                    <div class="bagua-grid" id="bagua-grid">
+                        <!-- Top Row -->
+                        <div class="bagua-cell rounded-tl-3xl bg-fs-fire/10 text-fs-fire" data-id="wealth">
+                            <span class="text-[10px] font-bold">南東</span>
+                            <span class="text-lg font-bold">富・金運</span>
+                        </div>
+                        <div class="bagua-cell bg-fs-fire/20 text-fs-fire" data-id="fame">
+                            <span class="text-[10px] font-bold">南</span>
+                            <span class="text-lg font-bold">名声・評価</span>
+                        </div>
+                        <div class="bagua-cell rounded-tr-3xl bg-fs-fire/10 text-fs-fire" data-id="love">
+                            <span class="text-[10px] font-bold">南西</span>
+                            <span class="text-lg font-bold">関係・愛</span>
+                        </div>
+                        <!-- Middle Row -->
+                        <div class="bagua-cell bg-fs-wood/10 text-fs-wood" data-id="health">
+                            <span class="text-[10px] font-bold">東</span>
+                            <span class="text-lg font-bold">健康・家族</span>
+                        </div>
+                        <div class="bagua-cell bg-fs-stone/20 text-fs-dark" data-id="center">
+                            <span class="text-[10px] font-bold">中央</span>
+                            <span class="text-lg font-bold">太極・安定</span>
+                        </div>
+                        <div class="bagua-cell bg-fs-metal/10 text-fs-metal" data-id="creativity">
+                            <span class="text-[10px] font-bold">西</span>
+                            <span class="text-lg font-bold">創造・子供</span>
+                        </div>
+                        <!-- Bottom Row -->
+                        <div class="bagua-cell rounded-bl-3xl bg-fs-water/10 text-fs-water" data-id="wisdom">
+                            <span class="text-[10px] font-bold">北東</span>
+                            <span class="text-lg font-bold">知恵・学び</span>
+                        </div>
+                        <div class="bagua-cell bg-fs-water/20 text-fs-water" data-id="career">
+                            <span class="text-[10px] font-bold">北</span>
+                            <span class="text-lg font-bold">仕事・道</span>
+                        </div>
+                        <div class="bagua-cell rounded-br-3xl bg-fs-metal/20 text-fs-metal" data-id="travel">
+                            <span class="text-[10px] font-bold">北西</span>
+                            <span class="text-lg font-bold">支援・旅</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="bagua-detail"
+                    class="bg-white p-8 md:p-12 rounded-[2.5rem] shadow-xl border border-gray-100 min-h-[400px] flex flex-col justify-center transition-all duration-500">
+                    <div class="text-center text-gray-400 space-y-4">
+                        <i data-lucide="layout" class="w-16 h-16 mx-auto opacity-20"></i>
+                        <p class="text-lg font-medium">八卦マップのエリアをクリックして<br>鑑定結果を表示してください</p>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-    </main>
+    <!-- Section: The Logic (Five Elements) -->
+    <section id="logic" class="py-24 bg-white reveal overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif mb-6">万物を操る五行の法則</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">風水の調整（レメディ）はすべて「木・火・土・金・水」の相互作用に基づいています。これらを理解し、空間のバランスを整えます。
+                </p>
+            </div>
+
+            <div class="relative flex flex-wrap justify-center gap-8 md:gap-16 py-12">
+                <!-- Connectivity Arrows Concept (Subtle) -->
+                <div class="absolute inset-0 flex items-center justify-center opacity-5 pointer-events-none">
+                    <div class="w-[80%] h-[80%] rounded-full border-8 border-dashed border-fs-stone"></div>
+                </div>
+
+                <!-- Elements Buttons -->
+                <div class="group flex flex-col items-center gap-4">
+                    <button onclick="showElementLogic('wood')"
+                        class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-fs-wood text-white font-bold text-xl shadow-lg element-circle flex flex-col items-center justify-center border-4 border-white hover:ring-4 hover:ring-fs-wood/30">
+                        <span>木</span>
+                        <span class="text-[10px] font-normal opacity-70">WOOD</span>
+                    </button>
+                    <span class="text-xs text-fs-wood font-bold">発展・成長</span>
+                </div>
+                <!-- repeats for other 4 -->
+                <div class="group flex flex-col items-center gap-4">
+                    <button onclick="showElementLogic('fire')"
+                        class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-fs-fire text-white font-bold text-xl shadow-lg element-circle flex flex-col items-center justify-center border-4 border-white hover:ring-4 hover:ring-fs-fire/30">
+                        <span>火</span>
+                        <span class="text-[10px] font-normal opacity-70">FIRE</span>
+                    </button>
+                    <span class="text-xs text-fs-fire font-bold">情熱・輝き</span>
+                </div>
+                <div class="group flex flex-col items-center gap-4">
+                    <button onclick="showElementLogic('earth')"
+                        class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-fs-soil text-white font-bold text-xl shadow-lg element-circle flex flex-col items-center justify-center border-4 border-white hover:ring-4 hover:ring-fs-soil/30">
+                        <span>土</span>
+                        <span class="text-[10px] font-normal opacity-70">EARTH</span>
+                    </button>
+                    <span class="text-xs text-fs-soil font-bold">安定・基盤</span>
+                </div>
+                <div class="group flex flex-col items-center gap-4">
+                    <button onclick="showElementLogic('metal')"
+                        class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-fs-metal text-white font-bold text-xl shadow-lg element-circle flex flex-col items-center justify-center border-4 border-white hover:ring-4 hover:ring-fs-metal/30">
+                        <span>金</span>
+                        <span class="text-[10px] font-normal opacity-70">METAL</span>
+                    </button>
+                    <span class="text-xs text-fs-metal font-bold">収穫・決断</span>
+                </div>
+                <div class="group flex flex-col items-center gap-4">
+                    <button onclick="showElementLogic('water')"
+                        class="w-24 h-24 md:w-32 md:h-32 rounded-full bg-fs-water text-white font-bold text-xl shadow-lg element-circle flex flex-col items-center justify-center border-4 border-white hover:ring-4 hover:ring-fs-water/30">
+                        <span>水</span>
+                        <span class="text-[10px] font-normal opacity-70">WATER</span>
+                    </button>
+                    <span class="text-xs text-fs-water font-bold">知恵・柔軟性</span>
+                </div>
+            </div>
+
+            <div id="element-detail-panel"
+                class="max-w-4xl mx-auto mt-12 bg-fs-base p-8 rounded-3xl border border-gray-100 hidden animate-fade-in">
+                <!-- Data populated via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Diagnostic Report (Floor Plan Style) -->
+    <section id="diagnostic" class="py-24 bg-white reveal">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <span
+                    class="inline-block py-1 px-3 rounded-full bg-fs-sage/10 text-fs-sage text-xs font-bold tracking-widest mb-4 border border-fs-sage/20 uppercase">Home
+                    Energy Audit</span>
+                <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif mb-6">場所別セルフチェック診断</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto">家の中の特定のエリアを選択して、現在の運気状態と改善アクションを確認しましょう。見取り図の各エリアをクリックしてください。
+                </p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12 items-start">
+                <!-- Floor Plan Visualizer -->
+                <div class="lg:w-1/2 w-full bg-fs-base p-6 md:p-10 rounded-[3rem] border border-gray-100 shadow-inner">
+                    <h4 class="text-center font-bold text-fs-stone mb-8 uppercase tracking-widest text-sm">
+                        住宅フロアプラン・ナビゲーター</h4>
+
+                    <div
+                        class="relative max-w-md mx-auto aspect-square bg-white rounded-2xl border-4 border-fs-stone/20 overflow-hidden p-4">
+                        <!-- Simplified Floor Plan Grid -->
+                        <div class="grid grid-cols-3 grid-rows-3 h-full gap-2">
+                            <!-- Balcony -->
+                            <div onclick="openDiagnostic('veranda')"
+                                class="col-span-3 row-span-1 bg-fs-sage/5 border-2 border-dashed border-fs-sage/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-sage/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="sun"
+                                        class="w-6 h-6 mx-auto text-fs-sage group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-wood">ベランダ・庭</span>
+                                </div>
+                            </div>
+                            <!-- Bedroom -->
+                            <div onclick="openDiagnostic('bedroom')"
+                                class="col-span-1 row-span-1 bg-fs-water/5 border-2 border-fs-water/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-water/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="bed"
+                                        class="w-5 h-5 mx-auto text-fs-water group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-water">寝室</span>
+                                </div>
+                            </div>
+                            <!-- Living -->
+                            <div onclick="openDiagnostic('living')"
+                                class="col-span-1 row-span-2 bg-fs-soil/5 border-2 border-fs-soil/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-soil/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="tv"
+                                        class="w-6 h-6 mx-auto text-fs-earth group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-earth">リビング</span>
+                                </div>
+                            </div>
+                            <!-- Kitchen -->
+                            <div onclick="openDiagnostic('kitchen')"
+                                class="col-span-1 row-span-1 bg-fs-fire/5 border-2 border-fs-fire/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-fire/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="utensils"
+                                        class="w-5 h-5 mx-auto text-fs-fire group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-fire">キッチン</span>
+                                </div>
+                            </div>
+                            <!-- Study -->
+                            <div onclick="openDiagnostic('study')"
+                                class="col-span-1 row-span-1 bg-fs-stone/5 border-2 border-fs-stone/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-stone/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="monitor"
+                                        class="w-5 h-5 mx-auto text-fs-stone group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-stone">仕事部屋</span>
+                                </div>
+                            </div>
+                            <!-- Bathroom/Toilet -->
+                            <div onclick="openDiagnostic('toilet')"
+                                class="col-span-1 row-span-1 bg-fs-metal/5 border-2 border-fs-metal/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-metal/20 transition-all group">
+                                <div class="text-center">
+                                    <i data-lucide="droplets"
+                                        class="w-5 h-5 mx-auto text-fs-metal group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-metal">水回り</span>
+                                </div>
+                            </div>
+                            <!-- Genkan -->
+                            <div onclick="openDiagnostic('genkan')"
+                                class="col-span-3 row-span-1 bg-fs-dark/5 border-4 border-fs-dark/20 rounded-xl flex items-center justify-center cursor-pointer hover:bg-fs-dark/10 transition-all group relative">
+                                <div
+                                    class="absolute -top-3 left-1/2 -translate-x-1/2 bg-fs-dark text-white px-3 py-1 rounded-full text-[8px] font-bold tracking-widest">
+                                    ENTRANCE</div>
+                                <div class="text-center">
+                                    <i data-lucide="door-open"
+                                        class="w-6 h-6 mx-auto text-fs-dark group-hover:scale-110 transition-transform"></i>
+                                    <span class="text-[10px] font-bold text-fs-dark uppercase">玄関</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-center text-[10px] text-gray-400 mt-6 uppercase tracking-widest font-bold">↑
+                        各エリアをタッチして詳細スコアを確認</p>
+                </div>
+
+                <!-- Diagnostic Detail Output -->
+                <div class="lg:w-1/2 w-full">
+                    <div id="diagnostic-result-panel"
+                        class="bg-white p-8 md:p-12 rounded-[3.5rem] border border-fs-sage/20 shadow-xl shadow-fs-sage/5 min-h-[500px] flex flex-col justify-center transition-all duration-500 overflow-hidden relative">
+                        <div class="absolute top-0 right-0 p-10 opacity-[0.03] pointer-events-none">
+                            <i data-lucide="home" class="w-64 h-64"></i>
+                        </div>
+
+                        <div id="diagnostic-placeholder" class="text-center space-y-6">
+                            <div class="w-20 h-20 bg-fs-sage/10 rounded-full flex items-center justify-center mx-auto">
+                                <i data-lucide="hand-metal" class="w-10 h-10 text-fs-sage"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-fs-dark serif">鑑定を開始しましょう</h3>
+                            <p class="text-gray-500 max-w-sm mx-auto">左の見取り図から、気になる場所を選択してください。即座に改善ポイントと運気アップの秘訣を表示します。
+                            </p>
+                        </div>
+
+                        <div id="diagnostic-content" class="hidden animate-fade-in space-y-8 relative z-10">
+                            <!-- Populated via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: History (Timeline) -->
+    <section id="history" class="py-24 bg-fs-base reveal">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif mb-6">風水の変遷：数千年の知恵</h2>
+                <p class="text-gray-600">かつては皇帝の国家機密として葬られ、戦災を逃れて世界へと広がった歴史を辿ります。</p>
+            </div>
+
+            <div class="relative py-10">
+                <div class="timeline-line-fs"></div>
+
+                <div class="space-y-12 md:space-y-24">
+                    <!-- Left Item -->
+                    <div class="relative flex flex-col md:flex-row md:justify-between items-center w-full">
+                        <div class="md:w-5/12 text-center md:text-right hidden md:block">
+                            <p class="text-fs-earth font-bold text-xl">古代中国 (紀元前)</p>
+                            <h4 class="text-2xl font-bold text-fs-dark mb-4">環境地理学の誕生</h4>
+                            <p class="text-gray-500">厳しい自然の中で、安全に暮らすための土地選びの知恵として。これが「巒頭（らんとう）」の原点です。</p>
+                        </div>
+                        <div class="w-4 h-4 rounded-full bg-fs-stone border-4 border-fs-base z-10 hidden md:block">
+                        </div>
+                        <div class="md:w-5/12 bg-white p-6 rounded-3xl shadow-md md:hidden">
+                            <p class="text-fs-earth font-bold text-sm">古代中国 (紀元前)</p>
+                            <h4 class="text-lg font-bold">環境地理学の誕生</h4>
+                            <p class="text-sm text-gray-500 mt-2">安全に暮らすための土地選びの知恵として。</p>
+                        </div>
+                        <div class="md:w-5/12 hidden md:block"></div>
+                    </div>
+
+                    <!-- Right Item -->
+                    <div class="relative flex flex-col md:flex-row md:justify-between items-center w-full">
+                        <div class="md:w-5/12 hidden md:block"></div>
+                        <div class="w-4 h-4 rounded-full bg-fs-stone border-4 border-fs-base z-10 hidden md:block">
+                        </div>
+                        <div class="md:w-5/12 text-center md:text-left">
+                            <p class="text-fs-earth font-bold text-xl md:text-xl">漢・唐代 (1-10世紀)</p>
+                            <h4 class="text-2xl font-bold text-fs-dark mb-4">理論体系の確立</h4>
+                            <p class="text-gray-500">陰陽五行、八卦、羅盤（コンパス）の導入。時間は方位とともに計算され「理気（りき）」が発展しました。</p>
+                        </div>
+                    </div>
+
+                    <!-- Left Item -->
+                    <div class="relative flex flex-col md:flex-row md:justify-between items-center w-full">
+                        <div class="md:w-5/12 text-center md:text-right">
+                            <p class="text-fs-earth font-bold text-xl">現代 (20世紀後半-)</p>
+                            <h4 class="text-2xl font-bold text-fs-dark mb-4">世界への普及</h4>
+                            <p class="text-gray-500">中国文化大革命を経て香港・台湾へ。欧米で「Feng Shui」としてリモデルされ、ビジネス戦略として定着。</p>
+                        </div>
+                        <div class="w-4 h-4 rounded-full bg-fs-stone border-4 border-fs-base z-10 hidden md:block">
+                        </div>
+                        <div class="md:w-5/12 hidden md:block"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Practice / Methodology -->
+    <section id="practice" class="py-24 bg-white reveal">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-5xl font-bold text-fs-dark serif mb-6">風水を実践するための4ステップ</h2>
+            </div>
+
+            <div class="space-y-8">
+                <div
+                    class="group flex gap-6 p-8 rounded-[2.5rem] bg-fs-base border border-gray-100 hover:shadow-xl transition-all">
+                    <div
+                        class="w-16 h-16 rounded-3xl bg-fs-dark text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:rotate-6 transition-transform">
+                        1</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">周囲の環境観察（巒頭）</h4>
+                        <p class="text-gray-600">まずは外の道路、川、隣の建物の「形」を観察します。家に対して攻撃的な角がないか、気の流れがスムーズかを見極めます。</p>
+                    </div>
+                </div>
+                <div
+                    class="group flex gap-6 p-8 rounded-[2.5rem] bg-fs-base border border-gray-100 hover:shadow-xl transition-all">
+                    <div
+                        class="w-16 h-16 rounded-3xl bg-fs-stone text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:rotate-6 transition-transform">
+                        2</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">方位の特定（理気）</h4>
+                        <p class="text-gray-600">正確なコンパスで家の向きを測定します。家の各エリアがどの方角に属し、どんな気が流れているかを八卦マップに照らします。</p>
+                    </div>
+                </div>
+                <div
+                    class="group flex gap-6 p-8 rounded-[2.5rem] bg-fs-base border border-gray-100 hover:shadow-xl transition-all">
+                    <div
+                        class="w-16 h-16 rounded-3xl bg-fs-sage text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:rotate-6 transition-transform">
+                        3</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">五行による調整（化殺と催旺）</h4>
+                        <p class="text-gray-600">悪い気は弱め（火の場所には水で抑えるなど）、良い気は活性化させます（水には金で力を与える）。植物や鏡、色などを配置します。</p>
+                    </div>
+                </div>
+                <div
+                    class="group flex gap-6 p-8 rounded-[2.5rem] bg-fs-base border border-gray-100 hover:shadow-xl transition-all">
+                    <div
+                        class="w-16 h-16 rounded-3xl bg-fs-earth text-white flex items-center justify-center text-2xl font-bold flex-shrink-0 group-hover:rotate-6 transition-transform">
+                        4</div>
+                    <div>
+                        <h4 class="text-xl font-bold mb-2">継続的な清掃と換気</h4>
+                        <p class="text-gray-600">どれだけ良いアイテムを置いても、埃や濁った空気は最大の「殺気」となります。物理的な美しさが気の質を維持します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
-    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
-                <div class="space-y-4">
-                    <h3
-                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
-                        <i data-lucide="sparkles" class="w-6 h-6 text-fs-sage"></i>
+    <footer class="bg-fs-dark text-white py-20">
+        <div class="max-w-7xl mx-auto px-4 text-center md:text-left">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+                <div class="space-y-6">
+                    <h3 class="text-3xl font-bold serif flex items-center gap-2 justify-center md:justify-start">
+                        <i data-lucide="wind" class="w-8 h-8 text-fs-sage"></i>
                         Triscope Feng Shui
                     </h3>
-                    <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
-                        環境と運気の調和を解き明かす。目に見えない「気」の力を制御し、住む人の可能性を最大限に引き出す環境地理学。
+                    <p class="text-gray-400 max-w-md leading-relaxed">
+                        環境と運気の調和を解き明かす。目に見えない「気」の力を制御し、住む人の可能性を最大限に引き出す環境地理学の実践的ガイド。
                     </p>
                 </div>
-                <div class="md:ml-20">
-                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
-                    <ul class="text-sm space-y-2 opacity-70">
-                        <li><button onclick="switchTab('overview')"
-                                class="hover:text-fs-sage transition-colors">概要と特性</button></li>
-                        <li><button onclick="switchTab('logic')"
-                                class="hover:text-fs-sage transition-colors">根拠とロジック</button></li>
-                        <li><button onclick="switchTab('practice')"
-                                class="hover:text-fs-sage transition-colors">実践方法</button></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
-                    <p class="text-sm opacity-70">
-                        Email: <a href="mailto:info@triscope.com"
-                            class="text-fs-sage hover:underline">info@triscope.com</a>
-                    </p>
+                <div class="flex flex-col justify-end md:items-end">
+                    <p class="text-gray-400">古代の知恵を、現代の暮らしに。</p>
+                    <p class="text-gray-400 mt-2 font-serif italic text-lg">Harmonizing Space, Empowering Life.</p>
                 </div>
             </div>
             <div
-                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
-                <span>© 2026 Triscope Project. All rights reserved.</span>
-                <div class="flex gap-6">
-                    <span>Powered by Ancient Logic</span>
-                    <span>Built with AI Technology</span>
+                class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] text-gray-500 tracking-[0.2em] font-bold">
+                <span>© 2026 TRISCOPE PROJECT. ALL RIGHTS RESERVED.</span>
+                <div class="flex gap-8">
+                    <span>ANCIENT LOGIC SYSTEM</span>
+                    <span>BUILT WITH AI TECHNOLOGY</span>
                 </div>
             </div>
-            <p class="mt-4 text-[10px] text-indigo-700 text-center">
-                ※風水は環境を整えることで運気をサポートするものであり、科学的な効果を保証するものではありません。
-            </p>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
+    <!-- Scripts -->
     <script>
-        // --- DATA STORE ---
-        const reportData = {
-            overview: {
-                title: "風水の概要と特性",
-                intro: "風水は、目に見えない「気」のエネルギーを制御し、環境を整えることで住む人の運気を向上させる技術です。他の占いと比較して、その特性と強みを分析します。",
-                type: "相術（そうじゅつ）",
-                comparisonData: [5, 5, 2, 1, 4], // Environment, Long-term Luck, Personality, Specific Feelings, Health
-                comparisonLabels: ["環境改善", "長期的運勢", "性格分析", "相手の気持ち", "健康運"],
-                details: [
-                    {
-                        title: "相術（そうじゅつ）とは？",
-                        desc: "風水は「相術」に分類されます。これは手相や人相、家相のように、目に見える形や姿から、その背後にある運気や吉凶を読み解く手法です。偶然性（卜術）や生年月日（命術）とは異なり、現状を観察し、物理的に変化させることで運命を変えられる「改運」の要素が強いのが特徴です。"
-                    },
-                    {
-                        title: "できること（得意分野）",
-                        items: [
-                            "家の環境による運気の良し悪しの判断（地相・家相）",
-                            "全体的な運勢のベースアップ（金運、健康運、仕事運など）",
-                            "長期的なバイオリズムの調整",
-                            "自分に合った土地や物件の選定"
-                        ]
-                    },
-                    {
-                        title: "できないこと（苦手分野）",
-                        items: [
-                            "「あの人は私のことをどう思っている？」といった相手の心理",
-                            "「明日の試験に受かるか？」といった短期的な具体的結果",
-                            "生まれ持った宿命（生年月日で決まる要素）自体の変更"
-                        ]
-                    }
-                ]
-            },
-            logic: {
-                title: "根拠とロジック体系",
-                intro: "風水は迷信や直感のみに基づくものではなく、古代中国から続く「統計学」と「自然哲学」の集大成です。その根底には、万物を構成するエネルギーの法則が存在します。",
-                concepts: [
-                    {
-                        title: "陰陽説 (Yin-Yang)",
-                        desc: "宇宙の万物は「陰」と「陽」の相反する二つの気で成り立っているという考え方。光と影、男と女、天と地など、このバランスが取れている状態を良しとします。"
-                    },
-                    {
-                        title: "五行説 (Wu Xing)",
-                        desc: "万物は「木・火・土・金・水」の5つの要素からなり、互いに生かし合い（相生）、または打ち消し合う（相克）関係性を持つという理論。風水調整の核となるロジックです。"
-                    },
-                    {
-                        title: "地理と天体",
-                        desc: "大地の起伏（龍脈）による気の流れや、天体の運行（時間）が環境に与える影響を計算します。羅盤（コンパス）は、この複雑な計算を行うための高度なツールです。"
-                    }
-                ],
-                elements: {
-                    wood: { name: "木 (Wood)", color: "bg-fs-wood", text: "成長、発展、春、東。火を生み（相生）、土を剋す（相克）。" },
-                    fire: { name: "火 (Fire)", color: "bg-fs-fire", text: "情熱、活性、夏、南。土を生み（相生）、金を剋す（相克）。" },
-                    earth: { name: "土 (Earth)", color: "bg-fs-soil", text: "安定、育成、季節の変わり目、中央。金を生み（相生）、水を剋す（相克）。" },
-                    metal: { name: "金 (Metal)", color: "bg-fs-metal", text: "収穫、決断、秋、西。水を生み（相生）、木を剋す（相克）。" },
-                    water: { name: "水 (Water)", color: "bg-fs-water", text: "知恵、柔軟、冬、北。木を生み（相生）、火を剋す（相克）。" }
+        // --- UI Interactions ---
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const headerOffset = 64;
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            }
+        }
+
+        // Reveal Animation
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            reveals.forEach(el => {
+                const windowHeight = window.innerHeight;
+                const elementTop = el.getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add('active');
                 }
+            });
+        });
+
+        // --- Data Store ---
+        const baguaData = {
+            wealth: {
+                title: "南東：富・繁栄（Wealth & Prosperity）",
+                element: "木",
+                desc: "金運、物質的な豊かさ、人生における『成果』を司るエリアです。ここが整うと、収入の安定や予期せぬ豊かさが舞い込みやすくなります。",
+                items: ["観葉植物（背の高いもの）", "水の流れる音", "紫色や金色の小物"]
             },
-            history: {
-                title: "歴史と起源",
-                intro: "風水の歴史は数千年に及びます。もともとは皇帝が国を治めるため、そして死者を埋葬するための国家機密レベルの知識でした。",
-                timeline: [
-                    { period: "紀元前 (古代中国)", event: "発祥", desc: "黄河文明の頃、厳しい自然環境の中で安全に暮らすための知恵として誕生。「風を蔵し、水を得る」場所が良いとされた。" },
-                    { period: "漢代 (BC202 - AD220)", event: "理論化", desc: "陰陽五行説と結びつき、学問として体系化が進む。形勢派（地形重視）の基礎ができる。" },
-                    { period: "唐・宋代", event: "分派と発展", desc: "方位磁石の発明により、方位を重視する「理気派」が台頭。地形を見る「巒頭（らんとう）派」と共に二大潮流となる。" },
-                    { period: "現代", event: "世界的普及", desc: "香港や台湾を経て欧米へ伝わり、インテリアやビジネス戦略として活用されるようになる。" }
+            fame: {
+                title: "南：名声・評価（Fame & Reputation）",
+                element: "火",
+                desc: "社会的な評価、人からの信頼、輝き。周囲にどう見られているかを司ります。才能を認められたい時や成功を目指す際に重要です。",
+                items: ["照明を明るくする", "赤い色のインテリア", "キャンドル", "賞状やメダル"]
+            },
+            love: {
+                title: "南西：愛・結婚（Love & Marriage）",
+                element: "土",
+                desc: "恋愛運、良好な人間関係、受容性。パートナーシップを育み、安定した愛を築く力を司ります。",
+                items: ["ペアのアイテム", "淡いピンク色", "石や陶器の雑貨"]
+            },
+            health: {
+                title: "東：健康・家族（Health & Family）",
+                element: "木",
+                desc: "健康状態、家族の和。生命エネルギーの源泉です。ここが乱れると、体調不良や家族内の不和が生じやすくなります。",
+                items: ["緑色のアイテム", "家族写真", "元気な植物"]
+            },
+            center: {
+                title: "中央：安定・太極（Center & Harmony）",
+                element: "土",
+                desc: "家全体のバランスの要。他のすべてのエリアに影響を与えるグラウンディングの場所です。常にクリアにしておく必要があります。",
+                items: ["何も置かない（スペースを作る）", "黄色のマット", "クリスタル"]
+            },
+            creativity: {
+                title: "西：創造・子供（Children & Creativity）",
+                element: "金",
+                desc: "新しいアイデア、プロジェクトの開始、子供。楽しみや喜び、創造的なエネルギー。物事を形にする完成の力を司ります。",
+                items: ["金属製のアート", "丸い形の小物", "白やシルバーの色"]
+            },
+            wisdom: {
+                title: "北東：知恵・学び（Knowledge & Wisdom）",
+                element: "土",
+                desc: "自己成長、学習、内省。決断力や正しい判断。深い知識を得るためのエネルギーです。",
+                items: ["本（整頓された）", "青色", "静かな環境"]
+            },
+            career: {
+                title: "北：仕事・道（Career & Life Path）",
+                element: "水",
+                desc: "天職、人生の方向性。流れるように人生が進んでいるか。停滞を感じているならここをチェックしてください。",
+                items: ["水槽や噴水", "黒色や紺色", "流線型のデザイン要素"]
+            },
+            travel: {
+                title: "北西：支援・旅（Helpful People & Travel）",
+                element: "金",
+                desc: "目上の人からの支援、協力者、旅行。リーダーシップや公のサポートを司ります。",
+                items: ["灰色の小物", "旅の思い出の品", "金属製の時計"]
+            }
+        };
+
+        const diagnosticData = {
+            genkan: {
+                title: "玄関：運気の入り口",
+                check: "たたきに靴が散らかっていませんか？",
+                desc: "玄関は外からのエネルギーが最初に入る場所です。ここが乱れていると、家全体の運気が底上げされません。明るく清潔であることが絶対条件です。",
+                tips: [
+                    "靴は人数分以外は収納し、常にたたきを広く見せる",
+                    "玄関マットを敷いて、外からの「砂気（不要な気）」を外す",
+                    "明るい照明を使い、陰気な溜まり場を作らない",
+                    "良い香りを漂わせ、ポジティブな気を引き寄せる"
                 ]
             },
-            practice: {
-                title: "基本的なやり方・手順",
-                intro: "本格的な鑑定は専門知識が必要ですが、基本的なステップはシンプルです。「観測」から「調整」へと進みます。",
-                steps: [
-                    { step: 1, title: "情報の整理（準備）", desc: "間取り図、正確な方位（磁北ではなく真北を用いる場合もある）、住人の生年月日を用意します。羅盤（あるいは正確なコンパス）が必要です。" },
-                    { step: 2, title: "巒頭（らんとう）の確認", desc: "「形」を見ます。家の外の環境（道路、川、隣の建物）や、家の中の梁（はり）、柱、家具の角などが殺気を出していないか確認します。" },
-                    { step: 3, title: "理気（りき）の分析", desc: "「方位と時間」を見ます。家の向き（坐向）と建築年から、家の中の気の分布図（飛星図など）を作成し、吉凶の方位を特定します。" },
-                    { step: 4, title: "化殺（かさつ）と調整", desc: "凶の気を弱め（化殺）、吉の気を強めるアイテム（観葉植物、水槽、鏡、色など）を五行の理屈に基づいて配置します。" }
+            bedroom: {
+                title: "寝室：運勢の充電器",
+                check: "鏡に寝ている姿が映り込んでいませんか？",
+                desc: "寝室は活動で消費した気を補充する場所です。鏡に寝姿が映ると、本来吸収すべき気が分散してしまいます。睡眠の質は健康運すべてに直結します。",
+                tips: [
+                    "鏡にはカバーをかけて寝姿が映らないようにする",
+                    "ベッド下に物を置かず、気の通り道を確保する",
+                    "電磁波を発する機器（スマホ・PC）は枕元から遠ざける",
+                    "落ち着いた色（ベージュや淡いブルー）のリネンを選ぶ"
+                ]
+            },
+            living: {
+                title: "リビング：家庭・人間関係の要",
+                check: "不要な物（ゴミや古い雑誌）が散漫していませんか？",
+                desc: "家族が集まるリビングは、人間関係や家庭運の本拠地です。ここが物で溢れていると、コミュニケーションが遮られ、ストレスが溜まりやすくなります。",
+                tips: [
+                    "角にある背の高い観葉植物を配置し、気を循環させる",
+                    "家族写真を飾り、和を強調する",
+                    "布製のソファには常に清潔なカバーやクッションを使う",
+                    "暖色系のライティングで温かみのある空間を演出する"
+                ]
+            },
+            kitchen: {
+                title: "キッチン：金運と健康の源",
+                check: "コンロ（火）のすぐ横にシンク（水）がありませんか？",
+                desc: "キッチンは「火」と「水」という相反する気が共生する場所です。ここが乱れると、浪費が激しくなったり、体調に影響が出やすくなります。",
+                tips: [
+                    "火と水の間に観葉植物を置き、木が仲介する「相生」の流れを作る",
+                    "蓋のないゴミ箱を避け、悪い気が漏れないようにする",
+                    "油汚れは即座に落とし、気が停滞しないようにする",
+                    "包丁は見えない場所に収納し、鋭利な「殺気」を隠す"
+                ]
+            },
+            study: {
+                title: "仕事部屋・書斎：キャリアと成功",
+                check: "机が壁に向かって設置され、背後にドアがありませんか？",
+                desc: "仕事部屋は集中力と決断力を司ります。出口に背を向けていると、無意識の不安が生じ、ビジネス運が停滞します。",
+                tips: [
+                    "座った時にドアが見える「コマンドポジション」を確保する",
+                    "整理された棚を使い、思考のノイズを減らす",
+                    "金属製のアートや時計を置き、決断力を強化する",
+                    "タスクが終わるたびに換気し、新鮮なアイデアを取り込む"
+                ]
+            },
+            toilet: {
+                title: "トイレ・水回り：厄落としの聖域",
+                check: "トイレの蓋が開いたままになっていませんか？",
+                desc: "トイレは家の中で最も厄が溜まりやすい場所です。蓋を開けたままにすると、そこから良い気が吸い込まれ、悪い気が逆流してしまいます。",
+                tips: [
+                    "トイレの蓋は使用後、必ず閉める習慣をつける",
+                    "専用のスリッパを使い、リビングへの厄の持ち込みを防ぐ",
+                    "タオルやマットは頻繁に交換し、湿気＝陰気を最小限にする",
+                    "小さな観葉植物を置き、悪い気を浄化してもらう"
+                ]
+            },
+            veranda: {
+                title: "ベランダ・庭：外部との接続",
+                check: "枯れた植物や使わなくなった大型ゴミがありませんか？",
+                desc: "ベランダは第2の玄関です。ここが汚れていると、家の中にフレッシュな気が入ってきません。外部とのフィルターを美しく保ちましょう。",
+                tips: [
+                    "元気に育っている植物のみを置き、枯れたものは速やかに処分する",
+                    "不要な段ボールやゴミを放置せず、気の通りを邪魔しない",
+                    "手すりを拭き、視界をクリアに保つ",
+                    "ウインドチャイムなど、音で気を活性化させるアイテムを吊るす"
                 ]
             }
         };
 
-        // --- STATE MANAGEMENT ---
-        let currentTab = 'overview';
-        let chartInstance = null;
+        // --- Logic Implementation ---
 
-        // --- INITIALIZATION ---
-        document.addEventListener('DOMContentLoaded', () => {
-            renderOverview();
-            lucide.createIcons();
+        // Bagua Grid Interaction
+        document.querySelectorAll('.bagua-cell').forEach(cell => {
+            cell.addEventListener('mouseenter', function () {
+                const id = this.getAttribute('data-id');
+                const data = baguaData[id];
+                const detail = document.getElementById('bagua-detail');
+
+                detail.classList.remove('opacity-0');
+                detail.innerHTML = `
+                    <div class="animate-fade-in space-y-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-2xl font-bold text-fs-dark serif">${data.title}</h3>
+                            <span class="px-4 py-1 bg-fs-stone/10 rounded-full text-xs font-bold text-fs-stone">五行: ${data.element}</span>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed">${data.desc}</p>
+                        <div class="p-6 bg-fs-base rounded-2xl border-l-4 border-fs-sage">
+                            <h5 class="font-bold text-fs-wood mb-3 flex items-center gap-2">
+                                <i data-lucide="plus-circle" class="w-4 h-4"></i> 置くと良いラッキーアイテム
+                            </h5>
+                            <ul class="text-sm text-gray-700 grid grid-cols-1 md:grid-cols-2 gap-2">
+                                ${data.items.map(item => `<li class="flex items-center gap-2">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-fs-sage"></div>
+                                    ${item}
+                                </li>`).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                `;
+                lucide.createIcons();
+            });
         });
 
-        // Mobile Menu Toggle
-        function toggleMobileMenu() {
-            const menu = document.getElementById('mobile-menu');
-            const btn = document.getElementById('mobile-menu-btn');
-            const isHidden = menu.classList.toggle('hidden');
-            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+        const elementsData = {
+            wood: {
+                title: "木 (Wood) - 成長と発展",
+                desc: "春の象徴であり、上へ伸びるエネルギー。創造性、健康、新しい始まりを司ります。",
+                cycle: "火を生み（相生）、土を剋す（相克）。",
+                items: "観葉植物、木製の家具、緑色、長方形の形"
+            },
+            fire: {
+                title: "火 (Fire) - 情熱と輝き",
+                desc: "夏の象徴であり、拡散するエネルギー。名声、インスピレーション、活力を司ります。",
+                cycle: "土を生み（相生）、金を剋す（相克）。",
+                items: "照明、キャンドル、赤い色、三角形のデザイン、ペット"
+            },
+            earth: {
+                title: "土 (Earth) - 安定と育成",
+                desc: "季節の変わり目の象徴であり、安定させるエネルギー。信頼、安定、基盤づくりを司ります。",
+                cycle: "金を生み（相生）、水を剋す（相克）。",
+                items: "陶磁器、石、黄色や茶色、スクエアな形、テラコッタ"
+            },
+            metal: {
+                title: "金 (Metal) - 収穫と決断",
+                desc: "秋の象徴であり、凝縮するエネルギー。金運、決断力、効率、実りを司ります。",
+                cycle: "水を生み（相生）、木を剋す（相克）。",
+                items: "金属製品、時計、白やシルバー、円形、宝石"
+            },
+            water: {
+                title: "水 (Water) - 知恵と柔軟性",
+                desc: "冬の象徴であり、下降し蓄えるエネルギー。コミュニケーション、知恵、金運の循環を司ります。",
+                cycle: "木を生み（相生）、火を剋す（相克）。",
+                items: "水槽、噴水、鏡、黒色や紺色、波状の形"
+            }
+        };
+
+        function showElementLogic(type) {
+            const data = elementsData[type];
+            const panel = document.getElementById('element-detail-panel');
+            panel.classList.remove('hidden');
+
+            const colorClass = {
+                wood: 'text-fs-wood',
+                fire: 'text-fs-fire',
+                earth: 'text-fs-soil',
+                metal: 'text-fs-metal',
+                water: 'text-fs-water'
+            }[type];
+
+            panel.innerHTML = `
+                <div class="animate-fade-in flex flex-col md:flex-row gap-8 items-center">
+                    <div class="md:w-1/3 text-center">
+                        <div class="w-24 h-24 mx-auto rounded-2xl bg-current ${colorClass} opacity-20 flex items-center justify-center mb-4">
+                            <i data-lucide="zap" class="w-10 h-10"></i>
+                        </div>
+                        <h4 class="text-2xl font-bold ${colorClass}">${data.title}</h4>
+                    </div>
+                    <div class="md:w-2/3 space-y-4">
+                        <p class="text-gray-700 leading-relaxed">${data.desc}</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm mt-4">
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <span class="block text-gray-400 font-bold mb-1 uppercase tracking-tighter">相生・相克の理</span>
+                                <span class="text-fs-dark font-medium">${data.cycle}</span>
+                            </div>
+                            <div class="bg-white p-4 rounded-xl shadow-sm">
+                                <span class="block text-gray-400 font-bold mb-1 uppercase tracking-tighter">象徴アイテム</span>
+                                <span class="text-fs-dark font-medium">${data.items}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
             lucide.createIcons();
         }
-        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
-        // --- NAVIGATION LOGIC ---
-        function scrollToSection(id) {
-            const element = document.getElementById(id);
-            if (element) {
-                const headerOffset = 64;
-                const elementPosition = element.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-            }
-        }
+        function openDiagnostic(type) {
+            const data = diagnosticData[type];
+            const content = document.getElementById('diagnostic-content');
+            const placeholder = document.getElementById('diagnostic-placeholder');
 
-        // --- NAVIGATION LOGIC ---
-        function switchTab(tabId) {
-            currentTab = tabId;
+            placeholder.classList.add('hidden');
+            content.classList.remove('hidden');
 
-            // Update UI buttons
-            document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('active', 'bg-fs-sage', 'text-white', 'border-bottom');
-                btn.classList.add('text-gray-500');
-            });
-            const activeBtn = document.getElementById(`tab-${tabId}`);
-            activeBtn.classList.add('active');
-            activeBtn.classList.remove('text-gray-500');
-
-            // Render Content
-            const display = document.getElementById('content-display');
-            display.style.opacity = 0; // Fade out
-
-            setTimeout(() => {
-                if (tabId === 'overview') renderOverview();
-                else if (tabId === 'logic') renderLogic();
-                else if (tabId === 'history') renderHistory();
-                else if (tabId === 'practice') renderPractice();
-
-                display.style.opacity = 1; // Fade in
-                lucide.createIcons();
-            }, 200);
-        }
-
-        // --- RENDER FUNCTIONS ---
-
-        function renderOverview() {
-            const data = reportData.overview;
-            const container = document.getElementById('content-display');
-
-            container.innerHTML = `
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 animate-fade-in">
-                    <div class="space-y-6">
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h3 class="text-2xl font-bold text-fs-dark mb-3">${data.title}</h3>
-                            <p class="text-gray-600 leading-relaxed mb-4">${data.intro}</p>
-                            <div class="inline-block bg-fs-sage bg-opacity-20 text-fs-wood px-4 py-2 rounded-lg font-semibold">
-                                主軸: ${data.type}
-                            </div>
-                        </div>
-                        
-                        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                            <h4 class="text-lg font-bold text-fs-dark mb-4 border-b pb-2">できること vs できないこと</h4>
-                            <div class="grid grid-cols-1 gap-4">
-                                <div class="bg-green-50 p-4 rounded-lg">
-                                    <h5 class="font-bold text-green-800 mb-2 flex items-center">
-                                        <i data-lucide="check-circle-2" class="w-5 h-5 mr-2"></i> 得意 (Strength)
-                                    </h5>
-                                    <ul class="text-sm text-gray-700 space-y-1 list-disc list-inside">
-                                        ${data.details[1].items.map(i => `<li>${i}</li>`).join('')}
-                                    </ul>
-                                </div>
-                                <div class="bg-red-50 p-4 rounded-lg">
-                                    <h5 class="font-bold text-red-800 mb-2 flex items-center">
-                                        <i data-lucide="alert-circle" class="w-5 h-5 mr-2"></i> 苦手 (Weakness)
-                                    </h5>
-                                    <ul class="text-sm text-gray-700 space-y-1 list-disc list-inside">
-                                        ${data.details[2].items.map(i => `<li>${i}</li>`).join('')}
-                                    </ul>
-                                </div>
-                            </div>
+            content.innerHTML = `
+                <div class="space-y-6">
+                    <div class="flex items-center justify-between">
+                        <h3 class="text-3xl font-bold text-fs-dark serif">${data.title}</h3>
+                        <div class="w-12 h-12 bg-fs-sage/10 rounded-xl flex items-center justify-center">
+                            <i data-lucide="check-check" class="text-fs-sage w-6 h-6"></i>
                         </div>
                     </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-lg border border-gray-100 flex flex-col justify-center">
-                        <h4 class="text-lg font-bold text-center text-gray-500 mb-2">特性レーダーチャート</h4>
-                        <div class="chart-container">
-                            <canvas id="overviewChart"></canvas>
-                        </div>
-                        <p class="text-xs text-center text-gray-400 mt-4">風水は環境と長期的な運勢に特化しており、短期的な心理分析には向きません。</p>
-                    </div>
-                </div>
-            `;
-
-            initRadarChart();
-        }
-
-        function renderLogic() {
-            const data = reportData.logic;
-            const container = document.getElementById('content-display');
-
-            container.innerHTML = `
-                <div class="space-y-8 animate-fade-in">
-                    <div class="text-center max-w-2xl mx-auto">
-                        <h3 class="text-2xl font-bold text-fs-dark mb-3">${data.title}</h3>
-                        <p class="text-gray-600">${data.intro}</p>
+                    
+                    <div class="bg-red-50/50 border border-red-100 p-6 rounded-2xl">
+                        <h5 class="text-red-800 font-bold mb-2 flex items-center gap-2">
+                            <i data-lucide="help-circle" class="w-5 h-5"></i> 要チェック項目
+                        </h5>
+                        <p class="text-red-700 font-medium">${data.check}</p>
                     </div>
 
-                    <!-- Interactive 5 Elements -->
-                    <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100 max-w-4xl mx-auto">
-                        <h4 class="text-xl font-bold text-center mb-8 text-fs-dark">インタラクティブ五行説 (Wu Xing)</h4>
-                        <p class="text-center text-sm text-gray-500 mb-8">要素をクリックして、関係性と意味を確認してください。</p>
-                        
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                            <!-- Diagram Side -->
-                            <div class="relative h-80 w-full max-w-xs mx-auto">
-                                <!-- Connecting Lines (Simplified visual representation) -->
-                                <div class="absolute inset-0 rounded-full border-2 border-dashed border-gray-200 m-8"></div>
-                                
-                                <!-- Elements positioned circularly -->
-                                ${generateElementButton('wood', 'top-0 left-1/2 -translate-x-1/2', '木')}
-                                ${generateElementButton('fire', 'top-[30%] right-0 translate-x-1/4', '火')}
-                                ${generateElementButton('earth', 'bottom-[10%] right-[10%]', '土')}
-                                ${generateElementButton('metal', 'bottom-[10%] left-[10%]', '金')}
-                                ${generateElementButton('water', 'top-[30%] left-0 -translate-x-1/4', '水')}
-                                
-                                <!-- Center Label -->
-                                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-gray-300 font-bold text-4xl opacity-20 pointer-events-none">気</div>
-                            </div>
-
-                            <!-- Detail Side -->
-                            <div id="element-detail-card" class="bg-gray-50 p-6 rounded-lg border-l-4 border-fs-stone min-h-[200px] flex flex-col justify-center">
-                                <h5 class="text-lg font-bold text-gray-700 mb-2">五行の関係性</h5>
-                                <p class="text-gray-600">左の図の要素をクリックすると、その性質と、他の要素との「相生（生み出す）」「相克（対立する）」関係が表示されます。</p>
-                            </div>
-                        </div>
+                    <div class="space-y-4">
+                        <h5 class="text-lg font-bold text-fs-dark">鑑定結果とアドバイス</h5>
+                        <p class="text-gray-600 leading-relaxed">${data.desc}</p>
                     </div>
 
-                    <!-- Concepts Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-                        ${data.concepts.map(c => `
-                            <div class="bg-white p-5 rounded-lg border border-gray-200 hover:shadow-md transition-shadow">
-                                <h5 class="font-bold text-fs-dark mb-2">${c.title}</h5>
-                                <p class="text-sm text-gray-600">${c.desc}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateElementButton(type, positionClasses, label) {
-            const colors = {
-                wood: 'bg-green-600',
-                fire: 'bg-red-500',
-                earth: 'bg-yellow-600',
-                metal: 'bg-gray-400',
-                water: 'bg-blue-500'
-            };
-            return `
-                <button onclick="showElementDetail('${type}')" class="absolute ${positionClasses} w-16 h-16 rounded-full ${colors[type]} text-white font-bold shadow-lg element-circle z-10 flex items-center justify-center border-4 border-white ring-2 ring-gray-100">
-                    ${label}
-                </button>
-            `;
-        }
-
-        function showElementDetail(type) {
-            const data = reportData.logic.elements[type];
-            const detailCard = document.getElementById('element-detail-card');
-
-            // Map types to border colors for the card
-            const borderColors = {
-                wood: 'border-green-600',
-                fire: 'border-red-500',
-                earth: 'border-yellow-600',
-                metal: 'border-gray-400',
-                water: 'border-blue-500'
-            };
-
-            detailCard.className = `bg-white p-6 rounded-lg border-l-4 ${borderColors[type]} min-h-[200px] shadow-md animate-fade-in`;
-            detailCard.innerHTML = `
-                <div class="flex items-center mb-4">
-                    <div class="w-3 h-3 rounded-full ${data.color} mr-2"></div>
-                    <h5 class="text-xl font-bold text-gray-800">${data.name}</h5>
-                </div>
-                <p class="text-gray-700 leading-relaxed mb-4">${data.text}</p>
-                <div class="text-xs text-gray-400 uppercase tracking-widest">Selected Element</div>
-            `;
-        }
-
-        function renderHistory() {
-            const data = reportData.history;
-            const container = document.getElementById('content-display');
-
-            container.innerHTML = `
-                <div class="max-w-4xl mx-auto animate-fade-in">
-                    <div class="mb-8 text-center">
-                        <h3 class="text-2xl font-bold text-fs-dark mb-2">${data.title}</h3>
-                        <p class="text-gray-600">${data.intro}</p>
-                    </div>
-
-                    <div class="relative border-l-2 border-fs-stone border-opacity-30 ml-4 md:ml-10 space-y-12 py-4">
-                        ${data.timeline.map(item => `
-                            <div class="relative pl-8 md:pl-12 group">
-                                <!-- Dot -->
-                                <div class="absolute -left-[9px] top-0 w-5 h-5 rounded-full bg-fs-base border-4 border-fs-stone group-hover:border-fs-earth transition-colors"></div>
-                                
-                                <!-- Content -->
-                                <div class="flex flex-col md:flex-row md:items-start gap-2 md:gap-6">
-                                    <div class="md:w-32 flex-shrink-0">
-                                        <span class="text-sm font-bold text-fs-earth block">${item.period}</span>
-                                        <span class="text-xs text-gray-400 uppercase tracking-wide">Era</span>
+                    <div class="p-8 bg-fs-base rounded-[2.5rem] border border-fs-sage/10">
+                        <h5 class="text-lg font-bold text-fs-wood mb-5 flex items-center gap-2">
+                            <i data-lucide="zap" class="w-5 h-5"></i> 即実行できる開運アクション
+                        </h5>
+                        <ul class="space-y-4">
+                            ${data.tips.map(tip => `
+                                <li class="flex items-start gap-4 text-sm">
+                                    <div class="w-6 h-6 rounded-full bg-fs-sage/20 text-fs-sage flex items-center justify-center flex-shrink-0 mt-0.5">
+                                        <i data-lucide="check" class="w-4 h-4"></i>
                                     </div>
-                                    <div class="bg-white p-5 rounded-lg shadow-sm border border-gray-100 flex-grow group-hover:shadow-md transition-all">
-                                        <h4 class="text-lg font-bold text-fs-dark mb-2">${item.event}</h4>
-                                        <p class="text-gray-600 text-sm leading-relaxed">${item.desc}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
+                                    <span class="text-gray-700 leading-relaxed">${tip}</span>
+                                </li>
+                            `).join('')}
+                        </ul>
                     </div>
                 </div>
             `;
+            lucide.createIcons();
         }
 
-        function renderPractice() {
-            const data = reportData.practice;
-            const container = document.getElementById('content-display');
-
-            container.innerHTML = `
-                <div class="max-w-4xl mx-auto animate-fade-in">
-                    <div class="mb-10 text-center">
-                        <h3 class="text-2xl font-bold text-fs-dark mb-2">${data.title}</h3>
-                        <p class="text-gray-600 max-w-2xl mx-auto">${data.intro}</p>
-                    </div>
-
-                    <div class="grid grid-cols-1 gap-6">
-                        ${data.steps.map(step => `
-                            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
-                                <div class="flex flex-col md:flex-row">
-                                    <div class="bg-fs-stone bg-opacity-10 p-6 flex items-center justify-center md:w-24 flex-shrink-0">
-                                        <span class="text-3xl font-bold text-fs-stone">0${step.step}</span>
-                                    </div>
-                                    <div class="p-6 flex-grow">
-                                        <h4 class="text-lg font-bold text-fs-dark mb-2">${step.title}</h4>
-                                        <p class="text-gray-600">${step.desc}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        `).join('')}
-                    </div>
-
-                    <div class="mt-12 bg-fs-dark text-white p-8 rounded-xl text-center">
-                        <h4 class="text-xl font-bold mb-4">準備はできましたか？</h4>
-                        <p class="mb-6 opacity-80">風水は環境への意識を変えることから始まります。まずは自分の部屋を見渡すことから始めましょう。</p>
-                        <div class="inline-block border border-white border-opacity-30 px-6 py-2 rounded-full text-sm">
-                            必要な道具: 方位磁石、間取り図
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        // --- CHART INITIALIZATION ---
-        function initRadarChart() {
+        // --- Chart Initialization ---
+        function initRadar() {
             const ctx = document.getElementById('overviewChart').getContext('2d');
-            const data = reportData.overview;
-
-            if (chartInstance) chartInstance.destroy();
-
-            chartInstance = new Chart(ctx, {
+            new Chart(ctx, {
                 type: 'radar',
                 data: {
-                    labels: data.comparisonLabels,
+                    labels: ["環境改善", "長期運勢", "性格分析", "心理読解", "場所診断"],
                     datasets: [{
-                        label: '風水の適正度',
-                        data: data.comparisonData,
-                        fill: true,
-                        backgroundColor: 'rgba(132, 165, 157, 0.2)', // fs-sage with opacity
+                        label: '能力指数',
+                        data: [5, 4, 2, 1, 5],
+                        backgroundColor: 'rgba(132, 165, 157, 0.2)',
                         borderColor: '#84A59D',
                         pointBackgroundColor: '#BC6C25',
-                        pointBorderColor: '#fff',
-                        pointHoverBackgroundColor: '#fff',
-                        pointHoverBorderColor: '#BC6C25'
+                        borderWidth: 2
                     }]
                 },
                 options: {
@@ -662,42 +1000,23 @@
                     maintainAspectRatio: false,
                     scales: {
                         r: {
-                            angleLines: {
-                                color: 'rgba(0, 0, 0, 0.1)'
-                            },
-                            grid: {
-                                color: 'rgba(0, 0, 0, 0.05)'
-                            },
-                            pointLabels: {
-                                font: {
-                                    size: 12,
-                                    family: "'Noto Sans JP', sans-serif"
-                                },
-                                color: '#4b5563'
-                            },
                             suggestedMin: 0,
                             suggestedMax: 5,
-                            ticks: {
-                                stepSize: 1,
-                                backdropColor: 'transparent'
-                            }
+                            ticks: { stepSize: 1, display: false },
+                            pointLabels: { font: { family: 'Noto Sans JP', size: 12 } }
                         }
                     },
-                    plugins: {
-                        legend: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function (context) {
-                                    return context.dataset.label + ': ' + context.raw + '/5';
-                                }
-                            }
-                        }
-                    }
+                    plugins: { legend: { display: false } }
                 }
             });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            initRadar();
+            lucide.createIcons();
+            // Initial reveal
+            document.querySelector('.reveal').classList.add('active');
+        });
     </script>
 </body>
 
