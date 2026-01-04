@@ -855,34 +855,42 @@
     </main>
 
     <!-- Footer -->
-    <footer class="relative text-indigo-900 py-16 px-4 overflow-hidden border-t border-indigo-100">
-        <!-- Background Image with Overlay -->
-        <div class="absolute inset-0 z-0">
-            <img src="../../assets/images/footer_numerology_bright.png" alt="Footer Background"
-                class="w-full h-full object-cover">
-            <div class="absolute inset-0 bg-white/60 backdrop-blur-[2px]"></div>
-        </div>
-
-        <div class="max-w-6xl mx-auto relative z-10 border-b border-indigo-200/50 pb-12">
-            <div class="text-center">
-                <h3 class="text-3xl font-black text-indigo-950 serif mb-6">四柱推命：運命の論理と構造</h3>
-                <p class="text-base text-slate-700 max-w-2xl mx-auto leading-relaxed font-medium">
-                    四柱推命は、単なる占いを超えた自然学であり統計学です。<br>
-                    自分の設計図を知ることは、人生の荒波を乗りこなすための羅針盤を得ることに他なりません。
-                </p>
+    <footer class="bg-white py-12 border-t border-gray-100 mt-20">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-indigo-950 serif">四柱推命</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed">
+                        数千年の時を超えて磨き上げられた「運命の統計学」。生年月日に刻まれた五行のエネルギーを解読し、あなたの天命と歩むべき道を示します。
+                    </p>
+                </div>
+                <div class="md:ml-20">
+                    <h4 class="font-bold text-sm text-indigo-950 mb-4 uppercase tracking-widest">Quick Links</h4>
+                    <ul class="text-sm space-y-2 text-slate-500">
+                        <li><a href="#hero" class="hover:text-indigo-600 transition-colors">鑑定シミュレーション</a></li>
+                        <li><a href="#logic" class="hover:text-indigo-600 transition-colors">五行の理論</a></li>
+                        <li><a href="#history" class="hover:text-indigo-600 transition-colors">歴史と起源</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-indigo-950 mb-4 uppercase tracking-widest">Connect</h4>
+                    <p class="text-sm text-slate-500">
+                        Email: <a href="mailto:info@triscope.com"
+                            class="text-indigo-600 hover:underline">info@triscope.com</a>
+                    </p>
+                </div>
             </div>
-        </div>
-        <div
-            class="max-w-6xl mx-auto pt-8 border-t border-indigo-200/50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-400 uppercase tracking-widest font-bold">
-            <span>© 2026 Triscope Project. Dedicated to Wisdom.</span>
-            <div class="flex gap-6">
-                <span>Powered by Ancient Logic</span>
-                <span>Built with AI Technology</span>
+            <div
+                class="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. All rights reserved.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- JavaScript Logic -->
     <script>
         // --- Tab Switching Logic ---
         function switchTab(tabName) {

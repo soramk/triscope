@@ -12,6 +12,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Chosen Palette: Mystic Parchment -->
     <!-- Background: Warm Neutral (Stone-50/100), Text: Dark Ink (Stone-800), Accent: Deep Indigo (Indigo-900) & Gold (Amber-600) -->
@@ -69,25 +70,66 @@
 <body class="antialiased min-h-screen flex flex-col">
 
 
-    <!-- Header -->
-    <header class="bg-stone-900 text-stone-100 shadow-lg sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center space-x-2">
+    <!-- Top Navigation Menu -->
+    <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
                 <div
-                    class="w-8 h-8 bg-amber-600 rounded-full flex items-center justify-center font-bold serif text-stone-900">
-                    手</div>
-                <h1 class="text-xl md:text-2xl font-bold tracking-wide">Palmistry Explorer <span
-                        class="text-sm font-light text-stone-400 ml-2">手相の科学</span></h1>
+                    class="w-10 h-10 bg-amber-600 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-amber-500/20">
+                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                </div>
+                <div>
+                    <h1 class="text-xl font-bold text-stone-800 leading-none serif">Triscope</h1>
+                    <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Palmistry Explorer</p>
+                </div>
             </div>
-            <nav class="hidden md:flex space-x-6 text-sm font-medium">
-                <a href="#intro" class="hover:text-amber-500 transition-colors">概要</a>
-                <a href="#interactive-map" class="hover:text-amber-500 transition-colors">手相地図</a>
-                <a href="#analysis" class="hover:text-amber-500 transition-colors">特徴分析</a>
-                <a href="#history" class="hover:text-amber-500 transition-colors">歴史</a>
-                <a href="#method" class="hover:text-amber-500 transition-colors">鑑定法</a>
-            </nav>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-1">
+                <button onclick="scrollToSection('intro')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="info" class="w-4 h-4"></i> 概要
+                </button>
+                <button onclick="scrollToSection('interactive-map')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="map" class="w-4 h-4"></i> 手相地図
+                </button>
+                <button onclick="scrollToSection('analysis')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="list" class="w-4 h-4"></i> 特徴分析
+                </button>
+                <button onclick="scrollToSection('history')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                </button>
+                <button onclick="scrollToSection('method')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="book-open" class="w-4 h-4"></i> 鑑定法
+                </button>
+            </div>
+
+            <!-- Mobile Menu Btn -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-stone-900 hover:bg-gray-100 rounded-lg">
+                <i data-lucide="menu" class="w-6 h-6"></i>
+            </button>
         </div>
-    </header>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-gray-100 animate-fade-in">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <button onclick="scrollToSection('intro'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-amber-50 rounded-md">概要</button>
+                <button onclick="scrollToSection('interactive-map'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-amber-50 rounded-md">手相地図</button>
+                <button onclick="scrollToSection('analysis'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-amber-50 rounded-md">特徴分析</button>
+                <button onclick="scrollToSection('history'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-amber-50 rounded-md">歴史</button>
+                <button onclick="scrollToSection('method'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-amber-50 rounded-md">鑑定法</button>
+            </div>
+        </div>
+    </nav>
 
     <!-- Main Content -->
     <main class="flex-grow container mx-auto px-4 py-8 space-y-16">
@@ -184,7 +226,8 @@
 
                 <div class="space-y-4">
                     <div class="p-4 bg-white rounded-lg shadow-sm border border-stone-100">
-                        <h4 class="font-bold text-indigo-900 flex items-center"><span class="text-lg mr-2">◎</span>
+                        <h4 class="font-bold text-indigo-900 flex items-center"><i data-lucide="check-circle"
+                                class="w-4 h-4 inline mr-2 text-indigo-900"></i>
                             わかること（得意）</h4>
                         <ul class="text-sm text-stone-600 mt-2 list-disc list-inside space-y-1">
                             <li>本来の気質・性格・才能</li>
@@ -193,7 +236,8 @@
                         </ul>
                     </div>
                     <div class="p-4 bg-white rounded-lg shadow-sm border border-stone-100">
-                        <h4 class="font-bold text-amber-700 flex items-center"><span class="text-lg mr-2">✕</span>
+                        <h4 class="font-bold text-amber-700 flex items-center"><i data-lucide="x-circle"
+                                class="w-4 h-4 inline mr-2 text-amber-700"></i>
                             わからないこと（不得意）</h4>
                         <ul class="text-sm text-stone-600 mt-2 list-disc list-inside space-y-1">
                             <li>「3月5日」のような具体的な日付</li>
@@ -260,7 +304,7 @@
 
                 <div class="mt-12 bg-stone-800 p-6 rounded-lg border border-stone-700">
                     <h4 class="font-bold text-white mb-2 flex items-center">
-                        <span class="text-xl mr-2">🧠</span> 根拠となるロジック
+                        <i data-lucide="brain" class="w-6 h-6 mr-2 text-indigo-400"></i> 根拠となるロジック
                     </h4>
                     <p class="text-stone-400 text-sm">
                         手は人体の外部器官の中で最も大脳と密接に神経がつながっています（ペンフィールドの脳地図）。脳の状態や意識の変化が神経を通じて手のひらの筋肉や血流に微細な影響を与え、長い時間をかけて「シワ（線）」や「肉付き（丘）」を形成するという説が有力です。
@@ -335,9 +379,52 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-stone-900 text-stone-500 py-8 text-center text-sm">
-        <p>&copy; 2026 Palmistry Explorer. All rights reserved.</p>
-        <p class="mt-2 text-xs">※手相は統計的な傾向を示すものであり、確定した未来を保証するものではありません。</p>
+    <footer class="bg-stone-900 text-stone-400 py-12 border-t border-stone-800">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                <div class="space-y-4">
+                    <h3
+                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
+                        <div
+                            class="w-6 h-6 bg-amber-600 rounded-full flex items-center justify-center font-bold serif text-stone-900 text-xs">
+                            手</div>
+                        Palmistry Explorer
+                    </h3>
+                    <p class="text-sm opacity-70 leading-relaxed text-stone-400">
+                        手のひらに刻まれた「脳の縮図」。古代の統計学と現代の自己分析を融合し、あなたの可能性を解き明かす光の羅針盤。
+                    </p>
+                </div>
+                <div class="md:ml-20">
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
+                    <ul class="text-sm space-y-2 opacity-70">
+                        <li><button onclick="scrollToSection('intro')"
+                                class="hover:text-amber-500 transition-colors">概要</button></li>
+                        <li><button onclick="scrollToSection('interactive-map')"
+                                class="hover:text-amber-500 transition-colors">手相地図</button></li>
+                        <li><button onclick="scrollToSection('analysis')"
+                                class="hover:text-amber-500 transition-colors">特徴分析</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
+                    <p class="text-sm opacity-70">
+                        Email: <a href="mailto:info@triscope.com"
+                            class="text-amber-500 hover:underline">info@triscope.com</a>
+                    </p>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-white/40 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. All rights reserved.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
+            </div>
+            <p class="mt-4 text-[10px] text-stone-600 text-center">
+                ※手相は統計的な傾向を示すものであり、確定した未来を保証するものではありません。
+            </p>
+        </div>
     </footer>
 
     <!-- Logic Script -->
@@ -682,6 +769,29 @@
 
         // Initialize
         drawHand();
+        lucide.createIcons();
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const headerOffset = 64;
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
     </script>
 </body>
 

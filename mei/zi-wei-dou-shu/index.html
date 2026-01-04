@@ -126,7 +126,7 @@
                     <span class="ml-2 text-xs text-indigo-500 uppercase tracking-widest hidden sm:block">Zi Wei Dou
                         Shu</span>
                 </div>
-                <div class="flex items-center gap-1 text-sm font-medium">
+                <div class="hidden md:flex items-center gap-1 text-sm font-medium">
                     <a href="#calculator"
                         class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
                         <i data-lucide="sparkles" class="w-4 h-4"></i> 簡易診断
@@ -148,6 +148,25 @@
                         <i data-lucide="history" class="w-4 h-4"></i> 歴史・鑑定法
                     </a>
                 </div>
+                <!-- Mobile Menu Btn -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-indigo-900 hover:bg-gray-100 rounded-lg">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#calculator"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50">簡易診断</a>
+                <a href="#overview"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50">概要</a>
+                <a href="#palaces"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50">十二宮</a>
+                <a href="#stars"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50">主星</a>
+                <a href="#history-method"
+                    class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-indigo-700 hover:bg-indigo-50">歴史・鑑定法</a>
             </div>
         </div>
     </nav>
@@ -399,7 +418,10 @@
                                         <p class="text-slate-400 text-sm tracking-[0.3em] font-bold" id="star-alias">THE
                                             EMPEROR</p>
                                     </div>
-                                    <div class="text-8xl opacity-10 select-none grayscale" id="star-icon">👑</div>
+                                    <div class="text-8xl opacity-10 select-none grayscale flex items-center justify-center p-4 bg-indigo-50 rounded-full"
+                                        id="star-icon">
+                                        <i data-lucide="crown" class="w-full h-full"></i>
+                                    </div>
                                 </div>
                                 <div class="grid grid-cols-2 gap-6 mb-10">
                                     <div class="p-6 bg-indigo-50/50 rounded-2xl border border-indigo-100/50 shadow-sm">
@@ -577,32 +599,38 @@
                 </div>
             </div>
         </section>
-        <footer class="py-20 bg-white border-t border-slate-100 text-center">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="flex flex-col items-center">
-                    <div class="text-indigo-950 tracking-[0.4em] font-black mb-6 serif text-2xl">TRISCOPE</div>
-                    <nav class="flex flex-wrap justify-center gap-x-12 gap-y-4 mb-10">
-                        <a href="#calculator"
-                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">Calculator</a>
-                        <a href="#overview"
-                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">About</a>
-                        <a href="#palaces"
-                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">12
-                            Palaces</a>
-                        <a href="#stars"
-                            class="text-slate-400 hover:text-indigo-600 transition-colors text-sm font-bold uppercase tracking-widest">14
-                            Stars</a>
-                    </nav>
-                    <p class="text-slate-400 text-xs italic mb-8">“The stars do not pull the strings of our fate, they
-                        merely illuminate the stage.”</p>
-                    <div class="w-12 h-0.5 bg-indigo-100 mb-8 mx-auto"></div>
-                    <div
-                        class="pt-8 border-t border-indigo-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
-                        <span>© 2026 Triscope Project. Dedicated to Wisdom.</span>
-                        <div class="flex gap-6">
-                            <span>Powered by Ancient Logic</span>
-                            <span>Built with AI Technology</span>
-                        </div>
+        <!-- Footer -->
+        <footer class="bg-white py-12 border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-indigo-950 serif">紫微斗数</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            星々の配置から読み解く、至高の天命。宇宙のバイオリズムと同調し、あなただけの可能性を照らし出す光の羅針盤。
+                        </p>
+                    </div>
+                    <div class="md:ml-20">
+                        <h4 class="font-bold text-sm text-indigo-950 mb-4 uppercase tracking-widest">Quick Links</h4>
+                        <ul class="text-sm space-y-2 text-slate-500">
+                            <li><a href="#calculator" class="hover:text-indigo-600 transition-colors">天命診断</a></li>
+                            <li><a href="#palaces" class="hover:text-indigo-600 transition-colors">十二宮の解説</a></li>
+                            <li><a href="#stars" class="hover:text-indigo-600 transition-colors">十四主星</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-indigo-950 mb-4 uppercase tracking-widest">Connect</h4>
+                        <p class="text-sm text-slate-500">
+                            Email: <a href="mailto:info@triscope.com"
+                                class="text-indigo-600 hover:underline">info@triscope.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                    <span>© 2026 Triscope Project. All rights reserved.</span>
+                    <div class="flex gap-6">
+                        <span>Powered by Ancient Logic</span>
+                        <span>Built with AI Technology</span>
                     </div>
                 </div>
             </div>
@@ -627,20 +655,20 @@
         ];
 
         const stars = [
-            { name: "紫微星", yomi: "Shibi-sei", alias: "THE EMPEROR", group: "北斗主星", icon: "👑", element: "土（陰）", attribute: "尊貴・統率", desc: "帝王の象徴。強い自尊心と統率力を持ち、高貴な精神を宿します。周囲からの補佐があってこそ真の力を発揮します。", modern: "経営者、組織のトップ。自分のプライドと責任感で人を動かす適性があります。" },
-            { name: "天機星", yomi: "Tenki-sei", alias: "THE STRATEGIST", group: "南斗星", icon: "🧠", element: "木（陰）", attribute: "知恵・変化", desc: "参謀の星。非常に頭の回転が速く、知識欲が旺盛です。変化を好み、新しいものを企画する才能に長けます。", modern: "IT・技術職、プランナー、研究職。知的な好奇心を満たす環境で輝きます。" },
-            { name: "太陽星", yomi: "Taiyo-sei", alias: "THE SUN", group: "中天星", icon: "☀️", element: "火（陽）", attribute: "博愛・光明", desc: "周囲を平等に照らす光。公序良俗に則り、寛大で他人を助けることに喜びを感じます。一方で、見栄を張りやすい面も。", modern: "教育、マスコミ、公益事業。公の場で多くの人の注目を集める仕事に向きます。" },
-            { name: "武曲星", yomi: "Bugoku-sei", alias: "THE GENERAL", group: "北斗星", icon: "⚔️", element: "金（陰）", attribute: "決断・財星", desc: "実行力ある将軍。ドライですが、決断力と実務能力に優れ、確実に成果や財を手にします。寡黙で孤独を好む傾向があります。", modern: "金融、実業、専門技術。実利を重視するシビアな環境で圧倒的な成果を出します。" },
-            { name: "天同星", yomi: "Tendo-sei", alias: "THE CHILD", group: "南斗星", icon: "👶", element: "水（陽）", attribute: "温和・享受", desc: "福の神の星。子供のように無邪気で、穏やかな性格。周囲との調和を重んじ、楽しみを見つけるのが得意です。", modern: "サービス業、カウンセリング、芸能。周囲を癒やし、楽しませる役割。" },
-            { name: "廉貞星", yomi: "Rentei-sei", alias: "THE DIPLOMAT", group: "北斗星", icon: "🔥", element: "火（陰）", attribute: "権威・感性", desc: "「次なる魅力の星」。凛とした強さと情熱を秘めます。仕事には非常に厳格ですが、内面は非常に多感で複雑です。", modern: "行政関係、デザイン、芸能。規律と美的感覚が必要な分野。" },
-            { name: "天府星", yomi: "Tenpu-sei", alias: "THE TREASURER", group: "南斗主星", icon: "🏦", element: "土（陽）", attribute: "安定・慈愛", desc: "慈愛満ちた金庫。保守的で安定を好み、豊かな包容力で周囲を包みます。組織を維持・管理する能力が非常に高いです。", modern: "銀行、不動産、総務、経営安定期のリーダー。守備力の高さを活かす場。" },
-            { name: "太陰星", yomi: "Taiin-sei", alias: "THE MOON", group: "中天星", icon: "🌙", element: "水（陰）", attribute: "ロマン・慈愛", desc: "静寂の月。感受性が豊かで、美を愛するロマンチスト。控えめですが、深い思考と母性的な優しさを持ちます。", modern: "芸術家、デザイナー、不動産、ケア職。繊細な感覚が武器になります。" },
-            { name: "貪狼星", yomi: "Donro-sei", alias: "THE WOLF", group: "北斗星", icon: "🐺", element: "木・水", attribute: "社交・欲望", desc: "欲望と芸の星。飽くなき好奇心と卓越した社交術。人生を遊び尽くすエネルギーに満ち、多芸多才です。", modern: "営業、フリーランス、実業。人を惹きつけるカリスマ性を発揮します。" },
-            { name: "巨門星", yomi: "Komon-sei", alias: "THE ORATOR", group: "北斗星", icon: "🗣️", element: "水（陰）", attribute: "口才・分析", desc: "口の星。優れた弁説と鋭い分析力。物事の裏側を見抜く力がありますが、言葉によるトラブルには注意が必要です。", modern: "法律家、教師、評論家、アナウンサー、研究者。正確な言語化が求められる仕事。" },
-            { name: "天相星", yomi: "Tenso-sei", alias: "THE MINISTER", group: "南斗星", icon: "🛡️", element: "水（陽）", attribute: "補佐・慈愛", desc: "誠実なパートナー。人を助けることで自分が輝く「補佐の星」。身なりを整え、調和ある環境を作ります。", modern: "秘書、公務員、ホスピタリティ産業。優れた調整役として必要とされます。" },
-            { name: "天梁星", yomi: "Tenryo-sei", alias: "THE SAGE", group: "南斗星", icon: "✨", element: "土（陽）", attribute: "指導・慈愛", desc: "賢者の星。落ち着きがあり、面倒見の良い親分肌。困難を乗り越える守護の力を持ち、指導者的な立場に置かれます。", modern: "医療、教育、コンサルタント、監査。徳を持って人を導く役割。" },
-            { name: "七殺星", yomi: "Shichisatsu-sei", alias: "THE WARRIOR", group: "南斗星", icon: "🗡️", element: "金・火", attribute: "権威・独行", desc: "孤独な勇者。ずば抜けた行動力と独立心を持ちます。変化を恐れず、荒波の中に活路を見出します。", modern: "ベンチャー起業家、アスリート、外科医。個人の力で勝負する世界。" },
-            { name: "破軍星", yomi: "Hagun-sei", alias: "THE REBEL", group: "北斗星", icon: "🌊", element: "水（陰）", attribute: "耗散・開拓", desc: "破壊と創造。既存の概念を壊し、ゼロから新しいものを作り出す猛烈なエネルギーです。人生の変動が激しくなります。", modern: "新技術開発、開拓者、イノベーター。誰も通っていない道を切り拓く場。" }
+            { name: "紫微星", yomi: "Shibi-sei", alias: "THE EMPEROR", group: "北斗主星", icon: "crown", element: "土（陰）", attribute: "尊貴・統率", desc: "帝王の象徴。強い自尊心と統率力を持ち、高貴な精神を宿します。周囲からの補佐があってこそ真の力を発揮します。", modern: "経営者、組織のトップ。自分のプライドと責任感で人を動かす適性があります。" },
+            { name: "天機星", yomi: "Tenki-sei", alias: "THE STRATEGIST", group: "南斗星", icon: "brain", element: "木（陰）", attribute: "知恵・変化", desc: "参謀の星。非常に頭の回転が速く、知識欲が旺盛です。変化を好み、新しいものを企画する才能に長けます。", modern: "IT・技術職、プランナー、研究職。知的な好奇心を満たす環境で輝きます。" },
+            { name: "太陽星", yomi: "Taiyo-sei", alias: "THE SUN", group: "中天星", icon: "sun", element: "火（陽）", attribute: "博愛・光明", desc: "周囲を平等に照らす光。公序良俗に則り、寛大で他人を助けることに喜びを感じます。一方で、見栄を張りやすい面も。", modern: "教育、マスコミ、公益事業。公の場で多くの人の注目を集める仕事に向きます。" },
+            { name: "武曲星", yomi: "Bugoku-sei", alias: "THE GENERAL", group: "北斗星", icon: "swords", element: "金（陰）", attribute: "決断・財星", desc: "実行力ある将軍。ドライですが、決断力と実務能力に優れ、確実に成果や財を手にします。寡黙で孤独を好む傾向があります。", modern: "金融、実業、専門技術。実利を重視するシビアな環境で圧倒的な成果を出します。" },
+            { name: "天同星", yomi: "Tendo-sei", alias: "THE CHILD", group: "南斗星", icon: "baby", element: "水（陽）", attribute: "温和・享受", desc: "福の神の星。子供のように無邪気で、穏やかな性格。周囲との調和を重んじ、楽しみを見つけるのが得意です。", modern: "サービス業、カウンセリング、芸能。周囲を癒やし、楽しませる役割。" },
+            { name: "廉貞星", yomi: "Rentei-sei", alias: "THE DIPLOMAT", group: "北斗星", icon: "flame", element: "火（陰）", attribute: "権威・感性", desc: "「次なる魅力の星」。凛とした強さと情熱を秘めます。仕事には非常に厳格ですが、内面は非常に多感で複雑です。", modern: "行政関係、デザイン、芸能。規律と美的感覚が必要な分野。" },
+            { name: "天府星", yomi: "Tenpu-sei", alias: "THE TREASURER", group: "南斗主星", icon: "landmark", element: "土（陽）", attribute: "安定・慈愛", desc: "慈愛満ちた金庫。保守的で安定を好み、豊かな包容力で周囲を包みます。組織を維持・管理する能力が非常に高いです。", modern: "銀行、不動産、総務、経営安定期のリーダー。守備力の高さを活かす場。" },
+            { name: "太陰星", yomi: "Taiin-sei", alias: "THE MOON", group: "中天星", icon: "moon", element: "水（陰）", attribute: "ロマン・慈愛", desc: "静寂の月。感受性が豊かで、美を愛するロマンチスト。控えめですが、深い思考と母性的な優しさを持ちます。", modern: "芸術家、デザイナー、不動産、ケア職。繊細な感覚が武器になります。" },
+            { name: "貪狼星", yomi: "Donro-sei", alias: "THE WOLF", group: "北斗星", icon: "sparkles", element: "木・水", attribute: "社交・欲望", desc: "欲望と芸の星。飽くなき好奇心と卓越した社交術。人生を遊び尽くすエネルギーに満ち、多芸多才です。", modern: "営業、フリーランス、実業。人を惹きつけるカリスマ性を発揮します。" },
+            { name: "巨門星", yomi: "Komon-sei", alias: "THE ORATOR", group: "北斗星", icon: "message-square", element: "水（陰）", attribute: "口才・分析", desc: "口の星。優れた弁説と鋭い分析力。物事の裏側を見抜く力がありますが、言葉によるトラブルには注意が必要です。", modern: "法律家、教師、評論家、アナウンサー、研究者。正確な言語化が求められる仕事。" },
+            { name: "天相星", yomi: "Tenso-sei", alias: "THE MINISTER", group: "南斗星", icon: "shield", element: "水（陽）", attribute: "補佐・慈愛", desc: "誠実なパートナー。人を助けることで自分が輝く「補佐の星」。身なりを整え、調和ある環境を作ります。", modern: "秘書、公務員、ホスピタリティ産業。優れた調整役として必要とされます。" },
+            { name: "天梁星", yomi: "Tenryo-sei", alias: "THE SAGE", group: "南斗星", icon: "sparkles", element: "土（陽）", attribute: "指導・慈愛", desc: "賢者の星。落ち着きがあり、面倒見の良い親分肌。困難を乗り越える守護の力を持ち、指導者的な立場に置かれます。", modern: "医療、教育、コンサルタント、監査。徳を持って人を導く役割。" },
+            { name: "七殺星", yomi: "Shichisatsu-sei", alias: "THE WARRIOR", group: "南斗星", icon: "sword", element: "金・火", attribute: "権威・独行", desc: "孤独な勇者。ずば抜けた行動力と独立心を持ちます。変化を恐れず、荒波の中に活路を見出します。", modern: "ベンチャー起業家、アスリート、外科医。個人の力で勝負する世界。" },
+            { name: "破軍星", yomi: "Hagun-sei", alias: "THE REBEL", group: "北斗星", icon: "waves", element: "水（陰）", attribute: "耗散・開拓", desc: "破壊と創造。既存の概念を壊し、ゼロから新しいものを作り出す猛烈なエネルギーです。人生の変動が激しくなります。", modern: "新技術開発、開拓者、イノベーター。誰も通っていない道を切り拓く場。" }
         ];
 
         const branches = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
@@ -854,7 +882,8 @@
                 document.getElementById('star-group').textContent = s.group;
                 document.getElementById('star-name').textContent = s.name;
                 document.getElementById('star-alias').textContent = s.alias;
-                document.getElementById('star-icon').textContent = s.icon;
+                document.getElementById('star-icon').innerHTML = `<i data-lucide="${s.icon}" class="w-16 h-16"></i>`;
+                lucide.createIcons();
                 document.getElementById('star-element').textContent = s.element;
                 document.getElementById('star-attribute').textContent = s.attribute;
                 document.getElementById('star-description').textContent = s.desc;
@@ -870,6 +899,21 @@
                 });
             }, { threshold: 0.1 });
             document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            // Close menu on link click
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
         }
 
     </script>

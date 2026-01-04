@@ -12,6 +12,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Chosen Palette: Zen Garden (Warm Neutrals) -->
     <!-- Background: Stone-50, Text: Stone-800, Accents: Amber-700, Secondary: Stone-200 -->
@@ -85,9 +86,19 @@
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-stone-50/90 backdrop-blur-sm border-b border-stone-200 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4">
+        <div class="max-w-7xl mx-auto px-4">
             <div class="flex justify-between items-center h-16">
-                <span class="text-xl font-bold serif text-amber-900">人相学・顔相</span>
+                <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                    <div
+                        class="w-10 h-10 bg-amber-700 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-amber-900/20">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-stone-900 leading-none serif">Triscope</h1>
+                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Physiognomy</p>
+                    </div>
+                </div>
+
                 <div class="hidden md:flex space-x-8 text-sm font-medium">
                     <button onclick="scrollToSection('overview')"
                         class="hover:text-amber-700 transition-colors">概要と特性</button>
@@ -100,10 +111,25 @@
                     <button onclick="scrollToSection('practice')"
                         class="hover:text-amber-700 transition-colors">実践手順</button>
                 </div>
-                <!-- Mobile Menu Button (simplified functionality for single file) -->
-                <button class="md:hidden text-amber-900" onclick="alert('画面をスクロールして各セクションをご覧ください。')">
-                    ☰
+                <!-- Mobile Menu Btn -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-amber-900 hover:bg-gray-100 rounded-lg">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">概要と特性</button>
+                <button onclick="scrollToSection('facemap'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">顔の地図</button>
+                <button onclick="scrollToSection('capabilities'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">得意分野</button>
+                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">根拠と歴史</button>
+                <button onclick="scrollToSection('practice'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-700 hover:bg-stone-50">実践手順</button>
             </div>
         </div>
     </nav>
@@ -121,17 +147,23 @@
             </p>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mt-12">
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 text-2xl mb-2">👁️</div>
+                    <div class="text-amber-700 mb-2">
+                        <i data-lucide="eye" class="w-8 h-8"></i>
+                    </div>
                     <h3 class="font-bold mb-2">相術としての位置づけ</h3>
                     <p class="text-sm text-stone-500">手相や家相と同じく、目に見える「形」から見えない運気を読み解く占術です。</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 text-2xl mb-2">🧠</div>
+                    <div class="text-amber-700 mb-2">
+                        <i data-lucide="brain" class="w-8 h-8"></i>
+                    </div>
                     <h3 class="font-bold mb-2">脳と顔の密接な関係</h3>
                     <p class="text-sm text-stone-500">「脳相」とも呼ばれ、脳の働きや心の状態が表情筋を通じて顔に表れると考えます。</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 text-2xl mb-2">🔄</div>
+                    <div class="text-amber-700 mb-2">
+                        <i data-lucide="refresh-cw" class="w-8 h-8"></i>
+                    </div>
                     <h3 class="font-bold mb-2">変化する運勢</h3>
                     <p class="text-sm text-stone-500">顔は変わります。心がけ次第で良い相を作り、運命を好転させることができるのが最大の特徴です。</p>
                 </div>
@@ -209,7 +241,7 @@
                 <div class="flex-1 w-full max-w-lg">
                     <div id="zone-info" class="bg-stone-50 p-6 rounded-xl border border-stone-200 min-h-[300px]">
                         <div class="flex items-center gap-3 mb-4">
-                            <span class="text-3xl">👤</span>
+                            <i data-lucide="user" class="w-8 h-8 text-amber-900"></i>
                             <h3 id="info-title" class="text-xl font-bold text-amber-900">全体観（総論）</h3>
                         </div>
                         <p id="info-desc" class="text-stone-700 leading-relaxed mb-4">
@@ -283,7 +315,7 @@
                     </p>
                     <div class="flex flex-col gap-4">
                         <div class="flex items-center p-3 bg-stone-50 rounded border border-stone-200">
-                            <span class="text-2xl mr-3">🧠</span>
+                            <i data-lucide="brain" class="w-8 h-8 text-stone-500 mr-3"></i>
                             <div>
                                 <strong class="block text-sm">思考・感情</strong>
                                 <span class="text-xs text-stone-500">脳の反応、性格的な癖</span>
@@ -291,7 +323,7 @@
                         </div>
                         <div class="flex justify-center text-stone-300">▼</div>
                         <div class="flex items-center p-3 bg-stone-50 rounded border border-stone-200">
-                            <span class="text-2xl mr-3">💪</span>
+                            <i data-lucide="activity" class="w-8 h-8 text-stone-500 mr-3"></i>
                             <div>
                                 <strong class="block text-sm">筋肉の動き</strong>
                                 <span class="text-xs text-stone-500">よく笑う、眉をひそめる等の反復</span>
@@ -299,7 +331,7 @@
                         </div>
                         <div class="flex justify-center text-stone-300">▼</div>
                         <div class="flex items-center p-3 bg-amber-50 rounded border border-amber-200">
-                            <span class="text-2xl mr-3">🗿</span>
+                            <i data-lucide="award" class="w-8 h-8 text-amber-600 mr-3"></i>
                             <div>
                                 <strong class="block text-sm">顔相の形成</strong>
                                 <span class="text-xs text-stone-500">シワ、肉付き、目つきの変化＝運勢の表出</span>
@@ -419,9 +451,47 @@
 
     </main>
 
-    <footer class="bg-stone-800 text-stone-400 py-8 mt-auto text-center text-sm">
-        <p>&copy; 2024 Physiognomy Report Project. All rights reserved.</p>
-        <p class="mt-2 text-xs">※このレポートは人相学の一般的な理論に基づくものであり、個人の運命を断定するものではありません。</p>
+    <!-- Footer -->
+    <footer class="bg-stone-800 text-stone-400 py-12 border-t border-stone-700">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
+                <div class="space-y-4">
+                    <h3 class="text-xl font-bold text-stone-100 serif">人相学・顔相</h3>
+                    <p class="text-sm opacity-70 leading-relaxed">
+                        顔は、運命の履歴書であり未来への地図である。心身一如の思想に基づき、表情に刻まれた運命の軌跡を読み解く。
+                    </p>
+                </div>
+                <div class="md:ml-20">
+                    <h4 class="font-bold text-sm text-stone-100 mb-4 uppercase tracking-widest">Quick Links</h4>
+                    <ul class="text-sm space-y-2 opacity-70">
+                        <li><button onclick="scrollToSection('overview')"
+                                class="hover:text-amber-500 transition-colors">概要と特性</button></li>
+                        <li><button onclick="scrollToSection('facemap')"
+                                class="hover:text-amber-500 transition-colors">顔の地図</button></li>
+                        <li><button onclick="scrollToSection('logic')"
+                                class="hover:text-amber-500 transition-colors">根拠と歴史</button></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-sm text-stone-100 mb-4 uppercase tracking-widest">Connect</h4>
+                    <p class="text-sm opacity-70">
+                        Email: <a href="mailto:info@triscope.com"
+                            class="text-amber-500 hover:underline">info@triscope.com</a>
+                    </p>
+                </div>
+            </div>
+            <div
+                class="pt-8 border-t border-stone-700 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-stone-500 uppercase tracking-widest font-bold">
+                <span>© 2026 Triscope Project. All rights reserved.</span>
+                <div class="flex gap-6">
+                    <span>Powered by Ancient Logic</span>
+                    <span>Built with AI Technology</span>
+                </div>
+            </div>
+            <p class="mt-4 text-[10px] text-stone-600 text-center">
+                ※本レポートは人相学の一般的な理論に基づくものであり、個人の運命を断定するものではありません。
+            </p>
+        </div>
     </footer>
 
     <!-- JavaScript Logic -->
@@ -510,6 +580,7 @@
 
         // Chart.js Implementation
         document.addEventListener('DOMContentLoaded', function () {
+            lucide.createIcons();
             const ctx = document.getElementById('capabilitiesChart').getContext('2d');
 
             const capabilitiesData = {
@@ -577,6 +648,13 @@
 
             new Chart(ctx, config);
         });
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
     </script>
 </body>
 

@@ -18,6 +18,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <!-- Palette and Custom Styles -->
     <!-- Chosen Palette: "Sumi & Washi" 
@@ -127,12 +128,19 @@
 
     <!-- Navigation -->
     <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-gray-200 shadow-sm">
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold serif text-gray-800 tracking-tighter">姓名判断<span
-                            class="text-red-800 text-sm align-top">report</span></span>
+                <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
+                    <div
+                        class="w-10 h-10 bg-red-800 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-red-900/20">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-800 leading-none serif">Triscope</h1>
+                        <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Onomancy Profile</p>
+                    </div>
                 </div>
+
                 <div class="hidden md:flex space-x-8 items-center">
                     <button onclick="scrollToSection('overview')"
                         class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">概要と特性</button>
@@ -143,24 +151,23 @@
                     <button onclick="scrollToSection('history')"
                         class="text-gray-600 hover:text-red-800 transition-colors text-sm font-medium">歴史と起源</button>
                 </div>
-                <!-- Mobile menu button placeholder -->
-                <div class="md:hidden flex items-center">
-                    <button class="text-gray-500 hover:text-gray-700"
-                        onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
-                        ☰
-                    </button>
-                </div>
+                <!-- Mobile Menu Btn -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-800 hover:bg-gray-100 rounded-lg">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
             </div>
         </div>
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-gray-100">
             <div class="px-2 pt-2 pb-3 space-y-1">
-                <button onclick="scrollToSection('overview')"
+                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">概要と特性</button>
-                <button onclick="scrollToSection('logic')"
+                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">仕組みとロジック</button>
-                <button onclick="scrollToSection('simulation')"
+                <button onclick="scrollToSection('simulation'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">鑑定シミュレーション</button>
+                <button onclick="scrollToSection('history'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-gray-700 hover:bg-gray-50">歴史と起源</button>
             </div>
         </div>
     </nav>
@@ -533,12 +540,46 @@
         </section>
 
         <!-- Footer -->
-        <footer class="border-t border-gray-200 mt-20 pt-10 pb-6 text-center text-gray-500 text-sm">
-            <p class="mb-2">Generated for Canvas Report Analysis</p>
-            <p class="text-xs">
-                ※本レポートは姓名判断の一般的な理論に基づいた解説です。<br>
-                流派によって画数の数え方（新字体・旧字体）や解釈は異なります。
-            </p>
+        <footer class="bg-white py-12 border-t border-gray-200">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left text-gray-600">
+                    <div class="space-y-4">
+                        <h3 class="text-xl font-bold text-gray-900 serif">姓名判断</h3>
+                        <p class="text-sm leading-relaxed text-gray-500">
+                            名前に宿る運命の数式。統計と哲学の融合により、あなたの潜在的な可能性と未来を紐解くインタラクティブ・レポート。
+                        </p>
+                    </div>
+                    <div class="md:ml-20">
+                        <h4 class="font-bold text-sm text-gray-900 mb-4 uppercase tracking-widest">Quick Links</h4>
+                        <ul class="text-sm space-y-2">
+                            <li><button onclick="scrollToSection('overview')"
+                                    class="hover:text-red-800 transition-colors">概要と特性</button></li>
+                            <li><button onclick="scrollToSection('logic')"
+                                    class="hover:text-red-800 transition-colors">仕組みとロジック</button></li>
+                            <li><button onclick="scrollToSection('simulation')"
+                                    class="hover:text-red-800 transition-colors">鑑定シミュレーション</button></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-sm text-gray-900 mb-4 uppercase tracking-widest">Connect</h4>
+                        <p class="text-sm">
+                            Email: <a href="mailto:info@triscope.com"
+                                class="text-red-800 hover:underline">info@triscope.com</a>
+                        </p>
+                    </div>
+                </div>
+                <div
+                    class="pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-gray-400 uppercase tracking-widest font-bold">
+                    <span>© 2026 Triscope Project. All rights reserved.</span>
+                    <div class="flex gap-6">
+                        <span>Powered by Ancient Logic</span>
+                        <span>Built with AI Technology</span>
+                    </div>
+                </div>
+                <p class="mt-4 text-[10px] text-gray-400 text-center">
+                    ※本レポートは姓名判断の一般的な理論に基づいた解説です。流派によって画数の数え方（新字体・旧字体）や解釈は異なります。
+                </p>
+            </div>
         </footer>
 
     </main>
@@ -550,37 +591,37 @@
             ten: {
                 title: "天格 (Ancestral Luck)",
                 desc: "姓の総画数。祖先から受け継いだ運気であり、家系全体を表します。個人の努力では変えられない部分とされ、晩年の運勢に影響を与えます。",
-                icon: "⛩️"
+                icon: "landmark"
             },
             jin: {
                 title: "人格 (Core Personality)",
-                desc: "姓の最後と名の最初の文字の合計。その人の内面、性格、才能、そして中年期（働き盛り）の運勢を司ります。人間関係や仕事運に直結する、最も重要な格です。",
-                icon: "👤"
+                desc: "姓の最後と名の最初の文字の合計。その人の内面、性格、才能、そこで中年期（働き盛り）の運勢を司ります。人間関係や仕事運に直結する、最も重要な格です。",
+                icon: "user"
             },
             chi: {
                 title: "地格 (Early Life)",
                 desc: "名の総画数。幼少期から青年期までの運勢を表します。生まれ持った才能や、親との関係、成長過程での性格形成に影響します。",
-                icon: "🌱"
+                icon: "sprout"
             },
             gai: {
                 title: "外格 (Social Luck)",
                 desc: "総格から人格を引いたもの（簡易法）。家族や職場など、外側の人間関係や環境運を表します。結婚運や対人トラブルの傾向もここに現れます。",
-                icon: "🤝"
+                icon: "users"
             },
             sou: {
                 title: "総格 (Overall Destiny)",
                 desc: "姓と名の全ての画数の合計。人生全体の運勢、特に晩年の運気を表します。他の格が悪くても、総格が良ければ挽回できると言われるほど重要です。",
-                icon: "🌏"
+                icon: "globe"
             },
             surname: {
                 title: "姓 (Surname)",
                 desc: "先祖代々受け継がれる家名。天格の算出に使用されます。",
-                icon: "📜"
+                icon: "file-text"
             },
             givenname: {
                 title: "名 (Given Name)",
                 desc: "個人を特定する名前。地格の算出に使用され、その人の個性を形成します。",
-                icon: "🏷️"
+                icon: "tag"
             }
         };
 
@@ -605,7 +646,8 @@
             setTimeout(() => {
                 document.getElementById('detail-title').innerText = data.title;
                 document.getElementById('detail-desc').innerText = data.desc;
-                document.getElementById('detail-icon').innerText = data.icon;
+                document.getElementById('detail-icon').innerHTML = `<i data-lucide="${data.icon}" class="w-12 h-12 text-gray-400"></i>`;
+                lucide.createIcons();
 
                 // Update list based on key context (simplified for this demo)
                 let listHtml = "";
@@ -752,7 +794,15 @@
             // Draw Canvas Lines
             drawLines();
             window.addEventListener('resize', drawLines);
+            lucide.createIcons();
         };
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        }
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
         // Canvas Drawing for Name Structure Lines
         function drawLines() {
