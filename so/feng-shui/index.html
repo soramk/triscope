@@ -656,29 +656,44 @@
     </section>
 
     <!-- Footer -->
-    <footer class="bg-fs-dark text-white py-20">
-        <div class="max-w-7xl mx-auto px-4 text-center md:text-left">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
+    <footer class="bg-stone-50 py-20 border-t border-stone-200/60">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col items-center text-center space-y-12">
+                <!-- Brand section -->
                 <div class="space-y-6">
-                    <h3 class="text-3xl font-bold serif flex items-center gap-2 justify-center md:justify-start">
-                        <i data-lucide="wind" class="w-8 h-8 text-fs-sage"></i>
-                        Triscope Feng Shui
-                    </h3>
-                    <p class="text-gray-400 max-w-md leading-relaxed">
+                    <div class="flex justify-center">
+                        <div
+                            class="w-14 h-14 bg-fs-sage/5 rounded-2xl flex items-center justify-center border border-fs-sage/10 shadow-sm">
+                            <i data-lucide="wind" class="w-7 h-7 text-fs-sage"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 serif tracking-tight">
+                            Triscope <span class="text-fs-sage">Feng Shui</span>
+                        </h3>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 mt-1">Space Harmony ×
+                            Energy Flow</p>
+                    </div>
+                    <p class="text-sm max-w-md mx-auto leading-relaxed text-slate-600 font-medium">
                         環境と運気の調和を解き明かす。目に見えない「気」の力を制御し、住む人の可能性を最大限に引き出す環境地理学の実践的ガイド。
                     </p>
                 </div>
-                <div class="flex flex-col justify-end md:items-end">
-                    <p class="text-gray-400">古代の知恵を、現代の暮らしに。</p>
-                    <p class="text-gray-400 mt-2 font-serif italic text-lg">Harmonizing Space, Empowering Life.</p>
+
+                <!-- Horizontal line and Copyright -->
+                <div
+                    class="w-full pt-10 border-t border-stone-200/80 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-widest font-bold text-slate-400">
+                    <span>© 2026 Triscope Project. All rights reserved.</span>
+                    <div class="flex gap-8">
+                        <span class="hover:text-fs-sage transition-colors cursor-default">Space Wisdom</span>
+                        <span class="hover:text-fs-sage transition-colors cursor-default">Energy Balance</span>
+                    </div>
                 </div>
-            </div>
-            <div
-                class="pt-10 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] text-gray-500 tracking-[0.2em] font-bold">
-                <span>© 2026 TRISCOPE PROJECT. ALL RIGHTS RESERVED.</span>
-                <div class="flex gap-8">
-                    <span>ANCIENT LOGIC SYSTEM</span>
-                    <span>BUILT WITH AI TECHNOLOGY</span>
+
+                <!-- Footer Disclaimer Card -->
+                <div class="bg-white/50 px-6 py-4 rounded-xl border border-stone-200/50 max-w-3xl">
+                    <p class="text-[10px] text-slate-400 leading-relaxed italic">
+                        ※本コンテンツは風水の理論と歴史を教育目的で紹介するものです。環境調整は科学的根拠に基づくものではなく、伝統的な知恵として参考にしてください。
+                    </p>
                 </div>
             </div>
         </div>

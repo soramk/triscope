@@ -1551,261 +1551,252 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 text-center">
-            <div class="flex flex-col items-center gap-4">
-                <div class="flex items-center gap-2 text-white font-bold serif text-lg">
-                    <!-- Footer -->
-                    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
-                        <div class="max-w-7xl mx-auto px-4">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
-                                <div class="space-y-4">
-                                    <h3
-                                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
-                                        <i data-lucide="sparkles" class="w-6 h-6 text-indigo-400"></i>
-                                        Triscope Tarot
-                                    </h3>
-                                    <p class="text-sm opacity-70 leading-relaxed">
-                                        古代の叡智と現代の論理を融合し、あなたの運命を科学的に解き明かす。占いは決まった未来を告げるものではなく、より良い選択のための羅針盤です。
-                                    </p>
-                                </div>
-                                <div class="md:ml-20">
-                                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links
-                                    </h4>
-                                    <ul class="text-sm space-y-2 opacity-70">
-                                        <li><button onclick="scrollToSection('hero')"
-                                                class="hover:text-indigo-200 transition-colors">体験</button></li>
-                                        <li><button onclick="scrollToSection('overview')"
-                                                class="hover:text-indigo-200 transition-colors">概要</button></li>
-                                        <li><button onclick="scrollToSection('spreads')"
-                                                class="hover:text-indigo-200 transition-colors">スプレッド</button></li>
-                                    </ul>
-                                </div>
-                                <div>
-                                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
-                                    <p class="text-sm opacity-70">
-                                        Email: <a href="mailto:info@triscope.com"
-                                            class="text-indigo-200 hover:underline">info@triscope.com</a>
-                                    </p>
-                                </div>
-                            </div>
-                            <div
-                                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
-                                <span>© 2026 Triscope Project. All rights reserved.</span>
-                                <div class="flex gap-6">
-                                    <span>Powered by Ancient Logic</span>
-                                    <span>Built with AI Technology</span>
-                                </div>
-                            </div>
-                            <p class="mt-4 text-[10px] text-indigo-600 text-center">
-                                ※本レポートは教育的デモンストレーションを目的としたインタラクティブ・ドキュメントです。実際の鑑定結果を保証するものではありません。
-                            </p>
+    <footer class="bg-slate-50 py-20 border-t border-slate-200/60">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col items-center text-center space-y-12">
+                <!-- Brand section -->
+                <div class="space-y-6">
+                    <div class="flex justify-center">
+                        <div
+                            class="w-14 h-14 bg-indigo-900/5 rounded-2xl flex items-center justify-center border border-indigo-900/10 shadow-sm">
+                            <i data-lucide="sparkles" class="w-7 h-7 text-indigo-900"></i>
                         </div>
-                    </footer>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 serif tracking-tight">
+                            Triscope <span class="text-indigo-700">Tarot</span>
+                        </h3>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-slate-400 mt-1">Archetypal
+                            Wisdom × Intuitive Guidance</p>
+                    </div>
+                    <p class="text-sm max-w-md mx-auto leading-relaxed text-slate-600 font-medium">
+                        古代の叡智と現代の論理を融合し、あなたの運命を科学的に解き明かす。占いは決まった未来を告げるものではなく、より良い選択のための羅針盤です。
+                    </p>
+                </div>
 
-                    <script>
-                        // --- DATA & STATE ---
-                        const majorArcana = [
-                            { number: "0", name: "The Fool", jpName: "愚者", icon: "wind", keywords: "自由、始まり、無邪気、可能性", meaning: "何も持たずに崖っぷちを歩く若者。常識に縛られない新しいスタートを示唆します。" },
-                            { number: "I", name: "The Magician", jpName: "魔術師", icon: "wand-2", keywords: "創造、自信、スキル、意思", meaning: "テーブルの上に全ての道具が揃っています。準備は完了し、あなたの意志で何でも生み出せる状態です。" },
-                            { number: "II", name: "The High Priestess", jpName: "女教皇", icon: "book-open", keywords: "直感、知性、静寂、神秘", meaning: "白と黒の柱の間に座る女性。論理よりも直感や内なる声を信じるべき時です。" },
-                            { number: "III", name: "The Empress", jpName: "女帝", icon: "flower-2", keywords: "豊穣、母性、繁栄、愛", meaning: "豊かな自然の中で座る女性。物質的・精神的な満足や、愛を受け取る喜びを表します。" },
-                            { number: "IV", name: "The Emperor", jpName: "皇帝", icon: "shield", keywords: "権威、安定、責任、リーダーシップ", meaning: "社会的な成功や安定した基盤。論理的な思考と実行力が鍵となります。" },
-                            { number: "V", name: "The Hierophant", jpName: "教皇", icon: "user-check", keywords: "伝統、慈悲、助言、精神性", meaning: "ルールや伝統を守ることの重要性。信頼できる人からのアドバイスが助けになります。" },
-                            { number: "VI", name: "The Lovers", jpName: "恋人", icon: "heart", keywords: "選択、調和、愛、直感的な決断", meaning: "単なる恋愛だけでなく、人生の重要な岐路での「心に従った選択」を意味します。" },
-                            { number: "VII", name: "The Chariot", jpName: "戦車", icon: "milestone", keywords: "勝利、前進、克服、意志力", meaning: "困難を乗り越えて突き進むエネルギー。迷わずにコントロールの手綱を握りましょう。" },
-                            { number: "VIII", name: "Strength", jpName: "力", icon: "shield-check", keywords: "忍耐、勇気、受容、内なる力", meaning: "ライオンを手なずける女性。力ずくではなく、精神的な強さと優しさで困難を克服します。" },
-                            { number: "IX", name: "The Hermit", jpName: "隠者", icon: "lamp", keywords: "内省、孤独、探求、導き", meaning: "世俗を離れて内面を見つめる時。答えは外ではなく、自分自身の内側にあります。" },
-                            { number: "X", name: "Wheel of Fortune", jpName: "運命の輪", icon: "refresh-cw", keywords: "チャンス、変化、一時的、周期", meaning: "自分ではコントロールできない運命の流れ。チャンスが来たら迷わず乗るべきです。" },
-                            { number: "XI", name: "Justice", jpName: "正義", icon: "scale", keywords: "公正、真実、原因と結果、バランス", meaning: "剣と天秤を持つ女性。行動には相応の結果が伴います。正直さと公平性が求められます。" },
-                            { number: "XII", name: "The Hanged Man", jpName: "吊るされた男", icon: "anchor", keywords: "犠牲、視点の転換、忍耐、停滞", meaning: "逆さ吊りの男性。今は動かず、別の視点から物事を見る時. 停滞は次への準備期間です。" },
-                            { number: "XIII", name: "Death", jpName: "死神", icon: "skull", keywords: "終わり、変容、再生、手放す", meaning: "文字通りの死ではなく「変化」の象徴。古いものを手放し、新しいステージへ進む時です。" },
-                            { number: "XIV", name: "Temperance", jpName: "節制", icon: "droplets", keywords: "調和、バランス、中庸、癒し", meaning: "水を混ぜ合わせる天使。極端を避け、バランスを取ることで最良の結果が生まれます。" },
-                            { number: "XV", name: "The Devil", jpName: "悪魔", icon: "flame", keywords: "束縛、誘惑、執着、物欲", meaning: "鎖で繋がれた男女。しかし鎖は緩く、自分で外せます。依存や執着から自由になるべき時。" },
-                            { number: "XVI", name: "The Tower", jpName: "塔", icon: "zap", keywords: "崩壊、衝撃、解放、真実の露呈", meaning: "雷に打たれる塔。突然の変化や崩壊。しかしそれは偽りの基盤を壊し、真実を見せるためです。" },
-                            { number: "XVII", name: "The Star", jpName: "星", icon: "sparkles", keywords: "希望、癒し、インスピレーション、未来", meaning: "水を注ぐ女性と星。困難な状況の後に訪れる希望の光。癒しと再生のエネルギーです。" },
-                            { number: "XVIII", name: "The Moon", jpName: "月", icon: "moon", keywords: "不安、幻想、潜在意識、曖昧さ", meaning: "月の下で遠吠えする狼。曖昧な状況や内なる不安。直感を信じつつも慎重に進むべき時。" },
-                            { number: "XIX", name: "The Sun", jpName: "太陽", icon: "sun", keywords: "成功、喜び、活力、明確さ", meaning: "輝く太陽の下の子供。全てが明るく照らされ、成功と喜びに満ちた状態。ポジティブなエネルギー。" },
-                            { number: "XX", name: "Judgement", jpName: "審判", icon: "megaphone", keywords: "覚醒、復活、呼びかけ、新生", meaning: "天使のラッパで目覚める人々。過去を清算し、新しい人生への呼びかけ。再生と目覚めの時。" },
-                            { number: "XXI", name: "The World", jpName: "世界", icon: "globe", keywords: "完成、達成、統合、次のサイクル", meaning: "リースに囲まれた女性。一つの旅の完結。目標達成と同時に、新たな始まりへの準備でもあります。" }
-                        ];
+                <!-- Horizontal line and Copyright -->
+                <div
+                    class="w-full pt-10 border-t border-slate-200/80 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-widest font-bold text-slate-400">
+                    <span>© 2026 Triscope Project. All rights reserved.</span>
+                    <div class="flex gap-8">
+                        <span class="hover:text-indigo-700 transition-colors cursor-default">Sacred Symbols</span>
+                        <span class="hover:text-indigo-700 transition-colors cursor-default">Inner Guidance</span>
+                    </div>
+                </div>
 
-                        let currentStep = 1;
-                        const steps = [
-                            {
-                                title: "1. 準備とシャッフル",
-                                icon: "refresh-cw",
-                                desc: "まず、カードを裏向きにしてテーブルに広げます。質問内容を心の中で唱えながら、両手で時計回りにカードを混ぜ合わせます（シャッフル）。この行為は「カオス（混沌）」を作り出し、自我を離れる儀式です。"
-                            },
-                            {
-                                title: "2. カットとまとめ",
-                                icon: "scissors",
-                                desc: "心が落ち着いたらシャッフルを止め、カードを一つにまとめます。左手で山を2つか3つに分け（カット）、再び好きな順序で一つの山に戻します。これによりカードにあなたの「気」を通します。"
-                            },
-                            {
-                                title: "3. 展開 (スプレッド)",
-                                icon: "layout",
-                                desc: "決められた配置法（スプレッド）に従ってカードを並べます。今回は最もシンプルな「ワンオラクル」。山の一番上、あるいは直感で気になった1枚を引いて場に置きます。"
-                            },
-                            {
-                                title: "4. リーディング",
-                                icon: "eye",
-                                desc: "カードを表に返し、絵柄からメッセージを読み取ります。解説書の意味だけでなく、絵を見て「何を感じたか（明るい？暗い？）」という第一印象も重要です。それがあなたの潜在意識の声です。"
-                            }
-                        ];
+                <!-- Footer Disclaimer Card -->
+                <div class="bg-white/50 px-6 py-4 rounded-xl border border-slate-200/50 max-w-3xl">
+                    <p class="text-[10px] text-slate-400 leading-relaxed italic">
+                        ※本レポートは教育的デモンストレーションを目的としたインタラクティブ・ドキュメントです。タロットは自己理解と可能性の探求のためのツールであり、絶対的な予言を示すものではありません。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </footer>
 
-                        // --- FUNCTIONS ---
+    <script>
+        // --- DATA & STATE ---
+        const majorArcana = [
+            { number: "0", name: "The Fool", jpName: "愚者", icon: "wind", keywords: "自由、始まり、無邪気、可能性", meaning: "何も持たずに崖っぷちを歩く若者。常識に縛られない新しいスタートを示唆します。" },
+            { number: "I", name: "The Magician", jpName: "魔術師", icon: "wand-2", keywords: "創造、自信、スキル、意思", meaning: "テーブルの上に全ての道具が揃っています。準備は完了し、あなたの意志で何でも生み出せる状態です。" },
+            { number: "II", name: "The High Priestess", jpName: "女教皇", icon: "book-open", keywords: "直感、知性、静寂、神秘", meaning: "白と黒の柱の間に座る女性。論理よりも直感や内なる声を信じるべき時です。" },
+            { number: "III", name: "The Empress", jpName: "女帝", icon: "flower-2", keywords: "豊穣、母性、繁栄、愛", meaning: "豊かな自然の中で座る女性。物質的・精神的な満足や、愛を受け取る喜びを表します。" },
+            { number: "IV", name: "The Emperor", jpName: "皇帝", icon: "shield", keywords: "権威、安定、責任、リーダーシップ", meaning: "社会的な成功や安定した基盤。論理的な思考と実行力が鍵となります。" },
+            { number: "V", name: "The Hierophant", jpName: "教皇", icon: "user-check", keywords: "伝統、慈悲、助言、精神性", meaning: "ルールや伝統を守ることの重要性。信頼できる人からのアドバイスが助けになります。" },
+            { number: "VI", name: "The Lovers", jpName: "恋人", icon: "heart", keywords: "選択、調和、愛、直感的な決断", meaning: "単なる恋愛だけでなく、人生の重要な岐路での「心に従った選択」を意味します。" },
+            { number: "VII", name: "The Chariot", jpName: "戦車", icon: "milestone", keywords: "勝利、前進、克服、意志力", meaning: "困難を乗り越えて突き進むエネルギー。迷わずにコントロールの手綱を握りましょう。" },
+            { number: "VIII", name: "Strength", jpName: "力", icon: "shield-check", keywords: "忍耐、勇気、受容、内なる力", meaning: "ライオンを手なずける女性。力ずくではなく、精神的な強さと優しさで困難を克服します。" },
+            { number: "IX", name: "The Hermit", jpName: "隠者", icon: "lamp", keywords: "内省、孤独、探求、導き", meaning: "世俗を離れて内面を見つめる時。答えは外ではなく、自分自身の内側にあります。" },
+            { number: "X", name: "Wheel of Fortune", jpName: "運命の輪", icon: "refresh-cw", keywords: "チャンス、変化、一時的、周期", meaning: "自分ではコントロールできない運命の流れ。チャンスが来たら迷わず乗るべきです。" },
+            { number: "XI", name: "Justice", jpName: "正義", icon: "scale", keywords: "公正、真実、原因と結果、バランス", meaning: "剣と天秤を持つ女性。行動には相応の結果が伴います。正直さと公平性が求められます。" },
+            { number: "XII", name: "The Hanged Man", jpName: "吊るされた男", icon: "anchor", keywords: "犠牲、視点の転換、忍耐、停滞", meaning: "逆さ吊りの男性。今は動かず、別の視点から物事を見る時. 停滞は次への準備期間です。" },
+            { number: "XIII", name: "Death", jpName: "死神", icon: "skull", keywords: "終わり、変容、再生、手放す", meaning: "文字通りの死ではなく「変化」の象徴。古いものを手放し、新しいステージへ進む時です。" },
+            { number: "XIV", name: "Temperance", jpName: "節制", icon: "droplets", keywords: "調和、バランス、中庸、癒し", meaning: "水を混ぜ合わせる天使。極端を避け、バランスを取ることで最良の結果が生まれます。" },
+            { number: "XV", name: "The Devil", jpName: "悪魔", icon: "flame", keywords: "束縛、誘惑、執着、物欲", meaning: "鎖で繋がれた男女。しかし鎖は緩く、自分で外せます。依存や執着から自由になるべき時。" },
+            { number: "XVI", name: "The Tower", jpName: "塔", icon: "zap", keywords: "崩壊、衝撃、解放、真実の露呈", meaning: "雷に打たれる塔。突然の変化や崩壊。しかしそれは偽りの基盤を壊し、真実を見せるためです。" },
+            { number: "XVII", name: "The Star", jpName: "星", icon: "sparkles", keywords: "希望、癒し、インスピレーション、未来", meaning: "水を注ぐ女性と星。困難な状況の後に訪れる希望の光。癒しと再生のエネルギーです。" },
+            { number: "XVIII", name: "The Moon", jpName: "月", icon: "moon", keywords: "不安、幻想、潜在意識、曖昧さ", meaning: "月の下で遠吠えする狼。曖昧な状況や内なる不安。直感を信じつつも慎重に進むべき時。" },
+            { number: "XIX", name: "The Sun", jpName: "太陽", icon: "sun", keywords: "成功、喜び、活力、明確さ", meaning: "輝く太陽の下の子供。全てが明るく照らされ、成功と喜びに満ちた状態。ポジティブなエネルギー。" },
+            { number: "XX", name: "Judgement", jpName: "審判", icon: "megaphone", keywords: "覚醒、復活、呼びかけ、新生", meaning: "天使のラッパで目覚める人々。過去を清算し、新しい人生への呼びかけ。再生と目覚めの時。" },
+            { number: "XXI", name: "The World", jpName: "世界", icon: "globe", keywords: "完成、達成、統合、次のサイクル", meaning: "リースに囲まれた女性。一つの旅の完結。目標達成と同時に、新たな始まりへの準備でもあります。" }
+        ];
 
-                        // 1. Interactive Card Draw
-                        function drawCard() {
-                            const card = document.querySelector('.tarot-card');
-                            const instruction = document.getElementById('instruction-text');
+        let currentStep = 1;
+        const steps = [
+            {
+                title: "1. 準備とシャッフル",
+                icon: "refresh-cw",
+                desc: "まず、カードを裏向きにしてテーブルに広げます。質問内容を心の中で唱えながら、両手で時計回りにカードを混ぜ合わせます（シャッフル）。この行為は「カオス（混沌）」を作り出し、自我を離れる儀式です。"
+            },
+            {
+                title: "2. カットとまとめ",
+                icon: "scissors",
+                desc: "心が落ち着いたらシャッフルを止め、カードを一つにまとめます。左手で山を2つか3つに分け（カット）、再び好きな順序で一つの山に戻します。これによりカードにあなたの「気」を通します。"
+            },
+            {
+                title: "3. 展開 (スプレッド)",
+                icon: "layout",
+                desc: "決められた配置法（スプレッド）に従ってカードを並べます。今回は最もシンプルな「ワンオラクル」。山の一番上、あるいは直感で気になった1枚を引いて場に置きます。"
+            },
+            {
+                title: "4. リーディング",
+                icon: "eye",
+                desc: "カードを表に返し、絵柄からメッセージを読み取ります。解説書の意味だけでなく、絵を見て「何を感じたか（明るい？暗い？）」という第一印象も重要です。それがあなたの潜在意識の声です。"
+            }
+        ];
 
-                            // If already flipped, reset first
-                            if (card.classList.contains('flipped')) {
-                                card.classList.remove('flipped');
-                                setTimeout(randomizeAndFlip, 600);
-                            } else {
-                                randomizeAndFlip();
-                            }
+        // --- FUNCTIONS ---
 
-                            function randomizeAndFlip() {
-                                const randomCard = majorArcana[Math.floor(Math.random() * majorArcana.length)];
+        // 1. Interactive Card Draw
+        function drawCard() {
+            const card = document.querySelector('.tarot-card');
+            const instruction = document.getElementById('instruction-text');
 
-                                document.getElementById('card-number').textContent = randomCard.number;
-                                document.getElementById('card-icon').innerHTML = `<i data-lucide="${randomCard.icon}" class="w-16 h-16 shadow-yellow-500/50"></i>`;
-                                document.getElementById('card-name').textContent = randomCard.name;
-                                document.getElementById('card-keyword').textContent = randomCard.jpName + ": " + randomCard.keywords;
+            // If already flipped, reset first
+            if (card.classList.contains('flipped')) {
+                card.classList.remove('flipped');
+                setTimeout(randomizeAndFlip, 600);
+            } else {
+                randomizeAndFlip();
+            }
 
-                                // Add click listener to show modal or detailed text (simplified here to tooltip/subtext)
-                                instruction.textContent = `"${randomCard.jpName}" のカードが出ました。${randomCard.meaning}`;
-                                instruction.classList.remove('animate-pulse');
+            function randomizeAndFlip() {
+                const randomCard = majorArcana[Math.floor(Math.random() * majorArcana.length)];
 
-                                card.classList.add('flipped');
-                                lucide.createIcons();
-                            }
-                        }
+                document.getElementById('card-number').textContent = randomCard.number;
+                document.getElementById('card-icon').innerHTML = `<i data-lucide="${randomCard.icon}" class="w-16 h-16 shadow-yellow-500/50"></i>`;
+                document.getElementById('card-name').textContent = randomCard.name;
+                document.getElementById('card-keyword').textContent = randomCard.jpName + ": " + randomCard.keywords;
 
-                        // 2. Tab System
-                        function showTab(tabName) {
-                            // Hide all contents
-                            ['boku', 'mei', 'so'].forEach(t => {
-                                document.getElementById(`content-${t}`).classList.add('hidden');
-                                document.getElementById(`btn-${t}`).classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
-                                document.getElementById(`btn-${t}`).classList.add('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
+                // Add click listener to show modal or detailed text (simplified here to tooltip/subtext)
+                instruction.textContent = `"${randomCard.jpName}" のカードが出ました。${randomCard.meaning}`;
+                instruction.classList.remove('animate-pulse');
 
-                                // Reset badges
-                                const badge = document.getElementById(`btn-${t}`).querySelector('span:last-child');
-                                badge.classList.remove('bg-white/20');
-                                badge.classList.add('bg-gray-100');
-                            });
+                card.classList.add('flipped');
+                lucide.createIcons();
+            }
+        }
 
-                            // Show selected
-                            const selectedContent = document.getElementById(`content-${tabName}`);
-                            selectedContent.classList.remove('hidden');
-                            // Small delay for fade effect
-                            setTimeout(() => selectedContent.classList.remove('opacity-0'), 10);
+        // 2. Tab System
+        function showTab(tabName) {
+            // Hide all contents
+            ['boku', 'mei', 'so'].forEach(t => {
+                document.getElementById(`content-${t}`).classList.add('hidden');
+                document.getElementById(`btn-${t}`).classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
+                document.getElementById(`btn-${t}`).classList.add('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
 
-                            const selectedBtn = document.getElementById(`btn-${tabName}`);
-                            selectedBtn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
-                            selectedBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+                // Reset badges
+                const badge = document.getElementById(`btn-${t}`).querySelector('span:last-child');
+                badge.classList.remove('bg-white/20');
+                badge.classList.add('bg-gray-100');
+            });
 
-                            const selectedBadge = selectedBtn.querySelector('span:last-child');
-                            selectedBadge.classList.remove('bg-gray-100');
-                            selectedBadge.classList.add('bg-white/20');
-                        }
+            // Show selected
+            const selectedContent = document.getElementById(`content-${tabName}`);
+            selectedContent.classList.remove('hidden');
+            // Small delay for fade effect
+            setTimeout(() => selectedContent.classList.remove('opacity-0'), 10);
 
-                        // 3. Wizard System
-                        function renderStep() {
-                            const stepData = steps[currentStep - 1];
-                            const contentDiv = document.getElementById('step-content');
+            const selectedBtn = document.getElementById(`btn-${tabName}`);
+            selectedBtn.classList.remove('bg-white', 'text-gray-700', 'hover:bg-indigo-50');
+            selectedBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
 
-                            // Fade out
-                            contentDiv.style.opacity = '0';
+            const selectedBadge = selectedBtn.querySelector('span:last-child');
+            selectedBadge.classList.remove('bg-gray-100');
+            selectedBadge.classList.add('bg-white/20');
+        }
 
-                            setTimeout(() => {
-                                contentDiv.innerHTML = `
+        // 3. Wizard System
+        function renderStep() {
+            const stepData = steps[currentStep - 1];
+            const contentDiv = document.getElementById('step-content');
+
+            // Fade out
+            contentDiv.style.opacity = '0';
+
+            setTimeout(() => {
+                contentDiv.innerHTML = `
                     <div class="mb-4 flex justify-center text-indigo-600 animate-bounce">
                         <i data-lucide="${stepData.icon}" class="w-20 h-20"></i>
                     </div>
                     <h3 class="text-2xl font-bold mb-4 text-indigo-900">${stepData.title}</h3>
                     <p class="text-gray-600 leading-relaxed max-w-lg mx-auto">${stepData.desc}</p>
                 `;
-                                // Fade in
-                                contentDiv.style.opacity = '1';
-                                contentDiv.style.transition = 'opacity 0.3s ease-in-out';
-                                lucide.createIcons();
-                            }, 200);
+                // Fade in
+                contentDiv.style.opacity = '1';
+                contentDiv.style.transition = 'opacity 0.3s ease-in-out';
+                lucide.createIcons();
+            }, 200);
 
-                            // Update dots
-                            for (let i = 1; i <= 4; i++) {
-                                const dot = document.getElementById(`step-dot-${i}`);
-                                if (i < currentStep) {
-                                    dot.className = "w-10 h-10 rounded-full bg-green-500 text-white font-bold flex items-center justify-center relative z-10 shadow-sm";
-                                    dot.innerHTML = `<i data-lucide="check" class="w-6 h-6"></i>`;
-                                } else if (i === currentStep) {
-                                    dot.className = "w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center relative z-10 shadow-lg scale-110 transition-transform";
-                                    dot.innerHTML = i;
-                                } else {
-                                    dot.className = "w-10 h-10 rounded-full bg-white border-2 border-indigo-100 text-indigo-200 font-bold flex items-center justify-center relative z-10";
-                                    dot.innerHTML = i;
-                                }
-                            }
-                            lucide.createIcons();
+            // Update dots
+            for (let i = 1; i <= 4; i++) {
+                const dot = document.getElementById(`step-dot-${i}`);
+                if (i < currentStep) {
+                    dot.className = "w-10 h-10 rounded-full bg-green-500 text-white font-bold flex items-center justify-center relative z-10 shadow-sm";
+                    dot.innerHTML = `<i data-lucide="check" class="w-6 h-6"></i>`;
+                } else if (i === currentStep) {
+                    dot.className = "w-10 h-10 rounded-full bg-indigo-600 text-white font-bold flex items-center justify-center relative z-10 shadow-lg scale-110 transition-transform";
+                    dot.innerHTML = i;
+                } else {
+                    dot.className = "w-10 h-10 rounded-full bg-white border-2 border-indigo-100 text-indigo-200 font-bold flex items-center justify-center relative z-10";
+                    dot.innerHTML = i;
+                }
+            }
+            lucide.createIcons();
 
-                            // Update buttons
-                            document.getElementById('prev-btn').disabled = currentStep === 1;
-                            document.getElementById('prev-btn').style.opacity = currentStep === 1 ? '0' : '1';
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentStep === 1;
+            document.getElementById('prev-btn').style.opacity = currentStep === 1 ? '0' : '1';
 
-                            const nextBtn = document.getElementById('next-btn');
-                            if (currentStep === 4) {
-                                nextBtn.textContent = "最初に戻る";
-                                nextBtn.onclick = () => { currentStep = 1; renderStep(); };
-                            } else {
-                                nextBtn.textContent = "次へ";
-                                nextBtn.onclick = () => changeStep(1);
-                            }
-                        }
+            const nextBtn = document.getElementById('next-btn');
+            if (currentStep === 4) {
+                nextBtn.textContent = "最初に戻る";
+                nextBtn.onclick = () => { currentStep = 1; renderStep(); };
+            } else {
+                nextBtn.textContent = "次へ";
+                nextBtn.onclick = () => changeStep(1);
+            }
+        }
 
-                        function changeStep(delta) {
-                            currentStep += delta;
-                            renderStep();
-                        }
+        function changeStep(delta) {
+            currentStep += delta;
+            renderStep();
+        }
 
-                        // 4. Smooth Scroll
-                        function scrollToSection(id) {
-                            const el = document.getElementById(id);
-                            if (el) {
-                                const headerOffset = 64;
-                                const elementPosition = el.getBoundingClientRect().top;
-                                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                                window.scrollTo({
-                                    top: offsetPosition,
-                                    behavior: "smooth"
-                                });
-                            }
-                        }
+        // 4. Smooth Scroll
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                const headerOffset = 64;
+                const elementPosition = el.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
 
-                        function toggleMobileMenu() {
-                            const menu = document.getElementById('mobile-menu');
-                            const btn = document.getElementById('mobile-menu-btn');
-                            const isHidden = menu.classList.toggle('hidden');
-                            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
-                            lucide.createIcons();
-                        }
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isHidden = menu.classList.toggle('hidden');
+            btn.innerHTML = isHidden ? '<i data-lucide="menu" class="w-6 h-6"></i>' : '<i data-lucide="x" class="w-6 h-6"></i>';
+            lucide.createIcons();
+        }
 
-                        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
+        document.getElementById('mobile-menu-btn').addEventListener('click', toggleMobileMenu);
 
-                        // 5. Chart.js Initialization
-                        document.addEventListener('DOMContentLoaded', () => {
-                            renderStep();
+        // 5. Chart.js Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            renderStep();
 
-                            // Generate Cards Grid
-                            const cardsGrid = document.getElementById('cards-grid');
-                            majorArcana.forEach(card => {
-                                const cardDiv = document.createElement('div');
-                                cardDiv.className = 'bg-white rounded-xl p-6 border border-indigo-50 hover:border-indigo-200 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer shadow-sm group';
-                                cardDiv.innerHTML = `
+            // Generate Cards Grid
+            const cardsGrid = document.getElementById('cards-grid');
+            majorArcana.forEach(card => {
+                const cardDiv = document.createElement('div');
+                cardDiv.className = 'bg-white rounded-xl p-6 border border-indigo-50 hover:border-indigo-200 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer shadow-sm group';
+                cardDiv.innerHTML = `
                     <div class="text-center">
                         <div class="flex justify-center mb-4 transition-transform group-hover:scale-110">
                             <i data-lucide="${card.icon}" class="w-12 h-12 text-indigo-500"></i>
@@ -1816,76 +1807,76 @@
                         <p class="text-[11px] text-gray-500 leading-relaxed line-clamp-2">${card.keywords}</p>
                     </div>
                 `;
-                                cardDiv.addEventListener('click', () => {
-                                    alert(`${card.jpName} (${card.name})\n\n${card.meaning}\n\nキーワード: ${card.keywords}`);
-                                });
-                                cardsGrid.appendChild(cardDiv);
-                            });
-                            lucide.createIcons();
+                cardDiv.addEventListener('click', () => {
+                    alert(`${card.jpName} (${card.name})\n\n${card.meaning}\n\nキーワード: ${card.keywords}`);
+                });
+                cardsGrid.appendChild(cardDiv);
+            });
+            lucide.createIcons();
 
-                            const ctx = document.getElementById('capabilityChart').getContext('2d');
-                            new Chart(ctx, {
-                                type: 'radar',
-                                data: {
-                                    labels: [
-                                        '相手の気持ち',
-                                        '近未来 (3ヶ月)',
-                                        '具体的な対策',
-                                        '現状の分析',
-                                        '絶対的な宿命',
-                                        '長期的な運勢 (年単位)'
-                                    ],
-                                    datasets: [{
-                                        label: 'タロットの適合度',
-                                        data: [100, 90, 95, 100, 20, 40],
-                                        fill: true,
-                                        backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo-500 with opacity
-                                        borderColor: 'rgb(79, 70, 229)', // Indigo-600
-                                        pointBackgroundColor: 'rgb(251, 191, 36)', // Amber-400
-                                        pointBorderColor: '#fff',
-                                        pointHoverBackgroundColor: '#fff',
-                                        pointHoverBorderColor: 'rgb(79, 70, 229)'
-                                    }]
-                                },
-                                options: {
-                                    maintainAspectRatio: false,
-                                    responsive: true,
-                                    elements: {
-                                        line: { borderWidth: 3 }
-                                    },
-                                    scales: {
-                                        r: {
-                                            angleLines: { color: '#e2e8f0' },
-                                            grid: { color: '#e2e8f0' },
-                                            pointLabels: {
-                                                font: { size: 12, family: "'Noto Sans JP', sans-serif", weight: 'bold' },
-                                                color: '#4b5563'
-                                            },
-                                            ticks: { display: false, max: 100, min: 0 }
-                                        }
-                                    },
-                                    plugins: {
-                                        legend: { display: false },
-                                        tooltip: {
-                                            backgroundColor: 'rgba(30, 27, 75, 0.9)',
-                                            titleFont: { family: "'Noto Sans JP', sans-serif" },
-                                            bodyFont: { family: "'Noto Sans JP', sans-serif" },
-                                            padding: 12,
-                                            callbacks: {
-                                                label: function (context) {
-                                                    const val = context.raw;
-                                                    if (val >= 90) return `適合度: 高 (得意)`;
-                                                    if (val >= 50) return `適合度: 中 (条件による)`;
-                                                    return `適合度: 低 (苦手)`;
-                                                }
-                                            }
-                                        }
-                                    }
+            const ctx = document.getElementById('capabilityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: [
+                        '相手の気持ち',
+                        '近未来 (3ヶ月)',
+                        '具体的な対策',
+                        '現状の分析',
+                        '絶対的な宿命',
+                        '長期的な運勢 (年単位)'
+                    ],
+                    datasets: [{
+                        label: 'タロットの適合度',
+                        data: [100, 90, 95, 100, 20, 40],
+                        fill: true,
+                        backgroundColor: 'rgba(99, 102, 241, 0.2)', // Indigo-500 with opacity
+                        borderColor: 'rgb(79, 70, 229)', // Indigo-600
+                        pointBackgroundColor: 'rgb(251, 191, 36)', // Amber-400
+                        pointBorderColor: '#fff',
+                        pointHoverBackgroundColor: '#fff',
+                        pointHoverBorderColor: 'rgb(79, 70, 229)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    elements: {
+                        line: { borderWidth: 3 }
+                    },
+                    scales: {
+                        r: {
+                            angleLines: { color: '#e2e8f0' },
+                            grid: { color: '#e2e8f0' },
+                            pointLabels: {
+                                font: { size: 12, family: "'Noto Sans JP', sans-serif", weight: 'bold' },
+                                color: '#4b5563'
+                            },
+                            ticks: { display: false, max: 100, min: 0 }
+                        }
+                    },
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: 'rgba(30, 27, 75, 0.9)',
+                            titleFont: { family: "'Noto Sans JP', sans-serif" },
+                            bodyFont: { family: "'Noto Sans JP', sans-serif" },
+                            padding: 12,
+                            callbacks: {
+                                label: function (context) {
+                                    const val = context.raw;
+                                    if (val >= 90) return `適合度: 高 (得意)`;
+                                    if (val >= 50) return `適合度: 中 (条件による)`;
+                                    return `適合度: 低 (苦手)`;
                                 }
-                            });
-                        });
+                            }
+                        }
+                    }
+                }
+            });
+        });
 
-                    </script>
+    </script>
 </body>
 
 </html>

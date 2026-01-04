@@ -574,49 +574,46 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-indigo-950 text-indigo-400 py-12 border-t border-white/10">
+    <footer class="bg-stone-50 py-20 border-t border-stone-200/60">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12 text-center md:text-left">
-                <div class="space-y-4">
-                    <h3
-                        class="text-xl font-bold text-white serif flex items-center gap-2 justify-center md:justify-start">
-                        <i data-lucide="sparkles" class="w-6 h-6 text-torii"></i>
-                        Triscope Omikuji
-                    </h3>
-                    <p class="text-sm opacity-70 leading-relaxed text-indigo-300">
+            <div class="flex flex-col items-center text-center space-y-12">
+                <!-- Brand section -->
+                <div class="space-y-6">
+                    <div class="flex justify-center">
+                        <div
+                            class="w-14 h-14 bg-torii/5 rounded-2xl flex items-center justify-center border border-torii/10 shadow-sm">
+                            <i data-lucide="scroll" class="w-7 h-7 text-torii"></i>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold text-slate-900 serif tracking-tight">
+                            Triscope <span class="text-torii">Omikuji</span>
+                        </h3>
+                        <p class="text-[10px] uppercase tracking-[0.3em] font-bold text-stone-400 mt-1">Divine Messages
+                            × Synchronicity</p>
+                    </div>
+                    <p class="text-sm max-w-md mx-auto leading-relaxed text-stone-600 font-medium">
                         古代の神意伺いから現代の心の指針へ。偶然の中に宿る必然を読み解き、あなたの歩むべき道を照らし出す。
                     </p>
                 </div>
-                <div class="md:ml-20">
-                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Quick Links</h4>
-                    <ul class="text-sm space-y-2 opacity-70">
-                        <li><button onclick="scrollToSection('overview')"
-                                class="hover:text-torii transition-colors">概要</button></li>
-                        <li><button onclick="scrollToSection('analysis')"
-                                class="hover:text-torii transition-colors">読み解き</button></li>
-                        <li><button onclick="scrollToSection('ritual')"
-                                class="hover:text-torii transition-colors">作法</button></li>
-                    </ul>
+
+                <!-- Horizontal line and Copyright -->
+                <div
+                    class="w-full pt-10 border-t border-stone-200/80 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] uppercase tracking-widest font-bold text-stone-400">
+                    <span>© 2026 Triscope Project. All rights reserved.</span>
+                    <div class="flex gap-8">
+                        <span class="hover:text-torii transition-colors cursor-default">Sacred Fortune</span>
+                        <span class="hover:text-torii transition-colors cursor-default">Divine Guidance</span>
+                    </div>
                 </div>
-                <div>
-                    <h4 class="font-bold text-sm text-white mb-4 uppercase tracking-widest">Connect</h4>
-                    <p class="text-sm opacity-70">
-                        Email: <a href="mailto:info@triscope.com"
-                            class="text-torii hover:underline">info@triscope.com</a>
+
+                <!-- Footer Disclaimer Card -->
+                <div class="bg-white/50 px-6 py-4 rounded-xl border border-stone-200/50 max-w-3xl">
+                    <p class="text-[10px] text-stone-400 leading-relaxed italic">
+                        ※おみくじは統計的な傾向を示すものであり、確定した未来を保証するものではありません。神仏からの助言を真摯に受け止め、日々の行動に活かしましょう。
                     </p>
                 </div>
             </div>
-            <div
-                class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-indigo-500 uppercase tracking-widest font-bold">
-                <span>© 2026 Triscope Project. All rights reserved.</span>
-                <div class="flex gap-6">
-                    <span>Powered by Ancient Logic</span>
-                    <span>Built with AI Technology</span>
-                </div>
-            </div>
-            <p class="mt-4 text-[10px] text-indigo-700 text-center">
-                ※おみくじは統計的な傾向を示すものであり、確定した未来を保証するものではありません。
-            </p>
         </div>
     </footer>
 
