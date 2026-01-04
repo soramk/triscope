@@ -158,201 +158,209 @@
     </nav>
 
     <!-- Hero Section -->
+    <!-- Hero Section / Calculator -->
     <header
-        class="bg-gradient-to-br from-white via-jp-bg to-jp-gold/20 text-jp-indigo relative overflow-hidden py-24 border-b border-stone-200">
-        <div class="container mx-auto px-4 text-center relative z-10">
-            <h1 class="text-4xl md:text-5xl lg:text-6xl font-serif font-bold tracking-widest mb-6">自然の「気」を味方にする</h1>
-            <p class="text-jp-gray text-lg md:text-xl max-w-3xl mx-auto leading-relaxed font-medium">
-                九星気学は、宇宙の循環エネルギーを9つの星に分類し、あなたの宿命と開運の方位を導き出す知恵の結晶です。
-                「動くことで運命を変える」能動的な開運学の世界へようこそ。
-            </p>
-            <div class="mt-12">
-                <button onclick="scrollToSection('practice')"
-                    class="bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 px-12 rounded-full shadow-2xl transition-transform hover:scale-105 active:scale-95">
-                    今すぐ自分の星を鑑定する
-                </button>
+        class="bg-gradient-to-br from-white via-jp-bg to-jp-gold/10 text-jp-indigo relative overflow-hidden py-16 md:py-24 border-b border-stone-200">
+        <div class="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="animate-fade-in text-center lg:text-left">
+                <div
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-jp-gold/10 text-jp-gold text-[10px] font-bold mb-6 uppercase tracking-[0.2em]">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i>
+                    <span>Celestial Mechanics</span>
+                </div>
+                <h1 class="text-4xl md:text-6xl font-serif font-black leading-tight mb-6">
+                    自然の「気」を味方に、<br>
+                    <span class="text-jp-gold">運命の舵を握る</span>
+                </h1>
+                <p class="text-jp-gray text-lg mb-8 max-w-xl leading-relaxed font-medium">
+                    九星気学は、宇宙の循環エネルギーを9つの星に分類し、あなたの宿命と開運の方位を導き出す知恵の結晶。
+                    「動くことで運勢を変える」能動的な開運学の世界へようこそ。
+                </p>
+                <div class="flex items-center justify-center lg:justify-start space-x-4">
+                    <div class="flex -space-x-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-jp-indigo flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="compass" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-jp-gold flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="sun" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                    <span class="text-xs font-bold text-stone-400 italic">Decode your energetic signature</span>
+                </div>
+            </div>
+
+            <!-- Calculator Card -->
+            <div class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-stone-100 animate-fade-in"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-xl font-bold mb-8 text-jp-indigo flex items-center justify-center lg:justify-start">
+                    <i data-lucide="calculator" class="mr-3 w-6 h-6 text-jp-gold"></i>
+                    本命・月命・日命 精密鑑定
+                </h2>
+                <div class="space-y-8">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Year -->
+                        <div class="text-left">
+                            <label for="birth-year"
+                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Year</label>
+                            <select id="birth-year"
+                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"
+                                onchange="updateDayOptions()"></select>
+                        </div>
+                        <!-- Month -->
+                        <div class="text-left">
+                            <label for="birth-month"
+                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Month</label>
+                            <select id="birth-month"
+                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"
+                                onchange="updateDayOptions()">
+                                <option value="1">1月</option>
+                                <option value="2">2月</option>
+                                <option value="3">3月</option>
+                                <option value="4">4月</option>
+                                <option value="5">5月</option>
+                                <option value="6">6月</option>
+                                <option value="7">7月</option>
+                                <option value="8">8月</option>
+                                <option value="9">9月</option>
+                                <option value="10">10月</option>
+                                <option value="11">11月</option>
+                                <option value="12">12月</option>
+                            </select>
+                        </div>
+                        <!-- Day -->
+                        <div class="text-left">
+                            <label for="birth-day"
+                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Day</label>
+                            <select id="birth-day"
+                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"></select>
+                        </div>
+                    </div>
+
+                    <div class="text-center">
+                        <div
+                            class="flex items-center justify-center gap-3 bg-stone-50 p-3 rounded-xl border border-stone-100 inline-block px-6 mx-auto">
+                            <input type="checkbox" id="beforeSetsubun"
+                                class="w-5 h-5 text-jp-gold border-stone-300 rounded focus:ring-jp-gold cursor-pointer">
+                            <label for="beforeSetsubun"
+                                class="text-xs text-jp-gray cursor-pointer select-none font-bold">1月1日〜2月4日頃（立春前）の生まれ</label>
+                        </div>
+                    </div>
+
+                    <button onclick="calculateStar()"
+                        class="w-full bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 text-lg tracking-widest group">
+                        <span class="flex items-center justify-center">
+                            三命を統合鑑定
+                            <i data-lucide="sparkles"
+                                class="ml-3 w-5 h-5 group-hover:rotate-45 transition-transform text-jp-gold"></i>
+                        </span>
+                    </button>
+                    <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 text-left">
+                        <p class="text-[9px] text-indigo-900/60 font-medium leading-relaxed">
+                            <i data-lucide="info" class="w-3 h-3 inline-block mr-1"></i>
+                            <strong>重要：節入り（せついり）について</strong><br>
+                            九星気学では<strong>立春（2月4日頃）</strong>を年の切り替わりとします。また、毎月の切り替わりも<strong>4〜9日頃</strong>となるため、月上旬生まれの方は、正確な節入り時刻により前月の星に該当する場合があります。
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
-        <!-- Abstract Decorative Elements -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 border border-jp-gold/20 rounded-full pointer-events-none">
+        <!-- Decorative Background Elements -->
+        <div class="absolute -top-20 -left-20 w-96 h-96 border border-jp-gold/10 rounded-full pointer-events-none">
         </div>
-        <div class="absolute -bottom-20 -right-20 w-96 h-96 border border-jp-gold/20 rounded-full pointer-events-none">
-        </div>
-        <div
-            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-jp-indigo/5 rounded-full pointer-events-none">
+        <div class="absolute -bottom-20 -right-20 w-96 h-96 border border-jp-indigo/5 rounded-full pointer-events-none">
         </div>
     </header>
 
     <main class="flex-grow container mx-auto px-4 py-16 max-w-6xl">
 
-        <!-- SECTION: PRACTICE (CALCULATOR) -->
-        <section id="practice" class="mb-32">
-            <div
-                class="bg-white p-8 md:p-16 rounded-[2rem] shadow-2xl border border-stone-100 relative overflow-hidden">
-                <div class="mb-12 text-center">
-                    <h2 class="text-3xl md:text-4xl font-serif font-bold text-jp-indigo mb-4">本命星の精密鑑定</h2>
-                    <p class="text-jp-gray max-w-xl mx-auto">
-                        生まれた年（西暦）から、あなたの本質を司る「本命星」を算出します。
-                    </p>
+        <!-- Result Display -->
+        <div id="result-area" class="hidden mt-16 animate-fade-in text-center">
+            <div class="flex flex-col md:flex-row gap-6 items-stretch justify-center mb-16 px-4">
+                <!-- Honmei -->
+                <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-gold">
+                    <div class="text-[10px] font-bold text-jp-gold uppercase tracking-[0.3em] mb-3">本命星
+                        (Year)</div>
+                    <h3 id="result-star-name" class="text-3xl font-serif font-black text-jp-indigo mb-2">-
+                    </h3>
+                    <p class="text-[11px] text-jp-gray font-medium">一生の宿命・本質</p>
                 </div>
-
-                <div class="max-w-4xl mx-auto">
-                    <div class="bg-stone-50 p-8 md:p-12 rounded-3xl border border-stone-200 mb-10 shadow-inner">
-                        <div class="space-y-10">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                                <!-- Year Select -->
-                                <div class="text-left">
-                                    <label for="birth-year"
-                                        class="block text-xs font-bold text-jp-indigo mb-3 uppercase tracking-widest opacity-70">Year</label>
-                                    <select id="birth-year"
-                                        class="w-full text-center text-xl font-bold py-3 px-4 rounded-xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none bg-white shadow-sm"
-                                        onchange="updateDayOptions()"></select>
-                                </div>
-                                <!-- Month Select -->
-                                <div class="text-left">
-                                    <label for="birth-month"
-                                        class="block text-xs font-bold text-jp-indigo mb-3 uppercase tracking-widest opacity-70">Month</label>
-                                    <select id="birth-month"
-                                        class="w-full text-center text-xl font-bold py-3 px-4 rounded-xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none bg-white shadow-sm"
-                                        onchange="updateDayOptions()">
-                                        <option value="1">1月</option>
-                                        <option value="2">2月</option>
-                                        <option value="3">3月</option>
-                                        <option value="4">4月</option>
-                                        <option value="5">5月</option>
-                                        <option value="6">6月</option>
-                                        <option value="7">7月</option>
-                                        <option value="8">8月</option>
-                                        <option value="9">9月</option>
-                                        <option value="10">10月</option>
-                                        <option value="11">11月</option>
-                                        <option value="12">12月</option>
-                                    </select>
-                                </div>
-                                <!-- Day Select -->
-                                <div class="text-left">
-                                    <label for="birth-day"
-                                        class="block text-xs font-bold text-jp-indigo mb-3 uppercase tracking-widest opacity-70">Day</label>
-                                    <select id="birth-day"
-                                        class="w-full text-center text-xl font-bold py-3 px-4 rounded-xl border-2 border-stone-200 focus:border-jp-gold focus:outline-none bg-white shadow-sm"></select>
-                                </div>
-                            </div>
-
-                            <div class="text-center">
-                                <div
-                                    class="flex items-center justify-center gap-3 bg-white p-4 rounded-xl border border-stone-200 inline-block px-10 mx-auto shadow-sm">
-                                    <input type="checkbox" id="beforeSetsubun"
-                                        class="w-6 h-6 text-jp-gold border-stone-300 rounded focus:ring-jp-gold cursor-pointer">
-                                    <label for="beforeSetsubun"
-                                        class="text-sm text-jp-gray cursor-pointer select-none font-bold">2月3日（節分）以前の生まれの方</label>
-                                </div>
-                                <p class="text-[10px] text-stone-400 mt-3 font-medium">
-                                    ※気学・四柱推命等の東洋占術では、2月4日頃の「立春」を年の始まりとして計算します</p>
-                            </div>
-
-                            <button onclick="calculateStar()"
-                                class="w-full bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-6 rounded-2xl shadow-2xl transition-all transform hover:-translate-y-1 active:translate-y-0 text-xl tracking-widest group">
-                                <span class="flex items-center justify-center">
-                                    三命（年・月・日）を統合鑑定
-                                    <i data-lucide="sparkles"
-                                        class="ml-3 w-6 h-6 group-hover:rotate-45 transition-transform text-jp-gold"></i>
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Result Display -->
-                    <div id="result-area" class="hidden mt-16 animate-fade-in text-center">
-                        <div class="flex flex-col md:flex-row gap-6 items-stretch justify-center mb-16 px-4">
-                            <!-- Honmei -->
-                            <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-gold">
-                                <div class="text-[10px] font-bold text-jp-gold uppercase tracking-[0.3em] mb-3">本命星
-                                    (Year)</div>
-                                <h3 id="result-star-name" class="text-3xl font-serif font-black text-jp-indigo mb-2">-
-                                </h3>
-                                <p class="text-[11px] text-jp-gray font-medium">一生の宿命・本質</p>
-                            </div>
-                            <!-- Getsumei -->
-                            <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-indigo">
-                                <div class="text-[10px] font-bold text-jp-indigo uppercase tracking-[0.3em] mb-3">月命星
-                                    (Month)</div>
-                                <h3 id="result-getsumei-name"
-                                    class="text-3xl font-serif font-black text-jp-indigo mb-2">-</h3>
-                                <p class="text-[11px] text-jp-gray font-medium">精神・潜在意識</p>
-                            </div>
-                            <!-- Nishimei -->
-                            <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-accent">
-                                <div class="text-[10px] font-bold text-jp-accent uppercase tracking-[0.3em] mb-3">日命星
-                                    (Day)</div>
-                                <h3 id="result-nishimei-name"
-                                    class="text-3xl font-serif font-black text-jp-indigo mb-2">-</h3>
-                                <p class="text-[11px] text-jp-gray font-medium">行動パターン・日常</p>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-indigo-900/5 p-4 rounded-xl max-w-lg mx-auto mb-16 flex items-center justify-center border border-indigo-100">
-                            <span class="text-xs font-bold text-indigo-900 flex items-center">
-                                <i data-lucide="info" class="w-4 h-4 mr-2 text-jp-gold"></i>
-                                以下の詳細鑑定は、最も影響が強い <span class="text-jp-gold mx-1 underline">本命星</span> の資質に基づいています
-                            </span>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
-                            <!-- Detail Cards -->
-                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
-                                <h4
-                                    class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
-                                    <i data-lucide="user" class="w-5 h-5 mr-3 text-jp-gold"></i>基本性格
-                                </h4>
-                                <p id="result-personality" class="text-gray-700 leading-relaxed">-</p>
-                            </div>
-                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
-                                <h4
-                                    class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
-                                    <i data-lucide="briefcase" class="w-5 h-5 mr-3 text-jp-gold"></i>仕事・才能
-                                </h4>
-                                <p id="result-work" class="text-gray-700 leading-relaxed">-</p>
-                            </div>
-                            <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
-                                <h4
-                                    class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
-                                    <i data-lucide="heart" class="w-5 h-5 mr-3 text-jp-accent"></i>恋愛・対人
-                                </h4>
-                                <p id="result-love" class="text-gray-700 leading-relaxed">-</p>
-                            </div>
-                            <div class="bg-jp-gold/5 p-8 rounded-2xl shadow-lg border border-jp-gold/20 star-card">
-                                <h4
-                                    class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-jp-gold/20 pb-2">
-                                    <i data-lucide="zap" class="w-5 h-5 mr-3 text-jp-gold"></i>開運アドバイス
-                                </h4>
-                                <p id="result-advice" class="text-gray-800 leading-relaxed font-serif italic text-lg">-
-                                </p>
-                            </div>
-                        </div>
-
-                        <!-- Mini Stats -->
-                        <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
-                            <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
-                                <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Color</span>
-                                <span id="result-color" class="font-bold text-jp-indigo">-</span>
-                            </div>
-                            <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
-                                <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Nature</span>
-                                <span id="result-nature" class="font-bold text-jp-indigo">-</span>
-                            </div>
-                            <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
-                                <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Direction</span>
-                                <span id="result-direction" class="font-bold text-jp-indigo">-</span>
-                            </div>
-                            <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
-                                <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Keywords</span>
-                                <span id="result-keywords" class="font-bold text-jp-indigo text-xs">-</span>
-                            </div>
-                        </div>
-                    </div>
+                <!-- Getsumei -->
+                <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-indigo">
+                    <div class="text-[10px] font-bold text-jp-indigo uppercase tracking-[0.3em] mb-3">月命星
+                        (Month)</div>
+                    <h3 id="result-getsumei-name" class="text-3xl font-serif font-black text-jp-indigo mb-2">-</h3>
+                    <p class="text-[11px] text-jp-gray font-medium">精神・潜在意識</p>
+                </div>
+                <!-- Nishimei -->
+                <div class="flex-1 bg-white p-8 rounded-2xl shadow-md border-t-8 border-jp-accent">
+                    <div class="text-[10px] font-bold text-jp-accent uppercase tracking-[0.3em] mb-3">日命星
+                        (Day)</div>
+                    <h3 id="result-nishimei-name" class="text-3xl font-serif font-black text-jp-indigo mb-2">-</h3>
+                    <p class="text-[11px] text-jp-gray font-medium">行動パターン・日常</p>
                 </div>
             </div>
+
+            <div
+                class="bg-indigo-900/5 p-4 rounded-xl max-w-lg mx-auto mb-16 flex items-center justify-center border border-indigo-100">
+                <span class="text-xs font-bold text-indigo-900 flex items-center">
+                    <i data-lucide="info" class="w-4 h-4 mr-2 text-jp-gold"></i>
+                    以下の詳細鑑定は、最も影響が強い <span class="text-jp-gold mx-1 underline">本命星</span> の資質に基づいています
+                </span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                <!-- Detail Cards -->
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
+                    <h4 class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
+                        <i data-lucide="user" class="w-5 h-5 mr-3 text-jp-gold"></i>基本性格
+                    </h4>
+                    <p id="result-personality" class="text-gray-700 leading-relaxed">-</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
+                    <h4 class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
+                        <i data-lucide="briefcase" class="w-5 h-5 mr-3 text-jp-gold"></i>仕事・才能
+                    </h4>
+                    <p id="result-work" class="text-gray-700 leading-relaxed">-</p>
+                </div>
+                <div class="bg-white p-8 rounded-2xl shadow-lg border border-stone-100 star-card">
+                    <h4 class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-stone-100 pb-2">
+                        <i data-lucide="heart" class="w-5 h-5 mr-3 text-jp-accent"></i>恋愛・対人
+                    </h4>
+                    <p id="result-love" class="text-gray-700 leading-relaxed">-</p>
+                </div>
+                <div class="bg-jp-gold/5 p-8 rounded-2xl shadow-lg border border-jp-gold/20 star-card">
+                    <h4 class="font-bold text-jp-indigo mb-4 flex items-center text-lg border-b border-jp-gold/20 pb-2">
+                        <i data-lucide="zap" class="w-5 h-5 mr-3 text-jp-gold"></i>開運アドバイス
+                    </h4>
+                    <p id="result-advice" class="text-gray-800 leading-relaxed font-serif italic text-lg">-
+                    </p>
+                </div>
+            </div>
+
+            <!-- Mini Stats -->
+            <div class="mt-12 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
+                    <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Color</span>
+                    <span id="result-color" class="font-bold text-jp-indigo">-</span>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
+                    <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Nature</span>
+                    <span id="result-nature" class="font-bold text-jp-indigo">-</span>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
+                    <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Direction</span>
+                    <span id="result-direction" class="font-bold text-jp-indigo">-</span>
+                </div>
+                <div class="bg-stone-50 p-4 rounded-xl border border-stone-100 text-center">
+                    <span class="block text-[10px] text-jp-gray font-bold uppercase mb-1">Keywords</span>
+                    <span id="result-keywords" class="font-bold text-jp-indigo text-xs">-</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        </div>
         </section>
 
         <!-- SECTION: THREE STARS EXPLANATION (ADDED) -->
