@@ -149,16 +149,15 @@
     <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center gap-2">
-                <div
-                    class="w-8 h-8 bg-gradient-to-br from-sanmei-accent to-sanmei-secondary rounded-lg flex items-center justify-center text-white shadow-lg">
-                    <i data-lucide="scroll-text" class="w-5 h-5"></i>
-                </div>
-                <h1 class="text-xl font-bold font-display tracking-tight text-sanmei-dark">算命学<span
-                        class="text-sanmei-accent">.</span></h1>
+                <h1 class="text-xl font-bold font-display tracking-tight text-sanmei-dark">算命学</h1>
             </div>
 
             <!-- Desktop Nav -->
             <div class="hidden md:flex items-center gap-1">
+                <button onclick="scrollToSection('interpretation-guide')"
+                    class="px-4 py-2 rounded-full text-sm font-medium hover:bg-sanmei-accent/10 hover:text-sanmei-accent transition-all flex items-center gap-2">
+                    <i data-lucide="book-open" class="w-4 h-4"></i> 読み解き
+                </button>
                 <button onclick="scrollToSection('intro')"
                     class="px-4 py-2 rounded-full text-sm font-medium hover:bg-sanmei-accent/10 hover:text-sanmei-accent transition-all flex items-center gap-2">
                     <i data-lucide="search" class="w-4 h-4"></i> 概要
@@ -175,10 +174,6 @@
                     class="px-4 py-2 rounded-full text-sm font-medium hover:bg-sanmei-accent/10 hover:text-sanmei-accent transition-all flex items-center gap-2">
                     <i data-lucide="history" class="w-4 h-4"></i> 歴史
                 </button>
-                <button onclick="scrollToSection('method')"
-                    class="px-4 py-2 rounded-full text-sm font-medium hover:bg-sanmei-accent/10 hover:text-sanmei-accent transition-all flex items-center gap-2">
-                    <i data-lucide="crystal-ball" class="w-4 h-4"></i> 鑑定法
-                </button>
             </div>
 
             <!-- Mobile Menu Btn -->
@@ -191,7 +186,11 @@
     <!-- Mobile Navigation Overlay (Hidden by default) -->
     <div id="mobile-nav"
         class="fixed inset-0 z-40 bg-white transform translate-x-full transition-transform duration-300 md:hidden">
-        <div class="p-4 pt-20 flex flex-col gap-4">
+        <div class="p-4 pt-20 flex flex-col gap-2">
+            <button onclick="scrollToSection('interpretation-guide')"
+                class="p-4 rounded-xl bg-gray-50 flex items-center gap-4 text-lg font-medium">
+                <i data-lucide="book-open" class="text-sanmei-accent"></i> 結果の読み解き
+            </button>
             <button onclick="scrollToSection('intro')"
                 class="p-4 rounded-xl bg-gray-50 flex items-center gap-4 text-lg font-medium">
                 <i data-lucide="search" class="text-sanmei-accent"></i> 概要と特性
@@ -202,21 +201,525 @@
             </button>
             <button onclick="scrollToSection('scope')"
                 class="p-4 rounded-xl bg-gray-50 flex items-center gap-4 text-lg font-medium">
-                <i data-lucide="target" class="text-sanmei-accent"></i> 得意・不得意
+                <i data-lucide="target" class="text-sanmei-accent"></i> 得意分野と限界
             </button>
             <button onclick="scrollToSection('history')"
                 class="p-4 rounded-xl bg-gray-50 flex items-center gap-4 text-lg font-medium">
                 <i data-lucide="history" class="text-sanmei-accent"></i> 歴史と起源
-            </button>
-            <button onclick="scrollToSection('method')"
-                class="p-4 rounded-xl bg-gray-50 flex items-center gap-4 text-lg font-medium">
-                <i data-lucide="crystal-ball" class="text-sanmei-accent"></i> 基本的なやり方
             </button>
         </div>
     </div>
 
     <!-- Main Content Area -->
     <main class="pt-16 scroll-smooth" id="main-scroll">
+
+        <!-- Hero Section / Appraisal Integration -->
+        <header class="bg-gradient-to-br from-sanmei-bg via-white to-sanmei-accent/5 pb-20 pt-10 px-4">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="fade-in">
+                    <span
+                        class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">Cosmic
+                        Intelligence</span>
+                    <h2 class="text-4xl md:text-6xl font-bold font-display text-sanmei-dark mt-2 mb-6 leading-tight">
+                        あなたの宿命を<br><span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-sanmei-accent to-sanmei-secondary">自然の理で読み解く</span>
+                    </h2>
+                    <p class="text-lg leading-relaxed text-slate-600 mb-8 max-w-xl">
+                        算命学は、生年月日を「干支」というエネルギーコードに変換し、あなたの本質、才能、そして人生のバイオリズムを解き明かす「環境学」です。
+                    </p>
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-3">
+                            <div
+                                class="w-12 h-12 rounded-full bg-sanmei-accent flex items-center justify-center border-4 border-white text-white shadow-lg">
+                                <i data-lucide="compass" class="w-6 h-6"></i>
+                            </div>
+                            <div
+                                class="w-12 h-12 rounded-full bg-sanmei-secondary flex items-center justify-center border-4 border-white text-white shadow-lg">
+                                <i data-lucide="sun" class="w-6 h-6"></i>
+                            </div>
+                        </div>
+                        <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Decode your energetic
+                            signature</span>
+                    </div>
+                </div>
+
+                <!-- Calculator Card Integration -->
+                <div class="relative">
+                    <div
+                        class="absolute -inset-4 bg-gradient-to-tr from-sanmei-accent/10 to-sanmei-secondary/10 rounded-[3rem] blur-3xl opacity-50">
+                    </div>
+                    <div
+                        class="relative glass-panel rounded-[2.5rem] p-8 md:p-12 border border-white shadow-2xl overflow-hidden">
+
+                        <div id="method-stepper" class="transition-opacity duration-300">
+                            <!-- Step 1: Input -->
+                            <div id="step-1" class="space-y-8">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <div
+                                        class="w-10 h-10 bg-sanmei-accent rounded-xl flex items-center justify-center text-white shadow-lg">
+                                        <i data-lucide="calculator" class="w-5 h-5"></i>
+                                    </div>
+                                    <h3 class="text-xl font-bold text-sanmei-dark">宿命の精密鑑定</h3>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div class="space-y-2">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Year</label>
+                                        <select id="birth-year" onchange="updateDayOptions()"
+                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all"></select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Month</label>
+                                        <select id="birth-month" onchange="updateDayOptions()"
+                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all">
+                                            <option value="1">1月</option>
+                                            <option value="2">2月</option>
+                                            <option value="3">3月</option>
+                                            <option value="4">4月</option>
+                                            <option value="5">5月</option>
+                                            <option value="6">6月</option>
+                                            <option value="7">7月</option>
+                                            <option value="8">8月</option>
+                                            <option value="9">9月</option>
+                                            <option value="10">10月</option>
+                                            <option value="11">11月</option>
+                                            <option value="12">12月</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label
+                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Day</label>
+                                        <select id="birth-day"
+                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all"></select>
+                                    </div>
+                                </div>
+
+                                <button onclick="methodNextStep(2)"
+                                    class="w-full bg-sanmei-accent hover:bg-indigo-600 text-white font-bold py-5 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 flex items-center justify-center gap-3">
+                                    命式を算出する <i data-lucide="sparkles" class="w-5 h-5"></i>
+                                </button>
+
+                                <div class="bg-amber-50 rounded-xl p-4 border border-amber-100">
+                                    <p class="text-[10px] text-amber-800 leading-relaxed">
+                                        <i data-lucide="info" class="w-3 h-3 inline-block mr-1"></i>
+                                        <strong>節入りについて：</strong>
+                                        算命学では立春（2月4日頃）を年の境目とします。2月の上旬生まれの方は、正確な節入り時刻により前年度の干支になる場合があります。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Results Display (Year/Month/Day Pillars) -->
+                            <div id="step-2" class="hidden space-y-8 fade-in text-center">
+                                <h3 class="text-xl font-bold text-sanmei-secondary">Step 2: 陰占と陽占の構築</h3>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-left">
+                                        <h4
+                                            class="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest border-b pb-2">
+                                            陰占（無意識の質）</h4>
+                                        <div class="space-y-4">
+                                            <div class="grid grid-cols-3 gap-2 text-center">
+                                                <div
+                                                    class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">
+                                                    日柱 (自分)</div>
+                                                <div
+                                                    class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">
+                                                    月柱 (家系)</div>
+                                                <div
+                                                    class="text-[9px] text-slate-400 font-bold uppercase tracking-tighter">
+                                                    年柱 (社会)</div>
+                                            </div>
+
+                                            <!-- Ten Stems -->
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute -left-3 top-0 bottom-0 w-1 bg-indigo-200 rounded-full">
+                                                </div>
+                                                <div class="grid grid-cols-3 gap-2 text-center">
+                                                    <div class="bg-indigo-50 border border-indigo-100 rounded-xl py-3">
+                                                        <span
+                                                            class="text-[8px] block text-indigo-400 font-bold">十干/天</span>
+                                                        <span class="text-2xl font-bold text-indigo-900">甲</span>
+                                                    </div>
+                                                    <div class="bg-slate-50 rounded-xl py-3">
+                                                        <span class="text-[8px] block text-slate-400">十干/天</span>
+                                                        <span class="text-2xl text-slate-600">丙</span>
+                                                    </div>
+                                                    <div class="bg-slate-50 rounded-xl py-3">
+                                                        <span class="text-[8px] block text-slate-400">十干/天</span>
+                                                        <span class="text-2xl text-slate-600">戊</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Twelve Branches -->
+                                            <div class="relative">
+                                                <div
+                                                    class="absolute -left-3 top-0 bottom-0 w-1 bg-pink-200 rounded-full">
+                                                </div>
+                                                <div class="grid grid-cols-3 gap-2 text-center">
+                                                    <div class="bg-pink-50 border border-pink-100 rounded-xl py-3">
+                                                        <span
+                                                            class="text-[8px] block text-pink-400 font-bold">十二支/地</span>
+                                                        <span class="text-2xl font-bold text-pink-900">子</span>
+                                                    </div>
+                                                    <div class="bg-slate-50 rounded-xl py-3">
+                                                        <span class="text-[8px] block text-slate-400">十二支/地</span>
+                                                        <span class="text-2xl text-slate-600">午</span>
+                                                    </div>
+                                                    <div class="bg-slate-50 rounded-xl py-3">
+                                                        <span class="text-[8px] block text-slate-400">十二支/地</span>
+                                                        <span class="text-2xl text-slate-600">辰</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="bg-white p-6 rounded-3xl border border-slate-100 shadow-sm text-center">
+                                        <h4
+                                            class="text-[10px] font-bold text-slate-400 uppercase mb-4 tracking-widest border-b pb-2">
+                                            陽占 (人体図)</h4>
+                                        <div class="grid grid-cols-3 gap-2 text-[10px] font-bold">
+                                            <!-- Top Line -->
+                                            <div id="star-childhood" class="bg-slate-50 p-2 rounded text-slate-400">
+                                                --星<br>(初年)</div>
+                                            <div id="star-head"
+                                                class="bg-pink-50 text-pink-600 p-2 rounded border border-pink-100">
+                                                --星<br>(頭)</div>
+                                            <div id="star-mature" class="bg-slate-50 p-2 rounded text-slate-400">
+                                                --星<br>(中年)</div>
+
+                                            <!-- Middle Line -->
+                                            <div id="star-right-hand"
+                                                class="bg-indigo-50 text-indigo-600 p-2 rounded border border-indigo-100">
+                                                --星<br>(右手)</div>
+                                            <div id="main-star-display"
+                                                class="bg-sanmei-dark text-white p-3 rounded-xl shadow-lg ring-4 ring-sanmei-accent/20">
+                                                --星<br>(主星)</div>
+                                            <div id="star-left-hand"
+                                                class="bg-indigo-50 text-indigo-600 p-2 rounded border border-indigo-100">
+                                                --星<br>(左手)</div>
+
+                                            <!-- Bottom Line -->
+                                            <div id="star-late-age"
+                                                class="border border-slate-100 p-2 rounded text-slate-400">--星<br>(晩年)
+                                            </div>
+                                            <div id="star-belly"
+                                                class="bg-indigo-50 text-indigo-600 p-2 rounded border border-indigo-100">
+                                                --星<br>(腹)</div>
+                                            <div class="border border-slate-100 p-2 rounded text-slate-400">---</div>
+                                        </div>
+                                        <div id="yosen-footnote" class="mt-4 text-[9px] text-slate-400 italic">
+                                            ※中央の「星」があなたの本質（主星）です。</div>
+                                    </div>
+                                </div>
+                                <button onclick="methodNextStep(3)"
+                                    class="mt-10 bg-sanmei-dark hover:bg-slate-800 text-white font-bold py-4 px-10 rounded-2xl transition shadow-xl flex items-center gap-3 mx-auto">
+                                    解釈を深める <i data-lucide="unlock" class="w-4 h-4"></i>
+                                </button>
+                            </div>
+
+                            <div id="step-3" class="hidden space-y-12 fade-in">
+                                <header class="text-center space-y-4">
+                                    <i data-lucide="sparkles" class="w-16 h-16 text-sanmei-gold mx-auto floating"></i>
+                                    <div id="sample-profile-label"
+                                        class="inline-block px-4 py-1.5 bg-sanmei-dark text-white text-[10px] font-bold rounded-full tracking-wider">
+                                        SAMPLE: 1990年1月1日
+                                    </div>
+                                    <h3 class="text-3xl font-bold text-sanmei-dark">運命解読：あなたへの助言</h3>
+                                </header>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-left">
+                                    <div class="glass-panel p-8 rounded-[2rem] border-white shadow-xl bg-white/40">
+                                        <h4 class="text-lg font-bold text-sanmei-dark mb-4 flex items-center gap-2">
+                                            <span
+                                                class="w-8 h-8 rounded-full bg-sanmei-accent text-white flex items-center justify-center text-xs">01</span>
+                                            本質的な宿命
+                                        </h4>
+                                        <div id="advice-core"
+                                            class="text-sm text-slate-600 leading-relaxed font-medium">
+                                            <!-- Core advice injected here -->
+                                        </div>
+                                    </div>
+
+                                    <div class="glass-panel p-8 rounded-[2rem] border-white shadow-xl bg-white/40">
+                                        <h4
+                                            class="text-lg font-bold text-sanmei-secondary mb-4 flex items-center gap-2">
+                                            <span
+                                                class="w-8 h-8 rounded-full bg-sanmei-secondary text-white flex items-center justify-center text-xs">02</span>
+                                            社会的な役割と才能
+                                        </h4>
+                                        <div id="advice-social"
+                                            class="text-sm text-slate-600 leading-relaxed font-medium">
+                                            <!-- Social advice injected here -->
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div
+                                    class="glass-panel p-8 rounded-[2rem] border-white shadow-xl bg-white/40 text-left">
+                                    <h4 class="text-lg font-bold text-sanmei-dark mb-4 flex items-center gap-2">
+                                        <span
+                                            class="w-8 h-8 rounded-full bg-amber-500 text-white flex items-center justify-center text-xs">03</span>
+                                        人生のパワーバランス
+                                    </h4>
+                                    <div id="advice-energy" class="text-sm text-slate-600 leading-relaxed font-medium">
+                                        <!-- Energy advice injected here -->
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
+                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Lucky
+                                            Color</span>
+                                        <span id="lucky-color"
+                                            class="text-xs font-bold text-sanmei-accent">インディゴブルー</span>
+                                    </div>
+                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
+                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Lucky
+                                            Item</span>
+                                        <span id="lucky-item"
+                                            class="text-xs font-bold text-sanmei-accent">古書・アンティーク</span>
+                                    </div>
+                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
+                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Success
+                                            Key</span>
+                                        <span id="success-key"
+                                            class="text-xs font-bold text-sanmei-accent">独創的な試み</span>
+                                    </div>
+                                    <div
+                                        class="p-3 bg-sanmei-dark text-white rounded-2xl shadow-lg border border-slate-700">
+                                        <span class="block text-[8px] text-slate-400 uppercase font-black mb-1">Your
+                                            Tenchu-satsu</span>
+                                        <span id="tenchu-name" class="text-xs font-bold text-sanmei-accent">戌亥天中殺</span>
+                                        <div class="mt-1 flex flex-col items-center gap-1">
+                                            <div class="flex gap-2">
+                                                <span id="tenchu-months"
+                                                    class="text-[7px] px-1 bg-white/10 rounded text-slate-300">毎年
+                                                    --月</span>
+                                                <span id="tenchu-symbols"
+                                                    class="text-[7px] px-1 bg-white/10 rounded text-slate-300">--年</span>
+                                            </div>
+                                            <span id="tenchu-years" class="text-[8px] text-slate-400 font-bold">次は
+                                                ----年</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="methodNextStep(1)"
+                                    class="text-xs text-slate-400 hover:text-sanmei-accent transition flex items-center gap-2 mx-auto decoration-dotted underline underline-offset-4">
+                                    <i data-lucide="refresh-cw" class="w-3 h-3"></i> 最初からやり直す
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Appraisal Interpretation Guide (UX optimized) -->
+        <div id="interpretation-guide" class="bg-white border-b border-slate-100">
+            <!-- Section 6: 十大主星 (Ten Heavenly Stars) -->
+            <section id="stars-10" class="py-24">
+                <div class="max-w-7xl mx-auto px-4">
+                    <header class="text-center mb-16">
+                        <span
+                            class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">Results
+                            Guide 01</span>
+                        <h2 class="text-3xl md:text-4xl font-bold font-display text-sanmei-dark mt-2 mb-4">
+                            十大主星：あなたの内なる性質</h2>
+                        <p class="text-slate-600 max-w-2xl mx-auto italic leading-relaxed">
+                            鑑定結果の「陽占」に表示された星の意味を解説します。中央の「主星」があなたの本質、周囲の星が社会的な顔や才能を表します。
+                        </p>
+                    </header>
+
+                    <div class="grid grid-cols-2 lg:grid-cols-5 gap-4">
+                        <!-- Wood Group -->
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-wood transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">
+                                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">貫索星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">独立独歩。自分の信念を守り抜く意志の強さ。</p>
+                        </div>
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-wood transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center">
+                                    <i data-lucide="users-2" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">石門星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">和合と社交。仲間をまとめ、政治力を発揮する。</p>
+                        </div>
+
+                        <!-- Fire Group -->
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-fire transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                                    <i data-lucide="utensils" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">鳳閣星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">自由でおおらか。人生を楽しみ表現する質。</p>
+                        </div>
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-fire transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div class="w-8 h-8 rounded-lg bg-red-50 text-red-600 flex items-center justify-center">
+                                    <i data-lucide="palette" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">調舒星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">孤独と感性。繊細な美意識と深い表現欲求。</p>
+                        </div>
+
+                        <!-- Earth Group -->
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-earth transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                                    <i data-lucide="heart" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">禄存星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">奉仕と引力。愛を与え、人を惹きつける力。</p>
+                        </div>
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-earth transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center">
+                                    <i data-lucide="box" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">司禄星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">蓄積と家庭。日々の努力を積み上げ守る力。</p>
+                        </div>
+
+                        <!-- Metal Group -->
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-metal transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center">
+                                    <i data-lucide="zap" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">車騎星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">勇気と行動。考えるより先に動く直情的な力。</p>
+                        </div>
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-metal transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center">
+                                    <i data-lucide="medal" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">牽牛星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">プライドと責任感。社会的な名誉と秩序を重んじる。</p>
+                        </div>
+
+                        <!-- Water Group -->
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-water transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                                    <i data-lucide="plane" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">龍高星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">冒険と創造。体験を通じて古いものを壊し創る力。</p>
+                        </div>
+                        <div
+                            class="p-5 rounded-3xl bg-white border border-slate-100 shadow-sm hover:border-element-water transition-all group">
+                            <div class="flex items-center gap-2 mb-3">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center">
+                                    <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+                                </div>
+                                <h4 class="font-bold text-sanmei-dark">玉堂星</h4>
+                            </div>
+                            <p class="text-[0.65rem] text-slate-500 leading-snug">伝統と知恵。古典や歴史から学び、知性を磨く力。</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 7: 十二大従星 (Twelve Heavenly Stars) -->
+            <section id="stars-12" class="py-24 bg-sanmei-bg">
+                <div class="max-w-7xl mx-auto px-4">
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                        <div class="order-2 lg:order-1">
+                            <div id="guide-02-cards" class="grid grid-cols-3 gap-4">
+                                <!-- Dynamic Cards for Childhood, Mature, Late Age -->
+                                <div
+                                    class="aspect-square bg-gradient-to-br from-sanmei-accent to-sanmei-secondary p-4 rounded-3xl text-white flex flex-col justify-end shadow-xl transform hover:scale-105 transition-all">
+                                    <span class="text-xs opacity-70 mb-1">初年期</span>
+                                    <span id="guide-jus01-score" class="text-3xl font-bold">--</span>
+                                    <span id="guide-jus01-name"
+                                        class="text-[0.7rem] font-bold uppercase tracking-widest opacity-90">---星</span>
+                                </div>
+                                <div
+                                    class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm hover:shadow-md transition-all">
+                                    <span class="text-[10px] text-slate-400 mb-1">中年期</span>
+                                    <span id="guide-jus02-score" class="text-3xl font-bold text-sanmei-dark">--</span>
+                                    <span id="guide-jus02-name"
+                                        class="text-[0.7rem] font-bold uppercase tracking-widest text-slate-500">---星</span>
+                                </div>
+                                <div
+                                    class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm hover:shadow-md transition-all">
+                                    <span class="text-[10px] text-slate-400 mb-1">晩年期</span>
+                                    <span id="guide-jus03-score" class="text-3xl font-bold text-sanmei-dark">--</span>
+                                    <span id="guide-jus03-name"
+                                        class="text-[0.7rem] font-bold uppercase tracking-widest text-slate-500">---星</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="order-1 lg:order-2">
+                            <span
+                                class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">Results
+                                Guide 02</span>
+                            <h2 class="text-3xl md:text-4xl font-bold font-display text-sanmei-dark mt-2 mb-6">
+                                十二大従星：あなたのパワー</h2>
+                            <p class="text-lg text-slate-600 leading-relaxed mb-8">
+                                鑑定結果の「初年・中年・晩年」に表示された星は、人生の各ステージでの「エネルギー出力」を表します。
+                            </p>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-white/70 rounded-2xl border border-white">
+                                    <h4 class="font-bold text-sanmei-dark text-sm mb-1 line-through opacity-30">
+                                        能力の差ではありません</h4>
+                                    <p class="text-xs text-slate-500">
+                                        点数が高い星は「現実の世界」を動かす力。低い星は「精神の世界（知恵や芸術）」を深める力が強いことを示します。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 8: 天中殺 (Tenchu-satsu) -->
+            <section id="tenchu" class="py-24 bg-white overflow-hidden">
+                <div class="max-w-7xl mx-auto px-4 text-center">
+                    <span
+                        class="inline-block px-3 py-1 rounded-full bg-sanmei-dark text-white font-bold tracking-widest uppercase text-xs mb-4">Risk
+                        Management</span>
+                    <h2 class="text-3xl font-bold text-sanmei-dark mt-2 mb-4">天中殺：波を乗りこなす知恵</h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto text-sm leading-relaxed">
+                        天中殺は「悪い時期」ではなく、次のサイクルのための「デトックス・準備期間」です。この時期をどう過ごすべきかも、算命学は教えてくれます。
+                    </p>
+                </div>
+            </section>
+        </div>
 
         <!-- Section 1: Introduction -->
         <section id="intro" class="max-w-7xl mx-auto px-4 py-20 fade-in">
@@ -287,7 +790,7 @@
                     <!-- Interactive 5 Elements Chart -->
                     <div class="lg:col-span-5 relative group">
                         <div
-                            class="absolute -inset-4 bg-gradient-to-r from-sanmei-accent/10 to-sanmei-secondary/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity">
+                            class="absolute -inset-4 bg-gradient-to-r from-sanmei-accent/10 to-sanmei-secondary/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity">
                         </div>
                         <div class="relative glass-panel rounded-3xl p-8 border border-white shadow-xl">
                             <div class="chart-container" style="height: 350px;">
@@ -342,28 +845,110 @@
 
                 <!-- Logic Summary -->
                 <div
-                    class="mt-12 bg-sanmei-dark text-white rounded-3xl p-8 md:p-12 shadow-2xl relative overflow-hidden group">
+                    class="mt-12 bg-gradient-to-br from-indigo-50/50 via-white to-pink-50/50 rounded-[2.5rem] p-8 md:p-14 border border-slate-200 shadow-xl relative overflow-hidden group">
                     <div
-                        class="absolute top-0 right-0 w-64 h-64 bg-sanmei-accent/20 rounded-full blur-3xl -mr-32 -mt-32">
+                        class="absolute top-0 right-0 w-80 h-80 bg-sanmei-accent/5 rounded-full blur-3xl -mr-40 -mt-40">
                     </div>
-                    <div class="relative grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <div class="md:col-span-2">
-                            <h4 class="text-2xl font-bold mb-4 flex items-center gap-3">
-                                <i data-lucide="component" class="text-sanmei-accent"></i> 十干と十二支の統合
-                            </h4>
-                            <p class="text-slate-300 leading-relaxed">
-                                算命学では、生年月日を<strong>「干支（かんし）」</strong>という60種類の記号に変換します。これは「十干（精神的空間）」と「十二支（現実的時間）」の組み合わせです。この多次元的なコードを人体図へ展開し、エネルギーの動態を精密にシミュレートします。
-                            </p>
-                        </div>
-                        <div class="flex items-center justify-center">
+
+                    <div class="relative mb-12">
+                        <h4 class="text-2xl md:text-3xl font-bold mb-6 flex items-center gap-4 text-sanmei-dark">
                             <div
-                                class="w-24 h-24 rounded-full border-4 border-sanmei-accent/30 flex items-center justify-center animate-pulse">
-                                <span class="text-3xl font-display font-bold">60</span>
+                                class="w-12 h-12 bg-sanmei-accent rounded-2xl flex items-center justify-center text-white shadow-lg">
+                                <i data-lucide="infinity" class="w-6 h-6"></i>
+                            </div>
+                            十干と十二支の統合：六十花甲子
+                        </h4>
+                        <p class="text-slate-600 leading-relaxed max-w-3xl text-lg">
+                            算命学では、生年月日を<strong>「干支（かんし）」</strong>という60種類の記号に変換します。これは精神を表す「十干」と、現実（時間）を表す「十二支」の組み合わせです。
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div
+                            class="bg-white/80 p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 bg-indigo-100 text-indigo-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="cloud" class="w-5 h-5"></i>
+                                </div>
+                                <h5 class="font-bold text-sanmei-dark">十干（天の気）</h5>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                甲・乙・丙……と続く10種類の精神的要素。あなたの「心の空間」や「思考の方向性」を定義します。</p>
+                        </div>
+
+                        <div
+                            class="bg-white/80 p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 bg-pink-100 text-pink-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="mountain" class="w-5 h-5"></i>
+                                </div>
+                                <h5 class="font-bold text-sanmei-dark">十二支（地の気）</h5>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                子・丑・寅……と続く12種類の時間的要素。現実社会での「行動のバイオリズム」や「環境」を定義します。</p>
+                        </div>
+
+                        <div
+                            class="bg-white/80 p-6 rounded-3xl border border-slate-100 shadow-sm hover:shadow-md transition-all">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-10 h-10 bg-amber-100 text-amber-600 rounded-xl flex items-center justify-center">
+                                    <i data-lucide="refresh-ccw" class="w-5 h-5"></i>
+                                </div>
+                                <h5 class="font-bold text-sanmei-dark">六十種類のサイクル</h5>
+                            </div>
+                            <p class="text-xs text-slate-500 leading-relaxed">
+                                これら2つが組み合わさり、60年、60ヶ月、60日で一巡する壮大な周期を形成し、宿命を多層的に描き出します。</p>
+                        </div>
+                    </div>
+
+                    <!-- New Feature: Sixty Cycles Grid -->
+                    <div id="kanshi-library" class="mt-16 pt-12 border-t border-slate-200">
+                        <div class="flex flex-col md:flex-row justify-between items-end gap-6 mb-8">
+                            <div>
+                                <h5 class="text-xl font-bold text-sanmei-dark flex items-center gap-2">
+                                    六十花甲子ライブラリ
+                                </h5>
+                                <p class="text-sm text-slate-400 mt-1">1番から60番まで続く、宇宙の最小単位のサイクル</p>
+                            </div>
+                            <button onclick="toggleKanshiGrid()" id="btn-toggle-kanshi"
+                                class="text-xs font-bold text-sanmei-accent hover:underline flex items-center gap-2">
+                                <span id="kanshi-toggle-text">全一覧を表示する</span> <i data-lucide="chevron-down"
+                                    id="kanshi-toggle-icon" class="w-4 h-4 transition-transform"></i>
+                            </button>
+                        </div>
+
+                        <div id="kanshi-grid-container"
+                            class="max-h-0 overflow-hidden transition-all duration-700 ease-in-out">
+                            <div class="grid grid-cols-5 md:grid-cols-10 gap-2 p-2">
+                                <!-- Data will be injected by JS for efficiency -->
                             </div>
                         </div>
                     </div>
+
+                    <div
+                        class="mt-12 p-8 bg-slate-900 text-white rounded-[2.5rem] flex flex-col md:flex-row items-center gap-8 shadow-2xl border border-white/10 relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-sanmei-accent/20 to-transparent"></div>
+                        <div class="flex-1 relative">
+                            <span
+                                class="text-[10px] font-black uppercase tracking-[0.2em] text-sanmei-accent mb-2 block">Decision
+                                Logic</span>
+                            <h4 class="text-xl font-bold mb-3">「主星」はどう決まるのか？</h4>
+                            <p class="text-sm leading-relaxed text-slate-300">
+                                算命学の「主星」は、あなたの精神（日柱の十干）と環境（月柱の十二支の蔵干）がぶつかり合った時に生まれるエネルギーです。<br>
+                                <span class="text-sanmei-accent">例：</span>
+                                「甲（木の陽）」という精神が、「丑（土の陰）」という環境に置かれた時、土が木を鍛える引力のエネルギー**「禄存星」**が中央に現れます。
+                            </p>
+                        </div>
+                        <div
+                            class="w-32 h-32 bg-white/5 rounded-3xl border border-white/10 flex flex-col items-center justify-center shrink-0 relative">
+                            <i data-lucide="git-merge" class="w-8 h-8 text-sanmei-accent mb-2"></i>
+                            <span class="text-[10px] font-bold uppercase tracking-widest">Synthesis</span>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </section>
 
         <!-- Section 3: Scope (What it can/can't do) -->
@@ -399,19 +984,15 @@
         </section>
 
         <!-- Section 4: History -->
-        <section id="history" class="py-24 bg-slate-900 text-white overflow-hidden relative">
-            <div class="absolute inset-0 opacity-10">
-                <div class="absolute top-10 left-10 w-96 h-96 bg-sanmei-accent rounded-full blur-[120px]"></div>
-                <div class="absolute bottom-10 right-10 w-96 h-96 bg-sanmei-secondary rounded-full blur-[120px]"></div>
-            </div>
-
+        <section id="history" class="py-24 bg-white overflow-hidden relative border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-4 relative z-10">
                 <header class="text-center mb-20">
                     <span
-                        class="inline-block px-3 py-1 rounded-full bg-white/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">History
+                        class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">History
                         & Origin</span>
-                    <h2 class="text-3xl md:text-5xl font-bold font-display mt-2 mb-4">歴史と起源：4000年の旅</h2>
-                    <p class="text-slate-400 max-w-2xl mx-auto">
+                    <h2 class="text-3xl md:text-5xl font-bold font-display text-sanmei-dark mt-2 mb-4">歴史と起源：4000年の旅
+                    </h2>
+                    <p class="text-slate-500 max-w-2xl mx-auto">
                         戦国時代から「一子相伝」の秘儀として守られてきた、戦略的知恵の変遷を辿ります。
                     </p>
                 </header>
@@ -419,7 +1000,7 @@
                 <div class="relative max-w-4xl mx-auto">
                     <!-- Vertical Line -->
                     <div
-                        class="absolute left-0 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-transparent via-sanmei-accent/50 to-transparent">
+                        class="absolute left-0 md:left-1/2 md:-translate-x-px top-0 bottom-0 w-0.5 bg-gradient-to-b from-slate-100 via-sanmei-accent/30 to-slate-100">
                     </div>
 
                     <div class="space-y-16">
@@ -428,17 +1009,17 @@
                             <div class="flex items-center md:contents">
                                 <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
                                     <div
-                                        class="glass-panel p-6 rounded-3xl border-white/10 bg-white/5 hover:bg-white/10 transition">
+                                        class="glass-panel p-8 rounded-3xl border-slate-100 bg-white/50 hover:bg-white transition-all shadow-sm hover:shadow-xl">
                                         <span class="text-xs font-bold text-sanmei-accent uppercase tracking-widest">BC
                                             400 (戦国時代)</span>
-                                        <h3 class="text-xl font-bold mt-1">発祥：中国の鬼谷子</h3>
-                                        <p class="text-sm text-slate-400 mt-3 leading-relaxed">
+                                        <h3 class="text-xl font-bold text-sanmei-dark mt-1">発祥：中国の鬼谷子</h3>
+                                        <p class="text-sm text-slate-500 mt-3 leading-relaxed">
                                             戦略家・鬼谷子（きこくし）が創始。当初は軍略や国家運営のために用いられ、個人の運勢ではなく「勝機」を読み解くためのツールでした。
                                         </p>
                                     </div>
                                 </div>
                                 <div
-                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-accent border-4 border-slate-900 z-10 order-1 md:order-2">
+                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-accent border-4 border-white z-10 order-1 md:order-2 shadow-lg">
                                 </div>
                                 <div class="hidden md:block md:w-1/2 order-3"></div>
                             </div>
@@ -449,15 +1030,15 @@
                             <div class="flex items-center md:contents">
                                 <div class="hidden md:block md:w-1/2 order-1"></div>
                                 <div
-                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-secondary border-4 border-slate-900 z-10 order-1 md:order-2">
+                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-secondary border-4 border-white z-10 order-1 md:order-2 shadow-lg">
                                 </div>
                                 <div class="md:w-1/2 md:pl-12 order-2 md:order-3">
                                     <div
-                                        class="glass-panel p-6 rounded-3xl border-white/10 bg-white/5 hover:bg-white/10 transition">
+                                        class="glass-panel p-8 rounded-3xl border-slate-100 bg-white/50 hover:bg-white transition-all shadow-sm hover:shadow-xl">
                                         <span
                                             class="text-xs font-bold text-sanmei-secondary uppercase tracking-widest">王朝時代</span>
-                                        <h3 class="text-xl font-bold mt-1">一子相伝の秘儀</h3>
-                                        <p class="text-sm text-slate-400 mt-3 leading-relaxed">
+                                        <h3 class="text-xl font-bold text-sanmei-dark mt-1">一子相伝の秘儀</h3>
+                                        <p class="text-sm text-slate-500 mt-3 leading-relaxed">
                                             その驚異的な的中率から、権力者は知識の流出を恐れました。王朝内部でのみ継承される「帝王学」として、厳重に管理されました。
                                         </p>
                                     </div>
@@ -470,421 +1051,92 @@
                             <div class="flex items-center md:contents">
                                 <div class="md:w-1/2 md:pr-12 md:text-right order-2 md:order-1">
                                     <div
-                                        class="glass-panel p-6 rounded-3xl border-white/10 bg-white/5 hover:bg-white/10 transition">
+                                        class="glass-panel p-8 rounded-3xl border-slate-100 bg-white/50 hover:bg-white transition-all shadow-sm hover:shadow-xl">
                                         <span
                                             class="text-xs font-bold text-sanmei-accent uppercase tracking-widest">1945
                                             ～ (現代)</span>
-                                        <h3 class="text-xl font-bold mt-1">日本での体系化と普及</h3>
-                                        <p class="text-sm text-slate-400 mt-3 leading-relaxed">
+                                        <h3 class="text-xl font-bold text-sanmei-dark mt-1">日本での体系化と普及</h3>
+                                        <p class="text-sm text-slate-500 mt-3 leading-relaxed">
                                             高尾義政氏によって理論が体系化され、現代社会でも活用できる「算命学」として確立。統計学的な信頼性も向上しました。
                                         </p>
                                     </div>
                                 </div>
                                 <div
-                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-accent border-4 border-slate-900 z-10 order-1 md:order-2">
+                                    class="absolute left-0 md:left-1/2 -ml-3 md:-ml-3 w-6 h-6 rounded-full bg-sanmei-accent border-4 border-white z-10 order-1 md:order-2 shadow-lg">
                                 </div>
                                 <div class="hidden md:block md:w-1/2 order-3"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </section>
 
-        <!-- Section 5: Methodology (How-to) -->
-        <section id="method" class="py-24 max-w-7xl mx-auto px-4">
-            <header class="text-center mb-16">
-                <span
-                    class="inline-block px-3 py-1 rounded-full bg-sanmei-gold/10 text-sanmei-gold font-bold tracking-widest uppercase text-xs mb-4">Process
-                    Simulation</span>
-                <h2 class="text-3xl md:text-4xl font-bold font-display text-sanmei-dark mt-2 mb-4">基本的な鑑定の流れ</h2>
-                <p class="text-slate-600 max-w-2xl mx-auto">
-                    複雑な暦をシミュレーション。算命学がどのように「命式」を構築するか体験してみましょう。
-                </p>
-            </header>
-
-            <div
-                class="bg-gradient-to-br from-sanmei-dark to-slate-800 text-white rounded-[2.5rem] p-8 md:p-16 shadow-2xl relative overflow-hidden group">
-                <div
-                    class="absolute top-0 right-0 text-[20rem] font-bold opacity-5 pointer-events-none select-none translate-x-24 translate-y-12">
-                    命</div>
-
-                <!-- Step Logic Container -->
-                <div id="method-stepper" class="max-w-4xl mx-auto transition-opacity duration-300">
-                    <!-- Step 1: Input -->
-                    <div id="step-1" class="text-center space-y-8">
-                        <div class="inline-flex flex-col items-center">
-                            <div
-                                class="w-16 h-16 bg-sanmei-accent rounded-2xl flex items-center justify-center shadow-lg mb-4 floating">
-                                <i data-lucide="scan-line" class="w-8 h-8"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-sanmei-accent">Step 1: 生年月日の特定</h3>
-                        </div>
-                        <p class="text-slate-300 text-lg">鑑定に必要なのは「生年月日」のみ。<br>これにより、あなたが宇宙から受け取った「気」の配合を特定します。</p>
-
-                        <div class="max-w-md mx-auto space-y-6">
-                            <div
-                                class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center justify-between group-hover:border-white/20 transition">
-                                <div class="text-left">
-                                    <span class="text-xs text-slate-500 block uppercase tracking-tighter">Target
-                                        Data</span>
-                                    <span class="text-xl font-display font-bold">1990.01.01</span>
-                                </div>
-                                <i data-lucide="fingerprint" class="text-sanmei-accent w-10 h-10 opacity-30"></i>
-                            </div>
-                            <button onclick="methodNextStep(2)"
-                                class="w-full bg-sanmei-accent hover:bg-indigo-400 text-white font-bold py-5 rounded-2xl transition shadow-xl transform hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-3">
-                                命式を算出する <i data-lucide="arrow-right" class="w-5 h-5"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Step 2: Calculation (Visualizing the grid) -->
-                    <div id="step-2" class="hidden text-center space-y-8">
-                        <div class="inline-flex flex-col items-center">
-                            <div
-                                class="w-16 h-16 bg-sanmei-secondary rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                                <i data-lucide="cpu" class="w-8 h-8"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-sanmei-secondary">Step 2: 陰占と陽占の構築</h3>
-                        </div>
-                        <p class="text-slate-300 text-lg">「十干」と「十二支」を配置し、エネルギーの構造を視覚化します。</p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch mb-10">
-                            <!-- In-sen (Basic) -->
-                            <div
-                                class="bg-white text-sanmei-dark p-8 rounded-3xl shadow-inner border-t-4 border-sanmei-accent">
-                                <h4
-                                    class="text-xs font-bold border-b pb-2 mb-4 text-slate-400 flex items-center gap-2 uppercase tracking-widest">
-                                    <i data-lucide="moon" class="w-3 h-3 text-sanmei-accent"></i> 陰占（無意識の質）
-                                </h4>
-                                <div class="grid grid-cols-3 gap-2 text-center text-sm font-display">
-                                    <div class="bg-slate-50 p-2 rounded-lg text-slate-400">Day</div>
-                                    <div class="bg-slate-50 p-2 rounded-lg text-slate-400">Month</div>
-                                    <div class="bg-slate-50 p-2 rounded-lg text-slate-400">Year</div>
-                                    <div class="font-bold text-2xl py-4 bg-slate-50/50 rounded-xl">甲</div>
-                                    <div class="text-2xl py-4 bg-slate-50/50 rounded-xl">丙</div>
-                                    <div class="text-2xl py-4 bg-slate-50/50 rounded-xl">戊</div>
-                                    <div class="font-bold text-2xl py-4 bg-slate-50/50 rounded-xl">子</div>
-                                    <div class="text-2xl py-4 bg-slate-50/50 rounded-xl">午</div>
-                                    <div class="text-2xl py-4 bg-slate-50/50 rounded-xl">辰</div>
-                                </div>
-                            </div>
-                            <!-- Yo-sen (Personality) -->
-                            <div
-                                class="bg-white text-sanmei-dark p-8 rounded-3xl shadow-inner border-t-4 border-sanmei-secondary">
-                                <h4
-                                    class="text-xs font-bold border-b pb-2 mb-4 text-slate-400 flex items-center gap-2 uppercase tracking-widest">
-                                    <i data-lucide="sun" class="w-3 h-3 text-sanmei-secondary"></i> 陽占（現実の性格）
-                                </h4>
-                                <div
-                                    class="grid grid-cols-3 gap-2 text-center text-[0.65rem] font-bold uppercase tracking-tight">
-                                    <div
-                                        class="bg-slate-50 border border-slate-100 flex items-center justify-center h-12 rounded-lg">
-                                        ---</div>
-                                    <div
-                                        class="bg-pink-100 text-pink-700 flex items-center justify-center h-12 rounded-lg">
-                                        鳳閣</div>
-                                    <div
-                                        class="bg-slate-50 border border-slate-100 flex items-center justify-center h-12 rounded-lg">
-                                        天印</div>
-
-                                    <div
-                                        class="bg-indigo-50 text-indigo-700 flex items-center justify-center h-12 rounded-lg">
-                                        玉堂</div>
-                                    <div
-                                        class="bg-sanmei-dark text-white shadow-lg flex items-center justify-center h-12 rounded-lg">
-                                        主星</div>
-                                    <div
-                                        class="bg-indigo-50 text-indigo-700 flex items-center justify-center h-12 rounded-lg">
-                                        禄存</div>
-
-                                    <div
-                                        class="bg-slate-50 border border-slate-100 flex items-center justify-center h-12 rounded-lg">
-                                        天恍</div>
-                                    <div
-                                        class="bg-indigo-50 text-indigo-700 flex items-center justify-center h-12 rounded-lg">
-                                        牽牛</div>
-                                    <div
-                                        class="bg-slate-50 border border-slate-100 flex items-center justify-center h-12 rounded-lg">
-                                        天庫</div>
-                                </div>
-                            </div>
-                        </div>
-                        <button onclick="methodNextStep(3)"
-                            class="bg-white hover:bg-slate-100 text-sanmei-dark font-bold py-4 px-10 rounded-2xl transition shadow-xl flex items-center gap-3 mx-auto">
-                            解釈の鍵を開く <i data-lucide="unlock" class="w-4 h-4"></i>
-                        </button>
-                    </div>
-
-                    <!-- Step 3: Interpretation -->
-                    <div id="step-3" class="hidden text-center space-y-8">
-                        <div class="inline-flex flex-col items-center">
-                            <div
-                                class="w-16 h-16 bg-sanmei-gold rounded-2xl flex items-center justify-center shadow-lg mb-4">
-                                <i data-lucide="lightbulb" class="w-8 h-8"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-sanmei-gold">Step 3: 運命解読と戦略策定</h3>
-                        </div>
-                        <p class="text-slate-300 text-lg max-w-lg mx-auto leading-relaxed">
-                            配置された星々から、あなたの人生の「航海図」を読み解きます。単なる吉凶ではなく、宿命をどう輝かせるかを考えます。
-                        </p>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 text-left max-w-3xl mx-auto mb-10">
-                            <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
-                                <i data-lucide="user-cog" class="text-sanmei-accent w-6 h-6 mb-3"></i>
-                                <h5 class="font-bold mb-2">本質・才能</h5>
-                                <p class="text-xs text-slate-400">魂の傾向、適職、行動の癖を知り、自己を最適化する。</p>
-                            </div>
-                            <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
-                                <i data-lucide="waves" class="text-sanmei-secondary w-6 h-6 mb-3"></i>
-                                <h5 class="font-bold mb-2">人生の季節</h5>
-                                <p class="text-xs text-slate-400">10年ごとの「大運」を見極め、攻め時と守り時を判断する。</p>
-                            </div>
-                            <div class="bg-white/5 p-6 rounded-3xl border border-white/10">
-                                <i data-lucide="shield-check" class="text-sanmei-gold w-6 h-6 mb-3"></i>
-                                <h5 class="font-bold mb-2">リスク回避</h5>
-                                <p class="text-xs text-slate-400">「天中殺」の影響範囲を知り、不測の事態に備える。</p>
-                            </div>
-                        </div>
-
-                        <button onclick="methodNextStep(1)"
-                            class="text-sm text-slate-500 hover:text-white transition-colors flex items-center gap-2 mx-auto border border-white/10 px-4 py-2 rounded-full">
-                            <i data-lucide="refresh-cw" class="w-3 h-3"></i> シミュレーションをやり直す
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- New Section 6: 十大主星 (Ten Heavenly Stars) -->
-        <section id="stars-10" class="py-24 bg-white">
+        <!-- Section: Glossary & Practical Tips -->
+        <section id="glossary" class="py-24 bg-slate-50 border-t border-slate-100">
             <div class="max-w-7xl mx-auto px-4">
                 <header class="text-center mb-16">
                     <span
-                        class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">Detailed
-                        Analysis 01</span>
-                    <h2 class="text-3xl md:text-4xl font-bold font-display text-sanmei-dark mt-2 mb-4">十大主星：あなたの分身たち
-                    </h2>
-                    <p class="text-slate-600 max-w-2xl mx-auto italic leading-relaxed">
-                        人体図に配置される星々は、あなたの内面に宿る「10種類のキャラクター」です。
-                        どの星が中心にあるかによって、あなたの基本的な価値観が決まります。
-                    </p>
+                        class="inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-600 font-bold tracking-widest uppercase text-xs mb-4">Practical
+                        Knowledge</span>
+                    <h2 class="text-3xl font-bold text-sanmei-dark">よく使われる用語と活用法</h2>
                 </header>
-
-                <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-                    <!-- Wood -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div
-                        class="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-element-wood transition-colors group">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-element-wood/10 text-element-wood flex items-center justify-center mb-4">
-                            <i data-lucide="trees" class="w-5 h-5"></i>
-                        </div>
-                        <h4 class="font-bold text-sanmei-dark mb-1">貫索・石門</h4>
-                        <p class="text-[0.65rem] text-slate-500 leading-snug">【守備】自分の世界を守り、自立・和合を重んじる。</p>
-                    </div>
-                    <!-- Fire -->
-                    <div
-                        class="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-element-fire transition-colors group">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-element-fire/10 text-element-fire flex items-center justify-center mb-4">
-                            <i data-lucide="flame" class="w-5 h-5"></i>
-                        </div>
-                        <h4 class="font-bold text-sanmei-dark mb-1">鳳閣・調舒</h4>
-                        <p class="text-[0.65rem] text-slate-500 leading-snug">【伝達】表現、遊び、孤独な感性を大切にする。</p>
-                    </div>
-                    <!-- Earth -->
-                    <div
-                        class="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-element-earth transition-colors group">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-element-earth/10 text-element-earth flex items-center justify-center mb-4">
-                            <i data-lucide="mountain" class="w-5 h-5"></i>
-                        </div>
-                        <h4 class="font-bold text-sanmei-dark mb-1">禄存・司禄</h4>
-                        <p class="text-[0.65rem] text-slate-500 leading-snug">【引力】財、奉仕、着実な準備と愛情。</p>
-                    </div>
-                    <!-- Metal -->
-                    <div
-                        class="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-element-metal transition-colors group">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-element-metal/10 text-element-metal flex items-center justify-center mb-4">
-                            <i data-lucide="swords" class="w-5 h-5"></i>
-                        </div>
-                        <h4 class="font-bold text-sanmei-dark mb-1">車騎・牽牛</h4>
-                        <p class="text-[0.65rem] text-slate-500 leading-snug">【攻撃】素早い行動、正義感、格式と責任。</p>
-                    </div>
-                    <!-- Water -->
-                    <div
-                        class="p-6 rounded-3xl bg-slate-50 border border-slate-100 hover:border-element-water transition-colors group">
-                        <div
-                            class="w-10 h-10 rounded-xl bg-element-water/10 text-element-water flex items-center justify-center mb-4">
-                            <i data-lucide="waves" class="w-5 h-5"></i>
-                        </div>
-                        <h4 class="font-bold text-sanmei-dark mb-1">龍高・玉堂</h4>
-                        <p class="text-[0.65rem] text-slate-500 leading-snug">【習得】知恵、変化、伝統的な学びと創造。</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- New Section 7: 十二大従星 (Twelve Heavenly Stars) -->
-        <section id="stars-12" class="py-24 bg-sanmei-bg">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div class="order-2 lg:order-1">
-                        <div class="grid grid-cols-3 gap-4">
-                            <!-- High Energy -->
-                            <div
-                                class="aspect-square bg-gradient-to-br from-sanmei-accent to-sanmei-secondary p-4 rounded-3xl text-white flex flex-col justify-end">
-                                <span class="text-2xl font-bold">12</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest opacity-80">天将星</span>
-                            </div>
-                            <!-- Mid Energy -->
-                            <div
-                                class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm">
-                                <span class="text-2xl font-bold text-sanmei-dark">7</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest text-slate-400">天印星</span>
-                            </div>
-                            <!-- High Energy -->
-                            <div
-                                class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm">
-                                <span class="text-2xl font-bold text-sanmei-dark">11</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest text-slate-400">天禄星</span>
-                            </div>
-                            <!-- Low Energy -->
-                            <div
-                                class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm">
-                                <span class="text-2xl font-bold text-sanmei-dark">1</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest text-slate-400">天報星</span>
-                            </div>
-                            <!-- Mid Energy -->
-                            <div
-                                class="aspect-square bg-sanmei-gold p-4 rounded-3xl text-white flex flex-col justify-end shadow-lg">
-                                <span class="text-2xl font-bold">9</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest opacity-80">天晃星</span>
-                            </div>
-                            <!-- Low Energy -->
-                            <div
-                                class="aspect-square bg-white border border-slate-100 p-4 rounded-3xl flex flex-col justify-end shadow-sm">
-                                <span class="text-2xl font-bold text-sanmei-dark">3</span>
-                                <span class="text-[0.6rem] uppercase tracking-widest text-slate-400">天貴星</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="order-1 lg:order-2">
-                        <span
-                            class="inline-block px-3 py-1 rounded-full bg-sanmei-accent/10 text-sanmei-accent font-bold tracking-widest uppercase text-xs mb-4">Detailed
-                            Analysis 02</span>
-                        <h2 class="text-3xl md:text-4xl font-bold font-display text-sanmei-dark mt-2 mb-6">
-                            十二大従星：エネルギーの強弱</h2>
-                        <p class="text-lg text-slate-600 leading-relaxed mb-8">
-                            胎児からあの世まで、魂の状態を12段階で表したものです。これは「能力」ではなく「エネルギーの出力レベル」を指します。
+                        class="p-8 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-sanmei-dark mb-3 flex items-center gap-2">
+                            <i data-lucide="help-circle" class="w-4 h-4 text-indigo-500"></i> 宿命と運命
+                        </h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            「宿命」は変えられない生年月日のエネルギー。「運命」は、そのエネルギーをどう使うかという自分次第の選択です。算命学は宿命を知り、最高の運命を拓くための地図です。
                         </p>
-                        <ul class="space-y-4">
-                            <li class="flex items-start gap-3">
-                                <div
-                                    class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
-                                    <i data-lucide="check" class="w-4 h-4"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-sanmei-dark">初年運・中年運・晩年運</strong>
-                                    <p class="text-sm text-slate-500">人生の各フェーズで、どのような推進力（ガソリン）を持っているかを示します。</p>
-                                </div>
-                            </li>
-                            <li class="flex items-start gap-3">
-                                <div
-                                    class="w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center shrink-0 mt-1">
-                                    <i data-lucide="check" class="w-4 h-4"></i>
-                                </div>
-                                <div>
-                                    <strong class="text-sanmei-dark">現実強さ vs 精神強さ</strong>
-                                    <p class="text-sm text-slate-500">
-                                        エネルギー点数が高いからといって「良い」わけではありません。低い人は精神的な世界で大きな力を発揮します。</p>
-                                </div>
-                            </li>
-                        </ul>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- New Section 8: 天中殺 (Tenchu-satsu) -->
-        <section id="tenchu" class="py-24 bg-white overflow-hidden">
-            <div class="max-w-7xl mx-auto px-4">
-                <div class="glass-panel p-12 rounded-[3rem] border-slate-100 bg-slate-50/50 relative">
-                    <div class="absolute -right-24 -top-24 w-64 h-64 bg-sanmei-accent/10 rounded-full blur-3xl"></div>
-
-                    <div class="max-w-3xl">
-                        <span
-                            class="inline-block px-3 py-1 rounded-full bg-sanmei-dark text-white font-bold tracking-widest uppercase text-xs mb-4">Risk
-                            Management</span>
-                        <h2 class="text-3xl md:text-5xl font-bold font-display text-sanmei-dark mt-2 mb-6">天中殺：天が味方しない時期
-                        </h2>
-                        <p class="text-xl text-slate-600 leading-relaxed mb-10">
-                            12年のうち2年間、12ヶ月のうち2ヶ月訪れる「不自然な時期」です。これを正しく理解すれば、恐れることはありません。
-                        </p>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
-                            <div class="bg-white p-6 rounded-3xl shadow-sm">
-                                <h4 class="font-bold text-sanmei-dark flex items-center gap-2 mb-3">
-                                    <i data-lucide="cloud-off" class="text-slate-400"></i> 天中殺に起こること
-                                </h4>
-                                <p class="text-sm text-slate-500 leading-relaxed">
-                                    枠組みが外れ、欲望が拡大しやすい時期。自分の意志の力が及びにくいため、受け身で過ごすことが推奨されます。
-                                </p>
-                            </div>
-                            <div class="bg-white p-6 rounded-3xl shadow-sm">
-                                <h4 class="font-bold text-sanmei-dark flex items-center gap-2 mb-3">
-                                    <i data-lucide="smile" class="text-sanmei-accent"></i> 理想的な過ごし方
-                                </h4>
-                                <p class="text-sm text-slate-500 leading-relaxed">
-                                    勉強、奉仕、休息。新しいことを始めるのではなく、自分を磨き、周りに感謝を返すことで禍を福に転じます。
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-wrap gap-3">
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">子丑天中殺</span>
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">寅卯天中殺</span>
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">辰巳天中殺</span>
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">午未天中殺</span>
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">申酉天中殺</span>
-                            <span
-                                class="px-4 py-2 rounded-full bg-white border border-slate-100 text-xs font-bold text-slate-500">戌亥天中殺</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Footer -->
-        <footer class="bg-slate-50 py-16 px-4">
-            <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
-                <div class="flex items-center gap-2">
                     <div
-                        class="w-8 h-8 bg-gradient-to-br from-sanmei-accent to-sanmei-secondary rounded-lg flex items-center justify-center text-white">
-                        <i data-lucide="scroll-text" class="w-5 h-5"></i>
+                        class="p-8 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-sanmei-dark mb-3 flex items-center gap-2">
+                            <i data-lucide="sun" class="w-4 h-4 text-amber-500"></i> 日干（にっかん）
+                        </h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            自分の魂の核となる性質です。「甲・乙（木）」「丙・丁（火）」など、自分が自然界のどの要素を代表しているかを知ることが、自己理解の第一歩となります。
+                        </p>
                     </div>
-                    <span class="text-xl font-bold font-display text-sanmei-dark">算命学<span
-                            class="text-sanmei-accent">.</span></span>
+                    <div
+                        class="p-8 bg-white rounded-[2rem] border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                        <h4 class="font-bold text-sanmei-dark mb-3 flex items-center gap-2">
+                            <i data-lucide="coffee" class="w-4 h-4 text-emerald-500"></i> 生活への取り入れ方
+                        </h4>
+                        <p class="text-xs text-slate-500 leading-relaxed">
+                            自分の五行のバランスを見て、足りない要素を補う「ラッキーカラー」を身につけたり、天中殺の時期には無理をせず学びや掃除に徹するなど、日々の指針に活用できます。
+                        </p>
+                    </div>
                 </div>
-                <div class="flex gap-8 text-sm text-slate-500">
-                    <a href="../../home.html" class="hover:text-sanmei-accent transition">Home</a>
-                    <a href="#" class="hover:text-sanmei-accent transition">Privacy</a>
-                    <a href="#" class="hover:text-sanmei-accent transition">Contact</a>
+            </div>
+        </section>
+
+        <!-- Refined Footer -->
+        <footer class="bg-white pt-24 pb-12 border-t border-slate-100">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex flex-col md:flex-row justify-between items-start gap-12 mb-16">
+                    <!-- Brand Column -->
+                    <div class="space-y-6 max-w-lg">
+                        <h3 class="text-2xl font-bold font-display text-sanmei-dark">算命学</h3>
+                        <p class="text-sm text-slate-500 leading-relaxed">
+                            自然界の法則に基づき、人間の宿命を解き明かす。帝王学としても重用された、東洋哲学の最高峰に触れる体験を。
+                        </p>
+                    </div>
                 </div>
-                <p class="text-xs text-slate-400">© 2024 Sanmeigaku Interactive Report. Dedicated to Wisdom.</p>
+                <div
+                    class="pt-8 border-t border-slate-50 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
+                    <span>© 2026 Triscope Project. Dedicated to Wisdom.</span>
+                    <div class="flex gap-6">
+                        <span>Powered by Ancient Logic</span>
+                        <span>Built with AI Technology</span>
+                    </div>
+                </div>
             </div>
         </footer>
 
     </main>
 
-    </main>
 
     <script>
         // State Management
@@ -905,6 +1157,7 @@
 
         // --- 1. Initialization & Charts ---
         document.addEventListener('DOMContentLoaded', () => {
+            populateSelects();
             lucide.createIcons();
             initComparisonChart();
             initElementsChart();
@@ -923,6 +1176,37 @@
                 }
             });
         });
+
+        // Date Select logic
+        function populateSelects() {
+            const yearSelect = document.getElementById('birth-year');
+            const currentYear = new Date().getFullYear();
+            for (let i = currentYear; i >= 1900; i--) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '年';
+                if (i === 1990) option.selected = true;
+                yearSelect.appendChild(option);
+            }
+            updateDayOptions();
+        }
+
+        function updateDayOptions() {
+            const year = parseInt(document.getElementById('birth-year').value);
+            const month = parseInt(document.getElementById('birth-month').value);
+            const daySelect = document.getElementById('birth-day');
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            const currentDay = daySelect.value || 1;
+            daySelect.innerHTML = '';
+            for (let i = 1; i <= daysInMonth; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i + '日';
+                if (i == currentDay) option.selected = true;
+                daySelect.appendChild(option);
+            }
+        }
 
         // Chart 1: Comparison Bar Chart
         function initComparisonChart() {
@@ -1121,8 +1405,247 @@
             lucide.createIcons();
         }
 
+        // --- 3. Sanmei Calculation Engine ---
+
+        const KAN = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+        const SHI = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+        const ELEMENTS_MAP = {
+            "甲": "木", "乙": "木", "丙": "火", "丁": "火", "戊": "土", "己": "土", "庚": "金", "辛": "金", "壬": "水", "癸": "水",
+            "子": "水", "丑": "土", "寅": "木", "卯": "木", "辰": "土", "巳": "火", "午": "火", "未": "土", "申": "金", "酉": "金", "戌": "土", "亥": "水"
+        };
+
+        const JINTAI_LOGIC = {
+            "甲": { "木": "貫索", "火": "鳳閣", "土": "禄存", "金": "車騎", "水": "龍高" },
+            "乙": { "木": "石門", "火": "調舒", "土": "司禄", "金": "牽牛", "水": "玉堂" },
+            "丙": { "木": "龍高", "火": "貫索", "土": "鳳閣", "金": "禄存", "水": "車騎" },
+            "丁": { "木": "玉堂", "火": "石門", "土": "調舒", "金": "司禄", "水": "牽牛" },
+            "戊": { "木": "車騎", "火": "龍高", "土": "貫索", "金": "鳳閣", "水": "禄存" },
+            "己": { "木": "牽牛", "火": "玉堂", "土": "石門", "金": "調舒", "水": "司禄" },
+            "庚": { "木": "禄存", "火": "車騎", "土": "龍高", "金": "貫索", "水": "鳳閣" },
+            "辛": { "木": "司禄", "火": "牽牛", "土": "玉堂", "金": "石門", "水": "調舒" },
+            "壬": { "木": "鳳閣", "火": "禄存", "土": "車騎", "金": "龍高", "水": "貫索" },
+            "癸": { "木": "調舒", "火": "司禄", "土": "牽牛", "金": "玉堂", "水": "石門" }
+        };
+
+        const JUSO_MAP = {
+            "甲": { "子": "天恍", "丑": "天堂", "寅": "天禄", "卯": "天将", "辰": "天南", "巳": "天極", "午": "天輝", "未": "天庫", "申": "天馳", "酉": "天報", "戌": "天印", "亥": "天貴" },
+            "乙": { "子": "天胡", "丑": "天庫", "寅": "天馳", "卯": "天報", "辰": "天印", "巳": "天貴", "午": "天恍", "未": "天堂", "申": "天禄", "酉": "天将", "戌": "天南", "亥": "天極" },
+            "丙": { "子": "天報", "丑": "天印", "寅": "天貴", "卯": "天恍", "辰": "天堂", "巳": "天禄", "午": "天将", "未": "天南", "申": "天極", "酉": "天輝", "戌": "天庫", "亥": "天馳" },
+            "丁": { "子": "天極", "丑": "天輝", "寅": "天庫", "卯": "天馳", "辰": "天報", "巳": "天印", "午": "天貴", "未": "天恍", "申": "天堂", "酉": "天禄", "戌": "天将", "亥": "天南" },
+            "戊": { "子": "天報", "丑": "天印", "寅": "天貴", "卯": "天恍", "辰": "天堂", "巳": "天禄", "午": "天将", "未": "天南", "申": "天極", "酉": "天輝", "戌": "天庫", "亥": "天馳" },
+            "己": { "子": "天極", "丑": "天輝", "寅": "天庫", "卯": "天馳", "辰": "天報", "巳": "天印", "午": "天貴", "未": "天恍", "申": "天堂", "酉": "天禄", "戌": "天将", "亥": "天南" },
+            "庚": { "子": "天馳", "丑": "天報", "寅": "天印", "卯": "天貴", "辰": "天恍", "巳": "天堂", "午": "天禄", "未": "天将", "申": "天南", "酉": "天極", "戌": "天輝", "亥": "天庫" },
+            "辛": { "子": "天南", "丑": "天極", "寅": "天輝", "卯": "天庫", "辰": "天馳", "巳": "天報", "午": "天印", "未": "天貴", "申": "天恍", "酉": "天堂", "戌": "天禄", "亥": "天将" },
+            "壬": { "子": "天将", "丑": "天南", "寅": "天極", "卯": "天輝", "辰": "天庫", "巳": "天馳", "午": "天報", "未": "天印", "申": "天貴", "酉": "天恍", "戌": "天堂", "亥": "天禄" },
+            "癸": { "子": "天禄", "丑": "天将", "寅": "天南", "卯": "天極", "辰": "天輝", "巳": "天庫", "午": "天馳", "未": "天報", "申": "天印", "酉": "天貴", "戌": "天恍", "亥": "天堂" }
+        };
+
+        const JUSO_ENERGY = {
+            "天報": 3, "天印": 6, "天貴": 9, "天恍": 7, "天南": 10, "天禄": 11,
+            "天将": 12, "天堂": 8, "天胡": 4, "天極": 2, "天庫": 5, "天馳": 1
+        };
+
+        const STAR_DETAILS = {
+            "貫索": "独立独歩、一貫性。自分の信念を曲げず、黙々と初志を貫徹する強さがあります。単独行動を好み、守りの姿勢が強いのが特徴です。",
+            "石門": "和合、社交性。上下関係にこだわらず、誰とでも対等に付き合える柔軟性があります。仲間を集め、集団で物事を成し遂げる才能に長けています。",
+            "鳳閣": "自然体、遊び心。明るく楽天的で、ありのままを楽しむ姿勢が周囲を和ませます。健康管理や食事、趣味を大切にする風流な資質を持ちます。",
+            "調舒": "感受性、完璧主義。鋭い感性と独自の美学を持ち、表現力に優れます。繊細ゆえに孤独を愛する面もありますが、唯一無二の創造性を発揮します。",
+            "禄存": "奉仕、引力。慈愛に満ち、困っている人を放っておけない心の広さがあります。愛と財を循環させる力があり、自然と中心に人が集まります。",
+            "司禄": "蓄積、堅実。日々の小さな積み重ねを大切にし、家族や伝統を守ることに喜びを感じます。準備を怠らず、安定した生活を築く力が非常に高いです。",
+            "車騎": "勇気、迅速。考えるよりも先に体が動く行動派です。裏表のない直情的な性格で、責任感が強く、困難に立ち向かう闘争心に優れています。",
+            "牽牛": "責任感、プライド。真真面目で礼儀正しく、社会的なルールや秩序を重んじます。名誉を大切にし、組織の中で実力を発揮する官僚的な才能があります。",
+            "龍高": "冒険心、独創性。知的好奇心が旺盛で、未知の世界への探求を惜しみません。体験から学ぶことを重視し、古いものを壊して新しいものを創る改革者です。",
+            "玉堂": "知恵、伝統。静かに論理的に思考し、学問や歴史から深く学ぶ力があります。品格があり、母性的な優しさで人を育てる教育者としての資質を持ちます。"
+        };
+
+        const JUSO_DETAILS = {
+            "天報": "胎児の象徴。変幻自在で無限の可能性を秘めています。多才ですが、飽きっぽさに注意が必要です。",
+            "天印": "赤ん坊の象徴。無垢な可愛らしさで、周囲の助けを引き出す「無意識の引力」があります。愛される才能です。",
+            "天貴": "幼少期の象徴。素直でプライドが高く、学びを吸収する力が旺盛です。名誉や格式を重んじる気品があります。",
+            "天恍": "思春期の象徴。華やかでロマンチスト。故郷を離れ、自由な環境で輝く「離郷」の星です。独特の魅力があります。",
+            "天南": "青年の象徴。批判精神が強く、力強い行動力があります。正義感に溢れ、社会に風穴を開ける前進の星です。",
+            "天禄": "壮年期の象徴。安定感抜群で慎重、組織の要として活躍する堅実な実力者の星です。信頼を第一に置きます。",
+            "天将": "帝王の象徴。最強のエネルギーを持ち、集団のトップに立ち、困難を突破する不屈のリーダーの星です。",
+            "天堂": "老人の象徴。冷静沈着で落ち着きがあり、一歩引いた視点から物事を見る参謀や知恵袋の星です。",
+            "天胡": "病人の象徴。身体能力より精神性が高く、鋭い直感と芸術的感性を持つ浪漫の星です。美的な世界を得意とします。",
+            "天極": "死後の象徴。純粋でこだわりがなく、他者の言葉をそのまま受け入れる柔軟な哲学者の星です。お人好しな面も。",
+            "天庫": "墓の象徴。一つのことを掘り下げ、守り抜く収集癖と探求心に優れた凝り性の星です。専門職に適正があります。",
+            "天馳": "魂の象徴。肉体の制限を離れ、瞬時に飛び回る超スピードと瞬発力を持つ多忙の星です。変化に強いです。"
+        };
+
+        function getSetsuIri(year, month) {
+            // Approximate Setsu-iri dates for each month (standard values)
+            // 2:立春 3:啓蟄 4:清明 5:立夏 6:芒種 7:小暑 8:立秋 9:白露 10:寒露 11:立冬 12:大雪 1:小寒
+            const setsuDates = [null, 6, 4, 6, 5, 6, 6, 7, 8, 8, 8, 8, 7];
+            return setsuDates[month];
+        }
+
+        function getSexagenary(date) {
+            const y = date.getFullYear();
+            const m = date.getMonth() + 1;
+            const d = date.getDate();
+
+            // 1. Day Pillar (Accurate)
+            const anchor = new Date(2000, 0, 1); // 2000-01-01 is 55: 戊午
+            const diffDays = Math.floor((date - anchor) / (24 * 60 * 60 * 1000));
+            const dIdx = (54 + diffDays % 60 + 60) % 60;
+            const dKan = KAN[dIdx % 10];
+            const dShi = SHI[dIdx % 12];
+
+            // 2. Year Pillar (Correcting for Risshun)
+            let yearForPillar = y;
+            const risshun = getSetsuIri(y, 2);
+            if (m < 2 || (m === 2 && d < risshun)) {
+                yearForPillar--;
+            }
+            const yIdx = ((yearForPillar - 1864) % 60 + 60) % 60;
+            const yKan = KAN[yIdx % 10];
+            const yShi = SHI[yIdx % 12];
+
+            // 3. Month Pillar (Correcting for Setsu-iri)
+            const setsuIri = getSetsuIri(y, m);
+            let monthIdx = m - 1; // Feb=1, Mar=2... Jan=0 (normalized to start from Feb)
+            if (d < setsuIri) {
+                monthIdx--;
+            }
+            if (monthIdx < 0) monthIdx += 12; // Jan becomes Dec of previous cycle
+
+            // Standard Month logic: Starts from Feb (寅)
+            // Adjust to find correct Month Stem using Year Stem
+            const yearStemIdx = KAN.indexOf(yKan);
+            const firstMonthStemIdx = (yearStemIdx % 5) * 2 + 2; // Feb(寅) Stem
+            const mKanIdx = (firstMonthStemIdx + (monthIdx - 1)) % 10; // offset from Feb
+            const mShiIdx = (2 + (monthIdx - 1) + 12) % 12; // offset from Feb(寅=2)
+
+            const mKan = KAN[mKanIdx];
+            const mShi = SHI[mShiIdx];
+
+            return { 日: { 干: dKan, 支: dShi, idx: dIdx }, 月: { 干: mKan, 支: mShi }, 年: { 干: yKan, 支: yShi } };
+        }
+
+        function calculateSanmei() {
+            const y = parseInt(document.getElementById('birth-year').value);
+            const m = parseInt(document.getElementById('birth-month').value);
+            const d = parseInt(document.getElementById('birth-day').value);
+            const birth = new Date(y, m - 1, d);
+
+            const kanshi = getSexagenary(birth);
+
+            // Update UI - Insai
+            document.querySelectorAll('#step-2 .text-2xl')[0].textContent = kanshi.日.干;
+            document.querySelectorAll('#step-2 .text-2xl')[1].textContent = kanshi.月.干;
+            document.querySelectorAll('#step-2 .text-2xl')[2].textContent = kanshi.年.干;
+            document.querySelectorAll('#step-2 .text-2xl')[3].textContent = kanshi.日.支;
+            document.querySelectorAll('#step-2 .text-2xl')[4].textContent = kanshi.月.支;
+            document.querySelectorAll('#step-2 .text-2xl')[5].textContent = kanshi.年.支;
+
+            const dayKan = kanshi.日.干;
+
+            // 1. Ten Heavenly Stars (十大主星)
+            const headStar = JINTAI_LOGIC[dayKan][ELEMENTS_MAP[kanshi.年.干]] + "星";
+            const rightHandStar = JINTAI_LOGIC[dayKan][ELEMENTS_MAP[kanshi.年.支]] + "星";
+            const centerStar = JINTAI_LOGIC[dayKan][ELEMENTS_MAP[kanshi.月.支]] + "星";
+            const leftHandStar = JINTAI_LOGIC[dayKan][ELEMENTS_MAP[kanshi.日.支]] + "星";
+            const bellyStar = JINTAI_LOGIC[dayKan][ELEMENTS_MAP[kanshi.月.干]] + "星";
+
+            // 2. Twelve Heavenly Stars (十二大従星)
+            const childhoodStar = JUSO_MAP[dayKan][kanshi.年.支];
+            const matureStar = JUSO_MAP[dayKan][kanshi.月.支];
+            const lateAgeStar = JUSO_MAP[dayKan][kanshi.日.支];
+
+            // Update Yosen Grid
+            document.getElementById('star-head').innerHTML = `${headStar}<br>(頭)`;
+            document.getElementById('star-right-hand').innerHTML = `${rightHandStar}<br>(右手)`;
+            document.getElementById('main-star-display').innerHTML = `${centerStar}<br>(主星)`;
+            document.getElementById('star-left-hand').innerHTML = `${leftHandStar}<br>(左手)`;
+            document.getElementById('star-belly').innerHTML = `${bellyStar}<br>(腹)`;
+
+            document.getElementById('star-childhood').innerHTML = `${childhoodStar}星<br>(初年)`;
+            document.getElementById('star-mature').innerHTML = `${matureStar}星<br>(中年)`;
+            document.getElementById('star-late-age').innerHTML = `${lateAgeStar}星<br>(晩年)`;
+
+            document.getElementById('yosen-footnote').textContent = `※中央の「${centerStar}」があなたの本質（主星）です。`;
+
+            // Results Guide 02 Dynamic Update
+            document.getElementById('guide-jus01-score').textContent = JUSO_ENERGY[childhoodStar];
+            document.getElementById('guide-jus01-name').textContent = childhoodStar + "星";
+            document.getElementById('guide-jus02-score').textContent = JUSO_ENERGY[matureStar];
+            document.getElementById('guide-jus02-name').textContent = matureStar + "星";
+            document.getElementById('guide-jus03-score').textContent = JUSO_ENERGY[lateAgeStar];
+            document.getElementById('guide-jus03-name').textContent = lateAgeStar + "星";
+
+            // Tenchu-satsu logic
+            const tenchuGroups = [
+                { name: "戌亥", months: "10・11月", startYear: 2030 },
+                { name: "子丑", months: "12・1月", startYear: 2032 },
+                { name: "寅卯", months: "2・3月", startYear: 2034 },
+                { name: "辰巳", months: "4・5月", startYear: 2024 },
+                { name: "午未", months: "6・7月", startYear: 2026 },
+                { name: "申酉", months: "8・9月", startYear: 2028 }
+            ];
+
+            const currentYear = new Date().getFullYear();
+            const dKanIdx = KAN.indexOf(kanshi.日.干);
+            const dShiIdx = SHI.indexOf(kanshi.日.支);
+            const diff = (dShiIdx - dKanIdx + 12) % 12;
+            const tenchu = tenchuGroups[diff / 2];
+            // Calculate multiple future Tenchu-satsu cycles
+            let cycles = [];
+            let start = tenchu.startYear;
+            while (start + 1 < currentYear) {
+                start += 12;
+            }
+            for (let i = 0; i < 3; i++) {
+                const s = start + (i * 12);
+                cycles.push(`${s}・${s + 1}`);
+            }
+            const displayYears = cycles.join(", ");
+
+            document.getElementById('tenchu-name').textContent = tenchu.name + "天中殺";
+            document.getElementById('tenchu-months').textContent = "毎年 " + tenchu.months;
+            document.getElementById('tenchu-symbols').textContent = tenchu.name + "年";
+            document.getElementById('tenchu-years').textContent = "今後: " + displayYears + "年";
+
+            // Advice Generation
+            const coreAdvice = `あなたの魂の核座る「${centerStar.replace("星", "")}星」は、${STAR_DETAILS[centerStar.replace("星", "")]} この本質を大切にすることで、日々の充実感が得られます。`;
+            const socialAdvice = `社会（右手）に位置する「${rightHandStar.replace("星", "")}星」は、${STAR_DETAILS[rightHandStar.replace("星", "")]} 社会活動やキャリアにおいては、このスキルを意識的に使うことが成功への近道です。`;
+            const energyAdvice = `あなたの人生を支えるパワーは「${childhoodStar}・${matureStar}・${lateAgeStar}」が象徴しています。特に現役時代（中年期）の「${matureStar}星」は、${JUSO_DETAILS[matureStar]}。このエネルギーを燃焼させることで、運気はさらに高まるでしょう。`;
+
+            document.getElementById('advice-core').textContent = coreAdvice;
+            document.getElementById('advice-social').textContent = socialAdvice;
+            document.getElementById('advice-energy').textContent = energyAdvice;
+
+            document.getElementById('sample-profile-label').textContent = `${y}年${m}月${d}日 生まれの鑑定結果`;
+            // Lucky Data Mapping
+            const luckyData = {
+                "木": { color: "フォレストグリーン", item: "観葉植物・木製雑貨", key: "着実な成長と信念" },
+                "火": { color: "クリムゾンレッド", item: "アロマキャンドル・照明", key: "情熱的な自己表現" },
+                "土": { color: "マスタードイエロー", item: "陶磁器・アロマテラピー", key: "信頼と基盤の構築" },
+                "金": { color: "プラチナシルバー", item: "メタルアクセサリー・時計", key: "決断力と効率化" },
+                "水": { color: "ミッドナイトブルー", item: "クリスタル・ガラス細工", key: "柔軟な思考と学び" }
+            };
+            const starElement = ELEMENTS_MAP[kanshi.月.支];
+            const lucky = luckyData[starElement];
+            document.getElementById('lucky-color').textContent = lucky.color;
+            document.getElementById('lucky-item').textContent = lucky.item;
+            document.getElementById('success-key').textContent = lucky.key;
+
+            // Elements Chart Data
+            const counts = { 木: 0, 火: 0, 土: 0, 金: 0, 水: 0 };
+            [kanshi.年, kanshi.月, kanshi.日].forEach(p => {
+                counts[ELEMENTS_MAP[p.干]]++;
+                counts[ELEMENTS_MAP[p.支]]++;
+            });
+            state.elementsData.data = [counts.木, counts.火, counts.土, counts.金, counts.水];
+            elementsChart.data.datasets[0].data = state.elementsData.data;
+            elementsChart.update();
+        }
+
         // Method Stepper Logic
         function methodNextStep(step) {
+            if (step === 2) {
+                calculateSanmei();
+            }
             const container = document.getElementById('method-stepper');
             container.style.opacity = '0';
 
@@ -1155,6 +1678,50 @@
 
             // Close mobile menu
             document.getElementById('mobile-nav').classList.add('translate-x-full');
+        }
+        // --- Kanshi Library Logic ---
+        function toggleKanshiGrid() {
+            const container = document.getElementById('kanshi-grid-container');
+            const icon = document.getElementById('kanshi-toggle-icon');
+            const text = document.getElementById('kanshi-toggle-text');
+            const grid = container.querySelector('.grid');
+
+            if (container.style.maxHeight && container.style.maxHeight !== '0px') {
+                container.style.maxHeight = '0px';
+                icon.style.transform = 'rotate(0deg)';
+                text.textContent = '全一覧を表示する';
+            } else {
+                if (grid.children.length === 0) {
+                    renderKanshiGrid(grid);
+                }
+                container.style.maxHeight = grid.scrollHeight + 'px';
+                icon.style.transform = 'rotate(180deg)';
+                text.textContent = '一覧を閉じる';
+            }
+        }
+
+        function renderKanshiGrid(grid) {
+            const KAN = ["甲", "乙", "丙", "丁", "戊", "己", "庚", "辛", "壬", "癸"];
+            const SHI = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"];
+            const ELEMENTS = {
+                "甲": "bg-green-50 text-green-700", "乙": "bg-green-50 text-green-700",
+                "丙": "bg-red-50 text-red-700", "丁": "bg-red-50 text-red-700",
+                "戊": "bg-amber-50 text-amber-700", "己": "bg-amber-50 text-amber-700",
+                "庚": "bg-slate-100 text-slate-700", "辛": "bg-slate-100 text-slate-700",
+                "壬": "bg-blue-50 text-blue-700", "癸": "bg-blue-50 text-blue-700"
+            };
+
+            for (let i = 0; i < 60; i++) {
+                const k = KAN[i % 10];
+                const s = SHI[i % 12];
+                const item = document.createElement('div');
+                item.className = `${ELEMENTS[k]} p-2 rounded-lg text-center shadow-sm border border-black/5 flex flex-col items-center justify-center hover:scale-105 transition-transform cursor-help`;
+                item.innerHTML = `
+                    <span class="text-[8px] opacity-50 block leading-none mb-1">${i + 1}</span>
+                    <span class="text-sm font-bold leading-none">${k}${s}</span>
+                `;
+                grid.appendChild(item);
+            }
         }
 
     </script>
