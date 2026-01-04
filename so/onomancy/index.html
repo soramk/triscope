@@ -19,6 +19,8 @@
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- 漢字画数データ -->
+    <script src="kanji_data.js"></script>
 
     <!-- Palette and Custom Styles -->
     <!-- Chosen Palette: "Sumi & Washi" 
@@ -404,90 +406,258 @@
         <section id="simulation" class="scroll-mt-24">
             <div class="mb-8 border-l-4 border-red-800 pl-4">
                 <h2 class="text-3xl font-bold text-gray-900 serif">3. 鑑定シミュレーション</h2>
-                <p class="text-gray-500 mt-1">実際に画数を入力して、計算ロジックと結果を体験してみましょう。</p>
+                <p class="text-gray-500 mt-1">名前を入力するだけで、瞬時に運命式を解読します。</p>
             </div>
 
-            <div class="bg-stone-800 text-stone-100 rounded-2xl p-8 shadow-2xl">
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            <div
+                class="bg-white text-gray-800 rounded-2xl p-8 shadow-2xl relative overflow-hidden border border-gray-100">
+                <!-- Background decorative element -->
+                <div
+                    class="absolute -top-24 -right-24 w-96 h-96 bg-red-50 rounded-full blur-3xl pointer-events-none opacity-60">
+                </div>
+                <div
+                    class="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-white to-transparent pointer-events-none z-0">
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 relative z-10">
 
                     <!-- Input Area -->
-                    <div>
-                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
-                            <span>STEP 1</span>
-                            <span class="text-sm font-normal text-gray-400">画数を入力 (例: 田中 太郎 → 5, 4, 4, 9)</span>
-                        </h3>
+                    <div class="space-y-8">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                                <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded font-bold">STEP 1</span>
+                                <span>姓名を入力</span>
+                            </h3>
 
-                        <div class="grid grid-cols-2 gap-6 mb-8">
-                            <div class="space-y-4">
-                                <label class="block text-xs uppercase tracking-wider text-gray-400">姓 (Surname)</label>
-                                <div class="flex gap-2">
-                                    <input type="number" id="s1" value="5" min="1" max="30"
-                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-                                        placeholder="字1">
-                                    <input type="number" id="s2" value="4" min="1" max="30"
-                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-                                        placeholder="字2">
+                            <div class="grid grid-cols-2 gap-6 mb-6">
+                                <div class="space-y-2">
+                                    <label class="block text-xs uppercase tracking-wider text-gray-500 font-bold">姓
+                                        (Surname)</label>
+                                    <input type="text" id="input-surname"
+                                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-xl focus:bg-white focus:ring-2 focus:ring-red-400 outline-none transition placeholder-gray-400 font-serif text-gray-900 shadow-inner"
+                                        placeholder="例：田中">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-xs uppercase tracking-wider text-gray-500 font-bold">名
+                                        (Given
+                                        Name)</label>
+                                    <input type="text" id="input-givenname"
+                                        class="w-full bg-gray-50 border border-gray-200 rounded-xl p-4 text-xl focus:bg-white focus:ring-2 focus:ring-red-400 outline-none transition placeholder-gray-400 font-serif text-gray-900 shadow-inner"
+                                        placeholder="例：太一">
                                 </div>
                             </div>
-                            <div class="space-y-4">
-                                <label class="block text-xs uppercase tracking-wider text-gray-400">名 (Given
-                                    Name)</label>
-                                <div class="flex gap-2">
-                                    <input type="number" id="n1" value="4" min="1" max="30"
-                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-                                        placeholder="字1">
-                                    <input type="number" id="n2" value="9" min="1" max="30"
-                                        class="w-full bg-stone-700 border border-stone-600 rounded p-3 text-center text-xl focus:ring-2 focus:ring-red-500 outline-none transition"
-                                        placeholder="字2">
-                                </div>
-                            </div>
+
+                            <button onclick="checkStrokes()"
+                                class="w-full py-4 bg-white hover:bg-gray-50 text-gray-700 font-bold rounded-xl shadow-sm hover:shadow-md transform active:scale-95 transition flex items-center justify-center gap-2 border border-gray-200 group">
+                                <i data-lucide="search"
+                                    class="w-5 h-5 text-gray-400 group-hover:text-red-500 transition-colors"></i>
+                                <span>画数を判定する</span>
+                            </button>
                         </div>
 
-                        <button onclick="calculateDestiny()"
-                            class="w-full py-4 bg-red-800 hover:bg-red-700 text-white font-bold rounded-lg shadow-lg transform active:scale-95 transition flex items-center justify-center gap-2">
-                            <span>鑑定する</span>
-                            <span class="text-xl">➔</span>
-                        </button>
+                        <!-- Stroke Confirmation Area (Hidden by default) -->
+                        <div id="stroke-check-area"
+                            class="hidden animate-fade-in bg-orange-50/50 p-6 rounded-2xl border border-orange-100">
+                            <h4 class="text-sm font-bold text-gray-700 mb-4 flex items-center gap-2">
+                                <i data-lucide="edit-3" class="w-4 h-4 text-orange-500"></i> 画数の確認・修正
+                            </h4>
+                            <p class="text-xs text-gray-500 mb-4 leading-relaxed">
+                                自動判定された画数が表示されています。流派による違いがある場合は数値を修正してください。<br>
+                                <span class="text-orange-600">※旧字体で計算する場合は手動で修正してください。</span>
+                            </p>
 
-                        <p class="text-xs text-gray-500 mt-4">
-                            ※簡易シミュレーションのため、4文字（姓2文字・名2文字）の構成を想定しています。
-                            1文字の姓や名の場合は、霊数（+1）を加える流派がありますが、ここでは単純計算を行います。
-                        </p>
+                            <div id="stroke-inputs-container" class="space-y-4 mb-6">
+                                <!-- Generated by JS -->
+                            </div>
+
+                            <button onclick="calculateFinally()"
+                                class="w-full py-4 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-700 hover:to-red-600 text-white font-bold rounded-xl shadow-lg shadow-red-200 transform active:scale-95 transition flex items-center justify-center gap-2">
+                                <span class="text-lg">鑑定結果を表示</span>
+                                <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <!-- Result Area -->
-                    <div id="result-area"
-                        class="bg-stone-700 rounded-xl p-6 border border-stone-600 opacity-50 transition-opacity duration-500">
-                        <h3 class="text-lg font-bold text-white mb-4 border-b border-stone-500 pb-2">鑑定結果</h3>
-
-                        <div class="space-y-4">
-                            <!-- Jin-kaku Result -->
-                            <div class="bg-stone-800 p-4 rounded border-l-4 border-indigo-500">
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-indigo-400 font-bold text-sm">人格 (性格・中年期)</span>
-                                    <span class="text-2xl font-bold" id="res-jin-val">--</span>
-                                </div>
-                                <p class="text-sm text-gray-300" id="res-jin-text">計算結果が表示されます...</p>
+                    <div id="result-area" class="hidden animate-fade-in">
+                        <div
+                            class="bg-white/90 backdrop-blur-md rounded-2xl p-6 border border-white shadow-xl h-full flex flex-col relative overflow-hidden">
+                            <!-- Decorative bg for result -->
+                            <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-50 rounded-bl-full -mr-8 -mt-8 z-0">
                             </div>
 
-                            <!-- Sou-kaku Result -->
-                            <div class="bg-stone-800 p-4 rounded border-l-4 border-purple-500">
-                                <div class="flex justify-between items-center mb-1">
-                                    <span class="text-purple-400 font-bold text-sm">総格 (晩年・全体運)</span>
-                                    <span class="text-2xl font-bold" id="res-sou-val">--</span>
-                                </div>
-                                <p class="text-sm text-gray-300" id="res-sou-text">計算結果が表示されます...</p>
-                            </div>
+                            <h3
+                                class="text-lg font-bold text-gray-800 mb-6 border-b border-gray-100 pb-2 flex justify-between items-center relative z-10">
+                                <span class="flex items-center gap-2">
+                                    <i data-lucide="scroll" class="w-4 h-4 text-indigo-500"></i>
+                                    鑑定書
+                                </span>
+                                <span
+                                    class="text-xs font-normal bg-gray-100 px-2 py-1 rounded text-gray-500 border border-gray-200">完全版</span>
+                            </h3>
 
-                            <!-- Elemental Balance -->
-                            <div class="grid grid-cols-2 gap-4 pt-2">
-                                <div class="bg-stone-800 p-3 rounded text-center">
-                                    <span class="block text-xs text-gray-400">地格 (幼少期)</span>
-                                    <span class="block text-lg font-bold text-teal-400" id="res-chi-val">--</span>
+                            <div class="space-y-8 flex-grow overflow-y-auto pr-2 custom-scrollbar relative z-10"
+                                style="max-height: 600px;">
+
+                                <!-- Visual Diagram Section -->
+                                <div
+                                    class="bg-[#fcfaf5] p-6 rounded-2xl border border-stone-200 shadow-inner overflow-x-auto">
+                                    <h4 class="text-center text-gray-400 text-xs font-serif mb-4 tracking-widest">-
+                                        姓名判断図 -</h4>
+                                    <!-- Diagram Container -->
+                                    <div id="diagram-canvas"
+                                        class="relative min-w-[600px] h-[400px] mx-auto select-none">
+                                        <!-- JS will popoulate boxes and SVG lines here -->
+                                        <div class="flex items-center justify-center h-full text-gray-300 text-sm">
+                                            結果を表示するには姓名を入力して判定ボタンを押してください
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="bg-stone-800 p-3 rounded text-center">
-                                    <span class="block text-xs text-gray-400">外格 (対人運)</span>
-                                    <span class="block text-lg font-bold text-amber-400" id="res-gai-val">--</span>
+                                <!-- End Diagram Section -->
+
+                                <!-- 1. General Luck (Sou-kaku) - Highlighted -->
+                                <div
+                                    class="bg-gradient-to-r from-pink-50 to-white p-6 rounded-3xl border border-pink-100 shadow-md relative overflow-hidden">
+                                    <div
+                                        class="absolute top-0 right-0 w-32 h-32 bg-pink-100 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none">
+                                    </div>
+
+                                    <div class="relative z-10 flex flex-col md:flex-row items-center gap-6">
+                                        <div class="flex-shrink-0 text-center">
+                                            <div id="res-sou-luck-icon"
+                                                class="mb-2 flex justify-center transform hover:scale-110 transition-transform duration-300">
+                                                <!-- Icon Inserted by JS -->
+                                            </div>
+                                            <span id="res-sou-luck-text"
+                                                class="text-2xl font-bold text-pink-600 block">--</span>
+                                        </div>
+                                        <div class="flex-grow text-center md:text-left">
+                                            <div class="flex flex-col md:flex-row md:items-baseline gap-2 mb-2">
+                                                <h4
+                                                    class="text-pink-600 font-bold text-lg flex items-center justify-center md:justify-start gap-2">
+                                                    <i data-lucide="crown" class="w-5 h-5"></i> 総格 (総運)
+                                                </h4>
+                                                <span class="text-xs text-gray-500">晩年の運勢・人生の結末</span>
+                                            </div>
+                                            <div class="flex items-end justify-center md:justify-start gap-3 mb-3">
+                                                <span class="text-5xl font-serif font-bold text-gray-800 leading-none"
+                                                    id="res-sou-val">--</span>
+                                                <span class="text-sm text-gray-400 font-bold pb-1">画</span>
+                                                <div id="res-sou-stars" class="pb-1 ml-2"></div>
+                                            </div>
+                                            <p class="text-sm text-gray-600 leading-relaxed bg-white/60 p-3 rounded-lg border border-pink-100/50"
+                                                id="res-sou-desc">
+                                                --
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 2. Main Character (Jin-kaku) -->
+                                <div
+                                    class="bg-white p-5 rounded-2xl border border-indigo-100 shadow-sm relative overflow-hidden group hover:shadow-md transition-shadow">
+                                    <div class="absolute top-0 right-0 w-4 h-full bg-indigo-50/50"></div>
+                                    <div class="flex flex-col md:flex-row gap-5 items-start">
+                                        <div
+                                            class="flex-shrink-0 flex flex-col items-center w-full md:w-24 border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-4">
+                                            <span class="text-indigo-500 font-bold text-sm mb-2 block">人格 (主運)</span>
+                                            <div id="res-jin-luck-icon" class="mb-1"></div>
+                                            <div id="res-jin-stars" class="scale-75 origin-center"></div>
+                                        </div>
+                                        <div class="flex-grow w-full">
+                                            <div class="flex justify-between items-baseline mb-2">
+                                                <span class="text-xs text-gray-400 font-bold">性格・才能・30-50代</span>
+                                                <span class="text-lg font-bold text-gray-800"><span class="text-3xl"
+                                                        id="res-jin-val">--</span><span
+                                                        class="text-xs ml-1">画</span></span>
+                                            </div>
+                                            <div class="flex items-center gap-2 mb-2">
+                                                <span id="res-jin-luck-text"
+                                                    class="text-lg font-bold text-indigo-600">--</span>
+                                            </div>
+                                            <p class="text-sm text-gray-600 leading-relaxed" id="res-jin-desc">--</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- 3. Sub Grid (Chi, Gai, Ten) -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <!-- Chi-kaku -->
+                                    <div
+                                        class="bg-white p-4 rounded-xl border border-teal-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                                        <h5 class="text-teal-500 font-bold text-sm mb-2 flex items-center gap-1"><i
+                                                data-lucide="sprout" class="w-3 h-3"></i> 地格 (初運)</h5>
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-2xl font-bold text-gray-800" id="res-chi-val">--</span>
+                                            <span class="text-xs text-gray-400">画</span>
+                                        </div>
+                                        <div id="res-chi-luck-icon" class="mb-2 scale-75"></div>
+                                        <span id="res-chi-luck-text"
+                                            class="text-sm font-bold text-teal-600 mb-2">--</span>
+                                        <p class="text-xs text-center text-gray-500 leading-snug line-clamp-3"
+                                            id="res-chi-desc">--</p>
+                                    </div>
+
+                                    <!-- Gai-kaku -->
+                                    <div
+                                        class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm hover:shadow-md transition-shadow flex flex-col items-center text-center">
+                                        <h5 class="text-orange-500 font-bold text-sm mb-2 flex items-center gap-1"><i
+                                                data-lucide="users" class="w-3 h-3"></i> 外格 (援運)</h5>
+                                        <div class="flex items-center gap-2 mb-2">
+                                            <span class="text-2xl font-bold text-gray-800" id="res-gai-val">--</span>
+                                            <span class="text-xs text-gray-400">画</span>
+                                        </div>
+                                        <div id="res-gai-luck-icon" class="mb-2 scale-75"></div>
+                                        <span id="res-gai-luck-text"
+                                            class="text-sm font-bold text-orange-600 mb-2">--</span>
+                                        <p class="text-xs text-center text-gray-500 leading-snug line-clamp-3"
+                                            id="res-gai-desc">--</p>
+                                    </div>
+
+                                    <!-- Ten-kaku -->
+                                    <div
+                                        class="bg-gray-50 p-4 rounded-xl border border-gray-100 shadow-inner flex flex-col items-center text-center text-gray-500">
+                                        <h5 class="font-bold text-sm mb-2 flex items-center gap-1"><i
+                                                data-lucide="landmark" class="w-3 h-3"></i> 天格 (祖運)</h5>
+                                        <div class="flex items-center gap-2 mb-4">
+                                            <span class="text-2xl font-bold text-gray-600" id="res-ten-val">--</span>
+                                            <span class="text-xs">画</span>
+                                        </div>
+                                        <span class="text-xs bg-gray-200 px-2 py-1 rounded mb-2">吉凶判断なし</span>
+                                        <p class="text-[10px] leading-snug">家系から受け継いだ運気であり、個人の吉凶には含めません。</p>
+                                    </div>
+                                </div>
+
+                                <!-- Sansai (Five Elements) at Bottom -->
+                                <div
+                                    class="mt-4 bg-blue-50/50 p-4 rounded-2xl border border-blue-100 flex flex-col items-center">
+                                    <h4
+                                        class="text-sm font-bold text-blue-800 mb-4 opacity-70 uppercase tracking-widest text-center">
+                                        五行バランス (三才配置)</h4>
+                                    <div class="flex items-center justify-center gap-6 relative">
+                                        <!-- Connecting Lines (Visual only) -->
+                                        <div class="absolute top-1/2 left-0 w-full h-0.5 bg-blue-200 -z-10"></div>
+
+                                        <div
+                                            class="flex flex-col items-center bg-white/80 p-2 rounded-lg backdrop-blur-sm z-10">
+                                            <span class="text-[10px] text-gray-400 mb-1">天格</span>
+                                            <div id="res-sansai-ten-icon"></div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col items-center bg-white/80 p-2 rounded-lg backdrop-blur-sm z-10 transform scale-110">
+                                            <span class="text-[10px] text-gray-400 mb-1">人格</span>
+                                            <div id="res-sansai-jin-icon"></div>
+                                        </div>
+                                        <div
+                                            class="flex flex-col items-center bg-white/80 p-2 rounded-lg backdrop-blur-sm z-10">
+                                            <span class="text-[10px] text-gray-400 mb-1">地格</span>
+                                            <div id="res-sansai-chi-icon"></div>
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-center text-blue-900 mt-4 bg-white p-3 rounded-xl shadow-sm w-full"
+                                        id="res-sansai-text">
+                                        ...
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -702,57 +872,474 @@
             }
         }
 
-        // 3. Simulation Logic
-        function getElement(num) {
-            const lastDigit = num % 10;
-            if ([1, 2].includes(lastDigit)) return elementData.wood;
-            if ([3, 4].includes(lastDigit)) return elementData.fire;
-            if ([5, 6].includes(lastDigit)) return elementData.earth;
-            if ([7, 8].includes(lastDigit)) return elementData.metal;
-            return elementData.water;
+        // 3. New Simulation Logic (Auto Calculation)
+        let strokeData_S = [];
+        let strokeData_N = [];
+
+        function checkStrokes() {
+            const sName = document.getElementById('input-surname').value.trim();
+            const gName = document.getElementById('input-givenname').value.trim();
+
+            if (!sName || !gName) {
+                alert("姓と名を入力してください");
+                return;
+            }
+
+            // Create Inputs for Confirmation
+            const container = document.getElementById('stroke-inputs-container');
+            container.innerHTML = '';
+
+            // Helper to create row
+            const createRow = (label, chars) => {
+                const row = document.createElement('div');
+                row.className = "flex items-center gap-4";
+
+                const labelSpan = document.createElement('span');
+                labelSpan.className = "text-xs text-gray-400 w-12 font-bold";
+                labelSpan.innerText = label;
+                row.appendChild(labelSpan);
+
+                chars.split('').forEach((char, index) => {
+                    const wrap = document.createElement('div');
+                    wrap.className = "flex-1 flex gap-2 items-center";
+
+                    const charBox = document.createElement('div');
+                    charBox.className = "w-10 h-10 bg-white border border-gray-200 shadow-sm flex items-center justify-center rounded-lg text-gray-800 font-serif text-lg";
+                    charBox.innerText = char;
+
+                    const input = document.createElement('input');
+                    input.type = "number";
+                    input.className = "w-16 bg-white border border-red-200 rounded-lg p-2 text-center text-gray-900 focus:ring-2 focus:ring-red-400 outline-none font-bold";
+                    // kanji_data.js must be loaded. getStrokeCount is defined there.
+                    // Fallback to safety check if getStrokeCount is missing
+                    const count = (typeof getStrokeCount === 'function') ? getStrokeCount(char) : 0;
+                    input.value = count > 0 ? count : "";
+                    input.placeholder = "?";
+                    input.dataset.type = label === "姓" ? "surname" : "givenname"; // Mark data type
+
+                    wrap.appendChild(charBox);
+                    wrap.appendChild(input);
+                    row.appendChild(wrap);
+                });
+                container.appendChild(row);
+            };
+
+            createRow("姓", sName);
+            createRow("名", gName);
+
+            // Show Confirmation Area
+            document.getElementById('stroke-check-area').classList.remove('hidden');
+            lucide.createIcons();
         }
 
-        function getLuckText(num) {
-            // Simplified luck table for demo
-            const greatLuck = [1, 3, 5, 6, 11, 13, 15, 16, 21, 23, 24, 31, 32, 33, 35, 37, 39, 41, 45, 47, 48, 52, 57, 61, 63, 65, 67, 68];
-            const badLuck = [2, 4, 9, 10, 12, 14, 19, 20, 22, 26, 27, 28, 30, 34, 36, 40, 42, 43, 44, 46, 49, 50];
-
-            if (greatLuck.includes(num)) return "【大吉】素晴らしい運気を持っています。";
-            if (badLuck.includes(num)) return "【凶】困難が多いかもしれません。注意が必要です。";
-            return "【吉凶混合】努力次第で大きく変わります。";
+        // --- Helper Functions for Result Display ---
+        function getBadgeScore(luck) {
+            if (luck === "大吉") return 5;
+            if (luck === "吉") return 4;
+            if (luck.includes("凶")) return 2;
+            return 3;
         }
 
-        function calculateDestiny() {
-            const s1 = parseInt(document.getElementById('s1').value) || 0;
-            const s2 = parseInt(document.getElementById('s2').value) || 0;
-            const n1 = parseInt(document.getElementById('n1').value) || 0;
-            const n2 = parseInt(document.getElementById('n2').value) || 0;
+        function getLuckIcon(luck) {
+            if (luck === "大吉") return '<div class="w-12 h-12 rounded-full border-4 border-red-400 text-red-500 flex items-center justify-center bg-white shadow-sm"><i data-lucide="circle-dot" class="w-8 h-8"></i></div>';
+            if (luck === "吉") return '<div class="w-12 h-12 rounded-full border-4 border-pink-400 text-pink-500 flex items-center justify-center bg-white shadow-sm"><i data-lucide="circle" class="w-8 h-8"></i></div>';
+            if (luck.includes("凶")) return '<div class="w-12 h-12 rounded-full border-4 border-blue-300 text-blue-400 flex items-center justify-center bg-white shadow-sm"><i data-lucide="x" class="w-8 h-8"></i></div>';
+            return '<div class="w-12 h-12 rounded-full border-4 border-orange-300 text-orange-400 flex items-center justify-center bg-white shadow-sm"><i data-lucide="triangle" class="w-8 h-8"></i></div>';
+        }
 
-            const ten = s1 + s2;
-            const jin = s2 + n1;
-            const chi = n1 + n2;
-            const sou = s1 + s2 + n1 + n2;
-            // Traditional Gai-kaku: Total - Jin (simplest calculation for demo consistency)
-            // Or (S1 + N2) if 4 chars. Let's use (S1 + N2) for 4-char specific accuracy visual
-            const gai = sou - jin;
+        function getStarRating(score) {
+            let stars = "";
+            for (let i = 1; i <= 5; i++) {
+                if (i <= score) stars += '<i data-lucide="star" class="w-4 h-4 fill-yellow-400 text-yellow-400"></i>';
+                else stars += '<i data-lucide="star" class="w-4 h-4 text-gray-200"></i>';
+            }
+            return `<div class="flex gap-0.5">${stars}</div>`;
+        }
 
-            // Update DOM
+        function calculateFinally() {
+            // 1. Retrieve & Calculate Values
+            const inputs = document.querySelectorAll('#stroke-inputs-container input');
+            let sStrokes = [];
+            let gStrokes = [];
+
+            inputs.forEach(input => {
+                const val = parseInt(input.value) || 0;
+                if (input.dataset.type === "surname") sStrokes.push(val);
+                else gStrokes.push(val);
+            });
+
+            const sSum = sStrokes.reduce((a, b) => a + b, 0);
+            const gSum = gStrokes.reduce((a, b) => a + b, 0);
+
+            // Jin-kaku
+            const jin = sStrokes[sStrokes.length - 1] + gStrokes[0];
+
+            // Ten-kaku (+1 if 1 char)
+            let ten = sSum;
+            if (sStrokes.length === 1) ten += 1;
+
+            // Chi-kaku (+1 if 1 char)
+            let chi = gSum;
+            if (gStrokes.length === 1) chi += 1;
+
+            // Total (Sou-kaku) - Standard is usually raw sum
+            const rawTotal = sSum + gSum;
+
+            // Gai-kaku Logic
+            let modifier = 0;
+            if (sStrokes.length === 1) modifier += 1;
+            if (gStrokes.length === 1) modifier += 1;
+            let gai = (rawTotal + modifier) - jin;
+
+
+            // 2. Render Results
+            const resArea = document.getElementById('result-area');
+            resArea.classList.remove('hidden');
+
+            const getL = (n) => (typeof getLuckInfo === 'function') ? getLuckInfo(n) : { luck: "--", text: "データ読込エラー" };
+
+            // --- Sou-kaku (Total) ---
+            const souInfo = getL(rawTotal);
+            const souScore = getBadgeScore(souInfo.luck);
+            document.getElementById('res-sou-val').innerText = rawTotal + "画";
+            document.getElementById('res-sou-luck-icon').innerHTML = getLuckIcon(souInfo.luck);
+            document.getElementById('res-sou-luck-text').innerText = souInfo.luck;
+            document.getElementById('res-sou-stars').innerHTML = getStarRating(souScore);
+            document.getElementById('res-sou-desc').innerText = souInfo.text;
+
+            // --- Jin-kaku (Person) ---
+            const jinInfo = getL(jin);
+            const jinScore = getBadgeScore(jinInfo.luck);
             document.getElementById('res-jin-val').innerText = jin + "画";
-            const jinElem = getElement(jin);
-            document.getElementById('res-jin-text').innerHTML =
-                `${getLuckText(jin)}<br><span class="${jinElem.color}">五行: ${jinElem.name} (${jinElem.traits})</span>`;
+            document.getElementById('res-jin-luck-icon').innerHTML = getLuckIcon(jinInfo.luck);
+            document.getElementById('res-jin-luck-text').innerText = jinInfo.luck;
+            document.getElementById('res-jin-stars').innerHTML = getStarRating(jinScore);
+            document.getElementById('res-jin-desc').innerText = jinInfo.text;
 
-            document.getElementById('res-sou-val').innerText = sou + "画";
-            const souElem = getElement(sou);
-            document.getElementById('res-sou-text').innerHTML =
-                `${getLuckText(sou)}<br><span class="${souElem.color}">五行: ${souElem.name} (${souElem.traits})</span>`;
-
+            // --- Chi-kaku (Earth) ---
+            const chiInfo = getL(chi);
             document.getElementById('res-chi-val').innerText = chi + "画";
-            document.getElementById('res-gai-val').innerText = gai + "画";
+            document.getElementById('res-chi-luck-icon').innerHTML = getLuckIcon(chiInfo.luck);
+            document.getElementById('res-chi-luck-text').innerText = chiInfo.luck;
+            document.getElementById('res-chi-desc').innerText = chiInfo.text;
 
-            // Reveal result
-            const resultArea = document.getElementById('result-area');
-            resultArea.style.opacity = '1';
+            // --- Gai-kaku (Outer) ---
+            const gaiInfo = getL(gai);
+            document.getElementById('res-gai-val').innerText = gai + "画";
+            document.getElementById('res-gai-luck-icon').innerHTML = getLuckIcon(gaiInfo.luck);
+            document.getElementById('res-gai-luck-text').innerText = gaiInfo.luck;
+            document.getElementById('res-gai-desc').innerText = gaiInfo.text;
+
+            // --- Ten-kaku (Heaven) ---
+            document.getElementById('res-ten-val').innerText = ten + "画";
+
+            // --- Sansai (Five Elements) ---
+            const getEl = (n) => {
+                const d = n % 10;
+                if ([1, 2].includes(d)) return { t: '木', c: 'bg-green-400' };
+                if ([3, 4].includes(d)) return { t: '火', c: 'bg-red-400' };
+                if ([5, 6].includes(d)) return { t: '土', c: 'bg-yellow-400' };
+                if ([7, 8].includes(d)) return { t: '金', c: 'bg-gray-400' };
+                return { t: '水', c: 'bg-blue-400' };
+            };
+
+            const elTen = getEl(ten);
+            const elJin = getEl(jin);
+            const elChi = getEl(chi);
+
+            const setIcon = (id, el) => {
+                const div = document.getElementById(id);
+                div.innerText = el.t;
+                div.className = `w-14 h-14 rounded-full flex items-center justify-center font-bold text-2xl text-white shadow-md border-4 border-white ${el.c}`;
+            };
+            setIcon('res-sansai-ten-icon', elTen);
+            setIcon('res-sansai-jin-icon', elJin);
+            setIcon('res-sansai-chi-icon', elChi);
+
+            document.getElementById('res-sansai-text').innerHTML =
+                `<span class="font-bold text-gray-700">配置:</span> ${elTen.t} - ${elJin.t} - ${elChi.t}<br>
+                 <span class="text-xs text-gray-500">五行のエネルギーバランスを表示しています。</span>`;
+
+            lucide.createIcons();
+
+            // Scroll to result
+            resArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            // Render the Visual Diagram
+            setTimeout(() => {
+                renderDiagram(inputs, sSum, gSum, jin, ten, chi, gai, total);
+            }, 100); // Slight delay to ensure DOM layout is settled for SVG lines
+        }
+
+        // --- VISUAL DIAGRAM RENDERER ---
+        function renderDiagram(inputs, sSum, gSum, jin, ten, chi, gai, total) {
+            const container = document.getElementById('diagram-canvas');
+            if (!container) return;
+            container.innerHTML = ''; // Clear previous
+
+            // Extract names and strokes
+            let sChars = [];
+            let gChars = [];
+            inputs.forEach(input => {
+                const charBox = input.previousElementSibling;
+                if (charBox) {
+                    const char = charBox.innerText;
+                    const count = parseInt(input.value) || 0;
+                    if (input.dataset.type === "surname") sChars.push({ c: char, n: count });
+                    else gChars.push({ c: char, n: count });
+                }
+            });
+
+            if (sChars.length === 0 || gChars.length === 0) {
+                container.innerHTML = '<div class="flex items-center justify-center h-full text-red-300 text-sm">データ読み込みエラー</div>';
+                return;
+            }
+
+            // Helper to create a Box
+            // type: 'result' | 'char'
+            // pos: class string for positioning
+            const createBox = (id, text, num, luck, type, extraClass = "") => {
+                const div = document.createElement('div');
+                div.id = id;
+                div.className = `absolute flex flex-col items-center justify-center shadow-sm z-20 ${extraClass}`;
+
+                if (type === 'char') {
+                    // Character display
+                    div.className += " bg-transparent"; // Container for Char + Number
+                    div.innerHTML = `
+                        <div class="flex items-center gap-2">
+                            <div class="text-4xl font-serif text-gray-800">${text}</div>
+                            <div class="w-8 h-8 bg-white border border-gray-300 flex items-center justify-center text-sm font-bold text-gray-600 shadow-inner rounded">${num}</div>
+                        </div>
+                    `;
+                } else if (type === 'result') {
+                    // Result Card (Orange Header style)
+                    div.className += " bg-white border-2 border-orange-300 rounded-lg overflow-hidden w-28";
+                    const score = getBadgeScore(luck);
+                    const luckColor = score >= 4 ? "text-orange-600" : (score <= 2 ? "text-blue-500" : "text-gray-600");
+                    div.innerHTML = `
+                        <div class="bg-orange-400 text-white text-xs font-bold w-full text-center py-1">${text} ${num}</div>
+                        <div class="bg-white w-full text-center py-2 font-bold text-lg ${luckColor}">${luck}</div>
+                    `;
+                }
+                return div;
+            };
+
+            // Layout Constants
+            const CX = 300; // Center X
+            const SY_START = 50; // Surname Start Y
+            const CHAR_H = 60;   // Height per char step
+            const GAP_Y = 20;    // Gap between S and G
+
+            // Draw Character Column
+            let currentY = SY_START;
+
+            // Render Surname Chars
+            sChars.forEach((item, i) => {
+                const el = createBox(`node-s-${i}`, item.c, item.n, null, 'char');
+                el.style.left = `${CX - 60}px`; // Centered-ish
+                el.style.top = `${currentY}px`;
+                container.appendChild(el);
+                item.y = currentY + 20; // Center of box roughly
+                item.elId = `node-s-${i}`;
+                currentY += CHAR_H;
+            });
+
+            currentY += GAP_Y; // Spacer
+
+            // Render Given Name Chars
+            gChars.forEach((item, i) => {
+                const el = createBox(`node-g-${i}`, item.c, item.n, null, 'char');
+                el.style.left = `${CX - 60}px`;
+                el.style.top = `${currentY}px`;
+                container.appendChild(el);
+                item.y = currentY + 20;
+                item.elId = `node-g-${i}`;
+                currentY += CHAR_H;
+            });
+
+            const totalH = currentY + 50;
+            container.style.height = `${totalH}px`;
+
+            // Helper for luck
+            const getL = (n) => (typeof getLuckInfo === 'function') ? getLuckInfo(n) : { luck: "--" };
+
+            // Render Result Boxes
+            // 1. Tenkaku (Top Right)
+            const tenL = getL(ten).luck;
+            const nodeTen = createBox('node-res-ten', '天格', ten, tenL, 'result');
+            nodeTen.style.left = `${CX + 120}px`;
+            nodeTen.style.top = `${SY_START}px`;
+            container.appendChild(nodeTen);
+
+            // 2. Jinkaku (Left Middle - between S_last and G_first)
+            // Y position is roughly between the gap
+            const sLastY = sChars[sChars.length - 1].y;
+            const gFirstY = gChars[0].y;
+            const midY = (sLastY + gFirstY) / 2;
+
+            const jinL = getL(jin).luck;
+            const nodeJin = createBox('node-res-jin', '人格', jin, jinL, 'result');
+            nodeJin.style.left = `${CX - 220}px`;
+            nodeJin.style.top = `${midY - 30}px`; // Adjust for height
+            container.appendChild(nodeJin);
+
+            // 3. Chikaku (Bottom Right)
+            const chiL = getL(chi).luck;
+            const nodeChi = createBox('node-res-chi', '地格', chi, chiL, 'result');
+            nodeChi.style.left = `${CX + 120}px`;
+            nodeChi.style.top = `${gChars[gChars.length - 1].y - 20}px`;
+            container.appendChild(nodeChi);
+
+            // 4. Gaikaku (Top Left or Bottom Left? Image shows Left Top-ish for 2 chars, variable)
+            // Let's put it on Left Top for symmetry with Tenkaku
+            const gaiL = getL(gai).luck;
+            const nodeGai = createBox('node-res-gai', '外格', gai, gaiL, 'result');
+            nodeGai.style.left = `${CX - 220}px`;
+            nodeGai.style.top = `${SY_START}px`;
+            container.appendChild(nodeGai);
+
+            // 5. Sokaku (Bottom Right or Top Right Far? Image shows Right Middle Far)
+            const souL = getL(total).luck;
+            const nodeSou = createBox('node-res-sou', '総格', total, souL, 'result');
+            nodeSou.style.left = `${CX + 120}px`;
+            nodeSou.style.top = `${midY - 30}px`;
+            container.appendChild(nodeSou);
+
+            // Create SVG Layer
+            const svgNS = "http://www.w3.org/2000/svg";
+            const svg = document.createElementNS(svgNS, "svg");
+            svg.setAttribute("width", "100%");
+            svg.setAttribute("height", "100%");
+            svg.style.position = "absolute";
+            svg.style.top = "0";
+            svg.style.left = "0";
+            svg.style.zIndex = "10";
+            svg.style.pointerEvents = "none";
+            container.appendChild(svg);
+
+            // Line Drawer
+            const drawPath = (x1, y1, x2, y2, type = "straight") => {
+                const path = document.createElementNS(svgNS, "path");
+                let d = "";
+                if (type === "straight") {
+                    d = `M ${x1} ${y1} L ${x2} ${y2}`;
+                } else if (type === "bracket-right") {
+                    // [  ] style on right
+                    // x1,y1 is center of text group. We need to encompass them.
+                    const midX = (x1 + x2) / 2;
+                    d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+                } else if (type === "bracket-left") {
+                    const midX = (x1 + x2) / 2;
+                    d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+                }
+
+                path.setAttribute("d", d);
+                path.setAttribute("stroke", "#cbd5e1"); // slate-300
+                path.setAttribute("stroke-width", "2");
+                path.setAttribute("fill", "none");
+                svg.appendChild(path);
+            };
+
+            // Connect: Tenkaku (S Sum)
+            // Draw bracket from all S chars to Tenkaku
+            // Start from right side of S chars
+            const sRightX = CX + 20;
+            const tenLeftX = CX + 120;
+            const tenMidY = SY_START + 30; // Center of Tenkaku box roughly
+
+            // Draw lines from each S char to a common vertical trunk
+            let sMeanY = 0;
+            sChars.forEach(s => sMeanY += s.y);
+            sMeanY /= sChars.length;
+
+            // Simple bracket: From S top to S bottom -> Tenkaku
+            // Or just from each S char right side to Tenkaku left
+            // Standard diagram: Bracket gathering S chars
+            const sTopY = sChars[0].y;
+            const sBotY = sChars[sChars.length - 1].y;
+
+            // Bracket for Tenkaku
+            // Right of S -> Tenkaku
+            const trunkX = CX + 80;
+            drawPath(sRightX, sTopY, trunkX, sTopY); // Top S
+            if (sChars.length > 1) drawPath(sRightX, sBotY, trunkX, sBotY); // Bot S
+            if (sChars.length > 2) { /* middle ones */ }
+            drawPath(trunkX, sTopY, trunkX, sBotY); // Vertical
+            drawPath(trunkX, (sTopY + sBotY) / 2, tenLeftX, tenMidY); // To Box
+
+            // Bracket for Chikaku
+            // Right of G -> Chikaku
+            const gTopY = gChars[0].y;
+            const gBotY = gChars[gChars.length - 1].y;
+            const chiMidY = gBotY; // rough align
+
+            drawPath(sRightX, gTopY, trunkX, gTopY);
+            if (gChars.length > 1) drawPath(sRightX, gBotY, trunkX, gBotY);
+            drawPath(trunkX, gTopY, trunkX, gBotY);
+            drawPath(trunkX, (gTopY + gBotY) / 2, tenLeftX, parseInt(nodeChi.style.top) + 30);
+
+            // Jinkaku: S_Last and G_First
+            const sLeftX = CX - 60;
+            const jinRightX = CX - 110; // Box is at CX-220, width 110ish. Right edge ~ CX-110
+
+            const slY = sChars[sChars.length - 1].y;
+            const gfY = gChars[0].y;
+            // Lines from left of char to Jinkaku
+            // Draw a bracket on left side
+            const leftTrunkX = CX - 100;
+            drawPath(sLeftX, slY, leftTrunkX, slY);
+            drawPath(sLeftX, gfY, leftTrunkX, gfY);
+            drawPath(leftTrunkX, slY, leftTrunkX, gfY);
+            drawPath(leftTrunkX, (slY + gfY) / 2, parseInt(nodeJin.style.left) + 112, parseInt(nodeJin.style.top) + 30);
+
+            // Gaikaku: Technically S_first and G_last (for 2 char names)
+            // Let's connect S_first Left and G_last Left to Gai
+            const sfY = sChars[0].y;
+            const glY = gChars[gChars.length - 1].y;
+            const gaiRightX = parseInt(nodeGai.style.left) + 112;
+            const gaiTrunkX = CX - 140; // Further left
+
+            // Don't cross Jinkaku lines too messily.
+            // Draw path: S_first_Left -> Left -> Down -> Gai (which is at Top Left?)
+            // Wait, Gaikaku position in diagram:
+            // Usually top left or bottom left. 
+            // Let's just draw logical connections.
+            drawPath(sLeftX, sfY, gaiTrunkX, sfY);
+            drawPath(sLeftX, glY, gaiTrunkX, glY);
+            drawPath(gaiTrunkX, sfY, gaiTrunkX, glY);
+            drawPath(gaiTrunkX, (sfY + glY) / 2, gaiRightX, parseInt(nodeGai.style.top) + 30);
+
+            // Sokaku: All
+            // Just connect Tenkaku and Chikaku to Sokaku? Or separate bracket?
+            // Usually it's disjoint or connects everything.
+            // Let's draw a large bracket on right for Sokaku
+            const souTrunkX = CX + 250; // Far right
+            // Right of Tenkaku Box -> Sou
+            // Right of Chi Box -> Sou
+            const tenRightX = parseInt(nodeTen.style.left) + 112;
+            const chiRightX = parseInt(nodeChi.style.left) + 112;
+            const souLeftX = parseInt(nodeSou.style.left);
+
+            // NOT connecting result boxes, connecting Names usually.
+            // But stylistically, image creates a tree.
+            // Let's connect Tenkaku Box and Chikaku Box to Sokaku Box? No, that implies sum of sums (which it is).
+            // Let's do that.
+            const tY = parseInt(nodeTen.style.top) + 30;
+            const cY = parseInt(nodeChi.style.top) + 30;
+            const sY = parseInt(nodeSou.style.top) + 30;
+
+            drawPath(tenRightX, tY, souLeftX, sY, "bracket-right"); // This function logic might need tweak
+            // Manual path for SOU
+            // Ten -> Right -> Down -> Sou
+            // Chi -> Right -> Up -> Sou
+            const mergeX = tenRightX + 20;
+            drawPath(tenRightX, tY, mergeX, tY);
+            drawPath(chiRightX, cY, mergeX, cY);
+            drawPath(mergeX, tY, mergeX, cY);
+            drawPath(mergeX, sY, souLeftX, sY);
+
+            lucide.createIcons();
         }
 
         // --- CHART VISUALIZATION ---
