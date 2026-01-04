@@ -249,32 +249,32 @@
                     <!-- Common Controls -->
                     <div class="flex flex-wrap justify-center gap-2">
                         <div class="w-full text-center mb-1"><span
-                                class="text-[9px] text-stone-400 uppercase tracking-widest font-bold">Main Lines</span>
+                                class="text-xs text-stone-400 uppercase tracking-widest font-bold">Main Lines</span>
                         </div>
-                        <button onclick="simulateHover('life')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">生命線</button>
-                        <button onclick="simulateHover('head')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-blue-50 hover:border-blue-200 transition-all">知能線</button>
-                        <button onclick="simulateHover('heart')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-pink-50 hover:border-pink-200 transition-all">感情線</button>
-                        <button onclick="simulateHover('fate')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-purple-50 hover:border-purple-200 transition-all">運命線</button>
+                        <button id="map-btn-life" onclick="selectPart('life')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">生命線</button>
+                        <button id="map-btn-head" onclick="selectPart('head')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-blue-50 hover:border-blue-200 transition-all">知能線</button>
+                        <button id="map-btn-heart" onclick="selectPart('heart')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-pink-50 hover:border-pink-200 transition-all">感情線</button>
+                        <button id="map-btn-fate" onclick="selectPart('fate')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-purple-50 hover:border-purple-200 transition-all">運命線</button>
 
-                        <div class="w-full text-center mb-1 mt-2"><span
-                                class="text-[9px] text-stone-400 uppercase tracking-widest font-bold">Mounts (Energy
+                        <div class="w-full text-center mb-1 mt-4"><span
+                                class="text-xs text-stone-400 uppercase tracking-widest font-bold">Mounts (Energy
                                 Points)</span></div>
-                        <button onclick="simulateHover('jupiter')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-amber-50 hover:border-amber-200 transition-all">木星丘</button>
-                        <button onclick="simulateHover('saturn')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-stone-100 hover:border-stone-300 transition-all">土星丘</button>
-                        <button onclick="simulateHover('sun')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-yellow-50 hover:border-yellow-200 transition-all">太陽丘</button>
-                        <button onclick="simulateHover('mercury')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-emerald-50 hover:border-emerald-200 transition-all">水星丘</button>
-                        <button onclick="simulateHover('venus')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">金星丘</button>
-                        <button onclick="simulateHover('moon')"
-                            class="px-3 py-1.5 text-[10px] font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-indigo-50 hover:border-indigo-200 transition-all">月丘</button>
+                        <button id="map-btn-jupiter" onclick="selectPart('jupiter')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-amber-50 hover:border-amber-200 transition-all">木星丘</button>
+                        <button id="map-btn-saturn" onclick="selectPart('saturn')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-stone-100 hover:border-stone-300 transition-all">土星丘</button>
+                        <button id="map-btn-sun" onclick="selectPart('sun')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-yellow-50 hover:border-yellow-200 transition-all">太陽丘</button>
+                        <button id="map-btn-mercury" onclick="selectPart('mercury')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-emerald-50 hover:border-emerald-200 transition-all">水星丘</button>
+                        <button id="map-btn-venus" onclick="selectPart('venus')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-red-50 hover:border-red-200 transition-all">金星丘</button>
+                        <button id="map-btn-moon" onclick="selectPart('moon')"
+                            class="map-part-btn px-4 py-2 text-xs font-bold bg-white border border-stone-200 rounded-full shadow-sm hover:bg-indigo-50 hover:border-indigo-200 transition-all">月丘</button>
                     </div>
                 </div>
 
@@ -283,9 +283,9 @@
                     <div id="info-panel"
                         class="bg-white p-8 rounded-2xl shadow-xl border-l-8 border-indigo-900 h-full min-h-[400px] transition-all duration-500">
                         <div class="flex items-center justify-between mb-6">
-                            <h4 id="info-title" class="text-3xl font-bold text-stone-800 serif">手相の地図</h4>
+                            <h4 id="info-title" class="text-3xl md:text-4xl font-bold text-stone-800 serif">手相の地図</h4>
                             <span id="info-category"
-                                class="px-3 py-1 bg-stone-100 text-stone-400 rounded text-[10px] font-bold tracking-widest uppercase">Select
+                                class="px-3 py-1 bg-stone-100 text-stone-400 rounded text-xs font-bold tracking-widest uppercase">Select
                                 Part</span>
                         </div>
 
@@ -308,17 +308,17 @@
                                 <h5 class="font-bold text-indigo-900 mb-2 flex items-center gap-2">
                                     <i data-lucide="scroll" class="w-4 h-4"></i> 主な意味と役割
                                 </h5>
-                                <p id="info-meaning" class="text-sm text-stone-600 leading-relaxed"></p>
+                                <p id="info-meaning" class="text-base text-stone-600 leading-relaxed font-medium"></p>
                             </div>
 
                             <div class="space-y-4">
                                 <div>
                                     <h5 class="font-bold text-stone-700 mb-1 text-sm">部位の説明</h5>
-                                    <p id="info-desc" class="text-xs text-stone-500 italic"></p>
+                                    <p id="info-desc" class="text-sm text-stone-500 italic leading-relaxed"></p>
                                 </div>
                                 <div id="line-points-section">
                                     <h5 class="font-bold text-stone-700 mb-2 text-sm">鑑定のチェックポイント</h5>
-                                    <ul id="info-check" class="space-y-2">
+                                    <ul id="info-check" class="space-y-3">
                                         <!-- Dynamic points -->
                                     </ul>
                                 </div>
@@ -367,73 +367,155 @@
 
 
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                <!-- Group 1: Intelligence (Head Line) -->
+                <!-- Group 1: Life (Life Line) -->
+                <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
+                            <i data-lucide="zap" class="w-8 h-8 text-red-500"></i>
+                        </div>
+                        <h4 class="text-xl font-bold text-stone-800">1. 生命線</h4>
+                    </div>
+
+                    <div class="space-y-3">
+                        <button onclick="diagnose('life', 'wide')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">張り出しが広い</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'narrow')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q40,40 25,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">張り出しが狭い</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'chain')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444"
+                                            stroke-dasharray="2,6" stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">全体が鎖状</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'broken')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q50,35 45,50" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M55,60 Q45,75 30,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">途中で途切れる</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'rising')" class="w-full group text-left">
+                            <div
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M35,35 L15,10" fill="none" stroke="#ef4444" stroke-width="4"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">木星丘へ伸びる</div>
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group 2: Intelligence (Head Line) -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center">
                             <i data-lucide="brain" class="w-8 h-8 text-blue-600"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-stone-800">1. 知能線</h4>
+                        <h4 class="text-xl font-bold text-stone-800">2. 知能線</h4>
                     </div>
 
                     <div class="space-y-3">
                         <button onclick="diagnose('head', 'straight')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M20,60 Q50,60 85,60" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">直線・横向き</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">直線・横向き</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('head', 'curved')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M20,60 Q50,65 70,85" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">ゆるやかな下降</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">ゆるやかな下降</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('head', 'short')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M20,60 L50,60" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">極端に短い</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">極端に短い</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('head', 'long')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M20,60 Q50,60 95,65" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">深く長い知能線</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">深く長い知能線</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('head', 'forked')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M20,60 Q50,60 70,60" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
@@ -442,55 +524,54 @@
                                         <path d="M70,60 Q80,65 90,70" fill="none" stroke="#3b82f6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">先端が二股</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">先端が二股</div>
                                 </div>
                             </div>
                         </button>
                     </div>
                 </div>
 
-
-                <!-- Group 2: Heart (Heart Line) -->
+                <!-- Group 3: Emotion (Heart Line) -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 bg-pink-50 rounded-full flex items-center justify-center">
                             <i data-lucide="heart" class="w-8 h-8 text-pink-500"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-stone-800">2. 感情線</h4>
+                        <h4 class="text-xl font-bold text-stone-800">3. 感情線</h4>
                     </div>
 
                     <div class="space-y-3">
                         <button onclick="diagnose('heart', 'upward')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M85,45 Q50,45 20,20" fill="none" stroke="#ec4899" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">先端が急上昇</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">先端が急上昇</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('heart', 'between')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M85,45 Q50,45 35,25" fill="none" stroke="#ec4899" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">指の間に入る</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">指の間に入る</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('heart', 'branch')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M85,45 Q60,45 45,45" fill="none" stroke="#ec4899" stroke-width="6"
                                             stroke-linecap="round" />
@@ -499,203 +580,118 @@
                                         <path d="M45,45 Q35,50 30,55" fill="none" stroke="#ec4899" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">先端が枝分かれ</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">先端が枝分かれ</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('heart', 'horizontal')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M85,45 L20,45" fill="none" stroke="#ec4899" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">まっすぐ横向き</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">まっすぐ横向き</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('heart', 'chained')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M85,45 Q75,40 65,45 T45,45 T25,45" fill="none" stroke="#ec4899"
                                             stroke-width="4" stroke-dasharray="2,4" stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">全体が鎖状</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">全体が鎖状</div>
                                 </div>
                             </div>
                         </button>
                     </div>
                 </div>
 
-
-                <!-- Group 3: Life (Life Line) -->
-                <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
-                    <div class="flex items-center gap-3 mb-6">
-                        <div class="w-12 h-12 bg-red-50 rounded-full flex items-center justify-center">
-                            <i data-lucide="zap" class="w-8 h-8 text-red-500"></i>
-                        </div>
-                        <h4 class="text-lg font-bold text-stone-800">3. 生命線</h4>
-                    </div>
-
-                    <div class="space-y-3">
-                        <button onclick="diagnose('life', 'wide')" class="w-full group text-left">
-                            <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
-                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
-                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="6"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">張り出しが広い</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="diagnose('life', 'narrow')" class="w-full group text-left">
-                            <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
-                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
-                                        <path d="M25,20 Q40,40 25,90" fill="none" stroke="#ef4444" stroke-width="6"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">張り出しが狭い</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="diagnose('life', 'chain')" class="w-full group text-left">
-                            <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
-                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
-                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444"
-                                            stroke-dasharray="2,6" stroke-linecap="round" />
-                                    </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">全体が鎖状</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="diagnose('life', 'broken')" class="w-full group text-left">
-                            <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
-                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
-                                        <path d="M25,20 Q50,35 45,50" fill="none" stroke="#ef4444" stroke-width="6"
-                                            stroke-linecap="round" />
-                                        <path d="M55,60 Q45,75 30,90" fill="none" stroke="#ef4444" stroke-width="6"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">途中で途切れる</div>
-                                </div>
-                            </div>
-                        </button>
-                        <button onclick="diagnose('life', 'rising')" class="w-full group text-left">
-                            <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
-                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
-                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="6"
-                                            stroke-linecap="round" />
-                                        <path d="M35,35 L15,10" fill="none" stroke="#ef4444" stroke-width="4"
-                                            stroke-linecap="round" />
-                                    </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">木星丘へ伸びる</div>
-                                </div>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-
-
-                <!-- Group 4: Fate (Fate Line) New! -->
+                <!-- Group 4: Fate (Fate Line) -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="w-12 h-12 bg-purple-50 rounded-full flex items-center justify-center">
                             <i data-lucide="trending-up" class="w-8 h-8 text-purple-600"></i>
                         </div>
-                        <h4 class="text-lg font-bold text-stone-800">4. 運命線</h4>
+                        <h4 class="text-xl font-bold text-stone-800">4. 運命線</h4>
                     </div>
 
                     <div class="space-y-3">
                         <button onclick="diagnose('fate', 'straight')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M50,90 L50,20" fill="none" stroke="#8b5cf6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">中央を一直線</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">中央を一直線</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('fate', 'popular')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M80,85 Q65,60 55,20" fill="none" stroke="#8b5cf6" stroke-width="6"
                                             stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">月丘から昇る</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">月丘から昇る</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('fate', 'head')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M50,45 L50,15" fill="none" stroke="#8b5cf6" stroke-width="6"
                                             stroke-linecap="round" />
                                         <path d="M20,45 Q50,45 80,45" fill="none" stroke="#e5e7eb" stroke-width="2" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">知能線から昇る</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">知能線から昇る</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('fate', 'life_rising')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M35,60 Q40,40 50,15" fill="none" stroke="#8b5cf6" stroke-width="6"
                                             stroke-linecap="round" />
                                         <path d="M25,20 Q65,40 30,90" fill="none" stroke="#e5e7eb" stroke-width="2" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">生命線から昇る</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">生命線から昇る</div>
                                 </div>
                             </div>
                         </button>
                         <button onclick="diagnose('fate', 'broken')" class="w-full group text-left">
                             <div
-                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
-                                <div class="flex gap-3 items-center">
-                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                class="p-4 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-4 items-center">
+                                    <svg width="45" height="45" viewBox="0 0 100 100"
                                         class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
                                         <path d="M50,90 Q55,75 45,60 T50,30 T50,10" fill="none" stroke="#8b5cf6"
                                             stroke-width="6" stroke-linecap="round" />
                                     </svg>
-                                    <div class="text-[12px] font-bold text-stone-800">断続的・波打ち</div>
+                                    <div class="text-sm font-bold text-stone-800 leading-tight">断続的・波打ち</div>
                                 </div>
                             </div>
                         </button>
                     </div>
                 </div>
-
             </div>
 
             <!-- New Section: Mount Characteristics Expanded -->
@@ -714,78 +710,78 @@
                     <!-- Venus Mount -->
                     <button onclick="diagnose('mount', 'venus_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-red-200 hover:bg-red-50/30 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-red-100 flex items-center justify-center">
-                                <i data-lucide="heart" class="w-7 h-7 text-red-500"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-red-200 hover:bg-red-50/30 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center">
+                                <i data-lucide="heart" class="w-8 h-8 text-red-500"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">金星丘</div>
-                                <div class="text-[9px] text-stone-400">生命力・愛情</div>
+                                <div class="text-sm font-extrabold text-stone-800">金星丘</div>
+                                <div class="text-[10px] text-stone-400">生命力・愛情</div>
                             </div>
                         </div>
                     </button>
                     <!-- Jupiter Mount -->
                     <button onclick="diagnose('mount', 'jupiter_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-amber-200 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
-                                <i data-lucide="crown" class="w-7 h-7 text-amber-500"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-amber-200 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-8 h-8 text-amber-500"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">木星丘</div>
-                                <div class="text-[9px] text-stone-400">野心・自立</div>
+                                <div class="text-sm font-extrabold text-stone-800">木星丘</div>
+                                <div class="text-[10px] text-stone-400">野心・自立</div>
                             </div>
                         </div>
                     </button>
                     <!-- Saturn Mount -->
                     <button onclick="diagnose('mount', 'saturn_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-stone-400 hover:bg-stone-50 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-stone-100 flex items-center justify-center">
-                                <i data-lucide="microscope" class="w-7 h-7 text-stone-600"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-stone-400 hover:bg-stone-50 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-stone-100 flex items-center justify-center">
+                                <i data-lucide="microscope" class="w-8 h-8 text-stone-600"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">土星丘</div>
-                                <div class="text-[9px] text-stone-400">忍耐・探求</div>
+                                <div class="text-sm font-extrabold text-stone-800">土星丘</div>
+                                <div class="text-[10px] text-stone-400">忍耐・探求</div>
                             </div>
                         </div>
                     </button>
                     <!-- Sun Mount -->
                     <button onclick="diagnose('mount', 'sun_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-yellow-300 hover:bg-yellow-50/50 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-yellow-100 flex items-center justify-center">
-                                <i data-lucide="sun" class="w-7 h-7 text-yellow-500"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-yellow-300 hover:bg-yellow-50/50 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-yellow-100 flex items-center justify-center">
+                                <i data-lucide="sun" class="w-8 h-8 text-yellow-500"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">太陽丘</div>
-                                <div class="text-[9px] text-stone-400">成功・人気</div>
+                                <div class="text-sm font-extrabold text-stone-800">太陽丘</div>
+                                <div class="text-[10px] text-stone-400">成功・人気</div>
                             </div>
                         </div>
                     </button>
                     <!-- Mercury Mount -->
                     <button onclick="diagnose('mount', 'mercury_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-emerald-300 hover:bg-emerald-50/50 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-emerald-100 flex items-center justify-center">
-                                <i data-lucide="banknote" class="w-7 h-7 text-emerald-600"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-emerald-300 hover:bg-emerald-50/50 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <i data-lucide="banknote" class="w-8 h-8 text-emerald-600"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">水星丘</div>
-                                <div class="text-[9px] text-stone-400">財運・商才</div>
+                                <div class="text-sm font-extrabold text-stone-800">水星丘</div>
+                                <div class="text-[10px] text-stone-400">財運・商才</div>
                             </div>
                         </div>
                     </button>
                     <!-- Moon Mount -->
                     <button onclick="diagnose('mount', 'moon_high')" class="group text-left h-full">
                         <div
-                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-indigo-300 hover:bg-indigo-50/50 transition-all flex flex-col items-center text-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center">
-                                <i data-lucide="wand-2" class="w-7 h-7 text-indigo-500"></i>
+                            class="h-full bg-white p-6 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-indigo-300 hover:bg-indigo-50/50 transition-all flex flex-col items-center text-center gap-4">
+                            <div class="w-14 h-14 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <i data-lucide="wand-2" class="w-8 h-8 text-indigo-500"></i>
                             </div>
                             <div class="space-y-1">
-                                <div class="text-[11px] font-extrabold text-stone-800">月丘</div>
-                                <div class="text-[9px] text-stone-400">感性・神秘</div>
+                                <div class="text-sm font-extrabold text-stone-800">月丘</div>
+                                <div class="text-[10px] text-stone-400">感性・神秘</div>
                             </div>
                         </div>
                     </button>
@@ -1184,6 +1180,7 @@
         const rightTooltip = document.getElementById('right-tooltip');
 
         let currentHover = null;
+        let selectedId = null;
 
         function drawAllHands() {
             // Updated Mirroring Logic:
@@ -1238,12 +1235,13 @@
                 const mx = mirrorX(x);
                 const my = fixX(y);
                 const mr = r * scale;
+                const isActive = (currentHover === id || selectedId === id);
                 ctx.beginPath();
                 ctx.arc(mx, my, mr, 0, Math.PI * 2);
-                ctx.fillStyle = color + (currentHover === id ? '80' : '30');
-                if (currentHover === id) {
+                ctx.fillStyle = color + (isActive ? '80' : '30');
+                if (isActive) {
                     ctx.strokeStyle = color;
-                    ctx.lineWidth = 2;
+                    ctx.lineWidth = 3;
                     ctx.stroke();
                 }
                 ctx.fill();
@@ -1258,12 +1256,13 @@
 
             // 3. Draw Lines
             function dLine(id, color, drawFn) {
+                const isActive = (currentHover === id || selectedId === id);
                 ctx.beginPath();
                 drawFn(ctx, mirrorX, fixX);
-                ctx.lineWidth = currentHover === id ? 8 : 4;
-                ctx.strokeStyle = currentHover === id ? color : '#cbd5e1';
-                if (currentHover === id) {
-                    ctx.shadowBlur = 10;
+                ctx.lineWidth = isActive ? 10 : 4;
+                ctx.strokeStyle = isActive ? color : '#cbd5e1';
+                if (isActive) {
+                    ctx.shadowBlur = 15;
                     ctx.shadowColor = color;
                 }
                 ctx.lineCap = 'round';
@@ -1352,8 +1351,72 @@
 
         leftCanvas.addEventListener('mousemove', (e) => handleHover(e, leftCanvas, false));
         rightCanvas.addEventListener('mousemove', (e) => handleHover(e, rightCanvas, true));
-        leftCanvas.addEventListener('mouseleave', () => { leftTooltip.style.opacity = 0; });
-        rightCanvas.addEventListener('mouseleave', () => { rightTooltip.style.opacity = 0; });
+        leftCanvas.addEventListener('mouseleave', () => {
+            currentHover = null;
+            leftTooltip.style.opacity = 0;
+            drawAllHands();
+        });
+        rightCanvas.addEventListener('mouseleave', () => {
+            currentHover = null;
+            rightTooltip.style.opacity = 0;
+            drawAllHands();
+        });
+
+        const handleClick = (e, canvas, isMirror) => {
+            const rect = canvas.getBoundingClientRect();
+            const scaleX = 500 / rect.width;
+            const scaleY = 600 / rect.height;
+            let x = (e.clientX - rect.left) * scaleX;
+            let y = (e.clientY - rect.top) * scaleY;
+            if (isMirror) x = 500 - x;
+
+            let hitId = null;
+            const mounts = [
+                { id: 'jupiter', x: 180, y: 330, r: 40 },
+                { id: 'saturn', x: 245, y: 330, r: 40 },
+                { id: 'sun', x: 320, y: 335, r: 40 },
+                { id: 'mercury', x: 390, y: 360, r: 35 },
+                { id: 'venus', x: 130, y: 450, r: 60 },
+                { id: 'moon', x: 380, y: 480, r: 55 }
+            ];
+
+            for (let m of mounts) {
+                const dist = Math.sqrt((x - m.x) ** 2 + (y - m.y) ** 2);
+                if (dist < m.r) { hitId = m.id; break; }
+            }
+
+            if (!hitId) {
+                if (x > 150 && x < 200 && y > 350 && y < 550) hitId = 'life';
+                else if (x > 200 && x < 380 && y > 380 && y < 450) hitId = 'head';
+                else if (x > 200 && x < 410 && y > 300 && y < 380) hitId = 'heart';
+                else if (x > 230 && x < 270 && y > 350 && y < 550) hitId = 'fate';
+            }
+
+            if (hitId) selectPart(hitId);
+        };
+
+        leftCanvas.addEventListener('click', (e) => handleClick(e, leftCanvas, false));
+        rightCanvas.addEventListener('click', (e) => handleClick(e, rightCanvas, true));
+
+        function selectPart(id) {
+            selectedId = id;
+            drawAllHands();
+            updateInfoPanel(id);
+
+            // Highlight buttons under map
+            document.querySelectorAll('.map-part-btn').forEach(btn => {
+                btn.classList.remove('ring-4', 'ring-indigo-400', 'bg-indigo-50', 'border-indigo-200');
+            });
+            const activeBtn = document.getElementById(`map-btn-${id}`);
+            if (activeBtn) {
+                activeBtn.classList.add('ring-4', 'ring-indigo-400', 'bg-indigo-50', 'border-indigo-200');
+            }
+
+            // Optional: scroll to info panel if on mobile
+            if (window.innerWidth < 1280) {
+                document.getElementById('info-panel').scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
 
         function simulateHover(id) {
             currentHover = id;
@@ -1380,9 +1443,9 @@
             detailsEl.classList.remove('hidden');
 
             titleEl.textContent = data.name;
-            titleEl.className = `text-2xl md:text-3xl font-bold serif ${isLine ? 'text-indigo-900' : 'text-stone-800'}`;
+            titleEl.className = `text-3xl md:text-4xl font-bold serif ${isLine ? 'text-indigo-900' : 'text-stone-800'}`;
             catEl.textContent = isLine ? 'Major Line' : 'Hill/Mount';
-            catEl.className = `px-3 py-1 rounded text-[10px] font-bold tracking-widest uppercase ${isLine ? 'bg-indigo-100 text-indigo-700' : 'bg-amber-100 text-amber-700'}`;
+            catEl.className = `px-3 py-1 rounded text-xs font-bold tracking-widest uppercase ${isLine ? 'bg-indigo-100 text-indigo-700' : 'bg-amber-100 text-amber-700'}`;
 
             descEl.textContent = data.desc;
             meaningEl.textContent = data.meaning;
@@ -1579,8 +1642,8 @@
                     </div>
                     <div>
                         <div class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mb-1">${categoryNames[cat] || cat}</div>
-                        <h5 class="text-sm font-bold text-stone-800 mb-1">${item.title}</h5>
-                        <p class="text-xs text-stone-500 leading-relaxed">${item.text}</p>
+                        <h5 class="text-base font-bold text-stone-800 mb-1">${item.title}</h5>
+                        <p class="text-sm text-stone-500 leading-relaxed">${item.text}</p>
                     </div>
                 `;
                 grid.appendChild(card);

@@ -154,41 +154,72 @@
     </nav>
 
     <!-- Hero Section -->
-    <header id="overview" class="py-16 px-4 text-center bg-gradient-to-b from-stone-100 to-stone-50">
-        <div class="max-w-3xl mx-auto">
-            <span
-                class="inline-block py-1 px-3 rounded-full bg-amber-100 text-amber-800 text-xs font-bold tracking-wider mb-4">相術
-                (そうじゅつ)</span>
-            <h1 class="text-4xl md:text-5xl font-bold text-stone-900 mb-6 leading-tight">顔は、運命の履歴書であり<br>未来への地図である</h1>
-            <p class="text-lg text-stone-600 leading-relaxed mb-8">
-                人相占い（人相学）は、顔のパーツの形、配置、血色、シワなどから、その人の性格、気質、才能、そして運勢の良し悪しを判断する「相術」の一種です。
-                生まれ持った骨格だけでなく、日々の思考や行動が筋肉の動きを通じて顔に刻まれる「後天的」な要素も重視します。
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-left mt-12">
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 mb-2">
-                        <i data-lucide="eye" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">相術としての位置づけ</h3>
-                    <p class="text-sm text-stone-500">手相や家相と同じく、目に見える「形」から見えない運気を読み解く占術です。</p>
+    <section id="hero" class="relative pt-32 pb-20 px-4 overflow-hidden bg-[#F9F6F0]">
+        <!-- Decorative subtle icon outline -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl opacity-[0.03] pointer-events-none">
+            <i data-lucide="user" class="w-full h-full text-stone-900"></i>
+        </div>
+
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center space-y-8">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-amber-100/50 border border-amber-200 text-amber-800 text-xs font-bold tracking-widest uppercase animate-fade-in shadow-sm">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 運命を映し出す「心の鏡」
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 mb-2">
-                        <i data-lucide="brain" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">脳と顔の密接な関係</h3>
-                    <p class="text-sm text-stone-500">「脳相」とも呼ばれ、脳の働きや心の状態が表情筋を通じて顔に表れると考えます。</p>
-                </div>
-                <div class="bg-white p-6 rounded-lg shadow-sm border border-stone-100">
-                    <div class="text-amber-700 mb-2">
-                        <i data-lucide="refresh-cw" class="w-8 h-8"></i>
-                    </div>
-                    <h3 class="font-bold mb-2">変化する運勢</h3>
-                    <p class="text-sm text-stone-500">顔は変わります。心がけ次第で良い相を作り、運命を好転させることができるのが最大の特徴です。</p>
+
+                <h1 class="text-5xl md:text-7xl font-bold text-stone-900 serif leading-tight animate-fade-in-up"
+                    style="animation-delay: 0.1s">
+                    運命は、<span class="text-amber-700 italic">その顔</span>に<br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-indigo-900">すでに刻まれている。</span>
+                </h1>
+
+                <p class="max-w-2xl mx-auto text-lg md:text-xl text-stone-600 leading-relaxed animate-fade-in-up"
+                    style="animation-delay: 0.2s">
+                    人相学は、顔のパーツの形、配置、血色、シワなどから、その人の性格、気質、才能を判断する「相術」です。日々の思考や行動が刻む、唯一無二の履歴書を読み解きます。
+                </p>
+
+                <div class="flex flex-wrap justify-center gap-4 pt-4 animate-fade-in-up" style="animation-delay: 0.3s">
+                    <button onclick="scrollToSection('facemap')"
+                        class="bg-indigo-900 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-indigo-900/20 hover:scale-105 transition-all flex items-center gap-2 group">
+                        <i data-lucide="map" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i> 顔の地図を探索する
+                    </button>
+                    <button onclick="scrollToSection('practice')"
+                        class="bg-white text-stone-800 border-2 border-stone-200 px-8 py-4 rounded-full font-bold hover:bg-stone-50 transition-all">
+                        鑑定の基本手順
+                    </button>
                 </div>
             </div>
         </div>
-    </header>
+    </section>
+
+    <!-- Characteristics Grid -->
+    <section class="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                <div class="text-amber-700 mb-4 bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <i data-lucide="eye" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-stone-900 mb-2 serif">相術としての位置づけ</h3>
+                <p class="text-sm text-stone-500 leading-relaxed">手相や家相と同じく、目に見える「形」から見えない運気を読み解く占術です。</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                <div class="text-amber-700 mb-4 bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <i data-lucide="brain" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-stone-900 mb-2 serif">脳と顔の密接な関係</h3>
+                <p class="text-sm text-stone-500 leading-relaxed">「脳相」とも呼ばれ、脳の働きや心の状態が表情筋を通じて顔に表れると考えます。</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
+                <div class="text-amber-700 mb-4 bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center">
+                    <i data-lucide="refresh-cw" class="w-6 h-6"></i>
+                </div>
+                <h3 class="font-bold text-stone-900 mb-2 serif">変化する運勢</h3>
+                <p class="text-sm text-stone-500 leading-relaxed">顔は変わります。心がけ次第で良い相を作り、運命を好転させることが可能です。</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Main Content Area -->
     <main class="max-w-6xl mx-auto px-4 py-8 space-y-24">
