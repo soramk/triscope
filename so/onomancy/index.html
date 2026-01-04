@@ -130,24 +130,27 @@
     <nav class="fixed top-0 left-0 w-full z-50 glass-panel border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
             <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
-                <div
-                    class="w-10 h-10 bg-red-800 rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-red-900/20">
-                    <i data-lucide="sparkles" class="w-6 h-6"></i>
+                <div class="w-8 h-8 bg-red-800/10 rounded-lg flex items-center justify-center mr-3">
+                    <i data-lucide="hash" class="w-5 h-5 text-red-800"></i>
                 </div>
-                <div>
-                    <h1 class="text-xl font-bold text-gray-800 leading-none serif">Triscope</h1>
-                    <p class="text-[10px] text-gray-500 font-bold uppercase tracking-[0.2em]">Onomancy Explorer</p>
-                </div>
+                <span class="text-2xl font-bold text-gray-800 serif tracking-tight">姓名判断</span>
+                <span class="ml-2 text-xs text-gray-500 uppercase tracking-widest hidden sm:block">Onomancy</span>
             </div>
 
             <!-- Desktop Nav -->
             <div class="hidden md:flex items-center gap-1">
                 <button onclick="scrollToSection('overview')"
-                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all">概要</button>
+                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all flex items-center gap-2">
+                    <i data-lucide="info" class="w-4 h-4"></i> 概要
+                </button>
                 <button onclick="scrollToSection('logic')"
-                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all">ロジック</button>
+                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all flex items-center gap-2">
+                    <i data-lucide="brain" class="w-4 h-4"></i> ロジック
+                </button>
                 <button onclick="scrollToSection('simulation')"
-                    class="px-4 py-2 rounded-full text-sm font-medium text-gray-600 hover:bg-red-50 hover:text-red-800 transition-all border border-red-200 bg-red-50/50 text-red-700">鑑定体験</button>
+                    class="px-4 py-2 rounded-full text-sm font-medium text-red-700 bg-red-50 border border-red-200 hover:bg-red-100 transition-all flex items-center gap-2 ml-2">
+                    <i data-lucide="sparkles" class="w-4 h-4"></i> 鑑定体験
+                </button>
             </div>
 
             <!-- Mobile Menu Btn -->
@@ -160,12 +163,18 @@
         <div id="mobile-menu"
             class="hidden md:hidden bg-white/95 backdrop-blur-md border-b border-gray-100 animate-fade-in">
             <div class="px-4 pt-2 pb-6 space-y-3">
-                <button onclick="scrollToSection('overview')"
-                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">概要と特性</button>
-                <button onclick="scrollToSection('logic')"
-                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">仕組みとロジック</button>
-                <button onclick="scrollToSection('simulation')"
-                    class="block w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">鑑定シミュレーション</button>
+                <button onclick="scrollToSection('overview'); toggleMobileMenu()"
+                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">
+                    <i data-lucide="info" class="w-5 h-5"></i> 概要と特性
+                </button>
+                <button onclick="scrollToSection('logic'); toggleMobileMenu()"
+                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-gray-700 hover:bg-red-50 rounded-lg font-medium">
+                    <i data-lucide="brain" class="w-5 h-5"></i> 仕組みとロジック
+                </button>
+                <button onclick="scrollToSection('simulation'); toggleMobileMenu()"
+                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-red-800 font-bold hover:bg-red-50 rounded-lg border border-red-100">
+                    <i data-lucide="sparkles" class="w-5 h-5"></i> 鑑定シミュレーション
+                </button>
             </div>
         </div>
     </nav>

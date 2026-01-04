@@ -139,24 +139,29 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center cursor-pointer" onclick="window.location.href='../../index.html'">
-                    <div
-                        class="w-10 h-10 bg-torii rounded-xl flex items-center justify-center text-white mr-3 shadow-lg shadow-torii/20">
-                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    <div class="w-8 h-8 bg-torii/10 rounded-lg flex items-center justify-center mr-3">
+                        <i data-lucide="sparkles" class="w-5 h-5 text-torii"></i>
                     </div>
-                    <div>
-                        <h1 class="text-xl font-bold text-sumi leading-none serif">Triscope</h1>
-                        <p class="text-[10px] text-stone-500 font-bold uppercase tracking-[0.2em]">Omikuji Analysis</p>
-                    </div>
+                    <span class="text-2xl font-bold text-sumi serif tracking-tight">おみくじ</span>
+                    <span class="ml-2 text-xs text-stone-500 uppercase tracking-widest hidden sm:block">Omikuji</span>
                 </div>
-                <div class="hidden md:flex space-x-8">
+                <div class="hidden md:flex items-center gap-1">
                     <button onclick="scrollToSection('overview')"
-                        class="text-sumi hover:text-torii transition-colors font-medium">概要と論理</button>
+                        class="px-4 py-2 rounded-full text-sm font-medium text-sumi hover:bg-torii/10 hover:text-torii transition-all flex items-center gap-2">
+                        <i data-lucide="info" class="w-4 h-4"></i> 概要・論理
+                    </button>
                     <button onclick="scrollToSection('analysis')"
-                        class="text-sumi hover:text-torii transition-colors font-medium">読み解き</button>
+                        class="px-4 py-2 rounded-full text-sm font-medium text-sumi hover:bg-torii/10 hover:text-torii transition-all flex items-center gap-2">
+                        <i data-lucide="scroll" class="w-4 h-4"></i> 読み解き
+                    </button>
                     <button onclick="scrollToSection('history')"
-                        class="text-sumi hover:text-torii transition-colors font-medium">歴史</button>
+                        class="px-4 py-2 rounded-full text-sm font-medium text-sumi hover:bg-torii/10 hover:text-torii transition-all flex items-center gap-2">
+                        <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                    </button>
                     <button onclick="scrollToSection('ritual')"
-                        class="text-sumi hover:text-torii transition-colors font-medium">作法</button>
+                        class="px-4 py-2 rounded-full text-sm font-medium text-white bg-torii hover:bg-opacity-90 transition-all flex items-center gap-2 ml-2">
+                        <i data-lucide="book-open" class="w-4 h-4"></i> 作法
+                    </button>
                 </div>
                 <div class="md:hidden">
                     <button id="mobile-menu-btn" class="text-sumi p-2 hover:bg-stone-100 rounded-lg">
@@ -169,13 +174,21 @@
         <div id="mobile-menu"
             class="hidden md:hidden bg-washi border-t border-stone-200 px-4 py-2 shadow-lg animate-fade-in">
             <button onclick="scrollToSection('overview'); toggleMobileMenu()"
-                class="block w-full text-left py-2 text-sumi hover:bg-stone-100">概要と論理</button>
+                class="flex items-center gap-3 w-full text-left py-3 text-sumi hover:bg-stone-100 px-2 rounded-lg">
+                <i data-lucide="info" class="w-5 h-5"></i> 概要と論理
+            </button>
             <button onclick="scrollToSection('analysis'); toggleMobileMenu()"
-                class="block w-full text-left py-2 text-sumi hover:bg-stone-100">読み解き</button>
+                class="flex items-center gap-3 w-full text-left py-3 text-sumi hover:bg-stone-100 px-2 rounded-lg">
+                <i data-lucide="scroll" class="w-5 h-5"></i> 読み解き
+            </button>
             <button onclick="scrollToSection('history'); toggleMobileMenu()"
-                class="block w-full text-left py-2 text-sumi hover:bg-stone-100">歴史</button>
+                class="flex items-center gap-3 w-full text-left py-3 text-sumi hover:bg-stone-100 px-2 rounded-lg">
+                <i data-lucide="history" class="w-5 h-5"></i> 歴史
+            </button>
             <button onclick="scrollToSection('ritual'); toggleMobileMenu()"
-                class="block w-full text-left py-2 text-sumi hover:bg-stone-100">作法</button>
+                class="flex items-center gap-3 w-full text-left py-3 text-torii font-bold hover:bg-stone-100 px-2 rounded-lg">
+                <i data-lucide="book-open" class="w-5 h-5"></i> 作法
+            </button>
         </div>
     </nav>
 
