@@ -416,8 +416,39 @@
                                 </div>
                             </div>
                         </button>
+                        <button onclick="diagnose('head', 'long')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M20,60 Q50,60 95,65" fill="none" stroke="#3b82f6" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">深く長い知能線</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('head', 'forked')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-blue-300 group-hover:bg-blue-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M20,60 Q50,60 70,60" fill="none" stroke="#3b82f6" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M70,60 Q80,55 90,50" fill="none" stroke="#3b82f6" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M70,60 Q80,65 90,70" fill="none" stroke="#3b82f6" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">先端が二股</div>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
+
 
                 <!-- Group 2: Heart (Heart Line) -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
@@ -472,8 +503,35 @@
                                 </div>
                             </div>
                         </button>
+                        <button onclick="diagnose('heart', 'horizontal')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M85,45 L20,45" fill="none" stroke="#ec4899" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">まっすぐ横向き</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('heart', 'chained')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-pink-300 group-hover:bg-pink-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M85,45 Q75,40 65,45 T45,45 T25,45" fill="none" stroke="#ec4899"
+                                            stroke-width="4" stroke-dasharray="2,4" stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">全体が鎖状</div>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
+
 
                 <!-- Group 3: Life (Life Line) -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
@@ -524,8 +582,39 @@
                                 </div>
                             </div>
                         </button>
+                        <button onclick="diagnose('life', 'broken')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q50,35 45,50" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M55,60 Q45,75 30,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">途中で途切れる</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('life', 'rising')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-red-300 group-hover:bg-red-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#ef4444" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M35,35 L15,10" fill="none" stroke="#ef4444" stroke-width="4"
+                                            stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">木星丘へ伸びる</div>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
+
 
                 <!-- Group 4: Fate (Fate Line) New! -->
                 <div class="bg-white p-6 rounded-3xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
@@ -577,103 +666,171 @@
                                 </div>
                             </div>
                         </button>
+                        <button onclick="diagnose('fate', 'life_rising')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M35,60 Q40,40 50,15" fill="none" stroke="#8b5cf6" stroke-width="6"
+                                            stroke-linecap="round" />
+                                        <path d="M25,20 Q65,40 30,90" fill="none" stroke="#e5e7eb" stroke-width="2" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">生命線から昇る</div>
+                                </div>
+                            </div>
+                        </button>
+                        <button onclick="diagnose('fate', 'broken')" class="w-full group text-left">
+                            <div
+                                class="p-3 rounded-2xl bg-stone-50 border border-stone-200 group-hover:border-purple-300 group-hover:bg-purple-50 transition-all">
+                                <div class="flex gap-3 items-center">
+                                    <svg width="40" height="40" viewBox="0 0 100 100"
+                                        class="flex-shrink-0 bg-white rounded-lg border border-stone-100">
+                                        <path d="M50,90 Q55,75 45,60 T50,30 T50,10" fill="none" stroke="#8b5cf6"
+                                            stroke-width="6" stroke-linecap="round" />
+                                    </svg>
+                                    <div class="text-[12px] font-bold text-stone-800">断続的・波打ち</div>
+                                </div>
+                            </div>
+                        </button>
                     </div>
                 </div>
+
             </div>
 
             <!-- New Section: Mount Characteristics Expanded -->
             <div class="pt-12 border-t border-stone-100">
                 <h4
-                    class="text-xl font-bold text-stone-800 serif mb-8 flex items-center gap-2 text-center md:text-left justify-center md:justify-start">
+                    class="text-xl font-bold text-stone-800 serif mb-2 flex items-center gap-2 text-center md:text-left justify-center md:justify-start">
                     <i data-lucide="mountain" class="w-6 h-6 text-amber-600"></i> 各丘の発達（ふくらみ）で見る
                 </h4>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <p class="text-stone-500 text-xs mb-8 text-center md:text-left leading-relaxed">
+                    手の中で<span class="text-amber-600 font-bold underline">「最も肉付きが良く、ふっくらとしている場所」</span>を一つ選んでください。<br
+                        class="hidden md:block">
+                    そこが今、あなたの人生で最も強く働いているエネルギーの源（エネルギー・ポイント）です。
+                </p>
+
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                     <!-- Venus Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'venus_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>金星丘 <span class="text-[10px] font-normal text-stone-400">(親指下)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-red-200 hover:bg-red-50/30 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                <i data-lucide="heart" class="w-5 h-5 text-red-500"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">金星丘</div>
+                                <div class="text-[9px] text-stone-400">生命力・愛情</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'venus_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-red-50 hover:border-red-200 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'venus_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
-                        </div>
-                    </div>
+                    </button>
                     <!-- Jupiter Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'jupiter_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>木星丘 <span class="text-[10px] font-normal text-stone-400">(人差し指下)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-amber-200 hover:bg-amber-50/30 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="crown" class="w-5 h-5 text-amber-500"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">木星丘</div>
+                                <div class="text-[9px] text-stone-400">野心・自立</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'jupiter_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-amber-50 hover:border-amber-200 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'jupiter_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
-                        </div>
-                    </div>
+                    </button>
                     <!-- Saturn Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'saturn_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>土星丘 <span class="text-[10px] font-normal text-stone-400">(中指下)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-stone-400 hover:bg-stone-50 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+                                <i data-lucide="microscope" class="w-5 h-5 text-stone-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">土星丘</div>
+                                <div class="text-[9px] text-stone-400">忍耐・探求</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'saturn_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'saturn_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
-                        </div>
-                    </div>
+                    </button>
                     <!-- Sun Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'sun_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>太陽丘 <span class="text-[10px] font-normal text-stone-400">(薬指下)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-yellow-300 hover:bg-yellow-50/50 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center">
+                                <i data-lucide="sun" class="w-5 h-5 text-yellow-500"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">太陽丘</div>
+                                <div class="text-[9px] text-stone-400">成功・人気</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'sun_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-yellow-50 hover:border-yellow-200 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'sun_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
-                        </div>
-                    </div>
+                    </button>
                     <!-- Mercury Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'mercury_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>水星丘 <span class="text-[10px] font-normal text-stone-400">(小指下)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-emerald-300 hover:bg-emerald-50/50 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-emerald-100 flex items-center justify-center">
+                                <i data-lucide="banknote" class="w-5 h-5 text-emerald-600"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">水星丘</div>
+                                <div class="text-[9px] text-stone-400">財運・商才</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'mercury_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-emerald-50 hover:border-emerald-200 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'mercury_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
-                        </div>
-                    </div>
+                    </button>
                     <!-- Moon Mount -->
-                    <div
-                        class="bg-white p-6 rounded-3xl border border-stone-100 shadow-sm hover:ring-2 hover:ring-amber-100 transition-all">
+                    <button onclick="diagnose('mount', 'moon_high')" class="group text-left h-full">
                         <div
-                            class="text-sm font-bold text-stone-700 mb-4 pb-2 border-b border-stone-50 flex justify-between items-center">
-                            <span>月丘 <span class="text-[10px] font-normal text-stone-400">(小指側下部)</span></span>
+                            class="h-full bg-white p-4 rounded-2xl border border-stone-200 shadow-sm hover:ring-2 hover:ring-indigo-300 hover:bg-indigo-50/50 transition-all flex flex-col items-center text-center gap-3">
+                            <div class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center">
+                                <i data-lucide="wand-2" class="w-5 h-5 text-indigo-500"></i>
+                            </div>
+                            <div class="space-y-1">
+                                <div class="text-[11px] font-extrabold text-stone-800">月丘</div>
+                                <div class="text-[9px] text-stone-400">感性・神秘</div>
+                            </div>
                         </div>
-                        <div class="grid grid-cols-2 gap-2">
-                            <button onclick="diagnose('mount', 'moon_high')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-indigo-50 hover:border-indigo-200 transition-all text-[10px] font-bold text-center">豊か</button>
-                            <button onclick="diagnose('mount', 'moon_flat')"
-                                class="p-2 rounded-xl bg-stone-50 border border-stone-200 hover:bg-stone-100 transition-all text-[10px] font-bold text-center">平坦</button>
+                    </button>
+                </div>
+
+            </div>
+
+            <!-- Analysis Report Section (Real-time update) -->
+            <div id="diagnostic-report"
+                class="mt-20 p-8 md:p-12 bg-stone-50 rounded-[3rem] border border-stone-200 shadow-inner relative overflow-hidden">
+                <div
+                    class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200">
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
+                        <div class="text-center md:text-left">
+                            <h4 class="text-2xl font-bold text-stone-900 serif">Your Analysis Report</h4>
+                            <p class="text-stone-500 text-sm">鑑定書：あなたの手のひらが語る本質</p>
                         </div>
+                        <button onclick="clearReport()"
+                            class="flex items-center gap-2 px-4 py-2 text-xs font-bold text-stone-400 hover:text-red-500 transition-colors">
+                            <i data-lucide="rotate-ccw" class="w-4 h-4"></i> リセット
+                        </button>
+                    </div>
+
+                    <div id="report-empty" class="py-12 text-center">
+                        <div
+                            class="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-4 shadow-sm border border-stone-100">
+                            <i data-lucide="file-edit" class="w-8 h-8 text-stone-200"></i>
+                        </div>
+                        <p class="text-stone-400 text-sm italic">上のアイコンから自身の線や丘の状態を選択してください。<br>ここにあなたの鑑定レポートが構成されます。
+                        </p>
+                    </div>
+
+                    <div id="report-grid" class="grid grid-cols-1 md:grid-cols-2 gap-4 hidden">
+                        <!-- Categories will be injected here -->
+                    </div>
+
+                    <div id="report-footer" class="mt-10 pt-8 border-t border-stone-200 hidden text-center">
+                        <p class="text-[10px] text-stone-400 uppercase tracking-[0.2em] font-bold">Generated by Triscope
+                            Palmistry Engine</p>
                     </div>
                 </div>
             </div>
+
 
         </section>
 
@@ -1288,24 +1445,32 @@
         // --- Comprehensive Diagnostics Logic ---
         const diagData = {
             head: {
-                straight: { title: "【論理的実務家タイプ】", text: "知能線が直線的な人は、非常に合理的で現実的です。感情に流されず、事実とデータに基づいて判断を下す能力に長けています。事務、経理、技術職、法律関係など、緻密な思考が求められる分野で圧倒的な実力を発揮します。", icon: "file-text" },
-                curved: { title: "【感性豊かなクリエイタータイプ】", text: "知能線が緩やかに下降する人は、想像力と感性が豊かです。共感能力が高く、物語を紡いだりデザインしたりすることを得意とします。芸術、企画、カウンセラー、教育など、人の心に触れる仕事に向いています。", icon: "palette" },
-                short: { title: "【即断即決の直感型】", text: "知能線が短い（中指の下あたりで終わる）人は、思考のスピードが非常に速く、迷う前に体が動く直感タイプです。チャンスを逃さない瞬発力があり、変化の激しい現場やスポーツ、短期決戦のビジネスで強さを発揮します。", icon: "zap" }
+                straight: { title: "【論理的実務家タイプ】", text: "物事を客観的、かつ論理的に捉える力に優れています。感情に流されず、事実に基づいて判断を下すため、ビジネスや実務的な分野で厚い信頼を得る、プロフェッショナルな素質を持っています。", icon: "file-text" },
+                curved: { title: "【感性豊かなクリエイタータイプ】", text: "想像力や直感力に優れ、独創的なアイデアを生み出す才能があります。芸術やデザイン、企画など、感性を活かす分野で真価を発揮し、独自の視点で周囲を驚かせる可能性を秘めています。", icon: "palette" },
+                short: { title: "【即断即決の直感型】", text: "考えるよりも先に体が動く、非常にフットワークの軽いタイプです。変化を恐れず、持ち前の直感力でチャンスを瞬時に掴み取ります。スピード感が求められる環境で最大のパフォーマンスを発揮します。", icon: "zap" },
+                long: { title: "【熟考・理論派の職人気質】", text: "物事を深く掘り下げ、多角的に検討する粘り強い思考の持ち主です。決して妥協せず、完璧を追い求める姿勢は周囲から高く評価されます。専門性の高い技術職や、研究者として大成する相です。", icon: "microscope" },
+                forked: { title: "【多才なアイデアマン】", text: "二つの異なる視点を持ち、柔軟な発想ができるタイプです。複数のことを同時にこなす器用さもあり、執筆や企画、コーディネートなど、情報を統合して新しい価値を生む仕事で活躍します。", icon: "layout" }
             },
             heart: {
-                upward: { title: "【情熱的なロマンチスト】", text: "感情線が急角度で立ち上がる人は、喜怒哀楽がはっきりしており、非常に情熱的です。一度好きになると周りが見えなくなるほど一途ですが、独占欲も強い傾向にあります。対面接客や表現活動で人気を集めます。", icon: "flame" },
-                between: { title: "【誠実でバランスの取れた愛の人】", text: "感情線の先端が人差し指と中指の間に入る人は、愛情深くも理性的で、非常にバランスの取れた性格です。家族や友人を大切にし、献身的に尽くすことができます。教育、福祉、チームビルディングなどで信頼を集めます。", icon: "smile" },
-                branch: { title: "【社交性抜群の気配り達人】", text: "先端が細かく分かれている人は、感受性が非常に高く、相手の求めることを瞬時に察知できます。いわゆる「サービス精神旺盛な人」です。営業やPR、コンサルタントなど、人と深く関わる分野で大成します。", icon: "users" }
+                upward: { title: "【情熱的なロマンチスト】", text: "感情表現が豊かで、非常に情熱的な性格の持ち主です。何事にも心を込めて向き合い、人間味あふれる魅力で周囲を引き寄せます。一度火がつくと驚くほどの集中力と献身を見せるタイプです。", icon: "flame" },
+                between: { title: "【誠実でバランスの取れた愛の人】", text: "愛情深く、かつ理性を失わない、非常に調和の取れた精神の持ち主です。誠実な対人関係を築くことができ、家族や友人に惜しみない愛を注ぎます。あなたの周りには常に穏やかな空気が流れています。", icon: "smile" },
+                branch: { title: "【社交性抜群の気配り達人】", text: "相手の気持ちを察する能力に長け、誰とでも円滑にコミュニケーションが取れる社交家です。サービス精神が旺盛で、場を盛り上げたり、人のサポートをすることに喜びを感じる愛されキャラです。", icon: "users" },
+                horizontal: { title: "【冷静沈着なリアリスト】", text: "感情に左右されず、常に冷静に対処できる不動の精神を持っています。クールに見られがちですが、内面には強い責任感を秘めており、危機的状況でも動じずに解決策を導き出す頼れる存在です。", icon: "anchor" },
+                chained: { title: "【感性豊かなデリケートタイプ】", text: "並外れた感受性を持ち、人の痛みや芸術の美しさを自分自身のことのように深く感じ取れる人です。その繊細さを強みに変えることで、表現の世界や人の心に寄り添う仕事で大きな光を放ちます。", icon: "activity" }
             },
             life: {
-                wide: { title: "【バイタリティ溢れるリーダー】", text: "生命線のカーブが大きく親指側に張り出している人は、驚異的な生命力と肉体的なタフさを持っています。困難に直面しても跳ね除けるパワーがあり、自ら先頭に立って道を切り拓く起業家やスポーツ選手に多い相です。", icon: "zap" },
-                narrow: { title: "【思慮深いデリケート派】", text: "生命線のカーブが狭い人は、肉体的なパワーよりも知性や精神性を重視するタイプです。控えめですが粘り強く、集中力が必要な研究職や創作活動で力を発揮します。自分のリズムを守ることで運気が安定します。", icon: "search" },
-                chain: { title: "【感受性豊かなデリケートタイプ】", text: "生命線が鎖状になっている時期は、心身ともにデリケートな状態であることを示します。環境の変化に敏感で、疲れが溜まりやすい傾向にありますが、その分細やかな気配りや感受性を備えています。休息を大切に。", icon: "activity" }
+                wide: { title: "【バイタリティ溢れるリーダー】", text: "生命力が非常に強く、常にエネルギーに満ちあふれています。困難を跳ね除けるパワーがあり、周囲を明るくリードしていくカリスマ性を備えています。アクティブな活動を通して運気がさらに向上します。", icon: "zap" },
+                narrow: { title: "【思慮深いデリケート派】", text: "繊細な感性を持ち、体力の消耗を察知して賢く行動できるタイプです。無理をせず、自分のペースを守ることで持てる才能がじっくりと発揮されます。一人の時間を大切にすることで精神的な安定を得られます。", icon: "search" },
+                chain: { title: "【感受性豊かなデリケートタイプ】", text: "環境の変化に敏感で、きめ細やかな配慮ができる人です。他人の変化にもいち早く気づくことができ、その優しさが周囲の支えとなります。無理は禁物ですが、組織の潤滑油として不可欠な存在です。", icon: "activity" },
+                broken: { title: "【転機をチャンスに変える人】", text: "人生において大きな環境の変化や、価値観の転換を経験しやすい相です。しかしそれは、新しい自分に生まれ変わるステップでもあります。変化を前向きに捉えることで、道がさらに大きく開けます。", icon: "refresh-cw" },
+                rising: { title: "【目標へ突き進む向上心】", text: "非常に強い向上心と、自らチャンスを掴みに行く積極的な精神を持っています。目標を定めると、それに向かって邁進する力強さがあります。努力した分だけ、目に見える形で報われる幸運な相です。", icon: "trending-up" }
             },
             fate: {
                 straight: { title: "【意志を貫く独立不敵型】", text: "運命線が手首から一直線に昇っている人は、強い意志と自立心の持ち主です。他人の助けを借りず、自らの実力で運命を切り拓きます。リーダーや経営者として活躍する「天下取り」の相とも言われます。", icon: "award" },
                 popular: { title: "【人気と援助を掴むラッキー型】", text: "運命線が月丘（小指側の手首上）から昇る人は、周囲の人々からの協力や人気によって道が開けるタイプです。愛嬌があり、引き立てを受けやすいため、芸能、接客、クリエイティブな仕事で大きな成功を収めます。", icon: "users-2" },
-                head: { title: "【知性を武器にする大器晩成型】", text: "運命線が知能線からスタートしている人は、自身の知識や経験を武器に、人生の後半（30代後半〜）から本格的に開花するタイプです。地道な努力が大きな実を結び、専門分野での第一人者となる可能性を秘めています。", icon: "graduation-cap" }
+                head: { title: "【知性を武器にする大器晩成型】", text: "運命線が知能線からスタートしている人は、自身の知識や経験を武器に、人生の後半（30代後半〜）から本格的に開花するタイプです。地道な努力が大きな実を結び、専門分野での第一人者となる可能性を秘めています。", icon: "graduation-cap" },
+                life_rising: { title: "【自力開運の努力家】", text: "生命線から運命線が昇っている人は、自身のたゆまぬ努力によって、確実に夢を実現させる実力派です。家系などの恩恵よりも、自分の力で人生を築き上げることに誇りと喜びを感じる、尊敬されるタイプです。", icon: "clover" },
+                broken: { title: "【変化を味方にする変革者】", text: "人生の途中で何度もキャリアチェンジや大きな方針転換を経験する傾向がありますが、そのたびに磨かれていく人です。一つの枠に収まらず、時代に合わせて自分をアップデートできる柔軟性が成功の鍵となります。", icon: "cpu" }
             },
             mount: {
                 venus_high: { title: "【生命力溢れるエネルギッシュな人】", text: "金星丘が豊かに発達している人は、心身ともに非常にタフで、愛情深い性格です。スタミナがあり、困難を乗り越えるバイタリティに満ちています。家族や友人への献身も惜しみません。", icon: "heart" },
