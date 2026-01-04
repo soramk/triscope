@@ -469,40 +469,84 @@
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
-                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Lucky
-                                            Color</span>
-                                        <span id="lucky-color"
-                                            class="text-xs font-bold text-sanmei-accent">インディゴブルー</span>
-                                    </div>
-                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
-                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Lucky
-                                            Item</span>
-                                        <span id="lucky-item"
-                                            class="text-xs font-bold text-sanmei-accent">古書・アンティーク</span>
-                                    </div>
-                                    <div class="p-3 bg-white/50 rounded-2xl border border-white shadow-sm">
-                                        <span class="block text-[8px] text-slate-400 uppercase font-black">Success
-                                            Key</span>
-                                        <span id="success-key"
-                                            class="text-xs font-bold text-sanmei-accent">独創的な試み</span>
-                                    </div>
-                                    <div
-                                        class="p-3 bg-sanmei-dark text-white rounded-2xl shadow-lg border border-slate-700">
-                                        <span class="block text-[8px] text-slate-400 uppercase font-black mb-1">Your
-                                            Tenchu-satsu</span>
-                                        <span id="tenchu-name" class="text-xs font-bold text-sanmei-accent">戌亥天中殺</span>
-                                        <div class="mt-1 flex flex-col items-center gap-1">
-                                            <div class="flex gap-2">
-                                                <span id="tenchu-months"
-                                                    class="text-[7px] px-1 bg-white/10 rounded text-slate-300">毎年
-                                                    --月</span>
-                                                <span id="tenchu-symbols"
-                                                    class="text-[7px] px-1 bg-white/10 rounded text-slate-300">--年</span>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <!-- Lucky Info Group -->
+                                    <div class="space-y-4">
+                                        <div
+                                            class="flex items-center gap-4 p-5 bg-white/60 rounded-3xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                                            <div
+                                                class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-500 flex items-center justify-center shadow-inner">
+                                                <i data-lucide="palette" class="w-6 h-6"></i>
                                             </div>
-                                            <span id="tenchu-years" class="text-[8px] text-slate-400 font-bold">次は
-                                                ----年</span>
+                                            <div>
+                                                <span
+                                                    class="block text-[10px] text-slate-400 uppercase font-black tracking-widest">ラッキーカラー</span>
+                                                <span id="lucky-color"
+                                                    class="text-lg font-bold text-sanmei-dark">--</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="flex items-center gap-4 p-5 bg-white/60 rounded-3xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                                            <div
+                                                class="w-12 h-12 rounded-2xl bg-pink-50 text-pink-500 flex items-center justify-center shadow-inner">
+                                                <i data-lucide="gem" class="w-6 h-6"></i>
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="block text-[10px] text-slate-400 uppercase font-black tracking-widest">ラッキーアイテム</span>
+                                                <span id="lucky-item"
+                                                    class="text-lg font-bold text-sanmei-dark">--</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Success & Tenchu-satsu Group -->
+                                    <div class="space-y-4">
+                                        <div
+                                            class="flex items-center gap-4 p-5 bg-white/60 rounded-3xl border border-white shadow-sm hover:shadow-md transition-shadow">
+                                            <div
+                                                class="w-12 h-12 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center shadow-inner">
+                                                <i data-lucide="key" class="w-6 h-6"></i>
+                                            </div>
+                                            <div>
+                                                <span
+                                                    class="block text-[10px] text-slate-400 uppercase font-black tracking-widest">成功の鍵</span>
+                                                <span id="success-key"
+                                                    class="text-lg font-bold text-sanmei-dark">--</span>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class="p-6 bg-sanmei-dark text-white rounded-3xl shadow-xl border border-slate-700 relative overflow-hidden group min-h-[140px] flex flex-col justify-center">
+                                            <div
+                                                class="absolute top-0 right-0 w-32 h-32 bg-sanmei-accent/10 rounded-full -mr-16 -mt-16 blur-2xl group-hover:bg-sanmei-accent/20 transition-all">
+                                            </div>
+                                            <div class="relative z-10">
+                                                <span
+                                                    class="block text-[10px] text-slate-400 uppercase font-black tracking-widest mb-2">あなたの天中殺</span>
+                                                <div class="flex items-baseline gap-3 mb-4">
+                                                    <span id="tenchu-name"
+                                                        class="text-2xl font-bold text-sanmei-accent tracking-tighter">---天中殺</span>
+                                                </div>
+                                                <div class="flex flex-wrap gap-2 mb-3">
+                                                    <div
+                                                        class="px-2.5 py-1 bg-white/10 rounded-lg flex items-center gap-2 border border-white/5">
+                                                        <i data-lucide="calendar" class="w-3 h-3 text-slate-300"></i>
+                                                        <span id="tenchu-months"
+                                                            class="text-[10px] text-slate-200 font-bold">毎年 --月</span>
+                                                    </div>
+                                                    <div
+                                                        class="px-2.5 py-1 bg-white/10 rounded-lg flex items-center gap-2 border border-white/5">
+                                                        <i data-lucide="hash" class="w-3 h-3 text-slate-300"></i>
+                                                        <span id="tenchu-symbols"
+                                                            class="text-[10px] text-slate-200 font-bold">--年</span>
+                                                    </div>
+                                                </div>
+                                                <div id="tenchu-years"
+                                                    class="text-[10px] text-slate-400 font-medium leading-relaxed">
+                                                    今後の注意時期: ----年
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
