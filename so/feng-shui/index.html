@@ -12,7 +12,7 @@
         rel="stylesheet">
     <!-- 共通CSS -->
     <link rel="stylesheet" href="../../assets/common.css">
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <!-- Chosen Palette: Earth & Harmony -->
     <!-- Primary: Warm Taupe/Stone (#A89F91) - Stability -->
@@ -754,7 +754,8 @@
                     "玄関マットを敷いて、外からの「砂気（不要な気）」を外す",
                     "明るい照明を使い、陰気な溜まり場を作らない",
                     "良い香りを漂わせ、ポジティブな気を引き寄せる"
-                ]
+                ],
+                suggestion: "玄関から入って左側に鏡を置くと金運が、右側に置くと地位や名声運がアップすると言われています。ただし、両側に置く『合わせ鏡』は気が循環せず停滞するため避けてください。"
             },
             bedroom: {
                 title: "寝室：運勢の充電器",
@@ -765,7 +766,8 @@
                     "ベッド下に物を置かず、気の通り道を確保する",
                     "電磁波を発する機器（スマホ・PC）は枕元から遠ざける",
                     "落ち着いた色（ベージュや淡いブルー）のリネンを選ぶ"
-                ]
+                ],
+                suggestion: "枕の向きを「北枕」にすることをお勧めします。亡くなった方の向きというイメージがありますが、風水では地球の磁力に沿って血流が安定し、最も深い休息が得られる理想的な向きです。"
             },
             living: {
                 title: "リビング：家庭・人間関係の要",
@@ -776,7 +778,8 @@
                     "家族写真を飾り、和を強調する",
                     "布製のソファには常に清潔なカバーやクッションを使う",
                     "暖色系のライティングで温かみのある空間を演出する"
-                ]
+                ],
+                suggestion: "部屋の四隅は気が滞りやすい「死気」の場所になりがちです。ここに小さな盛り塩や水晶を配置したり、サーキュレーターで空気を動かすことで、家庭内の不和が解消しやすくなります。"
             },
             kitchen: {
                 title: "キッチン：金運と健康の源",
@@ -787,7 +790,8 @@
                     "蓋のないゴミ箱を避け、悪い気が漏れないようにする",
                     "油汚れは即座に落とし、気が停滞しないようにする",
                     "包丁は見えない場所に収納し、鋭利な「殺気」を隠す"
-                ]
+                ],
+                suggestion: "金運を司るキッチンの床が汚れていると、収入が底抜けになります。特にコンロ周りの油汚れは『火の気』を過剰に乱すため、調理が終わるたびに一拭きする習慣が最強の金運改善策です。"
             },
             study: {
                 title: "仕事部屋・書斎：キャリアと成功",
@@ -798,7 +802,8 @@
                     "整理された棚を使い、思考のノイズを減らす",
                     "金属製のアートや時計を置き、決断力を強化する",
                     "タスクが終わるたびに換気し、新鮮なアイデアを取り込む"
-                ]
+                ],
+                suggestion: "デスクの上に『龍』の置物や、タイガーアイのパワーストーンを置くことを提案します。これらは勇気と直感象徴し、重要な決断を迫られる場面での迷いを断ち切る助けとなります。"
             },
             toilet: {
                 title: "トイレ・水回り：厄落としの聖域",
@@ -809,7 +814,8 @@
                     "専用のスリッパを使い、リビングへの厄の持ち込みを防ぐ",
                     "タオルやマットは頻繁に交換し、湿気＝陰気を最小限にする",
                     "小さな観葉植物を置き、悪い気を浄化してもらう"
-                ]
+                ],
+                suggestion: "トイレの壁に『明るい風景画』や『花の絵』を飾ることを提案します。水に偏った陰のエネルギーを、美しい視覚情報で陽へと転換し、厄が溜まりにくい環境を物理的に作ります。"
             },
             veranda: {
                 title: "ベランダ・庭：外部との接続",
@@ -820,7 +826,8 @@
                     "不要な段ボールやゴミを放置せず、気の通りを邪魔しない",
                     "手すりを拭き、視界をクリアに保つ",
                     "ウインドチャイムなど、音で気を活性化させるアイテムを吊るす"
-                ]
+                ],
+                suggestion: "定期的にベランダの床を水拭きすることを提案します。コンクリートの粉塵は気の流れを阻害する『汚れ』の象徴です。ここを磨くことで家全体に入ってくるエネルギーの質が格段に向上します。"
             }
         };
 
@@ -963,7 +970,7 @@
                         <h5 class="text-lg font-bold text-fs-wood mb-5 flex items-center gap-2">
                             <i data-lucide="zap" class="w-5 h-5"></i> 即実行できる開運アクション
                         </h5>
-                        <ul class="space-y-4">
+                        <ul class="space-y-4 mb-8">
                             ${data.tips.map(tip => `
                                 <li class="flex items-start gap-4 text-sm">
                                     <div class="w-6 h-6 rounded-full bg-fs-sage/20 text-fs-sage flex items-center justify-center flex-shrink-0 mt-0.5">
@@ -973,6 +980,16 @@
                                 </li>
                             `).join('')}
                         </ul>
+
+                        <div class="bg-white/80 p-6 rounded-3xl border border-fs-sage/20 shadow-sm">
+                            <h6 class="text-fs-dark font-bold text-sm mb-3 flex items-center gap-2">
+                                <i data-lucide="sparkles" class="w-4 h-4 text-fs-sage"></i>
+                                専門的な改善提案（プロポーザル）
+                            </h6>
+                            <p class="text-gray-600 text-[13px] leading-relaxed italic">
+                                「${data.suggestion}」
+                            </p>
+                        </div>
                     </div>
                 </div>
             `;
