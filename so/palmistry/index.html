@@ -320,10 +320,32 @@
                     class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-100 text-amber-700 text-xs font-bold mb-4 uppercase tracking-widest">
                     Quick Diagnostics
                 </div>
-                <h3 class="text-3xl md:text-4xl font-bold text-stone-900 serif">線で紐解く、あなたの本質と言動</h3>
-                <p class="text-stone-600 mt-4 leading-relaxed">
-                    代表的な線のパターンをイラストで比較しました。自分の両手を見比べて、最も近いものを選んでみましょう。左右で違う場合は、<span
-                        class="text-indigo-600 font-bold">右手を「今の自分」</span>、<span
+                <h3 class="text-3xl md:text-4xl font-bold text-stone-900 serif mb-8">線で紐解く、あなたの本質と言動</h3>
+
+                <!-- Dedicated Result Box (Moved above the intro text) -->
+                <div id="self-diagnose-result"
+                    class="mb-10 min-h-[160px] bg-white border-2 border-amber-100 p-6 md:p-8 rounded-[2.5rem] shadow-sm flex flex-col md:flex-row items-center gap-8 transition-all duration-500 overflow-hidden relative">
+                    <div class="absolute top-0 right-0 p-4 opacity-5">
+                        <i data-lucide="sparkles" class="w-24 h-24 text-amber-600"></i>
+                    </div>
+
+                    <div id="diagnose-icon-container"
+                        class="w-16 h-16 md:w-20 md:h-20 bg-amber-50 rounded-2xl flex items-center justify-center flex-shrink-0 border border-amber-100 shadow-inner">
+                        <i data-lucide="fingerprint" class="w-8 h-8 md:w-10 md:h-10 text-amber-500"></i>
+                    </div>
+
+                    <div class="space-y-3 text-center md:text-left relative z-10">
+                        <h4 id="diagnose-title" class="text-xl md:text-2xl font-bold serif text-stone-800">
+                            気になる線を選択してください
+                        </h4>
+                        <p id="diagnose-text" class="text-stone-500 leading-relaxed text-sm md:text-base">
+                            下の12パターンから、自分の手に最も近いものを選ぶと、ここに詳しい診断結果が表示されます。
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-stone-500 text-sm leading-relaxed">
+                    左右で違う場合は、<span class="text-indigo-600 font-bold">右手を「今の自分」</span>、<span
                         class="text-amber-600 font-bold">左手を「眠っている自分」</span>として読み解きます。
                 </p>
             </div>
