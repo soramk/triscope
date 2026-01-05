@@ -46,16 +46,24 @@
         }
 
         .face-zone {
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             cursor: pointer;
             border: 2px solid transparent;
         }
 
-        .face-zone:hover,
+        .face-zone:hover {
+            background-color: rgba(217, 119, 6, 0.05);
+        }
+
         .face-zone.active {
-            background-color: rgba(180, 83, 9, 0.1);
-            /* amber-700 with opacity */
+            background-color: rgba(217, 119, 6, 0.15);
             border-color: #b45309;
+            box-shadow: inset 0 0 20px rgba(180, 83, 9, 0.05);
+        }
+
+        .face-feature {
+            pointer-events: none;
+            transition: all 0.5s ease;
         }
 
         .chart-container {
@@ -112,6 +120,10 @@
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
                     <i data-lucide="map" class="w-4 h-4"></i> 顔の地図
                 </button>
+                <button onclick="scrollToSection('palaces')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="grid" class="w-4 h-4"></i> 十二宮
+                </button>
                 <button onclick="scrollToSection('features')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
                     <i data-lucide="component" class="w-4 h-4"></i> 五官
@@ -127,6 +139,10 @@
                 <button onclick="scrollToSection('habits')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
                     <i data-lucide="sun" class="w-4 h-4"></i> 開運習慣
+                </button>
+                <button onclick="scrollToSection('diagnosis')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-amber-50 hover:text-amber-700 transition-all flex items-center gap-2">
+                    <i data-lucide="clipboard-check" class="w-4 h-4"></i> セルフ診断
                 </button>
                 <button onclick="scrollToSection('practice')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-amber-900 bg-amber-100 hover:bg-amber-200 transition-all flex items-center gap-2 ml-2">
@@ -152,6 +168,10 @@
                     class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">
                     <i data-lucide="map" class="w-5 h-5"></i> 顔の地図
                 </button>
+                <button onclick="scrollToSection('palaces'); toggleMobileMenu()"
+                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">
+                    <i data-lucide="grid" class="w-5 h-5"></i> 十二宮
+                </button>
                 <button onclick="scrollToSection('features'); toggleMobileMenu()"
                     class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">
                     <i data-lucide="component" class="w-5 h-5"></i> 五官の役割
@@ -167,6 +187,10 @@
                 <button onclick="scrollToSection('habits'); toggleMobileMenu()"
                     class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">
                     <i data-lucide="sun" class="w-5 h-5"></i> 開運の習慣
+                </button>
+                <button onclick="scrollToSection('diagnosis'); toggleMobileMenu()"
+                    class="flex items-center gap-3 w-full text-left px-3 py-3 text-stone-700 hover:bg-stone-50 rounded-lg font-medium">
+                    <i data-lucide="clipboard-check" class="w-5 h-5"></i> セルフ診断
                 </button>
                 <button onclick="scrollToSection('practice'); toggleMobileMenu()"
                     class="flex items-center gap-3 w-full text-left px-3 py-3 text-amber-900 bg-amber-50 hover:bg-amber-100 rounded-lg font-bold">
@@ -254,7 +278,7 @@
     </section>
 
     <!-- Characteristics Grid -->
-    <section class="max-w-7xl mx-auto px-4 -mt-10 relative z-20">
+    <section class="max-w-7xl mx-auto px-4 py-12 relative z-20">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div class="bg-white p-6 rounded-2xl shadow-lg border border-stone-100 hover:shadow-xl transition-all">
                 <div class="text-amber-700 mb-4 bg-amber-50 w-12 h-12 rounded-xl flex items-center justify-center">
@@ -296,54 +320,46 @@
             <div
                 class="flex flex-col lg:flex-row items-center justify-center gap-12 bg-white p-8 rounded-2xl shadow-sm border border-stone-100">
 
-                <!-- CSS Face Construction -->
+                <!-- Interactive Face Map with AI Generated Image -->
                 <div
-                    class="relative w-64 h-80 bg-stone-100 rounded-[50%_50%_45%_45%] border-4 border-stone-300 shadow-inner flex-shrink-0 select-none overflow-hidden">
+                    class="relative w-72 h-96 bg-stone-100 rounded-3xl border-2 border-amber-100 shadow-2xl flex-shrink-0 select-none overflow-hidden group/face">
+
+                    <!-- Background Face Image -->
+                    <img src="../../assets/images/physiognomy_face.png" alt="人相学ベースモデル"
+                        class="absolute inset-0 w-full h-full object-cover opacity-90 transition-transform duration-700 group-hover/face:scale-105">
+
+                    <!-- Overlay Shading for Depth -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-amber-900/10 to-transparent pointer-events-none">
+                    </div>
+
                     <!-- Zone: Upper (Heaven) -->
-                    <div onclick="selectZone('upper')"
-                        class="face-zone absolute top-0 left-0 w-full h-[33%] bg-stone-200/30 flex items-center justify-center z-10 group"
-                        title="上停：初年運">
+                    <div onclick="selectZone('upper', this)"
+                        class="face-zone absolute top-0 left-0 w-full h-[33%] z-20 group" title="上停：初年運">
+                        <div class="absolute inset-0 bg-amber-900/0 group-hover:bg-amber-900/5 transition-colors"></div>
                         <span
-                            class="text-xs text-stone-500 opacity-0 group-hover:opacity-100 font-bold bg-white/80 px-2 py-1 rounded">上停
+                            class="absolute top-4 left-1/2 -translate-x-1/2 text-[10px] text-amber-900/60 opacity-0 group-hover:opacity-100 font-bold bg-white/60 backdrop-blur-sm px-2 py-0.5 rounded-full transition-opacity">上停
                             (0-25歳)</span>
                     </div>
                     <!-- Zone: Middle (Person) -->
-                    <div onclick="selectZone('middle')"
-                        class="face-zone absolute top-[33%] left-0 w-full h-[34%] bg-stone-300/30 flex items-center justify-center z-10 group"
-                        title="中停：中年運">
+                    <div onclick="selectZone('middle', this)"
+                        class="face-zone absolute top-[33%] left-0 w-full h-[34%] z-20 group" title="中停：中年運">
+                        <div class="absolute inset-0 bg-amber-900/0 group-hover:bg-amber-900/5 transition-colors"></div>
                         <span
-                            class="text-xs text-stone-500 opacity-0 group-hover:opacity-100 font-bold bg-white/80 px-2 py-1 rounded">中停
+                            class="absolute top-1/2 left-4 -translate-y-1/2 text-[10px] text-amber-900/60 opacity-0 group-hover:opacity-100 font-bold bg-white/60 backdrop-blur-sm px-2 py-0.5 rounded-full transition-opacity">中停
                             (26-55歳)</span>
                     </div>
                     <!-- Zone: Lower (Earth) -->
-                    <div onclick="selectZone('lower')"
-                        class="face-zone absolute bottom-0 left-0 w-full h-[33%] bg-stone-200/30 flex items-center justify-center z-10 group"
-                        title="下停：晩年運">
+                    <div onclick="selectZone('lower', this)"
+                        class="face-zone absolute bottom-0 left-0 w-full h-[33%] z-20 group" title="下停：晩年運">
+                        <div class="absolute inset-0 bg-amber-900/0 group-hover:bg-amber-900/5 transition-colors"></div>
                         <span
-                            class="text-xs text-stone-500 opacity-0 group-hover:opacity-100 font-bold bg-white/80 px-2 py-1 rounded">下停
+                            class="absolute bottom-4 left-1/2 -translate-x-1/2 text-[10px] text-amber-900/60 opacity-0 group-hover:opacity-100 font-bold bg-white/60 backdrop-blur-sm px-2 py-0.5 rounded-full transition-opacity">下停
                             (56歳以降)</span>
                     </div>
 
-                    <!-- Face Features (Visuals) -->
-                    <!-- Eyebrows -->
-                    <div class="absolute top-[35%] left-[15%] w-[25%] h-2 bg-stone-400 rounded-full rotate-[-10deg]">
-                    </div>
-                    <div class="absolute top-[35%] right-[15%] w-[25%] h-2 bg-stone-400 rounded-full rotate-[10deg]">
-                    </div>
-                    <!-- Eyes -->
-                    <div class="absolute top-[42%] left-[18%] w-[20%] h-3 bg-stone-800 rounded-full overflow-hidden">
-                        <div class="w-2 h-2 bg-white rounded-full ml-1 mt-0.5"></div>
-                    </div>
-                    <div class="absolute top-[42%] right-[18%] w-[20%] h-3 bg-stone-800 rounded-full overflow-hidden">
-                        <div class="w-2 h-2 bg-white rounded-full ml-1 mt-0.5"></div>
-                    </div>
-                    <!-- Nose -->
-                    <div
-                        class="absolute top-[45%] left-[45%] w-[10%] h-[20%] border-l-2 border-b-2 border-stone-400 rounded-bl-lg">
-                    </div>
-                    <!-- Mouth -->
-                    <div class="absolute bottom-[20%] left-[30%] w-[40%] h-4 border-b-2 border-stone-500 rounded-full">
-                    </div>
+                    <!-- Visual Guide Lines (Optional, very subtle) -->
+                    <div class="absolute top-[33%] left-0 w-full h-[1px] bg-amber-900/5 z-10"></div>
+                    <div class="absolute top-[67%] left-0 w-full h-[1px] bg-amber-900/5 z-10"></div>
                 </div>
 
                 <!-- Info Panel -->
@@ -363,6 +379,68 @@
                             <li class="flex items-start"><span class="text-amber-600 mr-2">●</span>口・顎：愛情運と晩年の安定</li>
                         </ul>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2.2: Twelve Palaces (Jyunikyu) -->
+        <section id="palaces" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h2 class="text-3xl font-bold mb-4 serif">十二宮（じゅうにきゅう）：運命の座標</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    顔の特定の部位は人生の各側面（財産、家庭、仕事など）を象徴する「宮」として定義されます。
+                    これらを観察することで、より具体的な運勢の傾向を読み解くことができます。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-amber-50/50 p-4 rounded-xl border border-amber-100">
+                    <h4 class="font-bold text-amber-900 border-b border-amber-200 mb-2 pb-1">命宮（めいきゅう）</h4>
+                    <p class="text-[11px] text-stone-600">場所：眉間。その人の根源的な運勢、現在の願いが叶うかを表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">財帛宮（ざいはく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：鼻先。金銭運、蓄財能力を表します。高く豊かであるのが理想。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">官禄宮（かんろく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：額の中央。仕事運、名誉、社会的な地位を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">田宅宮（でんたく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：上まぶた。住居運、家庭の安定、精神的な余裕を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">兄弟宮（けいてい）</h4>
+                    <p class="text-[11px] text-stone-500">場所：眉。兄弟、友人、人間関係の広がりを表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">妻妾宮（さいしょう）</h4>
+                    <p class="text-[11px] text-stone-500">場所：目尻。恋愛、結婚、パートナーとの縁を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">男女宮（だんじょ）</h4>
+                    <p class="text-[11px] text-stone-500">場所：下まぶた（涙袋）。子供運、生殖能力、愛情の深さを表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">疾厄宮（しつやく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：鼻の付け根（目と目の間）。健康状態や災難の有無を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">遷移宮（せんぎ）</h4>
+                    <p class="text-[11px] text-stone-500">場所：額の両端（こめかみ上）。移動、転勤、旅行、変化の運を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">奴僕宮（ぬぼく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：あごの両サイド。部下、後輩、支持者の有無を表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">福徳宮（ふくとく）</h4>
+                    <p class="text-[11px] text-stone-500">場所：眉の上。精神的な福分、財産などを享受できるかを表します。</p>
+                </div>
+                <div class="bg-white p-4 rounded-xl border border-stone-100 shadow-sm">
+                    <h4 class="font-bold text-stone-800 border-b border-stone-100 mb-2 pb-1">相貌宮（そうぼう）</h4>
+                    <p class="text-[11px] text-stone-500">場所：顔全体。骨格や全体のバランスから総合的な運勢を判断します。</p>
                 </div>
             </div>
         </section>
@@ -457,6 +535,124 @@
                         <canvas id="capabilitiesChart"></canvas>
                     </div>
                     <p class="text-center text-xs text-stone-400 mt-2">※ 命術（四柱推命など）や卜術（タロットなど）との比較イメージ</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 4.5: Self Diagnosis -->
+        <section id="diagnosis" class="scroll-mt-20">
+            <div
+                class="bg-gradient-to-br from-stone-900 to-stone-800 rounded-[3rem] p-8 md:p-12 shadow-2xl overflow-hidden relative">
+                <!-- Abstract decorations -->
+                <div class="absolute top-0 right-0 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl -ml-32 -mb-32">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="text-center mb-12">
+                        <span class="text-amber-500 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">Self
+                            Analysis</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-white serif mb-4">人相セルフチェック診断</h2>
+                        <p class="text-stone-400 max-w-xl mx-auto">今のあなたの顔に表れている傾向を簡易診断します。当てはまる特徴を選んでください。</p>
+                    </div>
+
+                    <div id="diagnosis-container"
+                        class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        <!-- Questions Area -->
+                        <div class="space-y-6">
+                            <div
+                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">01</span>
+                                    顔の形はどれに近い？
+                                </h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="setDiagnosis('shape', 'round', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">丸顔・卵型</button>
+                                    <button onclick="setDiagnosis('shape', 'square', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">四角・ホームベース型</button>
+                                    <button onclick="setDiagnosis('shape', 'long', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">面長</button>
+                                    <button onclick="setDiagnosis('shape', 'triangle', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">逆三角形</button>
+                                </div>
+                            </div>
+
+                            <div
+                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">02</span>
+                                    目はどのような印象？
+                                </h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="setDiagnosis('eye', 'large', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">大きくて丸い</button>
+                                    <button onclick="setDiagnosis('eye', 'sharp', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">細くて鋭い</button>
+                                    <button onclick="setDiagnosis('eye', 'slanted', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">つり目気味</button>
+                                    <button onclick="setDiagnosis('eye', 'droopy', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">たれ目気味</button>
+                                </div>
+                            </div>
+
+                            <div
+                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
+                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">03</span>
+                                    口角や口の形は？
+                                </h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <button onclick="setDiagnosis('mouth', 'up', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">上がっている</button>
+                                    <button onclick="setDiagnosis('mouth', 'down', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">下がっている</button>
+                                    <button onclick="setDiagnosis('mouth', 'large', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">大きくて厚い</button>
+                                    <button onclick="setDiagnosis('mouth', 'small', this)"
+                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">小さくて薄い</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Result Area -->
+                        <div id="diagnosis-result-box"
+                            class="sticky top-24 bg-white/[0.03] backdrop-blur-lg rounded-[2rem] border border-white/10 p-8 h-full min-h-[400px] flex flex-col items-center justify-center text-center">
+                            <div id="result-placeholder">
+                                <i data-lucide="sparkles" class="w-16 h-16 text-amber-500/20 mb-6 mx-auto"></i>
+                                <h3 class="text-xl text-stone-500 font-medium mb-4">上のすべての項目を選択すると<br>診断結果が表示されます</h3>
+                                <div class="w-32 h-1 bg-white/5 rounded-full mx-auto overflow-hidden">
+                                    <div id="progress-bar" class="w-0 h-full bg-amber-500 transition-all duration-500">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="result-content" class="hidden animate-fade-in w-full">
+                                <span
+                                    class="bg-amber-500/20 text-amber-500 text-[10px] font-bold px-3 py-1 rounded-full mb-4 inline-block">Analysis
+                                    Complete</span>
+                                <h3 id="result-title" class="text-2xl text-white serif font-bold mb-4">---</h3>
+                                <div class="bg-white/5 rounded-2xl p-6 mb-6 text-left">
+                                    <p id="result-desc" class="text-stone-300 text-sm leading-relaxed"></p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4 mb-8">
+                                    <div class="p-3 bg-white/5 rounded-xl text-left border border-white/5">
+                                        <span class="text-[9px] text-stone-500 block mb-1">ラッキーアイテム</span>
+                                        <span id="result-item" class="text-xs text-amber-500 font-bold">---</span>
+                                    </div>
+                                    <div class="p-3 bg-white/5 rounded-xl text-left border border-white/5">
+                                        <span class="text-[9px] text-stone-500 block mb-1">開運アクション</span>
+                                        <span id="result-action" class="text-xs text-indigo-400 font-bold">---</span>
+                                    </div>
+                                </div>
+                                <button onclick="resetDiagnosis()"
+                                    class="text-stone-500 text-[10px] hover:text-white transition-colors underline decoration-stone-500 underline-offset-4">もう一度診断する</button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -565,8 +761,23 @@
                         <span id="icon-step1" class="text-stone-400 transition-transform">▼</span>
                     </button>
                     <div id="step1" class="hidden px-6 py-4 text-stone-600 border-t border-stone-100">
-                        <p class="mb-2"><strong>準備：</strong> 明るい場所で、メイクを落とした素顔（または薄化粧）の状態を見ます。鏡を用意しましょう。</p>
-                        <p><strong>ポイント：</strong> まずは細部を見ずに、パッと見た時の「雰囲気」や「顔色」を感じ取ります。血色が良くツヤがある顔は、運気が上昇しているサインです。</p>
+                        <p class="mb-4"><strong>準備：</strong> 明るい場所で、メイクを落とした素顔の状態を見ます。鏡を用意し、リラックスした表情で観察します。</p>
+                        <div class="bg-amber-50 p-4 rounded-xl border border-amber-100/50 mb-4">
+                            <h5 class="font-bold text-amber-900 mb-2 flex items-center gap-2 text-sm">
+                                <i data-lucide="palette" class="w-4 h-4"></i> 気色・血色（きしょく・けっしょく）の見方
+                            </h5>
+                            <ul class="text-xs space-y-2">
+                                <li><span class="font-bold text-pink-600">● 桃色・薄紅色：</span> 慶事や喜び事の前触れ。特に額や頬に出ると吉。</li>
+                                <li><span class="font-bold text-yellow-600">● 黄明色：</span> 安定と成功。肌にツヤがあり、黄色く明るい状態は金運良好。
+                                </li>
+                                <li><span class="font-bold text-blue-400">● 青白色：</span> 悩み事、病気、あるいは驚き。眉間や鼻筋に出やすい。</li>
+                                <li><span class="font-bold text-stone-800">● 黒暗色：</span> 不運、事故、失敗の予兆。顔全体が暗く沈んで見える時は注意。
+                                </li>
+                                <li><span class="font-bold text-red-600">● 赤色：</span> トラブル、怒り、訴訟。火がついたような赤さは突発的な災難。</li>
+                            </ul>
+                        </div>
+                        <p class="text-sm"><strong>ポイント：</strong>
+                            相が「一生の運」なら、色は「今の運」です。たとえパーツの形が悪くても、色ツヤが良ければ現在は好調と判断します。</p>
                     </div>
                 </div>
 
@@ -737,7 +948,7 @@
         };
 
         // Zone Interaction Logic
-        function selectZone(zoneKey) {
+        function selectZone(zoneKey, element) {
             const data = zoneData[zoneKey];
             const titleEl = document.getElementById('info-title');
             const descEl = document.getElementById('info-desc');
@@ -762,10 +973,10 @@
             });
 
             // Visual feedback on face
-            document.querySelectorAll('.face-zone').forEach(el => el.classList.remove('active', 'bg-amber-100/50'));
-            // Find the clicked element logic implies direct binding, but simple click is fine. 
-            // In a fuller app, we'd map elements to IDs. Here, the click highlights via logic not needed as CSS hover does job, 
-            // but let's add a persistent highlight class for UX.
+            document.querySelectorAll('.face-zone').forEach(el => el.classList.remove('active'));
+            if (element) {
+                element.classList.add('active');
+            }
         }
 
         // Accordion Logic
@@ -780,6 +991,103 @@
                 content.classList.add('hidden');
                 icon.style.transform = 'rotate(0deg)';
             }
+        }
+
+        // Diagnosis Logic
+        const diagnosisData = {
+            shape: null,
+            eye: null,
+            mouth: null
+        };
+
+        const results = {
+            'round_large_up': {
+                title: '「天賦の社交家」タイプ',
+                desc: '明るく開放的なエネルギーの持ち主。人との縁に恵まれ、チームの中心で輝きます。持ち前の笑顔が何よりの開運の鍵。',
+                item: 'オレンジ色の小物',
+                action: '朝の挨拶を自分から'
+            },
+            'square_sharp_down': {
+                title: '「意志の追求者」タイプ',
+                desc: '現実的で力強い実力派。一度決めたことをやり抜く力は誰よりも高く、周囲からの信頼も厚いでしょう。',
+                item: '革製品のペンケース',
+                action: '一人の瞑想時間を作る'
+            },
+            'long_sharp_up': {
+                title: '「知的な先見家」タイプ',
+                desc: '直感力と分析力に優れ、物事の本質を見抜く力があります。上品で落ち着いた振る舞いが幸運を引き寄せます。',
+                item: '眼鏡・アイウェア',
+                action: '読書や新しい分野の学習'
+            },
+            'triangle_slanted_up': {
+                title: '「感性のクリエイター」タイプ',
+                desc: '独自の感性を持ち、アイディアを形にする力があります。個性を出すことで道が開けるタイプです。',
+                item: 'アートブック',
+                action: '美術館や展示会巡り'
+            },
+            'default': {
+                title: '「バランスの取れた努力家」タイプ',
+                desc: '協調性と判断力のバランスが取れており、どんな環境でも着実に力を発揮できるタイプです。',
+                item: '観葉植物',
+                action: 'デスク周りの整理整頓'
+            }
+        };
+
+        function setDiagnosis(type, value, element) {
+            diagnosisData[type] = value;
+
+            // UI feedback
+            const siblings = element.parentElement.querySelectorAll('button');
+            siblings.forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-stone-900', 'border-amber-500');
+                btn.classList.add('border-white/20', 'text-stone-300');
+            });
+            element.classList.remove('border-white/20', 'text-stone-300');
+            element.classList.add('bg-amber-500', 'text-stone-900', 'border-amber-500');
+
+            checkDiagnosisProgress();
+        }
+
+        function checkDiagnosisProgress() {
+            const keys = Object.keys(diagnosisData);
+            const filled = keys.filter(k => diagnosisData[k] !== null).length;
+            const progress = (filled / keys.length) * 100;
+
+            document.getElementById('progress-bar').style.width = progress + '%';
+
+            if (filled === keys.length) {
+                showDiagnosisResult();
+            }
+        }
+
+        function showDiagnosisResult() {
+            const key = `${diagnosisData.shape}_${diagnosisData.eye}_${diagnosisData.mouth}`;
+            const result = results[key] || results['default'];
+
+            document.getElementById('result-placeholder').classList.add('hidden');
+            const content = document.getElementById('result-content');
+            content.classList.remove('hidden');
+
+            document.getElementById('result-title').textContent = result.title;
+            document.getElementById('result-desc').textContent = result.desc;
+            document.getElementById('result-item').textContent = result.item;
+            document.getElementById('result-action').textContent = result.action;
+        }
+
+        function resetDiagnosis() {
+            // Reset Data
+            diagnosisData.shape = null;
+            diagnosisData.eye = null;
+            diagnosisData.mouth = null;
+
+            // Reset UI
+            document.querySelectorAll('.diag-btn').forEach(btn => {
+                btn.classList.remove('bg-amber-500', 'text-stone-900', 'border-amber-500');
+                btn.classList.add('border-white/20', 'text-stone-300');
+            });
+            document.getElementById('progress-bar').style.width = '0%';
+            document.getElementById('result-content').classList.add('hidden');
+            document.getElementById('result-placeholder').classList.remove('hidden');
         }
 
         // Scroll Logic
