@@ -304,6 +304,20 @@
                         </div>
 
                         <div class="relative z-10">
+                            <!-- Life Path Display -->
+                            <div class="text-center mb-10 pt-4">
+                                <div class="inline-block relative">
+                                    <span
+                                        class="block text-xs text-indigo-500 font-bold uppercase tracking-[0.3em] mb-2">Life
+                                        Path Number</span>
+                                    <span id="hero-num-display"
+                                        class="text-7xl font-black text-indigo-900 leading-none tracking-tighter drop-shadow-sm">--</span>
+                                    <div class="absolute -top-6 -right-8 opacity-20 text-6xl text-indigo-200">
+                                        <i data-lucide="sparkles"></i>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="flex items-center justify-between mb-6">
                                 <h4 class="text-2xl font-bold flex items-center text-indigo-900">
                                     <span
@@ -1210,7 +1224,8 @@
             const year = parseInt(document.getElementById('birth-year').value);
             const month = parseInt(document.getElementById('birth-month').value);
             const day = parseInt(document.getElementById('birth-day').value);
-            const name = document.getElementById('name-input').value;
+            const nameInput = document.getElementById('name-input');
+            const name = nameInput ? nameInput.value : '';
 
             if (!year || !month || !day) {
                 alert("生年月日を選択してください。"); return;
@@ -1229,15 +1244,24 @@
             }
             const lifePath = current;
             const calcFormula = digits.join('+') + '=' + steps.join('→');
-            document.getElementById('user-lp-calc').innerText = calcFormula;
+            const lpCalcEl = document.getElementById('user-lp-calc');
+            if (lpCalcEl) lpCalcEl.innerText = calcFormula;
 
             // B. Name Analysis
             let expression = "--", soul = "--", personality = "--";
+            let validName = false;
+
             if (name) {
-                const res = calculateNameNumbers(name);
-                expression = res.expression;
-                soul = res.soul;
-                personality = res.personality;
+                // Ensure name contains at least one latin letter
+                if (/[a-zA-Z]/.test(name)) {
+                    const res = calculateNameNumbers(name);
+                    if (res.expression > 0) {
+                        expression = res.expression;
+                        soul = res.soul;
+                        personality = res.personality;
+                        validName = true;
+                    }
+                }
             }
 
             // C. Today's Personal Day
@@ -1246,52 +1270,72 @@
             const todayNum = reduceNumber(todayDigits.reduce((a, b) => a + b, 0));
 
             // UI Update
-            document.getElementById('result-area').classList.remove('hidden');
-            document.getElementById('hero-num-display').innerText = lifePath;
+            const resultArea = document.getElementById('result-area');
+            if (resultArea) resultArea.classList.remove('hidden');
+
+            const heroNumDisplay = document.getElementById('hero-num-display');
+            if (heroNumDisplay) heroNumDisplay.innerText = lifePath;
+
             document.getElementById('res-destiny').innerText = expression;
             document.getElementById('res-soul').innerText = soul;
             document.getElementById('res-personality').innerText = personality;
             document.getElementById('res-today').innerText = todayNum;
 
             // Name Analysis Detailed Explanations
-            if (name) {
-                document.getElementById('name-detail-area').classList.remove('hidden');
+            const nameDetailArea = document.getElementById('name-detail-area');
+            if (validName && nameDetailArea) {
+                nameDetailArea.classList.remove('hidden');
 
                 // Expression
-                const expData = numberData[expression] || { keyword: "情報なし" };
-                document.getElementById('name-exp-title').innerText = `${expression}: ${numberKeywords[expression] || ''}`;
-                document.getElementById('name-exp-desc').innerText = `${nameMeanings.expression.desc} ${expression}のあなたは、${expData.desc.split('。')[0]}というスタイルで社会に貢献します。`;
+                const expData = numberData[expression] || { keyword: "情報なし", desc: "情報の取得に失敗しました。" };
+                const expTitle = document.getElementById('name-exp-title');
+                if (expTitle) expTitle.innerText = `${expression}: ${numberKeywords[expression] || ''}`;
+                const expDesc = document.getElementById('name-exp-desc');
+                if (expDesc) expDesc.innerText = `${nameMeanings.expression.desc} ${expression}のあなたは、${(expData.desc || '').split('。')[0]}というスタイルで社会に貢献します。`;
 
                 // Soul Urge
                 const soulData = numberData[soul] || { keyword: "情報なし" };
-                document.getElementById('name-soul-title').innerText = `${soul}: ${numberKeywords[soul] || ''}`;
-                document.getElementById('name-soul-desc').innerText = `${nameMeanings.soul.desc} 数字${soul}を持つあなたの魂は、${soulData.keyword}を通じて満たされます。`;
+                const soulTitle = document.getElementById('name-soul-title');
+                if (soulTitle) soulTitle.innerText = `${soul}: ${numberKeywords[soul] || ''}`;
+                const soulDesc = document.getElementById('name-soul-desc');
+                if (soulDesc) soulDesc.innerText = `${nameMeanings.soul.desc} 数字${soul}を持つあなたの魂は、${soulData.keyword || ''}を通じて満たされます。`;
 
                 // Personality
                 const persData = numberData[personality] || { keyword: "情報なし" };
-                document.getElementById('name-pers-title').innerText = `${personality}: ${numberKeywords[personality] || ''}`;
-                document.getElementById('name-pers-desc').innerText = `${nameMeanings.personality.desc} 周囲からは、${persData.pos}といった特徴を持つ人物として信頼されるでしょう。`;
-            } else {
-                document.getElementById('name-detail-area').classList.add('hidden');
+                const persTitle = document.getElementById('name-pers-title');
+                if (persTitle) persTitle.innerText = `${personality}: ${numberKeywords[personality] || ''}`;
+                const persDesc = document.getElementById('name-pers-desc');
+                if (persDesc) persDesc.innerText = `${nameMeanings.personality.desc} 周囲からは、${persData.pos || ''}といった特徴を持つ人物として信頼されるでしょう。`;
+            } else if (nameDetailArea) {
+                nameDetailArea.classList.add('hidden');
             }
 
-            const data = numberData[lifePath];
-            document.getElementById('result-description').innerText = data.desc;
-            document.getElementById('result-work').innerText = data.work;
-            document.getElementById('result-love').innerText = data.love;
-            document.getElementById('aura-bg').style.backgroundColor = data.color;
+            const data = numberData[lifePath] || { desc: "情報なし", work: "情報なし", love: "情報なし", color: "#ccc", famous: [] };
+            const resDesc = document.getElementById('result-description');
+            if (resDesc) resDesc.innerText = data.desc;
+            const resWork = document.getElementById('result-work');
+            if (resWork) resWork.innerText = data.work;
+            const resLove = document.getElementById('result-love');
+            if (resLove) resLove.innerText = data.love;
+
+            const auraBg = document.getElementById('aura-bg');
+            if (auraBg) auraBg.style.backgroundColor = data.color;
 
             // Famous People
             const famousDiv = document.getElementById('famous-section');
-            famousDiv.classList.remove('hidden');
+            if (famousDiv) famousDiv.classList.remove('hidden');
             const famousList = document.getElementById('famous-list');
-            famousList.innerHTML = '';
-            data.famous.forEach(person => {
-                const span = document.createElement('span');
-                span.className = "px-3 py-1 bg-white/50 text-[10px] rounded-full border border-indigo-100 text-indigo-700 shadow-sm";
-                span.innerText = person.name;
-                famousList.appendChild(span);
-            });
+            if (famousList) {
+                famousList.innerHTML = '';
+                if (data.famous) {
+                    data.famous.forEach(person => {
+                        const span = document.createElement('span');
+                        span.className = "px-3 py-1 bg-white/50 text-[10px] rounded-full border border-indigo-100 text-indigo-700 shadow-sm";
+                        span.innerText = person.name;
+                        famousList.appendChild(span);
+                    });
+                }
+            }
 
             // Compatibility
             if (document.getElementById('compatibility-toggle').checked) {
