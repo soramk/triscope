@@ -112,10 +112,6 @@
             display: none;
         }
 
-        .fade-in {
-            animation: fadeIn 0.5s ease-in;
-        }
-
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -126,6 +122,19 @@
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Magical Glow */
+        .glow-soft {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.1);
+        }
+
+        .rune-symbol-glow {
+            text-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
         }
     </style>
 </head>
@@ -161,6 +170,14 @@
                 <button onclick="scrollToSection('logic')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all flex items-center gap-2">
                     <i data-lucide="book-open" class="w-4 h-4"></i> 理論
+                </button>
+                <button onclick="scrollToSection('academic')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all flex items-center gap-2">
+                    <i data-lucide="graduation-cap" class="w-4 h-4"></i> 学術
+                </button>
+                <button onclick="scrollToSection('alphabet')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all flex items-center gap-2">
+                    <i data-lucide="layout-grid" class="w-4 h-4"></i> 辞典
                 </button>
                 <button onclick="scrollToSection('history')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-emerald-50 hover:text-emerald-700 transition-all flex items-center gap-2">
@@ -390,20 +407,20 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
                 <!-- Logic Column -->
                 <div>
-                    <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">Logic</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-2 mb-6 serif">根拠とロジック</h2>
+                    <span class="text-emerald-700 font-bold tracking-widest uppercase text-sm">Logic</span>
+                    <h2 class="text-3xl font-bold text-stone-800 mt-2 mb-6 serif">根拠とロジック</h2>
 
                     <div class="space-y-8 relative">
                         <!-- Connecting Line -->
-                        <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-slate-200"></div>
+                        <div class="absolute left-4 top-4 bottom-4 w-0.5 bg-emerald-100"></div>
 
                         <!-- Step 1 -->
                         <div class="relative pl-12">
                             <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                class="absolute left-0 top-0 w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center border-2 border-emerald-600 z-10 text-emerald-700 font-bold">
                                 1</div>
-                            <h3 class="font-bold text-lg text-slate-800">集合的無意識</h3>
-                            <p class="text-slate-600 text-sm mt-1">
+                            <h3 class="font-bold text-lg text-stone-800">集合的無意識</h3>
+                            <p class="text-stone-600 text-sm mt-1">
                                 ユング心理学で提唱される、人類共通の無意識の領域。ここに全ての情報が繋がっていると考えます。
                             </p>
                         </div>
@@ -411,10 +428,10 @@
                         <!-- Step 2 -->
                         <div class="relative pl-12">
                             <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                class="absolute left-0 top-0 w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center border-2 border-emerald-600 z-10 text-emerald-700 font-bold">
                                 2</div>
-                            <h3 class="font-bold text-lg text-slate-800">シンクロニシティ (意味のある偶然)</h3>
-                            <p class="text-slate-600 text-sm mt-1">
+                            <h3 class="font-bold text-lg text-stone-800">シンクロニシティ</h3>
+                            <p class="text-stone-600 text-sm mt-1">
                                 無作為に引いたルーンは、単なる確率ではなく、問いかけた瞬間の心理状態や状況と「共鳴」して現れるという考え方です。
                             </p>
                         </div>
@@ -422,43 +439,43 @@
                         <!-- Step 3 -->
                         <div class="relative pl-12">
                             <div
-                                class="absolute left-0 top-0 w-8 h-8 bg-lime-100 rounded-full flex items-center justify-center border-2 border-lime-600 z-10 text-lime-700 font-bold">
+                                class="absolute left-0 top-0 w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center border-2 border-emerald-600 z-10 text-emerald-700 font-bold">
                                 3</div>
-                            <h3 class="font-bold text-lg text-slate-800">象徴の解釈</h3>
-                            <p class="text-slate-600 text-sm mt-1">
-                                ルーン文字はそれぞれが自然現象（氷、太陽、家畜など）や神々を象徴しています。この象徴を現代の状況に当てはめて解釈します。
+                            <h3 class="font-bold text-lg text-stone-800">象徴の解釈</h3>
+                            <p class="text-stone-600 text-sm mt-1">
+                                ルーン文字はそれぞれが自然現象や神々を象徴しています。この象徴を現代の状況に当てはめて解釈します。
                             </p>
                         </div>
                     </div>
                 </div>
 
                 <!-- History Column -->
-                <div>
-                    <span class="text-lime-800 font-bold tracking-widest uppercase text-sm">History</span>
-                    <h2 class="text-3xl font-bold text-slate-800 mt-2 mb-6 serif">歴史と変遷</h2>
-                    <div class="bg-slate-50 p-6 rounded-xl border border-slate-100">
+                <div id="history">
+                    <span class="text-emerald-700 font-bold tracking-widest uppercase text-sm">History</span>
+                    <h2 class="text-3xl font-bold text-stone-800 mt-2 mb-6 serif">歴史と変遷</h2>
+                    <div class="bg-stone-50 p-6 rounded-xl border border-stone-100">
                         <ul class="space-y-6">
                             <li class="flex gap-4">
-                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">2世紀頃</span>
+                                <span class="font-mono text-emerald-700 font-bold w-20 text-right shrink-0">2世紀頃</span>
                                 <div>
-                                    <h4 class="font-bold text-slate-800">ゲルマン民族の間で発祥</h4>
-                                    <p class="text-sm text-slate-600">北欧神話の主神オーディンが発見したとされる伝説も。当初は魔術や護符、筆記文字として使用。</p>
+                                    <h4 class="font-bold text-stone-800">ゲルマン民族の間で発祥</h4>
+                                    <p class="text-sm text-stone-600">北欧神話の主神オーディンが発見したとされる伝説も。当初は魔術や護符、筆記文字として使用。</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
-                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">中世</span>
+                                <span class="font-mono text-emerald-700 font-bold w-20 text-right shrink-0">中世</span>
                                 <div>
-                                    <h4 class="font-bold text-slate-800">ラテン文字への移行と衰退</h4>
-                                    <p class="text-sm text-slate-600">
-                                        キリスト教の普及とともにラテン文字が主流となり、ルーンは日常から姿を消し、一部の暦や碑文に残るのみとなる。</p>
+                                    <h4 class="font-bold text-stone-800">ラテン文字への移行と衰退</h4>
+                                    <p class="text-sm text-stone-600">
+                                        キリスト教の普及とともにラテン文字が主流となり、ルーンは日常から姿を消しました。</p>
                                 </div>
                             </li>
                             <li class="flex gap-4">
-                                <span class="font-mono text-lime-700 font-bold w-20 text-right shrink-0">20世紀</span>
+                                <span class="font-mono text-emerald-700 font-bold w-20 text-right shrink-0">20世紀</span>
                                 <div>
-                                    <h4 class="font-bold text-slate-800">現代の復興</h4>
-                                    <p class="text-sm text-slate-600">
-                                        ラルフ・ブラム等の研究者により、占術としてのシステムが再構築され、「ルーン・ストーン」やカードとして世界中に普及。</p>
+                                    <h4 class="font-bold text-stone-800">現代の復興</h4>
+                                    <p class="text-sm text-stone-600">
+                                        ラルフ・ブラム等の研究者により、占術としてのシステムが再構築され、世界中に普及。</p>
                                 </div>
                             </li>
                         </ul>
@@ -468,73 +485,189 @@
         </div>
     </section>
 
+    <!-- Section: Academic Insights -->
+    <section id="academic" class="py-16 md:py-24 bg-stone-50 border-y border-stone-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="mb-16">
+                <span class="text-emerald-700 font-bold tracking-widest uppercase text-sm">Academic Insights</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mt-2 mb-4 serif">学術的アプローチ</h2>
+                <p class="text-stone-600 max-w-2xl">
+                    ルーン文字は単なる占いの道具ではなく、古代ゲルマン人の言語、社会、信仰を映し出す貴重な歴史資料です。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="languages" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-4">言語学的な特徴</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                        ルーン文字は「音素文字」であり、一つの文字が一つの音（音素）を表します。これはラテン文字やギリシャ文字と共通する特徴です。
+                    </p>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        各文字には名前が付いており（例：ᚠ = Fehu = 家畜）、その頭文字がその文字の音を表す「頭音法の原理」が用いられています。
+                    </p>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="binary" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-4">フサルクの変遷</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                        最も古い「古フサルク（24文字）」から始まり、時代を経て地域のニーズに合わせて変化していきました。
+                    </p>
+                    <ul class="text-stone-600 text-xs space-y-2">
+                        <li><strong>古フサルク:</strong> 全ゲルマン共通の24文字。</li>
+                        <li><strong>アングロサクソン・ルーン:</strong> 28〜33文字まで拡張。</li>
+                        <li><strong>新フサルク:</strong> 北欧で16文字に簡略化。</li>
+                    </ul>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 hover:shadow-md transition-all">
+                    <div class="w-12 h-12 bg-emerald-50 rounded-2xl flex items-center justify-center mb-6">
+                        <i data-lucide="castle" class="w-6 h-6 text-emerald-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-stone-900 mb-4">考古学的発見</h3>
+                    <p class="text-stone-600 text-sm leading-relaxed mb-4">
+                        ルーン文字の碑文は、石碑、武器、宝飾品、あるいは木片など、多岐にわたる遺物から発見されています。
+                    </p>
+                    <p class="text-stone-600 text-sm leading-relaxed">
+                        これらは個人の名前、所有権の宣言、亡き者への追悼、そして時には呪術的な祈りや護符としての性格を持っています。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Rune Alphabet Glossary -->
+    <section id="alphabet" class="py-16 md:py-24 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            <div class="text-center mb-16">
+                <span class="text-emerald-700 font-bold tracking-widest uppercase text-sm">Rune Alphabet</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-stone-900 mt-2 mb-4 serif">ルーン辞典</h2>
+                <p class="text-stone-600 max-w-2xl mx-auto">
+                    古フサルク24文字とブランクルーン。それぞれの文字が持つ象徴と意味の一覧です。
+                </p>
+            </div>
+
+            <!-- Alphabet Grid -->
+            <div id="rune-alphabet-grid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+                <!-- Dynamically populated by JS -->
+            </div>
+        </div>
+    </section>
+
     <!-- Section 4: Basic Method & Simulator (The Core Interactive Part) -->
-    <section id="simulator" class="py-16 md:py-24 bg-slate-900 text-white relative">
+    <section id="simulator" class="py-16 md:py-24 bg-gradient-to-b from-emerald-50 to-white relative overflow-hidden">
         <!-- Background Elements -->
-        <div class="absolute inset-0 overflow-hidden opacity-20 pointer-events-none">
-            <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-lime-600 rounded-full filter blur-[100px]"></div>
-            <div class="absolute bottom-1/4 right-1/4 w-64 h-64 bg-slate-600 rounded-full filter blur-[100px]"></div>
+        <div class="absolute inset-0 overflow-hidden opacity-30 pointer-events-none">
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-emerald-200 rounded-full filter blur-[120px]"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-100 rounded-full filter blur-[120px]"></div>
         </div>
 
         <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
-            <span class="text-lime-400 font-bold tracking-widest uppercase text-sm">Experience</span>
-            <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-6 serif">ルーンの神託 (One Oracle)</h2>
-            <p class="text-slate-300 mb-10 max-w-2xl mx-auto">
+            <span class="text-emerald-700 font-bold tracking-widest uppercase text-sm">Experience</span>
+            <h2 class="text-3xl md:text-5xl font-bold mt-2 mb-6 serif text-stone-900">ルーンの神託 (One Oracle)</h2>
+            <p class="text-stone-600 mb-10 max-w-2xl mx-auto">
                 心を落ち着かせ、今最も知りたいことを思い浮かべてください。<br>
                 準備ができたら、下のボタンを押してルーンを一つ選び取ります。
             </p>
 
             <!-- Simulator UI -->
             <div
-                class="bg-slate-800/50 backdrop-blur-sm border border-slate-700 rounded-2xl p-8 max-w-xl mx-auto shadow-2xl">
+                class="bg-white/80 backdrop-blur-md border border-emerald-100 rounded-[3rem] p-8 md:p-12 max-w-2xl mx-auto shadow-2xl shadow-emerald-900/5">
 
                 <!-- Display Area -->
                 <div id="rune-display"
-                    class="min-h-[200px] flex flex-col items-center justify-center transition-all duration-500">
+                    class="min-h-[300px] flex flex-col items-center justify-center transition-all duration-500">
                     <!-- Initial State -->
-                    <div id="rune-placeholder" class="text-slate-500 animate-pulse">
-                        <span class="text-6xl md:text-8xl opacity-30">᚛᚜</span>
+                    <div id="rune-placeholder" class="text-emerald-900/20">
+                        <div class="relative">
+                            <i data-lucide="sparkles" class="w-32 h-32 animate-pulse text-emerald-600/10"></i>
+                            <span
+                                class="absolute inset-0 flex items-center justify-center text-6xl opacity-20">᚛᚜</span>
+                        </div>
                     </div>
 
                     <!-- Result State (Hidden by default) -->
-                    <div id="rune-result" class="hidden flex flex-col items-center animate-fade-in-up">
+                    <div id="rune-result" class="hidden flex flex-col items-center w-full">
                         <div id="rune-symbol"
-                            class="text-8xl md:text-9xl text-lime-400 mb-4 drop-shadow-[0_0_15px_rgba(163,230,53,0.5)] rune-font">
+                            class="text-8xl md:text-9xl text-emerald-700 mb-4 drop-shadow-sm font-serif">
                         </div>
-                        <h3 id="rune-name" class="text-2xl md:text-3xl font-bold text-white mb-2 serif"></h3>
-                        <p id="rune-meaning" class="text-lg text-lime-200 font-medium mb-4"></p>
-                        <div class="bg-slate-700/50 rounded-lg p-4 w-full text-left">
-                            <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Keywords</p>
-                            <p id="rune-keywords" class="text-slate-200 text-sm leading-relaxed"></p>
-                            <div class="mt-3 pt-3 border-t border-slate-600">
-                                <p class="text-xs text-slate-400 uppercase tracking-wide mb-1">Message</p>
-                                <p id="rune-message" class="text-slate-300 text-sm leading-relaxed italic"></p>
+                        <h3 id="rune-name" class="text-2xl md:text-3xl font-bold text-stone-900 mb-2 serif"></h3>
+                        <p id="rune-meaning" class="text-lg text-emerald-600 font-bold mb-6"></p>
+
+                        <!-- Description -->
+                        <div
+                            class="bg-emerald-50/50 rounded-2xl p-5 mb-6 text-left w-full border border-emerald-100/50">
+                            <p id="rune-description" class="text-stone-600 text-sm leading-relaxed"></p>
+                        </div>
+
+                        <!-- Advice Categories -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+                            <div class="bg-white p-4 rounded-2xl border border-emerald-50 shadow-sm text-left">
+                                <span
+                                    class="flex items-center gap-2 text-xs font-bold text-pink-500 uppercase tracking-tighter mb-2">
+                                    <i data-lucide="heart" class="w-3 h-3"></i> 恋愛運
+                                </span>
+                                <p id="rune-love" class="text-stone-600 text-xs leading-relaxed"></p>
                             </div>
+                            <div class="bg-white p-4 rounded-2xl border border-emerald-50 shadow-sm text-left">
+                                <span
+                                    class="flex items-center gap-2 text-xs font-bold text-blue-500 uppercase tracking-tighter mb-2">
+                                    <i data-lucide="briefcase" class="w-3 h-3"></i> 仕事運
+                                </span>
+                                <p id="rune-work" class="text-stone-600 text-xs leading-relaxed"></p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 pt-8 border-t border-emerald-50 w-full">
+                            <p class="text-[10px] text-emerald-600 font-bold uppercase tracking-[0.2em] mb-3">Divine
+                                Message</p>
+                            <p id="rune-message" class="text-stone-700 text-md leading-relaxed italic font-medium"></p>
                         </div>
                     </div>
                 </div>
 
                 <!-- Controls -->
-                <div class="mt-8">
+                <div class="mt-10">
                     <button onclick="castRune()" id="cast-btn"
-                        class="w-full bg-gradient-to-r from-emerald-700 to-emerald-600 hover:from-emerald-600 hover:to-emerald-500 text-white font-bold py-4 rounded-lg text-lg shadow-lg transform transition hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2">
-                        <i data-lucide="sparkles" class="w-5 h-5"></i> ルーンを引く
+                        class="w-full bg-stone-900 text-white font-bold py-5 rounded-2xl text-lg shadow-xl hover:bg-stone-800 transform transition-all active:scale-95 flex items-center justify-center gap-3 group">
+                        <i data-lucide="sparkles"
+                            class="w-6 h-6 text-emerald-400 group-hover:rotate-12 transition-transform"></i>
+                        ルーンを引く
                     </button>
                     <button onclick="resetRune()" id="reset-btn"
-                        class="hidden w-full bg-transparent border border-slate-600 text-slate-400 hover:text-white hover:border-slate-400 font-medium py-3 rounded-lg mt-4 transition">
+                        class="hidden w-full bg-white border border-stone-200 text-stone-500 hover:text-stone-900 hover:border-stone-400 font-bold py-4 rounded-2xl mt-4 transition-all">
                         もう一度占う
                     </button>
                 </div>
             </div>
 
-            <div class="mt-12 text-left bg-slate-800/30 p-6 rounded-lg border border-slate-700">
-                <h4 class="text-lime-400 font-bold mb-2">基本的なやり方（ワンオラクル）</h4>
-                <ol class="list-decimal list-inside text-slate-300 space-y-2 text-sm">
-                    <li><strong class="text-white">道具の準備:</strong> ルーンストーン（石や木片）を袋（ポーチ）に入れます。</li>
-                    <li><strong class="text-white">浄化と集中:</strong> 深呼吸をして心を鎮め、質問を具体的にイメージします。</li>
-                    <li><strong class="text-white">抽出:</strong> 袋の中に手を入れ、石を混ぜながら「これだ」と感じる一つを取り出します。</li>
-                    <li><strong class="text-white">解釈:</strong> 出たルーンの意味を、質問の文脈に合わせて読み解きます。</li>
-                </ol>
+            <div
+                class="mt-16 text-left bg-white/40 backdrop-blur-sm p-8 rounded-3xl border border-emerald-100/50 max-w-2xl mx-auto shadow-sm">
+                <h4 class="text-emerald-800 font-bold mb-4 flex items-center gap-2">
+                    <i data-lucide="info" class="w-5 h-5"></i> 占いの手順
+                </h4>
+                <div class="grid gap-4 text-sm text-stone-600">
+                    <div class="flex gap-4">
+                        <span
+                            class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">1</span>
+                        <p>深呼吸をして、あなたの問いや願いを心に思い描きます。</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span
+                            class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">2</span>
+                        <p>「ルーンを引く」ボタンを押し、神託を受け取ります。</p>
+                    </div>
+                    <div class="flex gap-4">
+                        <span
+                            class="w-6 h-6 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">3</span>
+                        <p>示された象徴を今の自分に当てはめ、静かに答えを感じ取ります。</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -587,31 +720,181 @@
     <script>
         // --- Rune Data (Elder Futhark + Blank) ---
         const runes = [
-            { symbol: 'ᚠ', name: 'フェフ (Fehu)', meaning: '富・豊かさ', keywords: '所有、獲得、家畜、財産、始まり、エネルギーの循環', message: '努力が実り、物質的・精神的な豊かさを手にする時です。得たものは循環させましょう。' },
-            { symbol: 'ᚢ', name: 'ウルズ (Uruz)', meaning: '野生の力・健康', keywords: '生命力、勇気、変化、本能、衝動、挑戦', message: 'あなたの中に眠る野生のエネルギーを解放してください。変化を恐れず突き進む強さがあります。' },
-            { symbol: 'ᚦ', name: 'スリサズ (Thurisaz)', meaning: '巨人・棘', keywords: '試練、防御、警告、混沌、衝動的な行動、雷', message: '慎重さが求められています。進む前に一度立ち止まり、内なる声に耳を傾けてください。' },
-            { symbol: 'ᚨ', name: 'アンズール (Ansuz)', meaning: '言葉・神託', keywords: 'コミュニケーション、知恵、情報、伝達、年長者からの助言', message: '言葉による伝達が鍵となります。情報を正しく受け取り、自分の思いを素直に表現しましょう。' },
-            { symbol: 'ᚱ', name: 'ライズ (Raido)', meaning: '旅・車輪', keywords: '移動、旅行、正しい方向、リズム、進展、秩序', message: '物事が正しいリズムで動き出します。流れに身を任せ、目的地に向かって進んでください。' },
-            { symbol: 'ᚲ', name: 'ケナズ (Kenaz)', meaning: '松明・炎', keywords: '情熱、創造性、ひらめき、技術、知識、光', message: '暗闇に光が差し込みます。新しいアイデアや情熱が、道を切り開く鍵となるでしょう。' },
-            { symbol: 'ᚷ', name: 'ゲーボ (Gebo)', meaning: '贈り物', keywords: 'パートナーシップ、愛情、才能、交換、調和、犠牲', message: '与えることと受け取ることのバランスが大切です。信頼できる関係性が深まる予感があります。' },
-            { symbol: 'ᚹ', name: 'ヴニョ (Wunjo)', meaning: '喜び', keywords: '幸福、成就、満足、平和、友情、調和', message: '困難が去り、喜びの時が訪れます。心を開いて、今の幸せを十分に味わってください。' },
-            { symbol: 'ᚺ', name: 'ハガル (Hagalaz)', meaning: '雹（ひょう）', keywords: '破壊、急変、不可抗力、浄化、再構築の前触れ', message: '予期せぬ変化が訪れるかもしれません。しかしそれは、不要なものを壊し、新しく生まれ変わるための浄化です。' },
-            { symbol: 'ᚾ', name: 'ナウシズ (Nauthiz)', meaning: '必要性・欠乏', keywords: '忍耐、制約、苦難、必要な学び、内省', message: '今は忍耐の時です。焦らず、自分に本当に必要なものは何かを見つめ直してください。' },
-            { symbol: 'ᛁ', name: 'イサ (Isa)', meaning: '氷', keywords: '停滞、静止、集中、孤独、冷却期間、現状維持', message: '物事が動かないように感じるかもしれません。無理に動かそうとせず、内面を磨く時期です。' },
-            { symbol: 'ᛃ', name: 'ジェラ (Jera)', meaning: '収穫・一年', keywords: '結果、収穫、継続、サイクルの完了、努力の結実', message: '蒔いた種が実る時です。これまでの地道な努力が、具体的な成果として現れるでしょう。' },
-            { symbol: 'ᛇ', name: 'エイワズ (Eihwaz)', meaning: 'イチイの木', keywords: '死と再生、軸、耐久力、変容、守護', message: '終わりと始まりの境界線にいます。大きな変化の中でも、自分の軸をしっかりと持ってください。' },
-            { symbol: 'ᛈ', name: 'ペース (Perthro)', meaning: '秘密・運命', keywords: 'ギャンブル、意外な展開、露見、神秘、ハプニング', message: '隠されていたものが明らかになるかもしれません。運命的な展開を楽しんでください。' },
-            { symbol: 'ᛉ', name: 'アルジズ (Algiz)', meaning: '保護・大鹿', keywords: '守護、友情、本能的な防御、高次とのつながり', message: 'あなたは守られています。直感に従い、危険を回避してください。助けを求めても良いでしょう。' },
-            { symbol: 'ᛋ', name: 'ソウェイル (Sowilo)', meaning: '太陽', keywords: '成功、勝利、活力、名誉、全体性、自信', message: '圧倒的なエネルギーに満ちています。迷わず進めば、成功と勝利はあなたのものです。' },
-            { symbol: 'ᛏ', name: 'ティワズ (Tiwaz)', meaning: '戦士の神', keywords: '正義、勝利、自己犠牲、勇気、法、規律', message: '信念を持って戦う時です。正義と公平さを大切にし、勇気ある決断をしてください。' },
-            { symbol: 'ᛒ', name: 'ベルカナ (Berkana)', meaning: 'カバの木', keywords: '成長、誕生、母性、育成、新しい始まり、癒し', message: '新しい何かが生まれようとしています。優しく育み、成長を見守る姿勢が大切です。' },
-            { symbol: 'ᛖ', name: 'エワズ (Ehwaz)', meaning: '馬', keywords: '移動、進歩、協力関係、信頼、変化、スムーズな流れ', message: 'パートナーとの協力により、物事がスムーズに進みます。変化を受け入れ、共に進んでください。' },
-            { symbol: 'ᛗ', name: 'マンナズ (Mannaz)', meaning: '人間', keywords: '自己、人類、社会、協力、知性、相互依存', message: '人との関わりの中で自分自身を知る時です。協力し合うことで、より大きな視点を持てるでしょう。' },
-            { symbol: 'ᛚ', name: 'ラグズ (Laguz)', meaning: '水', keywords: '感情、直感、潜在意識、流れ、生命力、芸術', message: '論理よりも感情や直感を大切にしてください。水の流れのように、柔軟に状況に対応しましょう。' },
-            { symbol: 'ᛝ', name: 'イングズ (Ingwaz)', meaning: '豊穣の神', keywords: '完成、達成、安心、家庭、区切り、次のステージ', message: '一つのサイクルが完了し、満ち足りた状態です。安心して次のステージへの準備を始めましょう。' },
-            { symbol: 'ᛟ', name: 'オガラ (Othala)', meaning: '故郷・遺産', keywords: '伝統、家族、不動産、継承、ルーツ、所属', message: '自分のルーツや居場所を見つめ直す時です。古いものを大切にしつつ、必要な継承を行ってください。' },
-            { symbol: 'ᛞ', name: 'ダガズ (Dagaz)', meaning: '夜明け', keywords: 'ブレイクスルー、覚醒、希望、好転、無限の可能性', message: '長い夜が明け、新しい光が差し込みます。劇的な状況の好転が期待できるでしょう。' },
-            { symbol: '⠀', name: 'ウィルド (Wyrd)', meaning: '空白 (ブランクルーン)', keywords: '未知、宿命、可能性、神の意志、予測不能', message: '全ては白紙です。未来はまだ決まっていません。あなたの意志と神の采配に委ねられています。' }
+            {
+                symbol: 'ᚠ', name: 'フェフ (Fehu)', meaning: '富・豊かさ',
+                description: '家畜や財産を象徴し、物質的・精神的な「獲得」を意味します。',
+                love: '魅力が高まり、新しい出会いや関係の進展が期待できます。自分を磨くことが豊かさを呼び込みます。',
+                work: 'これまでの努力が収益や評価に繋がる時期。スキルアップへの投資も吉です。',
+                message: '努力が実り、物質的・精神的な豊かさを手にする時です。得たものは循環させましょう。'
+            },
+            {
+                symbol: 'ᚢ', name: 'ウルズ (Uruz)', meaning: '野生の力・健康',
+                description: '猛牛を象徴し、抑えきれない生命力や本能的な力を意味します。',
+                love: '情熱的なアプローチが功を奏します。飾らない素の自分を見せることが魅力になります。',
+                work: '困難を突破する爆発的な力が備わっています。大胆な決断や新プロジェクトの開始に最適。',
+                message: 'あなたの中に眠る野生のエネルギーを解放してください。変化を恐れず突き進む強さがあります。'
+            },
+            {
+                symbol: 'ᚦ', name: 'スリサズ (Thurisaz)', meaning: '巨人・棘',
+                description: '巨人の力や植物の棘を象徴。守りと同時に強い破壊力を秘めています。',
+                love: '衝動的な行動には要注意。今は一歩引いて、相手の真意を見極める静かな強さが必要です。',
+                work: '予期せぬトラブルの予感。準備や確認を怠らず、必要なら周囲に守りを固めてもらいましょう。',
+                message: '慎重さが求められています。進む前に一度立ち止まり、内なる声に耳を傾けてください。'
+            },
+            {
+                symbol: 'ᚨ', name: 'アンズール (Ansuz)', meaning: '言葉・神託',
+                description: '神々の啓示や言葉の力を象徴。コミュニケーションを通じて道が開けます。',
+                love: '素直な言葉が心の距離を縮めます。年長者からのアドバイスが解決のヒントになるかも。',
+                work: 'プレゼンや交渉など、発信力が試される場。情報の収集と正しい表現が成功の鍵です。',
+                message: '言葉による伝達が鍵となります。情報を正しく受け取り、自分の思いを素直に表現しましょう。'
+            },
+            {
+                symbol: 'ᚱ', name: 'ライズ (Raido)', meaning: '旅・車輪',
+                description: '馬車や移動、正しいリズムを象徴。正しい方向へ向かうことを意味します。',
+                love: 'デートや旅行など、物理的な移動が功を奏します。二人の足並みが揃う時期です。',
+                work: '出張や転職など、環境を変える動きがプラスに働きます。プロジェクトが加速するでしょう。',
+                message: '物事が正しいリズムで動き出します。流れに身を任せ、目的地に向かって進んでください。'
+            },
+            {
+                symbol: 'ᚲ', name: 'ケナズ (Kenaz)', meaning: '松明・炎',
+                description: '闇を照らす松明を象徴。情熱、創造性、病の治癒などを意味します。',
+                love: '心の霧が晴れ、進むべき道が見えます。あなた自身の魅力が周囲を惹きつけるでしょう。',
+                work: '斬新なアイデアやひらめきが鍵。専門スキルの磨き上げが、キャリアに光をもたらします。',
+                message: '暗闇に光が差し込みます。新しいアイデアや情熱が、道を切り開く鍵となるでしょう。'
+            },
+            {
+                symbol: 'ᚷ', name: 'ゲーボ (Gebo)', meaning: '贈り物',
+                description: '等価交換やギフトを象徴。調和のとれた対人関係やパートナーシップを意味します。',
+                love: '運命的な出会いやプロポーズの可能性。お互いを尊重し合える素晴らしい関係になります。',
+                work: '共同事業やチームワークが素晴らしい成果を生みます。ギブ・アンド・テイクの精神を大切に。',
+                message: '与えることと受け取ることのバランスが大切です。信頼できる関係性が深まる予感があります。'
+            },
+            {
+                symbol: 'ᚹ', name: 'ヴニョ (Wunjo)', meaning: '喜び',
+                description: '安らぎや旗を象徴。仲間との調和や、苦労の後の達成感を意味します。',
+                love: '心からの喜びを感じる穏やかな時。不満や争いが消え、幸福感に包まれるでしょう。',
+                work: '期待以上の結果が出て、周囲からの祝福を受ける予感。チーム全体に活気が生まれます。',
+                message: '困難が去り、喜びの時が訪れます。心を開いて、今の幸せを十分に味わってください。'
+            },
+            {
+                symbol: 'ᚺ', name: 'ハガル (Hagalaz)', meaning: '雹（ひょう）',
+                description: '予期せぬ「空からの氷」を象徴。破壊による浄化と再スタートを意味します。',
+                love: '想定外のトラブルや別れがあるかも。しかしそれは、不毛な関係を終わらせるための浄化です。',
+                work: '急な方針変更やアクシデント。抗うのではなく、新しい土台を作るチャンスと捉えましょう。',
+                message: '予期せぬ変化が訪れるかもしれません。しかしそれは、不要なものを壊し、新しく生まれ変わるための浄化です。'
+            },
+            {
+                symbol: 'ᚾ', name: 'ナウシズ (Nauthiz)', meaning: '必要性・欠乏',
+                description: '摩擦による火起こしを象徴。制約の中から知恵を生み出すことを意味します。',
+                love: '今は「ないものねだり」をしやすい時期。焦って行動せず、自分自身の欠乏感と向き合って。',
+                work: '予算不足や人手不足など制約が多い時。限られた条件で最大限の結果を出す工夫が求められます。',
+                message: '今は忍耐の時です。焦らず、自分に本当に必要なものは何かを見つめ直してください。'
+            },
+            {
+                symbol: 'ᛁ', name: 'イサ (Isa)', meaning: '氷',
+                description: '凍りついた水、静止を象徴。動くべからず、内面への集中を意味します。',
+                love: '関係が冷え切ったり、進展が止まりやすい時期。今は無理強いせず、一人の時間を大切に。',
+                work: 'プロジェクトが停滞しがち。無理に動かすと失敗します。今は準備と計画の見直しに徹して。',
+                message: '物事が動かないように感じるかもしれません。無理に動かそうとせず、内面を磨く時期です。'
+            },
+            {
+                symbol: 'ᛃ', name: 'ジェラ (Jera)', meaning: '収穫・一年',
+                description: '季節の巡りや年月の積み重ねを象徴。継続的な努力の結果を意味します。',
+                love: '時間をかけて育んできた愛が実ります。これまでの関わり方が形となって現れる時。',
+                work: '長期プロジェクトの完了や昇進など、確かな手応えを得られます。一歩一歩が成功に繋がります。',
+                message: '蒔いた種が実る時です。これまでの地道な努力が、具体的な成果として現れるでしょう。'
+            },
+            {
+                symbol: 'ᛇ', name: 'エイワズ (Eihwaz)', meaning: 'イチイの木',
+                description: '生と死の象徴である聖なる木。変化への耐性と変容を意味します。',
+                love: '腐れ縁が切れたり、逆境を乗り越えて絆が深まったりと、本質的な変化が起きます。',
+                work: '困難な状況下での粘り強さが試されます。ここを乗り越えれば、別次元へ成長できるでしょう。',
+                message: '終わりと始まりの境界線にいます。大きな変化の中でも、自分の軸をしっかりと持ってください。'
+            },
+            {
+                symbol: 'ᛈ', name: 'ペース (Perthro)', meaning: '秘密・運命',
+                description: 'サイコロの筒や女性の胎内を象徴。予期せぬ展開や隠された真実を意味します。',
+                love: '意外な人から告白されたり、秘密が明らかになったり。運命に翻弄される感覚を楽しむことが吉。',
+                work: '棚ぼた的なチャンスや、思わぬところからの助け舟。直感に従ってリスクを取ると好転します。',
+                message: '隠されていたものが明らかになるかもしれません。運命的な展開を楽しんでください。'
+            },
+            {
+                symbol: 'ᛉ', name: 'アルジズ (Algiz)', meaning: '保護・大鹿',
+                description: '大鹿の角や天に向かう手を象徴。守護、安全、スピリチュアルな意識を意味します。',
+                love: '平和で安全な関係。トラブルからは守られるでしょう。誠実な友人が恋路を助けてくれる予感。',
+                work: '周囲のサポートを受けやすく、安心して業務に集中できます。直感が冴え、リスクを回避できる時。',
+                message: 'あなたは守られています。直感に従い、危険を回避してください。助けを求めても良いでしょう。'
+            },
+            {
+                symbol: 'ᛋ', name: 'ソウェイル (Sowilo)', meaning: '太陽',
+                description: '生命の源である太陽を象徴。勝利、成功、輝かしい未来を約束します。',
+                love: '最高の運気。あなたの魅力が全開になり、周囲の注目の的に。告白やプロポーズも大成功。',
+                work: '実力以上の結果が出せる勝ち戦。リーダーシップを発揮し、自信を持って周囲を牽引して。',
+                message: '圧倒的なエネルギーに満ちています。迷わず進めば、成功と勝利はあなたのものです。'
+            },
+            {
+                symbol: 'ᛏ', name: 'ティワズ (Tiwaz)', meaning: '戦士の神',
+                description: '勝利の神ティールの槍を象徴。正義、勇気、自己犠牲による勝利を意味します。',
+                love: '情熱的かつ誠実な愛情。ライバルに勝つ強さがあります。自発的に動くことが進展の鍵。',
+                work: 'コンペや商談など、勝負どころで勝利を掴めます。正々堂々と立ち向かう姿勢が高評価に。',
+                message: '信念を持って戦う時です。正義と公平さを大切にし、勇気ある決断をしてください。'
+            },
+            {
+                symbol: 'ᛒ', name: 'ベルカナ (Berkana)', meaning: 'カバの木',
+                description: '芽吹く木、母性を象徴。新しい命の誕生、再生、育成、癒しを意味します。',
+                love: '慈愛に満ちた関係。新しい恋の始まりや、子宝に恵まれる予感。温かい包容力が魅力になります。',
+                work: '新しいプロジェクトが芽吹く時。じっくりと時間をかけて育てることが、将来の大きな成功に。',
+                message: '新しい何かが生まれようとしています。優しく育み、成長を見守る姿勢が大切です。'
+            },
+            {
+                symbol: 'ᛖ', name: 'エワズ (Ehwaz)', meaning: '馬',
+                description: '信頼し合う馬と騎手を象徴。パートナーシップやスムーズな移動を意味します。',
+                love: '二人三脚で進める素晴らしい時期。お互いへの信頼が深まり、次のステップへ自然に進めます。',
+                work: '協力者との連携がスムーズ。出張や環境の変化が刺激になり、仕事の効率が劇的に上がります。',
+                message: 'パートナーとの協力により、物事がスムーズに進みます。変化を受け入れ、共に進んでください。'
+            },
+            {
+                symbol: 'ᛗ', name: 'マンナズ (Mannaz)', meaning: '人間',
+                description: '自己と他者の関係、人類を象徴。知性や社会的な価値、調和を意味します。',
+                love: '友人から恋人へ。まずは精神的な繋がりを大切に。周囲の助けが二人の距離を縮めます。',
+                work: 'ネットワークを広げるチャンス。人道的な活動やチームビルディングが大きな成果を呼びます。',
+                message: '人との関わりの中で自分自身を知る時です。協力し合うことで、より大きな視点を持てるでしょう。'
+            },
+            {
+                symbol: 'ᛚ', name: 'ラグズ (Laguz)', meaning: '水',
+                description: '絶え間なく流れる水、情緒、直感を象徴。潜在意識の導きや流動性を意味します。',
+                love: '直感的な惹かれ合い。ロジック抜きで動く自分の心に従って。感受性が高まり、絆が深まります。',
+                work: '定石に囚われない柔軟な対応が吉。インスピレーションを大切にすると、クリエイティブな成果が。',
+                message: '論理よりも感情や直感を大切にしてください。水の流れのように、柔軟に状況に対応しましょう。'
+            },
+            {
+                symbol: 'ᛝ', name: 'イングズ (Ingwaz)', meaning: '豊穣の神',
+                description: '土の中で眠る種、完成を象徴。パワーの蓄積、区切り、安泰を意味します。',
+                love: '一つの答えが出る時期。関係の完成。家族愛のような深くて強い絆を感じられるでしょう。',
+                work: '現在のタスクを完了させ、次のステージへ。これまでの蓄積が形になり、一区切りつきます。',
+                message: '一つのサイクルが完了し、満ち足りた状態です。安心して次のステージへの準備を始めましょう。'
+            },
+            {
+                symbol: 'ᛟ', name: 'オガラ (Othala)', meaning: '故郷・遺産',
+                description: '囲われた土地、伝統を象徴。家族、ルーツ、物理的・精神的な「継承」を意味します。',
+                love: '落ち着いた、将来を見据えた関係。互いの家族や価値観を尊重し合うことで安定が増します。',
+                work: '伝統を重んじたり、上司から重要な役割を引き継いだり。土台を固めることが成功への近道。',
+                message: '自分のルーツや居場所を見つめ直す時です。古いものを大切にしつつ、必要な継承を行ってください。'
+            },
+            {
+                symbol: 'ᛞ', name: 'ダガズ (Dagaz)', meaning: '夜明け',
+                description: '均衡と昼の光を象徴。劇的な好転、覚醒、暗闇からの脱却を意味します。',
+                love: '一気に状況が明るくなります。今までの悩みや停滞が嘘のように消え、希望が見えるでしょう。',
+                work: 'ブレイクスルーの瞬間。これまでの経験が一つに繋がり、新たな視界が開けます。成功は目前。',
+                message: '長い夜が明け、新しい光が差し込みます。劇的な状況の好転が期待できるでしょう。'
+            },
+            {
+                symbol: '⠀', name: 'ウィルド (Wyrd)', meaning: '空白 (ブランクルーン)',
+                description: '運命の三女神の糸車、無限の可能性を象徴。全ては神のみぞ知る空白です。',
+                love: '予測不能。どんな未来もあなたの心がけ一つで描き換えられます。未知の展開を受け入れて。',
+                work: '大きな転換点。想定外の出来事が起きるかもしれませんが、それは天の計らい。流れに身を委ねて。',
+                message: '全ては白紙です。未来はまだ決まっていません。あなたの意志と神の采配に委ねられています。'
+            }
         ];
 
         // --- Navigation Logic ---
@@ -657,8 +940,10 @@
 
             // Animation state
             btn.disabled = true;
-            btn.innerHTML = '<span>🔮</span> 交信中...';
-            placeholder.classList.add('animate-spin'); // Add spin effect temporarily
+            btn.innerHTML = '<i data-lucide="sparkles" class="w-6 h-6 animate-spin text-emerald-400"></i> 交信中...';
+            lucide.createIcons();
+
+            placeholder.classList.add('animate-pulse');
 
             setTimeout(() => {
                 // Random Selection
@@ -669,19 +954,21 @@
                 document.getElementById('rune-symbol').innerText = selectedRune.symbol;
                 document.getElementById('rune-name').innerText = selectedRune.name;
                 document.getElementById('rune-meaning').innerText = selectedRune.meaning;
-                document.getElementById('rune-keywords').innerText = selectedRune.keywords;
+                document.getElementById('rune-description').innerText = selectedRune.description;
+                document.getElementById('rune-love').innerText = selectedRune.love;
+                document.getElementById('rune-work').innerText = selectedRune.work;
                 document.getElementById('rune-message').innerText = selectedRune.message;
 
                 // UI Transition
                 placeholder.classList.add('hidden');
-                placeholder.classList.remove('animate-spin');
                 resultDiv.classList.remove('hidden');
+                resultDiv.classList.add('fade-in');
 
                 // Button Switch
                 btn.classList.add('hidden');
                 resetBtn.classList.remove('hidden');
 
-            }, 1000); // 1 second delay for effect
+            }, 1200); // Slightly longer for "magical" feel
         }
 
         function resetRune() {
@@ -698,11 +985,25 @@
 
             // Reset Button Text
             btn.disabled = false;
-            btn.innerHTML = '<span>🪄</span> ルーンを引く';
+            btn.innerHTML = '<i data-lucide="sparkles" class="w-6 h-6 text-emerald-400"></i> ルーンを引く';
+            lucide.createIcons();
         }
 
         // --- Chart.js Initialization ---
         document.addEventListener('DOMContentLoaded', function () {
+            // Populate Alphabet Grid
+            const alphabetGrid = document.getElementById('rune-alphabet-grid');
+            runes.forEach(rune => {
+                const card = document.createElement('div');
+                card.className = 'bg-stone-50 p-6 rounded-2xl border border-stone-100 flex flex-col items-center text-center hover:bg-emerald-50 hover:border-emerald-100 transition-all cursor-default group';
+                card.innerHTML = `
+                    <div class="text-4xl text-emerald-900 mb-3 group-hover:scale-110 transition-transform font-serif">${rune.symbol}</div>
+                    <div class="text-xs font-bold text-stone-900 mb-1">${rune.name.split(' ')[0]}</div>
+                    <div class="text-[10px] text-stone-500 font-medium">${rune.meaning}</div>
+                `;
+                alphabetGrid.appendChild(card);
+            });
+
             const ctx = document.getElementById('comparisonChart').getContext('2d');
 
             new Chart(ctx, {
@@ -776,24 +1077,6 @@
             lucide.createIcons();
         }
 
-        // Update JS functions to use Lucide
-        const originalCastRune = castRune;
-        castRune = function () {
-            const btn = document.getElementById('cast-btn');
-            btn.innerHTML = '<i data-lucide="refresh-cw" class="w-5 h-5 animate-spin"></i> 交信中...';
-            lucide.createIcons();
-            setTimeout(() => {
-                originalCastRune();
-            }, 0);
-        };
-
-        const originalResetRune = resetRune;
-        resetRune = function () {
-            originalResetRune();
-            const btn = document.getElementById('cast-btn');
-            btn.innerHTML = '<i data-lucide="sparkles" class="w-5 h-5"></i> ルーンを引く';
-            lucide.createIcons();
-        };
     </script>
 </body>
 
