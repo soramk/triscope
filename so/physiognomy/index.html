@@ -1182,11 +1182,11 @@
             // UI feedback
             const siblings = element.parentElement.querySelectorAll('button');
             siblings.forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
+                btn.classList.remove('bg-amber-400', 'text-amber-900', 'border-amber-500', 'shadow-sm');
                 btn.classList.add('border-stone-200', 'text-stone-600');
             });
             element.classList.remove('border-stone-200', 'text-stone-600');
-            element.classList.add('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
+            element.classList.add('bg-amber-400', 'text-amber-900', 'border-amber-500', 'shadow-sm');
 
             checkDiagnosisProgress();
         }
@@ -1304,7 +1304,7 @@
             for (const key in diagnosisData) diagnosisData[key] = null;
 
             document.querySelectorAll('.diag-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
+                btn.classList.remove('bg-amber-400', 'text-amber-900', 'border-amber-500', 'shadow-sm');
                 btn.classList.add('border-stone-200', 'text-stone-600');
             });
             const progressBar = document.getElementById('progress-bar');
