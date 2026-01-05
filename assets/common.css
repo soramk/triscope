@@ -11,6 +11,12 @@
    基本スタイル
    ===================== */
 
+html,
+body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 body {
     font-family: 'Noto Sans JP', sans-serif;
     background-color: #FDFBF7;
