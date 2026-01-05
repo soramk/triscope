@@ -135,30 +135,65 @@
             color: #b91c1c;
         }
 
-        /* Coin Animation Styles */
+        /* Updated Coin Animation Styles */
         .coin-container {
             perspective: 1000px;
+            width: 80px;
+            height: 80px;
         }
 
         .coin {
-            width: 60px;
-            height: 60px;
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-style: preserve-3d;
+        }
+
+        .coin.flip-animation {
+            animation: coin-toss 0.8s ease-out;
+        }
+
+        @keyframes coin-toss {
+            0% {
+                transform: translateY(0) rotateY(0);
+            }
+
+            50% {
+                transform: translateY(-50px) rotateY(360deg);
+            }
+
+            100% {
+                transform: translateY(0) rotateY(720deg);
+            }
+        }
+
+        .coin-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
             border-radius: 50%;
-            background: #d97706;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: bold;
-            color: white;
-            font-family: serif;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.6s;
-            transform-style: preserve-3d;
-            position: relative;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
 
-        .coin.flip {
-            transform: rotateY(720deg) rotateX(360deg);
+        .coin-front {
+            background-image: url('../../assets/images/coin_gold.png');
+            background-size: cover;
+        }
+
+        .coin-back {
+            background-image: url('../../assets/images/coin_silver.png');
+            background-size: cover;
+            transform: rotateY(180deg);
+        }
+
+        .coin.is-tails {
+            transform: rotateY(180deg);
         }
 
         .nav-btn.active {
@@ -959,98 +994,132 @@
         </section>
 
         <!-- 6. Interactive Simulation (The Core Experience) -->
-        <section id="simulation" class="py-24 bg-[#1c1917] text-stone-100 relative overflow-hidden scroll-mt-16">
-            <!-- Background Texture -->
-            <div class="absolute inset-0 opacity-5 pointer-events-none"
-                style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0MCIgaGVpZ2h0PSI0MCIgdmlld0JveD0iMCAwIDQwIDQwIj48ZyBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9MTAgNDBoNDBWMEgwVjQwem0yMCAyMGgyMHYyMEgyMFY2MHoiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMSIvPjwvZz48L3N2Zz4=');">
+        <section id="simulation" class="py-24 bg-[#FAFAF9] text-stone-800 relative overflow-hidden scroll-mt-16">
+            <!-- Background Decoration -->
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none"
+                style="background-image: radial-gradient(#d97706 1px, transparent 1px); background-size: 20px 20px;">
             </div>
 
-            <div class="max-w-5xl mx-auto px-4 relative z-10">
-                <div class="text-center mb-12">
-                    <span
-                        class="text-amber-500 font-bold tracking-widest uppercase text-xs border-b border-amber-500 pb-1">06.
-                        Simulation</span>
-                    <h3 class="text-4xl font-bold text-white mt-4 serif">実践：擲銭法（てきせんほう）</h3>
-                    <p class="text-stone-400 mt-4 max-w-2xl mx-auto leading-relaxed">
-                        伝統的な筮竹（ぜいちく）の代わりに、3枚のコインを使う簡便法を体験しましょう。<br>
-                        心を落ち着け、問いかけを念じながら「コインを投げる」ボタンを6回押してください。<br>
-                        下から順に線（爻）が積み上がり、あなたの卦（Hexagram）が完成します。
+            <div class="max-w-6xl mx-auto px-4 relative z-10">
+                <div class="text-center mb-16">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-bold tracking-widest uppercase mb-4 shadow-sm">
+                        <i data-lucide="coins" class="w-3 h-3"></i> Digtal Divination
+                    </div>
+                    <h3 class="text-4xl md:text-5xl font-extrabold text-stone-900 mt-2 serif leading-tight">
+                        実践：<span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-red-700">擲銭法</span>
+                    </h3>
+                    <p class="text-stone-500 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+                        伝統的な筮竹（ぜいちく）の代わりに、3枚のコインを使って今の運気を読み解きます。<br class="hidden md:block">
+                        心を落ち着け、具体的な問いを念じながら「コインを投げる」を6回繰り返してください。
                     </p>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-                    <!-- Control Panel -->
-                    <div class="bg-stone-800 p-8 rounded-2xl shadow-2xl border border-stone-700">
-                        <h4 class="text-xl font-bold text-amber-500 mb-6 serif flex items-center justify-between">
-                            <span>手順 (Steps)</span>
-                            <span id="step-counter" class="text-sm bg-stone-900 px-2 py-1 rounded text-stone-400">0 /
-                                6</span>
-                        </h4>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-stretch">
+                    <!-- Left: Control Panel -->
+                    <div class="lg:col-span-5 flex flex-col">
+                        <div
+                            class="bg-white p-8 md:p-10 rounded-[2rem] shadow-xl border border-stone-100 flex-grow flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center justify-between mb-8">
+                                    <h4 class="text-xl font-bold text-stone-800 serif">手順 (Steps)</h4>
+                                    <div id="step-counter"
+                                        class="px-4 py-1.5 bg-amber-50 rounded-full text-amber-700 font-bold text-xs border border-amber-100">
+                                        進捗: 0 / 6
+                                    </div>
+                                </div>
 
-                        <div class="space-y-8">
-                            <div id="step-desc" class="text-base text-stone-300 min-h-[60px] leading-relaxed">
-                                1. まず、占いたい具体的な問いを心に思い浮かべてください。準備ができたら「開始」を押します。
+                                <div id="step-desc"
+                                    class="text-stone-600 mb-10 min-h-[80px] leading-relaxed border-l-2 border-amber-200 pl-6 italic">
+                                    占いたい具体的な問いを心に浮かべてください。準備ができたら「コインを投げる」を押して開始します。
+                                </div>
+
+                                <!-- Coins Display -->
+                                <div
+                                    class="flex justify-around items-center mb-12 bg-stone-50 py-10 rounded-3xl border border-stone-100 shadow-inner relative overflow-hidden">
+                                    <div
+                                        class="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-amber-200 to-transparent">
+                                    </div>
+                                    <div class="coin-container relative z-10">
+                                        <div id="coin1" class="coin">
+                                            <div class="coin-face coin-front"></div>
+                                            <div class="coin-face coin-back"></div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-container relative z-10">
+                                        <div id="coin2" class="coin">
+                                            <div class="coin-face coin-front"></div>
+                                            <div class="coin-face coin-back"></div>
+                                        </div>
+                                    </div>
+                                    <div class="coin-container relative z-10">
+                                        <div id="coin3" class="coin">
+                                            <div class="coin-face coin-front"></div>
+                                            <div class="coin-face coin-back"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <!-- Coins Display -->
-                            <div
-                                class="flex justify-center space-x-6 my-4 bg-stone-900 p-6 rounded-xl h-32 items-center border-t border-b border-stone-700/50">
-                                <div class="coin-container">
-                                    <div id="coin1" class="coin text-2xl shadow-amber-500/20">?</div>
-                                </div>
-                                <div class="coin-container">
-                                    <div id="coin2" class="coin text-2xl shadow-amber-500/20">?</div>
-                                </div>
-                                <div class="coin-container">
-                                    <div id="coin3" class="coin text-2xl shadow-amber-500/20">?</div>
-                                </div>
-                            </div>
-
-                            <div class="flex flex-col gap-3">
+                            <div class="space-y-4">
                                 <button id="tossBtn" onclick="tossCoins()"
-                                    class="w-full bg-gradient-to-r from-red-800 to-red-700 hover:from-red-700 hover:to-red-600 text-white font-bold py-4 rounded-xl shadow-lg transition transform active:scale-[0.98] text-lg border border-red-900 tracking-wide">
+                                    class="w-full bg-stone-900 text-white font-bold py-5 rounded-2xl shadow-xl hover:bg-stone-800 transition-all transform active:scale-[0.98] text-lg flex items-center justify-center gap-3">
+                                    <i data-lucide="sparkles" class="w-6 h-6 text-amber-400"></i>
                                     コインを投げる
                                 </button>
                                 <button id="resetBtn" onclick="resetDivination()"
-                                    class="w-full bg-stone-700 hover:bg-stone-600 text-stone-300 font-bold py-3 rounded-xl transition hidden border border-stone-600">
-                                    リセットして最初から
+                                    class="w-full bg-white text-stone-400 border border-stone-200 font-bold py-4 rounded-2xl hover:bg-stone-50 transition-all hidden flex items-center justify-center gap-2 text-sm">
+                                    <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                                    リセット
                                 </button>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Result Panel (Hexagram Builder) -->
-                    <div
-                        class="bg-[#f5f5f4] p-8 rounded-2xl shadow-2xl text-stone-900 min-h-[500px] flex flex-col relative overflow-hidden">
-                        <!-- Background Pattern -->
-                        <div class="absolute inset-0 opacity-30 flex items-center justify-center pointer-events-none">
-                            <div class="w-64 h-64 rounded-full border-[20px] border-stone-200"></div>
-                        </div>
+                    <!-- Right: Result Panel -->
+                    <div class="lg:col-span-7">
+                        <div
+                            class="bg-white p-8 md:p-10 rounded-[2rem] shadow-xl border border-stone-100 h-full flex flex-col">
+                            <h4 class="text-xl font-bold text-stone-800 serif mb-8 flex items-center gap-3">
+                                <i data-lucide="layout-grid" class="w-5 h-5 text-amber-600"></i>
+                                あなたの卦 (Hexagram)
+                            </h4>
 
-                        <div class="absolute top-4 right-4 text-[10px] uppercase text-stone-400 tracking-widest">
-                            Future
-                            (上卦)</div>
-                        <div class="absolute bottom-4 right-4 text-[10px] uppercase text-stone-400 tracking-widest">
-                            Past
-                            (下卦)</div>
+                            <div
+                                class="flex-grow flex flex-col md:flex-row gap-10 items-center justify-center relative">
+                                <!-- Hexagram Stack -->
+                                <div id="hexagram-container"
+                                    class="flex flex-col-reverse w-full max-w-[200px] gap-4 py-4 z-10">
+                                    <div class="h-64 flex flex-col items-center justify-center text-stone-300 italic space-y-4"
+                                        id="empty-state">
+                                        <div
+                                            class="w-20 h-20 rounded-full border-2 border-dashed border-stone-200 flex items-center justify-center">
+                                            <i data-lucide="layers" class="w-10 h-10 opacity-30"></i>
+                                        </div>
+                                        <span class="text-xs tracking-widest uppercase">Waiting for inputs...</span>
+                                    </div>
+                                </div>
 
-                        <!-- The Hexagram Stack -->
-                        <div id="hexagram-container"
-                            class="flex flex-col-reverse w-full max-w-[240px] mx-auto gap-3 py-10 z-10 flex-grow justify-center">
-                            <!-- Lines will be injected here by JS -->
-                            <div class="h-full flex flex-col items-center justify-center text-stone-400 italic space-y-4"
-                                id="empty-state">
-                                <i data-lucide="layers" class="w-12 h-12 opacity-20"></i>
-                                <span class="text-sm">コインを投げると、<br>ここに卦（け）が現れます</span>
+                                <!-- Labels for Upper/Lower Trigrams -->
+                                <div
+                                    class="hidden md:flex flex-col justify-between h-[240px] text-[10px] text-stone-400 font-bold uppercase tracking-[0.2em] pt-4 pb-4">
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-4 h-px bg-stone-200"></div> 上卦 (Future)
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-4 h-px bg-stone-200"></div> 下卦 (Past)
+                                    </div>
+                                </div>
                             </div>
-                        </div>
 
-                        <!-- Result Text -->
-                        <div id="result-text"
-                            class="mt-4 pt-6 border-t border-stone-300 text-center hidden fade-in z-10 bg-white/80 backdrop-blur-sm rounded-lg p-4 mx-[-10px] mb-[-10px]">
-                            <h5 class="text-xl font-bold serif mb-2 text-stone-800" id="hex-name">--
-                            </h5>
-                            <p class="text-sm text-stone-600 leading-6 text-left" id="hex-desc">--</p>
+                            <!-- Result Interpretation -->
+                            <div id="result-text" class="mt-8 pt-8 border-t border-stone-100 hidden animate-fade-in-up">
+                                <div class="bg-amber-50/50 rounded-2xl p-6 border border-amber-100">
+                                    <h5 class="text-2xl font-bold serif mb-3 text-stone-900" id="hex-name">--</h5>
+                                    <div id="hex-desc" class="text-stone-600 text-sm leading-relaxed space-y-4">--</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1230,83 +1299,74 @@
             // Animate coins
             const coinEls = [document.getElementById('coin1'), document.getElementById('coin2'), document.getElementById('coin3')];
             coinEls.forEach(c => {
-                // Reset rotation
-                c.style.transition = 'none';
-                c.classList.remove('flip');
+                c.classList.remove('flip-animation', 'is-tails');
                 void c.offsetWidth; // trigger reflow
-                // Add flip animation
-                c.style.transition = 'transform 0.6s ease-out';
-                c.classList.add('flip');
+                c.classList.add('flip-animation');
             });
 
             // Disable button during animation
             btn.disabled = true;
             btn.classList.add('opacity-50', 'cursor-not-allowed');
-            btn.innerHTML = `<span class="animate-pulse">運命を計算中...</span>`;
+            btn.innerHTML = `<span class="animate-pulse">運勢を読み解き中...</span>`;
 
             setTimeout(() => {
                 // Calculate Result
                 let total = 0;
                 coinEls.forEach(c => {
-                    c.classList.remove('flip');
+                    c.classList.remove('flip-animation');
                     // Random 2 or 3 (2=Tails/Yin, 3=Heads/Yang)
                     const val = Math.random() < 0.5 ? 2 : 3;
                     total += val;
 
                     // Visual update of coins
-                    if (val === 3) {
-                        c.innerText = "陽"; // Heads
-                        c.style.backgroundColor = "#b91c1c"; // Red
-                        c.style.color = "white";
-                    } else {
-                        c.innerText = "陰"; // Tails
-                        c.style.backgroundColor = "#d6d3d1"; // Grey
-                        c.style.color = "#1c1917";
+                    if (val === 2) {
+                        c.classList.add('is-tails');
                     }
                 });
 
                 // Process Line
                 addLineToHexagram(total);
                 tossCount++;
-                counter.innerText = `${tossCount} / 6`;
+                counter.innerText = `進捗: ${tossCount} / 6`;
 
                 // Update UI text
                 if (tossCount < maxTosses) {
-                    stepDesc.innerHTML = `<span class="text-amber-500 font-bold">${tossCount}回目</span>の結果: 合計${total}。<br>次のラインを積み上げます。集中を持続してください。`;
-                    btn.innerText = `次のコインを投げる`;
+                    stepDesc.innerHTML = `<span class="text-amber-600 font-bold">${tossCount}回目</span>の結果: 合計<span class="text-red-600 font-bold">${total}</span>。<br>次のライン（爻）を積み上げます。集中を途切れさせないように。`;
+                    btn.innerHTML = `<i data-lucide="sparkles" class="w-6 h-6 text-amber-400"></i> ${tossCount + 1}回目のコインを投げる`;
                     btn.disabled = false;
                     btn.classList.remove('opacity-50', 'cursor-not-allowed');
                 } else {
-                    stepDesc.innerHTML = `<span class="text-amber-500 font-bold">完了</span>: 6本のラインが揃いました。あなたの問いに対する答えが表示されます。`;
+                    stepDesc.innerHTML = `<span class="text-amber-600 font-bold">完了</span>: すべてのラインが揃いました。宇宙が示した答えを読み解きましょう。`;
                     finishDivination();
                 }
+                lucide.createIcons();
 
-            }, 600);
+            }, 800);
         }
 
         function addLineToHexagram(value) {
             const container = document.getElementById('hexagram-container');
             const lineWrapper = document.createElement('div');
-            lineWrapper.className = "w-full flex items-center relative fade-in group mb-1";
+            lineWrapper.className = "w-full flex items-center relative fade-in group";
 
             const lineContent = document.createElement('div');
-            lineContent.className = "flex-grow relative px-8"; // Add padding to make space for absolute markers
+            lineContent.className = "flex-grow relative px-4";
 
             let lineHTML = '';
             let markerHTML = '';
             let lineLabel = '';
 
             if (value === 9 || value === 7) {
-                lineHTML = `<div class="hex-line yang bg-stone-900 h-3 w-full rounded-sm shadow-sm transition-all group-hover:bg-red-900"></div>`;
+                lineHTML = `<div class="hex-line yang bg-stone-900 h-4 w-full rounded shadow-sm transition-all group-hover:bg-red-700 group-hover:shadow-lg group-hover:shadow-red-200"></div>`;
                 lineLabel = (value === 9) ? "老陽 (変)" : "少陽";
-                if (value === 9) markerHTML = `<span class="absolute right-0 top-[-6px] text-red-600 text-xl font-bold">○</span>`;
+                if (value === 9) markerHTML = `<span class="absolute -left-2 top-[-2px] text-red-600 text-2xl font-bold">○</span>`;
             } else {
-                lineHTML = `<div class="hex-line yin flex justify-between w-full h-3">
-                    <div class="hex-line-segment shadow-sm transition-all group-hover:bg-red-900"></div>
-                    <div class="hex-line-segment shadow-sm transition-all group-hover:bg-red-900"></div>
+                lineHTML = `<div class="hex-line yin flex justify-between w-full h-4">
+                    <div class="w-[45%] bg-stone-900 rounded shadow-sm transition-all group-hover:bg-red-700 group-hover:shadow-lg group-hover:shadow-red-200"></div>
+                    <div class="w-[45%] bg-stone-900 rounded shadow-sm transition-all group-hover:bg-red-700 group-hover:shadow-lg group-hover:shadow-red-200"></div>
                 </div>`;
                 lineLabel = (value === 6) ? "老陰 (変)" : "少陰";
-                if (value === 6) markerHTML = `<span class="absolute right-0 top-[-6px] text-red-600 text-xl font-bold">✕</span>`;
+                if (value === 6) markerHTML = `<span class="absolute -left-2 top-[-2px] text-red-600 text-2xl font-bold">✕</span>`;
             }
 
             lineContent.innerHTML = lineHTML + markerHTML;
@@ -1346,132 +1406,145 @@
             const lower = getTrigramInfo(hexagramLines.slice(0, 3));
             const upper = getTrigramInfo(hexagramLines.slice(3, 6));
 
-            // 64 Hexagram simple titles logic
+            // 64 Hexagram simple titles logic (Keeping the existing map for functionality)
             const hexMap = {
-                "天天": "乾為天: 強力な前進、創造の最高潮",
-                "地地": "坤為地: 柔順、受容、大地のような調和",
-                "水雷": "水雷屯: 産みの苦しみ、慎重な出発",
-                "山水": "山水蒙: 啓蒙、教育、未熟さからの学び",
-                "水天": "水天需: 待機、忍耐、好機を待つ",
-                "天水": "天水訟: 争い、訴訟、衝突の回避が吉",
-                "地水": "地水師: 統率、組織、困難に挑む軍隊",
-                "水地": "水地比: 親和、協力、人との絆",
-                "風天": "風天小畜: 小さな蓄え、足踏み状態",
-                "天沢": "天沢履: 危険を伴う歩み、誠実さ",
-                "地天": "地天泰: 安泰、平和、萬事順調",
-                "天地": "天地否: 閉塞、不一致、衰退の兆し",
-                "天火": "天同人: 協力、志を同じくする者",
-                "火天": "火天大有: 豊穣、繁栄、大いなる所有",
-                "地山": "地山謙: 謙虚、慎み、徳を積む",
-                "雷地": "雷地予: 予感、喜び、準備と計画",
-                "沢雷": "沢雷随: 追従、柔軟性、流れに任せる",
-                "山風": "山風蠱: 腐敗、刷新、立て直し",
-                "地臨": "地臨: 到来、臨む、成長の初期",
-                "風地": "風地観: 観察、熟考、洞察力",
-                "火雷": "火雷噬嗑: 障害の除去、断固たる決断",
-                "山火": "山火賁: 装飾、外面の美、内実の伴い",
-                "山地": "山地剥: 崩壊、剥落、今は耐える時",
-                "地雷": "地雷復: 回復、復活、再び始まる",
-                "天雷": "天雷无妄: 自然体、作為のない誠実",
-                "山天": "山天大畜: 大いなる蓄積、実力の涵養",
-                "山雷": "山雷頤: 養生、口、栄養と節制",
-                "沢風": "沢風大過: 重荷、過剰、思い切った処置",
-                "水水": "坎為水: 重なる困難、知略での突破",
-                "火火": "離為火: 明晰、知性、情熱の持続",
-                "沢山": "沢山咸: 感応、共鳴、惹かれ合う心",
-                "雷風": "雷風恒: 永続、恒常、変わらぬ信念",
-                "天山": "天山遯: 隠遁、退避、身を守る智慧",
-                "雷天": "雷天大壮: 盛大、勢い、行き過ぎに注意",
-                "火地": "火地晋: 進出、昇進、輝かしい発展",
-                "地火": "地火明夷: 苦難、隠れる、暗闇での忍耐",
-                "風火": "風火家人: 家庭、内面の秩序、誠意",
-                "火沢": "火沢睽: 背離、違和感、異質な融合",
-                "水山": "水山蹇: 足踏み、困難、止まって熟考",
-                "雷水": "雷水解: 解消、解放、問題の解決",
-                "山沢": "山沢損: 減少、奉仕、まず与えること",
-                "風雷": "風雷益: 利益、増加、積極的な進歩",
-                "沢天": "沢天夬: 決断、突破、断固たる態度",
-                "天風": "天風姤: 出会い、偶然、予期せぬ誘惑",
-                "沢地": "沢地萃: 集合、繁栄、人々が集まる",
-                "地風": "地風升: 上昇、昇進、地道な努力",
-                "沢水": "沢水困: 困窮、行き詰まり、精神の鍛錬",
-                "水風": "水風井: 生命の源、井戸、普遍的な価値",
-                "沢火": "沢火革: 変革、改革、古いものを捨てる",
-                "火風": "火風鼎: 安定、三者の協力、新たな確立",
-                "雷雷": "震為雷: 衝撃、変革の予兆、落ち着き",
-                "山山": "艮為山: 停止、不動、自己を律する",
-                "風山": "風山漸: 漸進、着実な歩み、順序",
-                "雷沢": "雷沢帰妹: 順序の誤り、無理な進展",
-                "雷火": "雷火豊: 豊盛、頂点、盛者必衰の戒め",
-                "火山": "火山旅: 孤独、不安定、旅路の教訓",
-                "風風": "巽為風: 柔軟、浸透、謙虚な従順",
-                "沢沢": "兌為沢: 喜び、対話、心の和らぎ",
-                "風水": "風水渙: 解散、霧散、古い殻を破る",
-                "水沢": "水沢節: 節度、制約、適切な区切り",
-                "風沢": "風中孚: 誠実、真実、心からの共鳴",
-                "雷山": "雷山小過: 少しの行き過ぎ、日常の遵守",
-                "水火": "水火既済: 完成、成就、その後の油断",
-                "火水": "火水未済: 未完成、希望の残存、再出発"
+                "天天": "乾為天: 大いなる創造、積極的な前進",
+                "地地": "坤為地: 柔和な受容、大地のような調和",
+                "水雷": "水雷屯: 産みの苦しみ、新たな出発の予感",
+                "山水": "山水蒙: 未来への啓蒙、学びと成長",
+                "水天": "水天需: 好機を待つ、余裕ある待機",
+                "天水": "天水訟: 争いを避け、和の道を模索する",
+                "地水": "地水師: 優れた統率力、組織の力",
+                "水地": "水地比: 親和と協力、人との絆の深まり",
+                "風天": "風天小畜: 小さな蓄え、地道な積み重ね",
+                "天沢": "天沢履: 慎重な歩み、礼節を尽くす",
+                "地天": "地天泰: 平和と安泰、繁栄の絶頂",
+                "天地": "天地否: 閉塞感、静かに機が熟すのを待つ",
+                "天火": "天火同人: 志を同じくする、強力な協力者",
+                "火天": "火天大有: 豊かな実り、目覚ましい繁栄",
+                "地山": "地山謙: 謙虚の徳、慎みが幸運を呼ぶ",
+                "雷地": "雷地予: 喜びの予感、準備と活気",
+                "沢雷": "沢雷随: 流れに従う、しなやかな対応",
+                "山風": "山風蠱: 古い殻を破る、刷新のチャンス",
+                "地沢": "地沢臨: 到来、希望に満ちた成長",
+                "風地": "風地観: 広い視野、状況の冷静な観察",
+                "火雷": "火雷噬嗑: 障害を破る、断固たる決断",
+                "山火": "山火賁: 内実ある美、誠意ある装い",
+                "山地": "山地剥: 忍耐の時、根本を見つめ直す",
+                "地雷": "地雷復: 回復と復活、再び光が差す",
+                "天雷": "天雷无妄: 自然のままに、作為のない誠実",
+                "山天": "山天大畜: 大いなる実り、蓄積された知恵",
+                "山雷": "山雷頤: 健全な養生、言葉と食の節制",
+                "沢風": "沢風大過: 思い切った決断、重荷からの脱却",
+                "水水": "坎為水: 智略による突破、困難を糧にする",
+                "火火": "離為火: 明晰な知性、情熱の持続",
+                "沢山": "沢山咸: 心の共鳴、感応し合う関係",
+                "雷風": "雷風恒: 変わらぬ信念、永続する力",
+                "天山": "天山遯: 身を引く智慧、隠遁による守り",
+                "雷天": "雷天大壮: 盛んな勢い、正義による前進",
+                "火地": "火地晋: 明るい希望、昇りゆく運勢",
+                "地火": "地火明夷: 苦難の中の光明、内なる光を守る",
+                "風火": "風火家人: 足元の秩序、内面からの調和",
+                "火沢": "火沢睽: 異質な融合、視点の違いを楽しむ",
+                "水山": "水山蹇: 止まって熟考、賢明な回避",
+                "雷水": "雷水解: 困難の解消、解放へのプロセス",
+                "山沢": "山沢損: 献身による喜び、まず与えること",
+                "風雷": "風雷益: 大いなる利益、積極的な挑戦",
+                "沢天": "沢天夬: 決断と突破、迷いの払拭",
+                "天風": "天風姤: 偶然の出会い、予期せぬ兆し",
+                "沢地": "沢地萃: 人々が集まる、繁栄の集合知",
+                "地風": "地風升: 地道な上昇、着実な成功への階段",
+                "沢水": "沢水困: 精神の鍛錬、行き詰まりからの飛躍",
+                "水風": "水風井: 変わらぬ価値、深まる人間性",
+                "沢火": "沢火革: 大胆な変革、自己のアップデート",
+                "火風": "火風鼎: 安定した協力、三位一体の力",
+                "雷雷": "震為雷: 新たな衝撃、変革を促す警鐘",
+                "山山": "艮為山: 不動の信念、自己を律する静寂",
+                "風山": "風山漸: 着実な進展、順序を追った成功",
+                "雷沢": "雷沢帰妹: 足元を確認する、焦らぬ智慧",
+                "雷火": "雷火豊: 最高の盛運、分かち合う豊かさ",
+                "火山": "火山旅: 新たな旅路、孤独の中の発見",
+                "風風": "巽為風: しなやかな浸透、柔軟な対応",
+                "沢沢": "兌為沢: 喜びの共有、心の和らぎ",
+                "風水": "風水渙: 古い殻を打破、霧が晴れる時",
+                "水沢": "水沢節: 適切な節度、心地よいバランス",
+                "風沢": "風中孚: 誠実な真心、魂の共鳴",
+                "雷山": "雷山小過: 繊細な配慮、日常の大切さ",
+                "水火": "水火既済: 成就の時、次なる準備への始まり",
+                "火水": "火水未済: 無限の可能性、希望ある再出発"
             };
 
             const key = upper.name + lower.name;
             const hexDetail = hexMap[key] || "未知の卦: 変化の真っ只中にあります。";
 
-            hexName.innerText = `易占の結果：【${hexDetail.split(': ')[0]}】`;
+            hexName.innerHTML = `<span class="text-amber-600">易占の結果：</span>【${hexDetail.split(': ')[0]}】`;
 
-            let interpretation = `心に浮かべた問いに対し、宇宙はこの象（かたち）を示しました。<br>
-                                 <span class="text-xs bg-stone-100 px-3 py-1 rounded text-stone-500 inline-block mt-3 border border-stone-200 shadow-sm">${upper.symbol}(${upper.name}) ／ ${lower.symbol}(${lower.name})</span>`;
-
-            interpretation += `<div class="mt-6 p-4 bg-white border border-red-50 rounded-lg shadow-inner">
-                                <p class="text-stone-800 font-bold mb-2">総評: ${hexDetail.split(': ')[1]}</p>
-                                <p class="text-xs text-stone-600 leading-relaxed">
-                                    この卦は「${upper.name}」という外的な勢いと、「${lower.name}」という内面的な状態が重なることで生まれる物語です。
-                                </p>
-                              </div>`;
+            let interpretation = `<p class="mt-4 font-bold text-stone-800">${hexDetail.split(': ')[1]}</p>`;
+            interpretation += `<p class="text-xs text-stone-500 mt-2">
+                                 構成: <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded">${upper.symbol}(${upper.name})</span> ／ 
+                                 <span class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded">${lower.symbol}(${lower.name})</span>
+                               </p>`;
 
             const isDynamic = hexagramLines.some(l => l === 6 || l === 9);
             if (isDynamic) {
-                interpretation += `<div class="mt-6 animate-pulse border-l-4 border-amber-500 pl-4 py-1">
-                                    <p class="text-sm font-bold text-amber-800">【変爻（へんこう）あり】変化の真っ只中</p>
-                                    <p class="text-xs text-stone-600 mt-1">
-                                        現在は「${hexDetail.split(': ')[0]}」の状態にありますが、内部に「老」「極」のラインが含まれています。これは状況が裏返り、別の卦へと移行しようとしている動的な局面であることを意味します。結果を固定せず、変化の兆しを読み取ってください。
+                interpretation += `<div class="mt-6 bg-gradient-to-r from-amber-500/10 to-transparent border-l-4 border-amber-500 pl-4 py-2">
+                                    <p class="text-sm font-bold text-amber-900 flex items-center gap-2">
+                                        <i data-lucide="zap" class="w-4 h-4"></i> 【変爻（へんこう）あり】動的な局面
+                                    </p>
+                                    <p class="text-[11px] text-stone-600 mt-1">
+                                        現在はこの卦が示す状態にありますが、強い変化の兆し（老陰・老陽）が含まれています。状況が裏返り、別のステージへと移行しようとしているエネルギッシュな時期です。
                                     </p>
                                   </div>`;
             } else {
-                interpretation += `<div class="mt-6 border-l-4 border-stone-400 pl-4 py-1">
-                                    <p class="text-sm font-bold text-stone-800">【不変の卦】安定の時</p>
-                                    <p class="text-xs text-stone-600 mt-1">
-                                        変化を示すラインが含まれていません。これは今すぐ状況が劇的に変わることはなく、この卦が示すエネルギーがしばらく持続することを意味します。地道な対応が鍵となります。
+                interpretation += `<div class="mt-6 bg-gradient-to-r from-stone-200/20 to-transparent border-l-4 border-stone-400 pl-4 py-2">
+                                    <p class="text-sm font-bold text-stone-800 flex items-center gap-2">
+                                        <i data-lucide="anchor" class="w-4 h-4"></i> 【不変の卦】安定の予兆
+                                    </p>
+                                    <p class="text-[11px] text-stone-600 mt-1">
+                                        急激な変化はなく、現在のエネルギーがしばらく持続します。今は結果を急がず、この卦が示す教訓をじっくりと咀嚼するのに適した時期です。
                                     </p>
                                   </div>`;
             }
 
-            interpretation += "<br><div class='text-left bg-stone-50 p-4 rounded text-[11px] text-stone-500 space-y-2 border border-stone-100'><strong>💡 易の知恵:</strong><br>結果を単なる吉凶ではなく「今の自分を映す鏡」として捉えてみてください。一番下のラインから順に、時間軸に沿った物語として解釈を深めることができます。</div>";
+            interpretation += `<div class="mt-6 bg-white p-4 rounded-xl shadow-sm space-y-2 border border-stone-100">
+                                <p class="text-[11px] font-bold text-stone-800 flex items-center gap-2">
+                                    <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500"></i> 今後の指針
+                                </p>
+                                <p class="text-[11px] text-stone-600 leading-relaxed italic">
+                                    易の世界では「至誠（しせい）」が最も重んじられます。出た結果を単なる予測ではなく、あなたの無意識からのメッセージとして受け取ることで、運命を切り拓くヒントが見つかるはずです。
+                                </p>
+                              </div>`;
 
             hexDesc.innerHTML = interpretation;
             resultText.classList.remove('hidden');
+            resultText.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            lucide.createIcons();
         }
 
         function resetDivination() {
             tossCount = 0;
             hexagramLines = [];
-            document.getElementById('hexagram-container').innerHTML = '<div class="h-full flex flex-col items-center justify-center text-stone-400 italic space-y-4" id="empty-state"><span class="text-4xl opacity-20">☰</span><span class="text-sm">コインを投げると、<br>ここに卦（け）が現れます</span></div>';
+            document.getElementById('hexagram-container').innerHTML = `<div class="h-64 flex flex-col items-center justify-center text-stone-300 italic space-y-4" id="empty-state">
+                                        <div class="w-20 h-20 rounded-full border-2 border-dashed border-stone-200 flex items-center justify-center">
+                                            <i data-lucide="layers" class="w-10 h-10 opacity-30"></i>
+                                        </div>
+                                        <span class="text-xs tracking-widest uppercase">Waiting for inputs...</span>
+                                    </div>`;
             document.getElementById('tossBtn').classList.remove('hidden');
-            document.getElementById('tossBtn').innerText = "コインを投げる";
+            document.getElementById('tossBtn').innerHTML = `<i data-lucide="sparkles" class="w-6 h-6 text-amber-400"></i> コインを投げる`;
             document.getElementById('tossBtn').disabled = false;
             document.getElementById('tossBtn').classList.remove('opacity-50', 'cursor-not-allowed');
             document.getElementById('resetBtn').classList.add('hidden');
             document.getElementById('result-text').classList.add('hidden');
-            document.getElementById('step-desc').innerText = "1. まず、占いたい具体的な問いを心に思い浮かべてください。準備ができたら「開始」を押します。";
-            document.getElementById('step-counter').innerText = "0 / 6";
+            document.getElementById('step-desc').innerText = "占いたい具体的な問いを心に浮かべてください。準備ができたら「コインを投げる」を押して開始します。";
+            document.getElementById('step-counter').innerText = "進捗: 0 / 6";
 
             // Reset coins
             const coins = document.querySelectorAll('.coin');
             coins.forEach(c => {
-                c.innerText = "?";
-                c.style.backgroundColor = "#d97706";
-                c.style.color = "white";
+                c.classList.remove('is-tails', 'flip-animation');
             });
+            lucide.createIcons();
         }
 
         function toggleMobileMenu() {
