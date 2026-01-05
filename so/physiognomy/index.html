@@ -542,114 +542,282 @@
         <!-- Section 4.5: Self Diagnosis -->
         <section id="diagnosis" class="scroll-mt-20">
             <div
-                class="bg-gradient-to-br from-stone-900 to-stone-800 rounded-[3rem] p-8 md:p-12 shadow-2xl overflow-hidden relative">
-                <!-- Abstract decorations -->
-                <div class="absolute top-0 right-0 w-64 h-64 bg-amber-600/10 rounded-full blur-3xl -mr-32 -mt-32"></div>
-                <div class="absolute bottom-0 left-0 w-64 h-64 bg-indigo-600/10 rounded-full blur-3xl -ml-32 -mb-32">
+                class="bg-gradient-to-br from-amber-50/50 via-white to-orange-50/50 rounded-[3rem] p-8 md:p-16 shadow-xl shadow-amber-900/5 overflow-hidden relative border border-amber-100/50">
+                <!-- Abstract decorations (Bright version) -->
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-amber-200/20 rounded-full blur-3xl -mr-48 -mt-48 animate-pulse">
+                </div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-orange-100/20 rounded-full blur-3xl -ml-48 -mb-48">
                 </div>
 
                 <div class="relative z-10">
-                    <div class="text-center mb-12">
-                        <span class="text-amber-500 text-xs font-bold uppercase tracking-[0.3em] mb-4 block">Self
-                            Analysis</span>
-                        <h2 class="text-3xl md:text-4xl font-bold text-white serif mb-4">人相セルフチェック診断</h2>
-                        <p class="text-stone-400 max-w-xl mx-auto">今のあなたの顔に表れている傾向を簡易診断します。当てはまる特徴を選んでください。</p>
+                    <div class="text-center mb-16">
+                        <span class="text-amber-600 text-[10px] font-bold uppercase tracking-[0.4em] mb-4 block">Self
+                            Analysis & Diagnostics</span>
+                        <h2 class="text-3xl md:text-5xl font-bold text-stone-900 serif mb-6 tracking-tight">人相セルフチェック診断
+                        </h2>
+                        <div class="w-16 h-1 bg-amber-400 mx-auto mb-6 rounded-full"></div>
+                        <p class="text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                            鏡を見ながら、現在のあなたの顔の特徴を正確に選んでください。<br>
+                            鑑定士の視点で、あなたの隠れた性質と運勢のバイオリズムを導き出します。
+                        </p>
                     </div>
 
                     <div id="diagnosis-container"
-                        class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+                        class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
                         <!-- Questions Area -->
-                        <div class="space-y-6">
+                        <div class="space-y-8">
+                            <!-- Q1: Brows -->
                             <div
-                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
-                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                class="diagnosis-step bg-white p-7 rounded-3xl shadow-sm border border-stone-100 transition-all hover:shadow-md">
+                                <h4 class="text-stone-800 font-bold mb-5 flex items-center gap-3">
                                     <span
-                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">01</span>
-                                    顔の形はどれに近い？
+                                        class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">01</span>
+                                    眉（保寿官）：濃さや形は？
                                 </h4>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <button onclick="setDiagnosis('shape', 'round', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">丸顔・卵型</button>
-                                    <button onclick="setDiagnosis('shape', 'square', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">四角・ホームベース型</button>
-                                    <button onclick="setDiagnosis('shape', 'long', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">面長</button>
-                                    <button onclick="setDiagnosis('shape', 'triangle', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">逆三角形</button>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <button onclick="setDiagnosis('brows', 'thick', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="feather" class="w-5 h-5 opacity-70"></i>
+                                        <span>太く濃い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('brows', 'arched', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="moon" class="w-5 h-5 opacity-70"></i>
+                                        <span>三日月・アーチ</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('brows', 'straight', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="minus" class="w-5 h-5 opacity-70"></i>
+                                        <span>直線・一文字</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('brows', 'thin', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="scissors" class="w-5 h-5 opacity-70"></i>
+                                        <span>薄く短い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('brows', 'up', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="trending-up" class="w-5 h-5 opacity-70"></i>
+                                        <span>上がり眉</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('brows', 'down', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="trending-down" class="w-5 h-5 opacity-70"></i>
+                                        <span>下がり眉</span>
+                                    </button>
                                 </div>
                             </div>
 
+                            <!-- Q2: Eyes -->
                             <div
-                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
-                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                class="diagnosis-step bg-white p-7 rounded-3xl shadow-sm border border-stone-100 transition-all hover:shadow-md">
+                                <h4 class="text-stone-800 font-bold mb-5 flex items-center gap-3">
                                     <span
-                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">02</span>
-                                    目はどのような印象？
+                                        class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">02</span>
+                                    目（監察官）：どのような印象？
                                 </h4>
-                                <div class="grid grid-cols-2 gap-3">
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     <button onclick="setDiagnosis('eye', 'large', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">大きくて丸い</button>
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="eye" class="w-5 h-5 opacity-70"></i>
+                                        <span>大きく輝く</span>
+                                    </button>
                                     <button onclick="setDiagnosis('eye', 'sharp', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">細くて鋭い</button>
-                                    <button onclick="setDiagnosis('eye', 'slanted', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">つり目気味</button>
-                                    <button onclick="setDiagnosis('eye', 'droopy', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">たれ目気味</button>
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="zap" class="w-5 h-5 opacity-70"></i>
+                                        <span>鋭く力強い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('eye', 'up', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="arrow-up-right" class="w-5 h-5 opacity-70"></i>
+                                        <span>つり目</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('eye', 'down', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="arrow-down-right" class="w-5 h-5 opacity-70"></i>
+                                        <span>たれ目</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('eye', 'round', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="circle" class="w-5 h-5 opacity-70"></i>
+                                        <span>丸い目</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('eye', 'long', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="maximize-2" class="w-5 h-5 opacity-70"></i>
+                                        <span>切れ長</span>
+                                    </button>
                                 </div>
                             </div>
 
+                            <!-- Q3: Nose -->
                             <div
-                                class="diagnosis-step bg-white/5 backdrop-blur-sm p-6 rounded-2xl border border-white/10">
-                                <h4 class="text-white font-bold mb-4 flex items-center gap-2">
+                                class="diagnosis-step bg-white p-7 rounded-3xl shadow-sm border border-stone-100 transition-all hover:shadow-md">
+                                <h4 class="text-stone-800 font-bold mb-5 flex items-center gap-3">
                                     <span
-                                        class="w-6 h-6 rounded-full bg-amber-500 text-stone-900 text-[10px] flex items-center justify-center">03</span>
-                                    口角や口の形は？
+                                        class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">03</span>
+                                    鼻（審弁官）：目立つ特徴は？
                                 </h4>
-                                <div class="grid grid-cols-2 gap-3">
-                                    <button onclick="setDiagnosis('mouth', 'up', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">上がっている</button>
-                                    <button onclick="setDiagnosis('mouth', 'down', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">下がっている</button>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <button onclick="setDiagnosis('nose', 'high', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="arrow-up" class="w-5 h-5 opacity-70"></i>
+                                        <span>高く通る</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('nose', 'round', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="box" class="w-5 h-5 opacity-70"></i>
+                                        <span>丸い・獅子鼻</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('nose', 'small', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="minimize" class="w-5 h-5 opacity-70"></i>
+                                        <span>小ぶり</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('nose', 'eagle', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="chevron-down" class="w-5 h-5 opacity-70"></i>
+                                        <span>鷲鼻</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('nose', 'flare', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="expand" class="w-5 h-5 opacity-70"></i>
+                                        <span>小鼻が張る</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('nose', 'hook', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="target" class="w-5 h-5 opacity-70"></i>
+                                        <span>鼻先が尖る</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Q4: Mouth -->
+                            <div
+                                class="diagnosis-step bg-white p-7 rounded-3xl shadow-sm border border-stone-100 transition-all hover:shadow-md">
+                                <h4 class="text-stone-800 font-bold mb-5 flex items-center gap-3">
+                                    <span
+                                        class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">04</span>
+                                    口（出納官）：形や口角は？
+                                </h4>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                                     <button onclick="setDiagnosis('mouth', 'large', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">大きくて厚い</button>
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="smile" class="w-5 h-5 opacity-70"></i>
+                                        <span>大きく厚い</span>
+                                    </button>
                                     <button onclick="setDiagnosis('mouth', 'small', this)"
-                                        class="diag-btn px-4 py-3 rounded-xl border border-white/20 text-stone-300 text-xs hover:bg-white/10 transition-all">小さくて薄い</button>
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="minus-circle" class="w-5 h-5 opacity-70"></i>
+                                        <span>小さく薄い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('mouth', 'up', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="laugh" class="w-5 h-5 opacity-70"></i>
+                                        <span>口角が上がる</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('mouth', 'down', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="frown" class="w-5 h-5 opacity-70"></i>
+                                        <span>口角が下がる</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('mouth', 'tight', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="lock" class="w-5 h-5 opacity-70"></i>
+                                        <span>一文字に結ぶ</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('mouth', 'pout', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="external-link" class="w-5 h-5 opacity-70"></i>
+                                        <span>突き出ている</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Q5: Ears -->
+                            <div
+                                class="diagnosis-step bg-white p-7 rounded-3xl shadow-sm border border-stone-100 transition-all hover:shadow-md">
+                                <h4 class="text-stone-800 font-bold mb-5 flex items-center gap-3">
+                                    <span
+                                        class="w-7 h-7 rounded-full bg-amber-100 text-amber-700 text-xs flex items-center justify-center font-bold">05</span>
+                                    耳（采聴官）：どのような特徴？
+                                </h4>
+                                <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                                    <button onclick="setDiagnosis('ear', 'large', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="award" class="w-5 h-5 opacity-70"></i>
+                                        <span>福耳・大きい</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('ear', 'small', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="music" class="w-5 h-5 opacity-70"></i>
+                                        <span>小さく精巧</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('ear', 'high', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="upload" class="w-5 h-5 opacity-70"></i>
+                                        <span>位置が高い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('ear', 'low', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="download" class="w-5 h-5 opacity-70"></i>
+                                        <span>位置が低い</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('ear', 'thin', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="triangle" class="w-5 h-5 opacity-70"></i>
+                                        <span>薄く尖る</span>
+                                    </button>
+                                    <button onclick="setDiagnosis('ear', 'out', this)"
+                                        class="diag-btn p-4 rounded-2xl border border-stone-200 text-stone-600 text-[11px] hover:border-amber-400 hover:bg-amber-50 transition-all flex flex-col items-center gap-2">
+                                        <i data-lucide="radio" class="w-5 h-5 opacity-70"></i>
+                                        <span>立ち耳</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Result Area -->
                         <div id="diagnosis-result-box"
-                            class="sticky top-24 bg-white/[0.03] backdrop-blur-lg rounded-[2rem] border border-white/10 p-8 h-full min-h-[400px] flex flex-col items-center justify-center text-center">
-                            <div id="result-placeholder">
-                                <i data-lucide="sparkles" class="w-16 h-16 text-amber-500/20 mb-6 mx-auto"></i>
-                                <h3 class="text-xl text-stone-500 font-medium mb-4">上のすべての項目を選択すると<br>診断結果が表示されます</h3>
-                                <div class="w-32 h-1 bg-white/5 rounded-full mx-auto overflow-hidden">
-                                    <div id="progress-bar" class="w-0 h-full bg-amber-500 transition-all duration-500">
+                            class="sticky top-24 bg-amber-900/5 backdrop-blur-md rounded-[3rem] border border-amber-200/50 p-10 h-full min-h-[500px] flex flex-col items-center justify-center text-center shadow-inner">
+                            <div id="result-placeholder" class="space-y-6">
+                                <div class="relative">
+                                    <div class="absolute inset-0 bg-amber-400/20 blur-2xl rounded-full"></div>
+                                    <i data-lucide="sparkles" class="w-20 h-20 text-amber-600/40 relative mx-auto"></i>
+                                </div>
+                                <h3 class="text-xl text-stone-500 font-medium leading-relaxed">全ての項目を選択すると<br><span
+                                        class="text-stone-800 font-bold">あなたの分析レポート</span>が表示されます</h3>
+                                <div class="w-48 h-1.5 bg-stone-200 rounded-full mx-auto overflow-hidden">
+                                    <div id="progress-bar"
+                                        class="w-0 h-full bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-700">
                                     </div>
                                 </div>
+                                <p class="text-[11px] text-stone-400 uppercase tracking-widest">Awaiting Input...</p>
                             </div>
 
-                            <div id="result-content" class="hidden animate-fade-in w-full">
-                                <span
-                                    class="bg-amber-500/20 text-amber-500 text-[10px] font-bold px-3 py-1 rounded-full mb-4 inline-block">Analysis
-                                    Complete</span>
-                                <h3 id="result-title" class="text-2xl text-white serif font-bold mb-4">---</h3>
-                                <div class="bg-white/5 rounded-2xl p-6 mb-6 text-left">
-                                    <p id="result-desc" class="text-stone-300 text-sm leading-relaxed"></p>
+                            <div id="result-content" class="hidden animate-fade-in w-full space-y-8">
+                                <div class="inline-block">
+                                    <span
+                                        class="bg-amber-600 text-white text-[10px] font-bold px-4 py-1 rounded-full uppercase tracking-widest mb-4 inline-block shadow-sm">Diagnosis
+                                        Result</span>
                                 </div>
-                                <div class="grid grid-cols-2 gap-4 mb-8">
-                                    <div class="p-3 bg-white/5 rounded-xl text-left border border-white/5">
-                                        <span class="text-[9px] text-stone-500 block mb-1">ラッキーアイテム</span>
-                                        <span id="result-item" class="text-xs text-amber-500 font-bold">---</span>
-                                    </div>
-                                    <div class="p-3 bg-white/5 rounded-xl text-left border border-white/5">
-                                        <span class="text-[9px] text-stone-500 block mb-1">開運アクション</span>
-                                        <span id="result-action" class="text-xs text-indigo-400 font-bold">---</span>
-                                    </div>
+
+                                <h3 class="text-3xl text-stone-900 serif font-bold leading-tight">鑑定士の分析レポート</h3>
+
+                                <!-- 5 Categories Result Grid -->
+                                <div id="five-results-grid" class="grid grid-cols-1 gap-4 text-left">
+                                    <!-- Results will be injected here -->
                                 </div>
-                                <button onclick="resetDiagnosis()"
-                                    class="text-stone-500 text-[10px] hover:text-white transition-colors underline decoration-stone-500 underline-offset-4">もう一度診断する</button>
+
+                                <div class="pt-6 border-t border-amber-200/50">
+                                    <button onclick="resetDiagnosis()"
+                                        class="group flex items-center gap-2 mx-auto text-stone-400 text-xs hover:text-amber-700 transition-all">
+                                        <i data-lucide="refresh-cw"
+                                            class="w-4 h-4 transition-transform group-hover:rotate-180"></i>
+                                        診断をやり直す
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -995,42 +1163,11 @@
 
         // Diagnosis Logic
         const diagnosisData = {
-            shape: null,
+            brows: null,
             eye: null,
-            mouth: null
-        };
-
-        const results = {
-            'round_large_up': {
-                title: '「天賦の社交家」タイプ',
-                desc: '明るく開放的なエネルギーの持ち主。人との縁に恵まれ、チームの中心で輝きます。持ち前の笑顔が何よりの開運の鍵。',
-                item: 'オレンジ色の小物',
-                action: '朝の挨拶を自分から'
-            },
-            'square_sharp_down': {
-                title: '「意志の追求者」タイプ',
-                desc: '現実的で力強い実力派。一度決めたことをやり抜く力は誰よりも高く、周囲からの信頼も厚いでしょう。',
-                item: '革製品のペンケース',
-                action: '一人の瞑想時間を作る'
-            },
-            'long_sharp_up': {
-                title: '「知的な先見家」タイプ',
-                desc: '直感力と分析力に優れ、物事の本質を見抜く力があります。上品で落ち着いた振る舞いが幸運を引き寄せます。',
-                item: '眼鏡・アイウェア',
-                action: '読書や新しい分野の学習'
-            },
-            'triangle_slanted_up': {
-                title: '「感性のクリエイター」タイプ',
-                desc: '独自の感性を持ち、アイディアを形にする力があります。個性を出すことで道が開けるタイプです。',
-                item: 'アートブック',
-                action: '美術館や展示会巡り'
-            },
-            'default': {
-                title: '「バランスの取れた努力家」タイプ',
-                desc: '協調性と判断力のバランスが取れており、どんな環境でも着実に力を発揮できるタイプです。',
-                item: '観葉植物',
-                action: 'デスク周りの整理整頓'
-            }
+            nose: null,
+            mouth: null,
+            ear: null
         };
 
         function setDiagnosis(type, value, element) {
@@ -1039,11 +1176,11 @@
             // UI feedback
             const siblings = element.parentElement.querySelectorAll('button');
             siblings.forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-stone-900', 'border-amber-500');
-                btn.classList.add('border-white/20', 'text-stone-300');
+                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
+                btn.classList.add('border-stone-200', 'text-stone-600');
             });
-            element.classList.remove('border-white/20', 'text-stone-300');
-            element.classList.add('bg-amber-500', 'text-stone-900', 'border-amber-500');
+            element.classList.remove('border-stone-200', 'text-stone-600');
+            element.classList.add('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
 
             checkDiagnosisProgress();
         }
@@ -1053,39 +1190,120 @@
             const filled = keys.filter(k => diagnosisData[k] !== null).length;
             const progress = (filled / keys.length) * 100;
 
-            document.getElementById('progress-bar').style.width = progress + '%';
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = progress + '%';
 
             if (filled === keys.length) {
-                showDiagnosisResult();
+                setTimeout(showDiagnosisResult, 400);
             }
         }
 
         function showDiagnosisResult() {
-            const key = `${diagnosisData.shape}_${diagnosisData.eye}_${diagnosisData.mouth}`;
-            const result = results[key] || results['default'];
+            const resultsGrid = document.getElementById('five-results-grid');
+            resultsGrid.innerHTML = ''; // Clear previous
+
+            const categories = [
+                {
+                    key: 'brows',
+                    name: '眉（保寿官）：人間関係・健康',
+                    icon: 'align-justify',
+                    options: {
+                        thick: "情熱的で実行力があり、人望が厚い相です。バイタリティに溢れ、周囲を惹きつける力があります。",
+                        arched: "芸術的センスと調和を重んじる性格。人間関係が円滑に進み、平和な生活を送る運気です。",
+                        straight: "裏表がなく誠実な人柄。一途に物事を成し遂げる強い意志を持ち、信頼されます。",
+                        thin: "クールで独立心が強いタイプ。独自の道で才能を発揮し、専門的な分野で成功する傾向にあります。",
+                        up: "積極的で上昇志向が強い相。競争社会で頭角を現し、若いうちから成功を掴むエネルギーがあります。",
+                        down: "穏やかで誰からも好かれる愛嬌の持ち主。困難に際しても周囲の助けを得て乗り越えられる運勢です。"
+                    }
+                },
+                {
+                    key: 'eye',
+                    name: '目（監察官）：知性・精神',
+                    icon: 'eye',
+                    options: {
+                        large: "感受性が豊かで表現力に優れます。チャンスを逃さない鋭い直観と、華やかな運勢を持っています。",
+                        sharp: "落ち着きがあり、冷静な判断ができる相。物事の本質を見抜く力があり、知的職業に向きます。",
+                        up: "ポジティブで行動的。強い意志で運命を切り拓き、特に仕事面での大きな飛躍が期待できます。",
+                        down: "慈愛に満ち、周囲を癒す優しさがあります。対人運が非常に良く、円満な家庭を築く相です.",
+                        round: "純粋で好奇心旺盛。新しいことへ挑戦する意欲が高く、多くの人から可愛がられる運気です。",
+                        long: "忍耐強く、長期的なビジョンを持って物事に取り組める相。大器晩成型の成功運を持っています。"
+                    }
+                },
+                {
+                    key: 'nose',
+                    name: '鼻（審弁官）：財運・自意識',
+                    icon: 'triangle',
+                    options: {
+                        high: "プライドと理想が高く、リーダー気質。金運も強く、独立することで大きな財を成す可能性あり。",
+                        round: "堅実で貯蓄能力が高い相。人当たりの良さから商売や営業での成功も期待できる、豊かな運勢です。",
+                        small: "控えめながら着実に仕事をこなす実務家。変化に敏感で、危機を回避する能力に長けています。",
+                        eagle: "商才に溢れ、先を見る才能に優れています。独自の視点でビジネスチャンスを掴む勝負師の相です。",
+                        flare: "バイタリティに溢れ、稼ぐ力が非常に強い相。エネルギッシュに活動することで富を増やせます。",
+                        hook: "探究心が強く、一つのことを極める職人気質。晩年に向かって運気が安定し、尊敬を集めます。"
+                    }
+                },
+                {
+                    key: 'mouth',
+                    name: '口（出納官）：愛情・生活力',
+                    icon: 'smile',
+                    options: {
+                        large: "生活力が高く、活気に満ちています。愛情表現がストレートで、素晴らしいパートナーに恵まれます。",
+                        small: "几帳面で慎重な性格。精神的な豊かさを大切にし、平穏で安定した生活を好む傾向にあります。",
+                        up: "常に前向きで幸運を引き寄せる口元。食に困らず、楽しい会話で周囲を明るくする人気者です。",
+                        down: "批判精神がありつつも、物事を深く考える人。時にはリラックスすることで運気がさらに好転します。",
+                        tight: "秘密を守り、自律心が強い人。責任ある立場を任されることで運気が開き、信頼を勝ち取ります。",
+                        pout: "個性的で自分の意志を強く持っています。クリエイティブな分野で独自の地位を築く可能性を秘めています。"
+                    }
+                },
+                {
+                    key: 'ear',
+                    name: '耳（采聴官）：先天運・情報',
+                    icon: 'music',
+                    options: {
+                        large: "度量が広く、福分が厚い相。幼少期からの強運に支えられ、穏やかな晩年を約束されています。",
+                        small: "繊細な感性と鋭い聴覚を持ちます。芸術や技術の分野で高い集中力を発揮し、名を成す相です。",
+                        high: "理想が高く、聡明。地位や名誉を得やすく、目上の人からの強力な引き立てを受ける運気です。",
+                        low: "現実的で堅実な努力家。一歩ずつ着実に実績を積み上げることで、揺るぎない地位を確立します。",
+                        thin: "感性が鋭く、スピリチュアルな直感に優れた人。独自のインスピレーションで新しい価値を生み出します。",
+                        out: "好奇心旺盛で情報に敏感。流行を先取りする能力があり、マスコミや企画職で才能が輝きます。"
+                    }
+                }
+            ];
+
+            categories.forEach(cat => {
+                const value = diagnosisData[cat.key];
+                const desc = cat.options[value] || "分析中...";
+
+                const card = document.createElement('div');
+                card.className = "bg-white/90 p-5 rounded-3xl border border-amber-100 shadow-sm flex gap-4 items-start animate-fade-in";
+                card.innerHTML = `
+                    <div class="w-10 h-10 rounded-xl bg-amber-50 flex items-center justify-center flex-shrink-0">
+                        <i data-lucide="${cat.icon}" class="w-5 h-5 text-amber-700"></i>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-stone-800 text-sm mb-1">${cat.name}</h4>
+                        <p class="text-stone-600 text-xs leading-relaxed">${desc}</p>
+                    </div>
+                `;
+                resultsGrid.appendChild(card);
+            });
 
             document.getElementById('result-placeholder').classList.add('hidden');
-            const content = document.getElementById('result-content');
-            content.classList.remove('hidden');
+            document.getElementById('result-content').classList.remove('hidden');
 
-            document.getElementById('result-title').textContent = result.title;
-            document.getElementById('result-desc').textContent = result.desc;
-            document.getElementById('result-item').textContent = result.item;
-            document.getElementById('result-action').textContent = result.action;
+            if (typeof lucide !== 'undefined') lucide.createIcons();
         }
 
         function resetDiagnosis() {
-            // Reset Data
-            diagnosisData.shape = null;
-            diagnosisData.eye = null;
-            diagnosisData.mouth = null;
+            for (const key in diagnosisData) diagnosisData[key] = null;
 
-            // Reset UI
             document.querySelectorAll('.diag-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-500', 'text-stone-900', 'border-amber-500');
-                btn.classList.add('border-white/20', 'text-stone-300');
+                btn.classList.remove('bg-amber-500', 'text-white', 'border-amber-500', 'shadow-sm');
+                btn.classList.add('border-stone-200', 'text-stone-600');
             });
-            document.getElementById('progress-bar').style.width = '0%';
+            const progressBar = document.getElementById('progress-bar');
+            if (progressBar) progressBar.style.width = '0%';
+
             document.getElementById('result-content').classList.add('hidden');
             document.getElementById('result-placeholder').classList.remove('hidden');
         }
