@@ -28,6 +28,30 @@
             max-height: 400px;
         }
 
+
+        .hero-bg {
+            background-color: #FDFBF7;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(79, 70, 229, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.05) 0%, transparent 40%);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         @media (min-width: 768px) {
             .chart-container {
                 height: 350px;
@@ -132,269 +156,265 @@
     </nav>
 
     <!-- Hero / Calculator Section -->
-    <header id="calculator" class="relative bg-white overflow-hidden border-b border-gray-100">
-        <div class="max-w-7xl mx-auto">
-            <div
-                class="relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 px-4 sm:px-6 lg:px-8 pt-10 sm:pt-12">
-                <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block xl:inline">数字に秘められた</span>
-                            <span class="block text-indigo-600 xl:inline serif">宇宙の暗号を解く</span>
-                        </h1>
-                        <p
-                            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            数秘術は、生年月日や名前に隠された数字のメッセージを読み解く古代からの知恵です。まずは、あなたの「ライフ・パス・ナンバー（運命数）」を計算し、その仕組みを体験してみましょう。
-                        </p>
+    <header id="calculator" class="relative hero-bg py-20 px-4 overflow-hidden border-b border-indigo-50">
+        <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div class="fade-in">
+                <!-- Badge -->
+                <div
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 uppercase tracking-widest">
+                    <i data-lucide="sparkles" class="w-3 h-3"></i>
+                    <span>神聖なる数</span>
+                </div>
 
-                        <!-- Calculator Interface -->
-                        <div class="mt-8 bg-indigo-50 rounded-xl p-6 shadow-sm border border-indigo-100">
-                            <div class="flex flex-col gap-6">
-                                <!-- Personal Info Grid -->
-                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <!-- Birthdate -->
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-bold text-indigo-900 ml-1">生年月日</label>
-                                        <div class="grid grid-cols-3 gap-2">
-                                            <select id="birth-year"
-                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
-                                            <select id="birth-month"
-                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
-                                            <select id="birth-day"
-                                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
-                                        </div>
-                                    </div>
-                                    <!-- Name -->
-                                    <div class="space-y-2">
-                                        <label class="block text-sm font-bold text-indigo-900 ml-1">氏名 (ローマ字)</label>
-                                        <input type="text" id="name-input" placeholder="例: TARO YAMADA"
-                                            class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md p-3 uppercase">
-                                        <p class="text-[10px] text-indigo-400 ml-1">※名前から社会的な使命や深層心理を読み解きます</p>
-                                    </div>
-                                </div>
+                <!-- Title -->
+                <h1 class="text-4xl md:text-6xl font-extrabold serif leading-tight mb-6 text-indigo-950">
+                    数字に刻まれた<br>
+                    <span class="text-indigo-600">宇宙の暗号</span>
+                </h1>
 
-                                <!-- Compatibility Toggle -->
-                                <div class="relative flex items-start">
-                                    <div class="flex items-center h-5">
-                                        <input id="compatibility-toggle" type="checkbox"
-                                            onchange="toggleCompatibility()"
-                                            class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                                    </div>
-                                    <div class="ml-3 text-sm">
-                                        <label for="compatibility-toggle"
-                                            class="font-medium text-gray-700 cursor-pointer">相性診断を追加する</label>
-                                    </div>
-                                </div>
+                <!-- Description -->
+                <p class="text-lg text-slate-500 mb-8 max-w-xl leading-relaxed">
+                    数秘術は、生年月日や名前に隠された数字のメッセージを読み解く古代からの知恵です。ピタゴラスが説いた「万物は数である」という哲学に基づき、あなたの魂の設計図を解読します。
+                </p>
 
-                                <!-- Partner Info (Hidden by default) -->
-                                <div id="partner-section"
-                                    class="hidden animate-fade-in p-4 bg-white/50 rounded-lg border border-dashed border-indigo-200">
-                                    <h4 class="text-xs font-bold text-indigo-400 mb-3 uppercase tracking-widest">パートナー情報
-                                    </h4>
-                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div class="grid grid-cols-3 gap-2">
-                                            <select id="p-year"
-                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
-                                            <select id="p-month"
-                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
-                                            <select id="p-day"
-                                                class="text-xs border-gray-300 rounded p-2 bg-white"></select>
-                                        </div>
-                                        <input type="text" id="p-name" placeholder="相手の氏名 (ローマ字)"
-                                            class="text-sm border-gray-300 rounded p-2 uppercase">
-                                    </div>
-                                </div>
+                <!-- Icons -->
+                <div class="flex items-center space-x-4">
+                    <div class="flex -space-x-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center border-2 border-white text-indigo-600">
+                            <i data-lucide="hash" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center border-2 border-white text-purple-600">
+                            <i data-lucide="infinity" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center border-2 border-white text-blue-600">
+                            <i data-lucide="compass" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium text-slate-400 italic">Decode your destiny number</span>
+                </div>
+            </div>
 
-                                <button id="calculate-btn" type="button"
-                                    class="relative z-30 inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group cursor-pointer">
-                                    <span>運命の羅針盤を動かす</span>
-                                    <i data-lucide="compass"
-                                        class="ml-2 w-6 h-6 transition-transform group-hover:rotate-45"></i>
-                                </button>
+            <!-- Right Column: Calculator Form -->
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100/50 border border-indigo-50 fade-in"
+                style="animation-delay: 0.2s;">
+                <h2 class="text-xl font-bold mb-8 text-indigo-950 flex items-center">
+                    <i data-lucide="calculator" class="mr-3 w-6 h-6 text-indigo-600"></i>
+                    ライフ・パス・ナンバー診断
+                </h2>
+
+                <div class="flex flex-col gap-6">
+                    <!-- Personal Info Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Birthdate -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-indigo-900 ml-1">生年月日</label>
+                            <div class="grid grid-cols-3 gap-2">
+                                <select id="birth-year"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                <select id="birth-month"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                <select id="birth-day"
+                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
                             </div>
-                            <!-- Result Display Wrapper -->
-                            <div id="result-area" class="mt-8 hidden space-y-6">
-                                <div
-                                    class="bg-white p-8 rounded-2xl shadow-xl border border-indigo-50 relative overflow-hidden">
-                                    <!-- Subtle Aura Effect (Moved to background) -->
-                                    <div id="aura-bg"
-                                        class="absolute inset-0 opacity-10 blur-3xl transition-all duration-1000"></div>
+                        </div>
+                        <!-- Name -->
+                        <div class="space-y-2">
+                            <label class="block text-sm font-bold text-indigo-900 ml-1">氏名 (ローマ字)</label>
+                            <input type="text" id="name-input" placeholder="例: TARO YAMADA"
+                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md p-3 uppercase">
+                            <p class="text-[10px] text-indigo-400 ml-1">※名前から社会的な使命や深層心理を読み解きます</p>
+                        </div>
+                    </div>
 
-                                    <div class="relative z-10">
-                                        <div class="flex items-center justify-between mb-6">
-                                            <h4 class="text-2xl font-bold flex items-center text-indigo-900">
-                                                <span
-                                                    class="mr-3 p-2 bg-indigo-100 rounded-lg text-xl flex items-center justify-center"><i
-                                                        data-lucide="sparkles" class="w-6 h-6"></i></span> Destiny
-                                                Message
-                                            </h4>
-                                            <div class="text-right">
-                                                <div
-                                                    class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold bg-indigo-50 px-3 py-1 rounded-full mb-1">
-                                                    Analysis Complete</div>
-                                                <div id="user-lp-calc" class="font-mono text-[10px] text-indigo-300">
-                                                </div>
-                                            </div>
-                                        </div>
+                    <!-- Compatibility Toggle -->
+                    <div class="relative flex items-start">
+                        <div class="flex items-center h-5">
+                            <input id="compatibility-toggle" type="checkbox" onchange="toggleCompatibility()"
+                                class="focus:ring-indigo-500 h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                        </div>
+                        <div class="ml-3 text-sm">
+                            <label for="compatibility-toggle"
+                                class="font-medium text-gray-700 cursor-pointer">相性診断を追加する</label>
+                        </div>
+                    </div>
 
-                                        <p id="result-description"
-                                            class="text-slate-700 text-lg leading-relaxed mb-8 font-medium italic border-l-4 border-indigo-200 pl-6">
-                                        </p>
+                    <!-- Partner Info (Hidden by default) -->
+                    <div id="partner-section"
+                        class="hidden animate-fade-in p-4 bg-white/50 rounded-lg border border-dashed border-indigo-200">
+                        <h4 class="text-xs font-bold text-indigo-400 mb-3 uppercase tracking-widest">パートナー情報
+                        </h4>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="grid grid-cols-3 gap-2">
+                                <select id="p-year" class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                                <select id="p-month" class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                                <select id="p-day" class="text-xs border-gray-300 rounded p-2 bg-white"></select>
+                            </div>
+                            <input type="text" id="p-name" placeholder="相手の氏名 (ローマ字)"
+                                class="text-sm border-gray-300 rounded p-2 uppercase">
+                        </div>
+                    </div>
 
-                                        <!-- Core Numbers Grid -->
-                                        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center mb-10">
-                                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
-                                                <span
-                                                    class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Expression</span>
-                                                <span id="res-destiny"
-                                                    class="text-3xl font-extrabold text-indigo-900">--</span>
-                                                <span class="block text-[10px] text-slate-500 mt-1">社会的な役割</span>
-                                            </div>
-                                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
-                                                <span
-                                                    class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Soul
-                                                    Urge</span>
-                                                <span id="res-soul"
-                                                    class="text-3xl font-extrabold text-indigo-900">--</span>
-                                                <span class="block text-[10px] text-slate-500 mt-1">内なる願望</span>
-                                            </div>
-                                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
-                                                <span
-                                                    class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Personality</span>
-                                                <span id="res-personality"
-                                                    class="text-3xl font-extrabold text-indigo-900">--</span>
-                                                <span class="block text-[10px] text-slate-500 mt-1">他人の評価</span>
-                                            </div>
-                                            <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
-                                                <span
-                                                    class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Personal
-                                                    Day</span>
-                                                <span id="res-today"
-                                                    class="text-3xl font-extrabold text-indigo-900">--</span>
-                                                <span class="block text-[10px] text-slate-500 mt-1">今日のテーマ</span>
-                                            </div>
-                                        </div>
+                    <button id="calculate-btn" type="button"
+                        class="relative z-30 inline-flex justify-center items-center px-6 py-4 border border-transparent text-lg font-bold rounded-2xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-all transform hover:scale-[1.02] shadow-xl group cursor-pointer">
+                        <span>運命の羅針盤を動かす</span>
+                        <i data-lucide="arrow-right"
+                            class="ml-2 w-6 h-6 transition-transform group-hover:translate-x-1"></i>
+                    </button>
 
-                                        <div
-                                            class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 border-t border-indigo-50">
-                                            <div class="group">
-                                                <span
-                                                    class="inline-block px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[10px] font-bold rounded mb-2 uppercase tracking-widest">仕事・才能</span>
-                                                <p id="result-work" class="text-slate-600 leading-relaxed text-sm"></p>
-                                            </div>
-                                            <div class="group">
-                                                <span
-                                                    class="inline-block px-2 py-0.5 bg-pink-100 text-pink-700 text-[10px] font-bold rounded mb-2 uppercase tracking-widest">恋愛・対人</span>
-                                                <p id="result-love" class="text-slate-600 leading-relaxed text-sm"></p>
-                                            </div>
-                                        </div>
-                                        <!-- Name Analysis Detail Section -->
-                                        <div id="name-detail-area" class="mt-8 pt-8 border-t border-indigo-50 hidden">
-                                            <h5 class="text-sm font-bold text-indigo-900 mb-4 flex items-center">
-                                                <span class="mr-2 flex items-center justify-center"><i
-                                                        data-lucide="clipboard-list" class="w-4 h-4"></i></span>
-                                                姓名が示す「社会的な顔」と「魂の望み」
-                                            </h5>
-                                            <div class="space-y-4">
-                                                <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50">
-                                                    <div class="flex items-center mb-1">
-                                                        <span
-                                                            class="text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Expression</span>
-                                                        <span id="name-exp-title"
-                                                            class="text-indigo-900 font-bold text-sm"></span>
-                                                    </div>
-                                                    <p id="name-exp-desc"
-                                                        class="text-xs text-slate-600 leading-relaxed"></p>
-                                                </div>
-                                                <div class="bg-pink-50/30 p-4 rounded-xl border border-pink-100/50">
-                                                    <div class="flex items-center mb-1">
-                                                        <span
-                                                            class="text-[10px] font-bold bg-pink-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Soul
-                                                            Urge</span>
-                                                        <span id="name-soul-title"
-                                                            class="text-pink-900 font-bold text-sm"></span>
-                                                    </div>
-                                                    <p id="name-soul-desc"
-                                                        class="text-xs text-slate-600 leading-relaxed"></p>
-                                                </div>
-                                                <div class="bg-teal-50/30 p-4 rounded-xl border border-teal-100/50">
-                                                    <div class="flex items-center mb-1">
-                                                        <span
-                                                            class="text-[10px] font-bold bg-teal-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Personality</span>
-                                                        <span id="name-pers-title"
-                                                            class="text-teal-900 font-bold text-sm"></span>
-                                                    </div>
-                                                    <p id="name-pers-desc"
-                                                        class="text-xs text-slate-600 leading-relaxed"></p>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <p class="text-[10px] text-slate-400 text-center">※生年月日から運命数を算出し、性格・才能・運気のサイクルを分析します</p>
+                </div>
+
+                <!-- Result Display Wrapper -->
+                <div id="result-area" class="mt-8 hidden space-y-6">
+                    <div class="bg-white p-8 rounded-2xl shadow-xl border border-indigo-50 relative overflow-hidden">
+                        <!-- Subtle Aura Effect (Moved to background) -->
+                        <div id="aura-bg" class="absolute inset-0 opacity-10 blur-3xl transition-all duration-1000">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="flex items-center justify-between mb-6">
+                                <h4 class="text-2xl font-bold flex items-center text-indigo-900">
+                                    <span
+                                        class="mr-3 p-2 bg-indigo-100 rounded-lg text-xl flex items-center justify-center"><i
+                                            data-lucide="sparkles" class="w-6 h-6"></i></span> Destiny
+                                    Message
+                                </h4>
+                                <div class="text-right">
+                                    <div
+                                        class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold bg-indigo-50 px-3 py-1 rounded-full mb-1">
+                                        Analysis Complete</div>
+                                    <div id="user-lp-calc" class="font-mono text-[10px] text-indigo-300">
                                     </div>
                                 </div>
+                            </div>
 
-                                <!-- Compatibility Result Area (Target only) -->
-                                <div id="compatibility-result"
-                                    class="hidden animate-fade-in bg-gradient-to-r from-pink-500 to-indigo-600 p-1 rounded-xl">
-                                    <div class="bg-white rounded-lg p-6 flex flex-col items-center">
-                                        <span
-                                            class="text-xs font-bold text-gray-500 uppercase tracking-widest">Relationship
-                                            Resonance</span>
-                                        <div class="flex items-center gap-4 my-2">
-                                            <div class="text-center">
-                                                <span class="text-[10px] block text-gray-400">You</span>
-                                                <span id="comp-you" class="text-3xl font-bold text-gray-800"></span>
-                                            </div>
-                                            <div class="text-2xl text-pink-400 font-serif">×</div>
-                                            <div class="text-center">
-                                                <span class="text-[10px] block text-gray-400">Partner</span>
-                                                <span id="comp-partner" class="text-3xl font-bold text-gray-800"></span>
-                                            </div>
-                                        </div>
-                                        <div id="comp-score-bar"
-                                            class="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
-                                            <div id="comp-score-fill"
-                                                class="bg-pink-500 h-full transition-all duration-1000"
-                                                style="width: 0%">
-                                            </div>
-                                        </div>
-                                        <div class="text-2xl font-bold text-pink-600 mb-2">共鳴度: <span
-                                                id="comp-percent">0</span>%</div>
-                                        <p id="comp-message" class="text-sm text-gray-600 text-center leading-relaxed">
-                                        </p>
-                                    </div>
+                            <p id="result-description"
+                                class="text-slate-700 text-lg leading-relaxed mb-8 font-medium italic border-l-4 border-indigo-200 pl-6">
+                            </p>
+
+                            <!-- Core Numbers Grid -->
+                            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 text-center mb-10">
+                                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
+                                    <span
+                                        class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Expression</span>
+                                    <span id="res-destiny" class="text-3xl font-extrabold text-indigo-900">--</span>
+                                    <span class="block text-[10px] text-slate-500 mt-1">社会的な役割</span>
                                 </div>
+                                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
+                                    <span
+                                        class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Soul
+                                        Urge</span>
+                                    <span id="res-soul" class="text-3xl font-extrabold text-indigo-900">--</span>
+                                    <span class="block text-[10px] text-slate-500 mt-1">内なる願望</span>
+                                </div>
+                                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
+                                    <span
+                                        class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Personality</span>
+                                    <span id="res-personality" class="text-3xl font-extrabold text-indigo-900">--</span>
+                                    <span class="block text-[10px] text-slate-500 mt-1">他人の評価</span>
+                                </div>
+                                <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50">
+                                    <span
+                                        class="block text-[11px] uppercase tracking-wider text-indigo-500 font-bold mb-1">Personal
+                                        Day</span>
+                                    <span id="res-today" class="text-3xl font-extrabold text-indigo-900">--</span>
+                                    <span class="block text-[10px] text-slate-500 mt-1">今日のテーマ</span>
+                                </div>
+                            </div>
 
-                                <!-- Famous People Match Section -->
-                                <div id="famous-section" class="hidden animate-fade-in">
-                                    <h4 class="text-xs font-bold text-indigo-400 mb-3 ml-2 uppercase tracking-tighter">
-                                        同じエネルギーを持つ先駆者たち</h4>
-                                    <div id="famous-list" class="flex flex-wrap gap-2">
-                                        <!-- JS populate -->
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-6 border-t border-indigo-50">
+                                <div class="group">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-indigo-100 text-indigo-700 text-[10px] font-bold rounded mb-2 uppercase tracking-widest">仕事・才能</span>
+                                    <p id="result-work" class="text-slate-600 leading-relaxed text-sm"></p>
+                                </div>
+                                <div class="group">
+                                    <span
+                                        class="inline-block px-2 py-0.5 bg-pink-100 text-pink-700 text-[10px] font-bold rounded mb-2 uppercase tracking-widest">恋愛・対人</span>
+                                    <p id="result-love" class="text-slate-600 leading-relaxed text-sm"></p>
+                                </div>
+                            </div>
+                            <!-- Name Analysis Detail Section -->
+                            <div id="name-detail-area" class="mt-8 pt-8 border-t border-indigo-50 hidden">
+                                <h5 class="text-sm font-bold text-indigo-900 mb-4 flex items-center">
+                                    <span class="mr-2 flex items-center justify-center"><i data-lucide="clipboard-list"
+                                            class="w-4 h-4"></i></span>
+                                    姓名が示す「社会的な顔」と「魂の望み」
+                                </h5>
+                                <div class="space-y-4">
+                                    <div class="bg-indigo-50/30 p-4 rounded-xl border border-indigo-100/50">
+                                        <div class="flex items-center mb-1">
+                                            <span
+                                                class="text-[10px] font-bold bg-indigo-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Expression</span>
+                                            <span id="name-exp-title" class="text-indigo-900 font-bold text-sm"></span>
+                                        </div>
+                                        <p id="name-exp-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                                    </div>
+                                    <div class="bg-pink-50/30 p-4 rounded-xl border border-pink-100/50">
+                                        <div class="flex items-center mb-1">
+                                            <span
+                                                class="text-[10px] font-bold bg-pink-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Soul
+                                                Urge</span>
+                                            <span id="name-soul-title" class="text-pink-900 font-bold text-sm"></span>
+                                        </div>
+                                        <p id="name-soul-desc" class="text-xs text-slate-600 leading-relaxed"></p>
+                                    </div>
+                                    <div class="bg-teal-50/30 p-4 rounded-xl border border-teal-100/50">
+                                        <div class="flex items-center mb-1">
+                                            <span
+                                                class="text-[10px] font-bold bg-teal-600 text-white px-2 py-0.5 rounded mr-2 uppercase tracking-tighter">Personality</span>
+                                            <span id="name-pers-title" class="text-teal-900 font-bold text-sm"></span>
+                                        </div>
+                                        <p id="name-pers-desc" class="text-xs text-slate-600 leading-relaxed"></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </main>
+
+                    <!-- Compatibility Result Area (Target only) -->
+                    <div id="compatibility-result"
+                        class="hidden animate-fade-in bg-gradient-to-r from-pink-500 to-indigo-600 p-1 rounded-xl">
+                        <div class="bg-white rounded-lg p-6 flex flex-col items-center">
+                            <span class="text-xs font-bold text-gray-500 uppercase tracking-widest">Relationship
+                                Resonance</span>
+                            <div class="flex items-center gap-4 my-2">
+                                <div class="text-center">
+                                    <span class="text-[10px] block text-gray-400">You</span>
+                                    <span id="comp-you" class="text-3xl font-bold text-gray-800"></span>
+                                </div>
+                                <div class="text-2xl text-pink-400 font-serif">×</div>
+                                <div class="text-center">
+                                    <span class="text-[10px] block text-gray-400">Partner</span>
+                                    <span id="comp-partner" class="text-3xl font-bold text-gray-800"></span>
+                                </div>
+                            </div>
+                            <div id="comp-score-bar" class="w-full bg-gray-100 h-2 rounded-full overflow-hidden mb-2">
+                                <div id="comp-score-fill" class="bg-pink-500 h-full transition-all duration-1000"
+                                    style="width: 0%">
+                                </div>
+                            </div>
+                            <div class="text-2xl font-bold text-pink-600 mb-2">共鳴度: <span id="comp-percent">0</span>%
+                            </div>
+                            <p id="comp-message" class="text-sm text-gray-600 text-center leading-relaxed">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Famous People Match Section -->
+                    <div id="famous-section" class="hidden animate-fade-in">
+                        <h4 class="text-xs font-bold text-indigo-400 mb-3 ml-2 uppercase tracking-tighter">
+                            同じエネルギーを持つ先駆者たち</h4>
+                        <div id="famous-list" class="flex flex-wrap gap-2">
+                            <!-- JS populate -->
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div
-            class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 bg-indigo-50 flex flex-col items-center justify-center p-8 overflow-hidden">
-            <!-- Dynamic Geometric Background -->
-            <div id="geometric-art" class="relative w-72 h-72 md:w-96 md:h-96">
-                <div
-                    class="absolute inset-0 rounded-full border-4 border-indigo-200 opacity-20 animate-[spin_20s_linear_infinite]">
-                </div>
-                <div
-                    class="absolute inset-4 rounded-lg border-2 border-indigo-300 opacity-10 animate-[spin_15s_linear_infinite_reverse]">
-                </div>
-                <div class="absolute inset-0 flex items-center justify-center">
-                    <span id="hero-num-display"
-                        class="text-[150px] md:text-[200px] font-serif text-indigo-900 opacity-10 transition-all duration-1000">∞</span>
-                </div>
-            </div>
-            <p class="mt-8 text-indigo-300 text-xs tracking-[0.5em] uppercase font-light">The Sacred Geometry of Numbers
-            </p>
         </div>
     </header>
 

@@ -176,29 +176,51 @@
 
     <main>
         <!-- Hero / Calculator Section -->
-        <header id="calculator" class="relative hero-bg py-24 px-4 sm:px-6 lg:px-8 border-b border-indigo-50">
-            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal">
+        <header id="calculator" class="relative hero-bg py-20 px-4 sm:px-6 lg:px-8 border-b border-indigo-50">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Column: Text Content + Calculator -->
+                <div class="fade-in">
                     <div
-                        class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 uppercase tracking-[0.2em]">
+                        class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-6 uppercase tracking-widest">
                         <i data-lucide="sparkles" class="w-3 h-3"></i>
-                        <span>Imperial Astrology</span>
+                        <span>皇帝の星学</span>
                     </div>
                     <h1 class="text-4xl md:text-6xl font-extrabold text-[#111827] leading-tight serif mb-6">
-                        星々が綴る<br><span class="text-indigo-600">至高の天命</span>
+                        紫微斗数<br><span class="text-indigo-600">皇帝の星学</span>
                     </h1>
                     <p class="text-lg text-slate-500 max-w-xl leading-relaxed mb-10">
                         紫微斗数は、あなたが生まれた瞬間の天空を支配する星々の配置を読み解き、人生の設計図を可視化する「皇帝の占術」です。その的中率の高さから、かつては禁域の秘術とされていました。
                     </p>
 
-                    <!-- Advanced Calculator UI -->
+                    <!-- Icons -->
+                    <div class="flex items-center gap-4 mb-10">
+                        <div class="flex -space-x-2">
+                            <div
+                                class="w-10 h-10 rounded-full bg-indigo-600 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="moon-star" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="compass" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-indigo-400 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="crown" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-slate-400 italic">Celestial destiny blueprint</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Calculator Form -->
+                <div class="fade-in" style="animation-delay: 0.2s;">
                     <div
                         class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100/30 border border-indigo-100/50">
                         <h3 class="text-xl font-bold text-indigo-950 mb-8 flex items-center gap-3">
                             <i data-lucide="compass" class="w-6 h-6 text-indigo-600"></i>
                             パーソナル天命診断
                         </h3>
-                        <div class="space-y-8">
+                        <div class="space-y-6">
                             <!-- Date Selection -->
                             <div class="space-y-3">
                                 <label
@@ -237,16 +259,20 @@
                                 </div>
                             </div>
                             <button onclick="diagnose()"
-                                class="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all transform active:scale-[0.98] flex items-center justify-center gap-2 group">
+                                class="w-full py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-2xl shadow-lg shadow-indigo-200 transition-all transform active:scale-95 flex items-center justify-center gap-2 group">
                                 天命を解読する
                                 <i data-lucide="arrow-right"
                                     class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                             </button>
+
+                            <p class="text-[10px] text-slate-400 leading-relaxed">
+                                ※数分の違いで命盤が変わるため、出生時間の正確性が重要です
+                            </p>
                         </div>
 
                         <!-- Diagnosis Result area -->
                         <div id="diagnosis-result"
-                            class="hidden mt-10 p-8 bg-indigo-50/50 rounded-3xl border border-indigo-100 shadow-inner fade-in">
+                            class="hidden mt-10 p-8 bg-indigo-50/50 rounded-3xl border border-indigo-100 shadow-inner">
                             <div class="flex items-center justify-between mb-6">
                                 <span
                                     class="text-[10px] font-black text-indigo-400 uppercase tracking-[0.2em]">Diagnosis
@@ -283,27 +309,6 @@
                                     <!-- Populated by JS -->
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="reveal relative flex justify-center lg:block">
-                    <div
-                        class="relative w-80 h-80 md:w-full md:max-w-md aspect-square flex items-center justify-center mx-auto">
-                        <!-- Animated Rings -->
-                        <div
-                            class="absolute inset-0 border-2 border-indigo-100/50 rounded-full animate-[spin_60s_linear_infinite]">
-                        </div>
-                        <div
-                            class="absolute inset-8 border border-indigo-50 rounded-full animate-[spin_40s_linear_infinite_reverse]">
-                        </div>
-                        <div
-                            class="absolute inset-20 border border-indigo-100/20 rounded-full animate-[spin_20s_linear_infinite]">
-                        </div>
-
-                        <!-- Celestial Chart Illustration -->
-                        <div class="relative z-10 w-full h-full p-12 lg:p-16">
-                            <img src="../../assets/images/zi_wei_dou_shu_chart.png" alt="Celestial Chart"
-                                class="w-full h-full object-contain filter drop-shadow-[0_0_50px_rgba(79,70,229,0.1)] opacity-60 hover:opacity-80 transition-opacity duration-1000">
                         </div>
                     </div>
                 </div>

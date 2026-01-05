@@ -21,8 +21,30 @@
     <script src="https://unpkg.com/lucide@latest"></script>
 
     <style>
-        /* Custom Styles & Animation */
-        /* bodyスタイルは common.css で定義 */
+        /* Hero Background */
+        .hero-bg {
+            background-color: #F3F4F6;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(76, 29, 149, 0.05) 0%, transparent 40%);
+        }
+
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .glass-panel {
             background: rgba(255, 255, 255, 0.9);
@@ -198,42 +220,78 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="relative bg-gradient-to-b from-indigo-50 to-white overflow-hidden">
-        <div class="max-w-7xl mx-auto">
-            <div
-                class="relative z-10 pb-8 bg-transparent sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32 pt-20 px-4 sm:px-6 lg:px-8">
-                <main class="mt-10 mx-auto max-w-7xl sm:mt-12 md:mt-16 lg:mt-20 xl:mt-28">
-                    <div class="sm:text-center lg:text-left">
-                        <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
-                            <span class="block xl:inline">スクライングの極致</span>
-                            <span class="block text-violet-600 xl:inline">水晶球占い</span>
-                        </h1>
-                        <p
-                            class="mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">
-                            「クリスタル・ゲイジング」または「スクライング」と呼ばれるこの技法は、単なる迷信ではありません。それは、高度な集中力を用いた深層心理へのアクセスコードであり、歴史を通じて多くの権力者や賢者に利用されてきた「視覚化の技術」です。
-                        </p>
-                        <div class="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start">
-                            <div class="rounded-md shadow">
-                                <a href="#overview"
-                                    class="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-violet-600 hover:bg-violet-700 md:py-4 md:text-lg transition">
-                                    レポートを読む
-                                </a>
-                            </div>
+    <header id="hero" class="hero-bg pt-24 pb-20 px-4 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div class="fade-in">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-violet-50 border border-violet-100 text-violet-700 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                    <i data-lucide="gem" class="w-3.5 h-3.5"></i> 未来を映す輝き
+                </div>
+
+                <h1 class="text-5xl md:text-6xl font-extrabold text-stone-900 serif leading-tight mb-6">
+                    水晶占い<br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-violet-600 to-indigo-600">洞察の光</span>
+                </h1>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-xl">
+                    水晶球を見つめることで潜在意識にアクセスする古代の占術。スクライングと呼ばれるこの技法は、深層心理への扉を開きます。
+                </p>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-4">
+                    <div class="flex -space-x-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="gem" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-indigo-700 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="sparkles" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-purple-600 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="eye" class="w-5 h-5"></i>
                         </div>
                     </div>
-                </main>
+                    <span class="text-sm font-medium text-slate-400 italic">Crystal visions</span>
+                </div>
             </div>
-        </div>
-        <!-- Decorative Crystal Ball Graphic (CSS) -->
-        <div class="lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 flex items-center justify-center py-10 lg:py-0">
-            <div
-                class="w-64 h-64 md:w-80 md:h-80 crystal-ball rounded-full flex items-center justify-center animate-pulse">
-                <div class="text-white opacity-80 text-center p-8 font-serif italic text-lg">
-                    "真実は<br>外ではなく<br>内にある"
+
+            <!-- Right Column: Quick Access -->
+            <div class="fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100">
+                    <h3 class="text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-violet-600"></i>
+                        水晶占いクイックアクセス
+                    </h3>
+
+                    <div class="space-y-4">
+                        <button onclick="scrollToSection('practice')"
+                            class="w-full bg-violet-600 text-white px-6 py-5 rounded-2xl font-bold shadow-lg hover:bg-violet-700 transition-all flex items-center justify-center gap-2 group">
+                            <i data-lucide="sparkles" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                            水晶を覚く
+                        </button>
+                        <button onclick="scrollToSection('scope')"
+                            class="w-full bg-indigo-50 text-indigo-900 border-2 border-indigo-100 px-6 py-5 rounded-2xl font-bold hover:bg-indigo-100 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="target" class="w-5 h-5"></i>
+                            得意分野
+                        </button>
+                        <button onclick="scrollToSection('logic')"
+                            class="w-full bg-white text-gray-800 border-2 border-gray-200 px-6 py-5 rounded-2xl font-bold hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="brain" class="w-5 h-5"></i>
+                            根拠と歴史
+                        </button>
+                    </div>
+
+                    <p class="text-[10px] text-slate-400 mt-6 text-center leading-relaxed">
+                        ※潜在意識への扉を開く
+                    </p>
                 </div>
             </div>
         </div>
-    </div>
+    </header>
 
     <!-- Main Content Container -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-20">

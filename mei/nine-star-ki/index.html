@@ -37,6 +37,29 @@
     <style>
         /* Base styles are inherited from common.css */
 
+        .hero-bg {
+            background-color: #FDFBF7;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(30, 58, 95, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(212, 175, 55, 0.05) 0%, transparent 40%);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         .magic-square-cell {
             transition: all 0.3s ease;
         }
@@ -62,18 +85,6 @@
 
         .animate-fade-in {
             animation: fadeIn 0.5s ease-out forwards;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
         }
 
         /* Timeline adjustments for single page */
@@ -171,25 +182,30 @@
     </nav>
 
     <!-- Hero Section -->
-    <!-- Hero Section / Calculator -->
-    <header
-        class="bg-gradient-to-br from-white via-jp-bg to-jp-gold/10 text-jp-indigo relative overflow-hidden py-16 md:py-24 border-b border-stone-200">
-        <div class="container mx-auto px-4 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="animate-fade-in text-center lg:text-left">
+    <header id="hero" class="hero-bg pt-24 pb-20 px-4 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div class="fade-in">
+                <!-- Badge -->
                 <div
-                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-jp-gold/10 text-jp-gold text-[10px] font-bold mb-6 uppercase tracking-[0.2em]">
+                    class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-jp-gold/10 text-jp-gold text-xs font-bold mb-6 uppercase tracking-widest">
                     <i data-lucide="sparkles" class="w-3 h-3"></i>
-                    <span>Celestial Mechanics</span>
+                    <span>九つの星</span>
                 </div>
-                <h1 class="text-4xl md:text-6xl font-serif font-black leading-tight mb-6">
-                    自然の「気」を味方に、<br>
-                    <span class="text-jp-gold">運命の舵を握る</span>
+
+                <!-- Title -->
+                <h1 class="text-4xl md:text-6xl font-extrabold serif leading-tight mb-6 text-jp-indigo">
+                    九星気学<br>
+                    <span class="text-jp-gold">動く開運の智慧</span>
                 </h1>
-                <p class="text-jp-gray text-lg mb-8 max-w-xl leading-relaxed font-medium">
-                    九星気学は、宇宙の循環エネルギーを9つの星に分類し、あなたの宿命と開運の方位を導き出す知恵の結晶。
-                    「動くことで運勢を変える」能動的な開運学の世界へようこそ。
+
+                <!-- Description -->
+                <p class="text-lg text-jp-gray mb-8 max-w-xl leading-relaxed">
+                    宇宙の循環エネルギーを9つの星に分類し、あなたの宿命と開運の方位を導き出す知恵の結晶。「動くことで運勢を変える」能動的な開運学の世界へようこそ。
                 </p>
-                <div class="flex items-center justify-center lg:justify-start space-x-4">
+
+                <!-- Icons -->
+                <div class="flex items-center space-x-4">
                     <div class="flex -space-x-2">
                         <div
                             class="w-10 h-10 rounded-full bg-jp-indigo flex items-center justify-center border-2 border-white text-white">
@@ -199,22 +215,27 @@
                             class="w-10 h-10 rounded-full bg-jp-gold flex items-center justify-center border-2 border-white text-white">
                             <i data-lucide="sun" class="w-5 h-5"></i>
                         </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-jp-accent flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="move" class="w-5 h-5"></i>
+                        </div>
                     </div>
-                    <span class="text-xs font-bold text-stone-400 italic">Decode your energetic signature</span>
+                    <span class="text-sm font-medium text-stone-400 italic">Decode your energetic signature</span>
                 </div>
             </div>
 
-            <!-- Calculator Card -->
-            <div class="bg-white p-8 md:p-10 rounded-[2.5rem] shadow-2xl border border-stone-100 animate-fade-in"
+            <!-- Right Column: Calculator Card -->
+            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-stone-200/50 border border-stone-100 fade-in"
                 style="animation-delay: 0.2s;">
-                <h2 class="text-xl font-bold mb-8 text-jp-indigo flex items-center justify-center lg:justify-start">
+                <h2 class="text-xl font-bold mb-8 text-jp-indigo flex items-center">
                     <i data-lucide="calculator" class="mr-3 w-6 h-6 text-jp-gold"></i>
                     本命・月命・日命 精密鑑定
                 </h2>
-                <div class="space-y-8">
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <div class="space-y-6">
+                    <div class="grid grid-cols-3 gap-4">
                         <!-- Year -->
-                        <div class="text-left">
+                        <div>
                             <label for="birth-year"
                                 class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Year</label>
                             <select id="birth-year"
@@ -222,13 +243,13 @@
                                 onchange="updateDayOptions()"></select>
                         </div>
                         <!-- Month -->
-                        <div class="text-left">
+                        <div>
                             <label for="birth-month"
                                 class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Month</label>
                             <select id="birth-month"
                                 class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"
                                 onchange="updateDayOptions()">
-                                <option value="1">1月</option>
+                                <option value="1">1月</opti on>
                                 <option value="2">2月</option>
                                 <option value="3">3月</option>
                                 <option value="4">4月</option>
@@ -243,7 +264,7 @@
                             </select>
                         </div>
                         <!-- Day -->
-                        <div class="text-left">
+                        <div>
                             <label for="birth-day"
                                 class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Day</label>
                             <select id="birth-day"
@@ -251,38 +272,25 @@
                         </div>
                     </div>
 
-                    <div class="text-center">
-                        <div
-                            class="flex items-center justify-center gap-3 bg-stone-50 p-3 rounded-xl border border-stone-100 inline-block px-6 mx-auto">
-                            <input type="checkbox" id="beforeSetsubun"
-                                class="w-5 h-5 text-jp-gold border-stone-300 rounded focus:ring-jp-gold cursor-pointer">
-                            <label for="beforeSetsubun"
-                                class="text-xs text-jp-gray cursor-pointer select-none font-bold">1月1日〜2月4日頃（立春前）の生まれ</label>
-                        </div>
+                    <div
+                        class="flex items-center justify-center gap-3 bg-stone-50 p-3 rounded-xl border border-stone-100">
+                        <input type="checkbox" id="beforeSetsubun"
+                            class="w-5 h-5 text-jp-gold border-stone-300 rounded focus:ring-jp-gold cursor-pointer">
+                        <label for="beforeSetsubun"
+                            class="text-xs text-jp-gray cursor-pointer select-none font-bold">1月1日〜2月4日頃（立春前）の生まれ</label>
                     </div>
 
                     <button onclick="calculateStar()"
-                        class="w-full bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 rounded-2xl shadow-xl transition-all transform hover:-translate-y-1 active:translate-y-0 text-lg tracking-widest group">
-                        <span class="flex items-center justify-center">
-                            三命を統合鑑定
-                            <i data-lucide="sparkles"
-                                class="ml-3 w-5 h-5 group-hover:rotate-45 transition-transform text-jp-gold"></i>
-                        </span>
+                        class="w-full bg-jp-indigo hover:bg-[#152a45] text-white font-bold py-5 rounded-2xl shadow-xl transition-all transform active:scale-95 text-lg flex items-center justify-center gap-3 group">
+                        三命を統合鑑定
+                        <i data-lucide="arrow-right" class="w-5 h-5 transition-transform group-hover:translate-x-1"></i>
                     </button>
-                    <div class="bg-indigo-50/50 p-4 rounded-xl border border-indigo-100/50 text-left">
-                        <p class="text-[9px] text-indigo-900/60 font-medium leading-relaxed">
-                            <i data-lucide="info" class="w-3 h-3 inline-block mr-1"></i>
-                            <strong>重要：節入り（せついり）について</strong><br>
-                            九星気学では<strong>立春（2月4日頃）</strong>を年の切り替わりとします。また、毎月の切り替わりも<strong>4〜9日頃</strong>となるため、月上旬生まれの方は、正確な節入り時刻により前月の星に該当する場合があります。
-                        </p>
-                    </div>
+
+                    <p class="text-[10px] text-stone-400 leading-relaxed">
+                        ※九星気学では立春（2月4日頃）を年の切り替わりとします。月上旬生まれの方は前月の星に該当する場合があります。
+                    </p>
                 </div>
             </div>
-        </div>
-        <!-- Decorative Background Elements -->
-        <div class="absolute -top-20 -left-20 w-96 h-96 border border-jp-gold/10 rounded-full pointer-events-none">
-        </div>
-        <div class="absolute -bottom-20 -right-20 w-96 h-96 border border-jp-indigo/5 rounded-full pointer-events-none">
         </div>
     </header>
 

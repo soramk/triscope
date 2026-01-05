@@ -37,8 +37,30 @@
     <link rel="stylesheet" href="../../assets/common.css">
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
-        /* bodyスタイルは common.css で定義 */
+        /* Hero Background */
+        .hero-bg {
+            background-color: #FAFAF9;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(185, 28, 28, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(217, 119, 6, 0.05) 0%, transparent 40%);
+        }
 
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .chart-container {
             position: relative;
@@ -252,28 +274,78 @@
     <main class="flex-grow">
 
         <!-- Hero Section -->
-        <section id="hero" class="relative py-24 px-4 sm:px-6 lg:px-8 text-center bg-stone-100 overflow-hidden">
-            <div class="max-w-4xl mx-auto z-10 relative fade-in">
-                <h2 class="text-4xl md:text-6xl font-bold text-stone-800 mb-6 serif tracking-tight">変化を読み解く、<br>東洋最古の叡智
-                </h2>
-                <p class="text-lg text-stone-600 mb-10 leading-relaxed max-w-2xl mx-auto font-light">
-                    「易（えき）」は単なる占いではありません。<br>それは宇宙の法則、陰と陽のバランス、そして「変化」そのものを体系化した哲学です。<br>
-                    このレポートでは、易のメカニズムをインタラクティブに解き明かします。
-                </p>
-                <div class="flex flex-col sm:flex-row justify-center gap-4">
-                    <button onclick="scrollToSection('overview')"
-                        class="bg-stone-800 text-white px-8 py-3 rounded-full hover:bg-stone-700 transition shadow-lg text-sm tracking-widest uppercase">レポートを読む</button>
-                    <button onclick="scrollToSection('simulation')"
-                        class="bg-red-700 text-white px-8 py-3 rounded-full hover:bg-red-800 transition shadow-lg text-sm tracking-widest uppercase flex items-center justify-center gap-2">
-                        <span>易を体験する</span>
-                        <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
+        <section id="hero" class="hero-bg pt-24 pb-20 px-4 border-b border-gray-200">
+            <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Left Column: Text Content -->
+                <div class="fade-in">
+                    <div
+                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-700 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                        <i data-lucide="circle-dashed" class="w-3.5 h-3.5"></i> 変化を読む叡智
+                    </div>
+
+                    <h1 class="text-5xl md:text-6xl font-extrabold text-stone-900 serif leading-tight mb-6">
+                        易<br>
+                        <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-red-700 to-amber-600">変化の書</span>
+                    </h1>
+
+                    <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-xl">
+                        易は、陰と陽の組み合わせから宇宙の法則を読み解く東洋最古の叡智です。偶然性の中に必然を見出す卜術の最高峰として、今この瞬間の運気を照らします。
+                    </p>
+
+                    <!-- Icons -->
+                    <div class="flex items-center gap-4">
+                        <div class="flex -space-x-2">
+                            <div
+                                class="w-10 h-10 rounded-full bg-red-700 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="circle-dashed" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="hexagon" class="w-5 h-5"></i>
+                            </div>
+                            <div
+                                class="w-10 h-10 rounded-full bg-amber-600 flex items-center justify-center border-2 border-white text-white">
+                                <i data-lucide="book-open" class="w-5 h-5"></i>
+                            </div>
+                        </div>
+                        <span class="text-sm font-medium text-slate-400 italic">Ancient wisdom</span>
+                    </div>
+                </div>
+
+                <!-- Right Column: Quick Access -->
+                <div class="fade-in" style="animation-delay: 0.2s;">
+                    <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100">
+                        <h3 class="text-xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-red-700"></i>
+                            易占クイックアクセス
+                        </h3>
+
+                        <div class="space-y-4">
+                            <button onclick="scrollToSection('simulation')"
+                                class="w-full bg-red-700 text-white px-6 py-5 rounded-2xl font-bold shadow-lg hover:bg-red-800 transition-all flex items-center justify-center gap-2 group">
+                                <i data-lucide="sparkles"
+                                    class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
+                                易を体験する
+                            </button>
+                            <button onclick="scrollToSection('bagua')"
+                                class="w-full bg-amber-50 text-amber-900 border-2 border-amber-100 px-6 py-5 rounded-2xl font-bold hover:bg-amber-100 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="hexagon" class="w-5 h-5"></i>
+                                八卦を学ぶ
+                            </button>
+                            <button onclick="scrollToSection('logic')"
+                                class="w-full bg-white text-gray-800 border-2 border-gray-200 px-6 py-5 rounded-2xl font-bold hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                                <i data-lucide="book" class="w-5 h-5"></i>
+                                理論と仕組み
+                            </button>
+                        </div>
+
+                        <p class="text-[10px] text-slate-400 mt-6 text-center leading-relaxed">
+                            ※偶然が示す宇宙の法則を読み解く
+                        </p>
+                    </div>
                 </div>
             </div>
-            <!-- Decorative background element: Giant Kanji for Change -->
-            <div
-                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[300px] md:text-[500px] text-stone-200 opacity-20 pointer-events-none select-none serif font-bold z-0">
-                易</div>
         </section>
 
         <!-- 1. Overview & Characteristics -->

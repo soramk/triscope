@@ -39,13 +39,30 @@
             --accent-gold: #C7A650;
         }
 
-        body {
-            /* 基本スタイルは common.css で定義、背景パターンのみ推定 */
-            background-image: radial-gradient(#E5E5E5 1px, transparent 1px);
-            background-size: 20px 20px;
+        /* Hero Background */
+        .hero-bg {
+            background-color: #FDFBF7;
+            background-image:
+                radial-gradient(circle at 20% 30%, rgba(142, 53, 74, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 80% 70%, rgba(63, 78, 79, 0.05) 0%, transparent 40%);
         }
 
-        /* h1-h3, .serifスタイルは common.css で定義 */
+        /* Fade In Animation */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         .chart-container {
             position: relative;
@@ -57,7 +74,6 @@
             max-height: 400px;
         }
 
-        /* Custom Scrollbar for aesthetic */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -75,7 +91,6 @@
             background: var(--accent-slate);
         }
 
-        /* Card Styles */
         .card {
             background-color: rgba(255, 255, 255, 0.9);
             border: 1px solid #e5e7eb;
@@ -88,20 +103,17 @@
             transform: translateY(-2px);
         }
 
-        /* Interactive Element Highlight */
         .interactive-zone {
             border: 2px dashed var(--accent-slate);
             background-color: rgba(63, 78, 79, 0.05);
         }
 
-        /* Tab Active State */
         .tab-active {
             border-bottom: 3px solid var(--accent-red);
             color: var(--accent-red);
             font-weight: 700;
         }
 
-        /* Connector Lines Canvas */
         #nameStructureCanvas {
             position: absolute;
             top: 0;
@@ -189,60 +201,82 @@
         </div>
     </nav>
 
-    <!-- Main Content -->
-    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
+    <!-- Hero Section -->
+    <header id="hero" class="hero-bg pt-24 pb-20 px-4 border-b border-gray-200">
+        <div class="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Left Column: Text Content -->
+            <div class="fade-in">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-800 text-xs font-bold tracking-widest uppercase mb-6 shadow-sm">
+                    <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 名前に宿る運命の数式
+                </div>
 
-        <!-- Hero Section -->
-        <section id="hero" class="relative pt-32 pb-20 px-4 overflow-hidden bg-[#FDFBF7]">
-            <!-- Decorative subtle icon outline -->
-            <div
-                class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-2xl opacity-[0.03] pointer-events-none">
-                <i data-lucide="hash" class="w-full h-full text-red-900"></i>
+                <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 serif leading-tight mb-6">
+                    姓名判断<br>
+                    <span
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-indigo-900">生涯を貫く設計図</span>
+                </h1>
+
+                <p class="text-lg text-gray-600 leading-relaxed mb-8 max-w-xl">
+                    姓名判断は単なる迷信ではなく、統計と哲学の融合です。文字の画数に秘められた論理構造を解き明かし、人生に与える影響を紐解きます。
+                </p>
+
+                <!-- Icons -->
+                <div class="flex items-center gap-4">
+                    <div class="flex -space-x-2">
+                        <div
+                            class="w-10 h-10 rounded-full bg-red-800 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="hash" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-indigo-900 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="pen-tool" class="w-5 h-5"></i>
+                        </div>
+                        <div
+                            class="w-10 h-10 rounded-full bg-amber-700 flex items-center justify-center border-2 border-white text-white">
+                            <i data-lucide="layers" class="w-5 h-5"></i>
+                        </div>
+                    </div>
+                    <span class="text-sm font-medium text-slate-400 italic">Name as destiny blueprint</span>
+                </div>
             </div>
 
-            <div class="max-w-7xl mx-auto relative z-10">
-                <div class="text-center space-y-8">
-                    <div
-                        class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-red-50 border border-red-100 text-red-800 text-xs font-bold tracking-widest uppercase animate-fade-in shadow-sm">
-                        <i data-lucide="sparkles" class="w-3.5 h-3.5"></i> 名前に宿る「運命の数式」
-                    </div>
+            <!-- Right Column: Quick Access -->
+            <div class="fade-in" style="animation-delay: 0.2s;">
+                <div class="bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6 flex items-center gap-3">
+                        <i data-lucide="sparkles" class="w-6 h-6 text-red-800"></i>
+                        姓名鑑定クイックアクセス
+                    </h3>
 
-                    <h1 class="text-5xl md:text-7xl font-bold text-gray-900 serif leading-tight animate-fade-in-up"
-                        style="animation-delay: 0.1s">
-                        名は、<span class="text-red-800 italic">その人</span>の<br>
-                        <span
-                            class="text-transparent bg-clip-text bg-gradient-to-r from-red-800 to-indigo-900">生涯を貫く設計図。</span>
-                    </h1>
-
-                    <p class="max-w-2xl mx-auto text-lg md:text-xl text-gray-600 leading-relaxed animate-fade-in-up"
-                        style="animation-delay: 0.2s">
-                        姓名判断は単なる迷信ではなく、統計と哲学の融合です。文字の画数に秘められた論理構造を解き明かし、人生に与える影響を紐解きます。
-                    </p>
-
-                    <div class="flex flex-wrap justify-center gap-4 pt-4 animate-fade-in-up"
-                        style="animation-delay: 0.3s">
+                    <div class="space-y-4">
                         <button onclick="scrollToSection('simulation')"
-                            class="bg-red-800 text-white px-8 py-4 rounded-full font-bold shadow-xl shadow-red-800/20 hover:scale-105 transition-all flex items-center gap-2 group">
+                            class="w-full bg-red-800 text-white px-6 py-5 rounded-2xl font-bold shadow-lg hover:bg-red-900 transition-all flex items-center justify-center gap-2 group">
                             <i data-lucide="search" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
                             姓名を判定する
                         </button>
                         <button onclick="scrollToSection('logic')"
-                            class="bg-white text-gray-800 border-2 border-gray-200 px-8 py-4 rounded-full font-bold hover:bg-gray-50 transition-all">
+                            class="w-full bg-indigo-50 text-indigo-900 border-2 border-indigo-100 px-6 py-5 rounded-2xl font-bold hover:bg-indigo-100 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="brain" class="w-5 h-5"></i>
                             五格の論理構造
+                        </button>
+                        <button onclick="scrollToSection('overview')"
+                            class="w-full bg-white text-gray-800 border-2 border-gray-200 px-6 py-5 rounded-2xl font-bold hover:bg-gray-50 transition-all flex items-center justify-center gap-2">
+                            <i data-lucide="info" class="w-5 h-5"></i>
+                            概要と特性
                         </button>
                     </div>
 
-                    <div class="flex flex-wrap justify-center gap-4 pt-8 animate-fade-in opacity-60">
-                        <span class="px-4 py-1 bg-white border border-gray-200 text-gray-500 rounded-full text-xs">相術
-                            (Form Analysis)</span>
-                        <span
-                            class="px-4 py-1 bg-white border border-gray-200 text-gray-500 rounded-full text-xs">統計的側面</span>
-                        <span
-                            class="px-4 py-1 bg-white border border-gray-200 text-gray-500 rounded-full text-xs">陰陽五行</span>
-                    </div>
+                    <p class="text-[10px] text-slate-400 mt-6 text-center leading-relaxed">
+                        ※画数の吉凶で人生の傾向を読み解きます
+                    </p>
                 </div>
             </div>
-        </section>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-20">
 
         <!-- SECTION 1: Overview & Characteristics -->
         <section id="overview" class="scroll-mt-24">
