@@ -67,13 +67,18 @@
 
         /* モバイルでtype="time"の幅を制限 */
         input[type="time"] {
-            max-width: 100%;
-            box-sizing: border-box;
+            max-width: 100% !important;
+            width: 100% !important;
+            box-sizing: border-box !important;
         }
 
         input[type="time"]::-webkit-datetime-edit {
             display: flex;
             align-items: center;
+        }
+
+        input[type="time"]::-webkit-calendar-picker-indicator {
+            flex-shrink: 0;
         }
     </style>
 </head>
@@ -204,13 +209,13 @@
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div class="space-y-2 overflow-hidden">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 min-w-0">
+                        <div class="space-y-2 overflow-hidden min-w-0">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">出生時間</label>
                             <input type="time" id="birth-time" value="12:00" required
                                 class="w-full min-w-0 max-w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition">
                         </div>
-                        <div class="space-y-2">
+                        <div class="space-y-2 min-w-0">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">出生地</label>
                             <select id="birth-pref"
                                 class="w-full min-w-0 bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
