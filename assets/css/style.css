@@ -44,8 +44,50 @@ body {
     flex-direction: column;
     height: 100vh;
     position: fixed;
-    z-index: 100;
+    z-index: 1000;
     overflow-y: auto;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Mobile Menu Toggle */
+.mobile-menu-toggle {
+    display: none;
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    z-index: 1100;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    background: var(--sidebar-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--accent-primary);
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    z-index: 900;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.sidebar-overlay.active {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .logo-container {
@@ -367,9 +409,22 @@ input:focus {
         display: none;
     }
 
+    .nav-sublist {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .nav-sublist .nav-link {
         justify-content: center;
-        padding: 0.5rem;
+        padding: 0.8rem;
+        width: 44px;
+        height: 44px;
+    }
+
+    .nav-link i,
+    .nav-link svg {
+        margin-right: 0;
     }
 
     .main-content {
@@ -384,4 +439,72 @@ input:focus {
     width: 100%;
     background: transparent;
     min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: flex;
+    }
+
+    .sidebar {
+        width: 280px;
+        padding: 5rem 1rem 2rem;
+    }
+
+    .logo-text,
+    .nav-text,
+    .nav-group-title {
+        display: block;
+    }
+
+    .nav-sublist {
+        display: block;
+        align-items: flex-start;
+    }
+
+    .nav-sublist .nav-link {
+        justify-content: flex-start;
+        padding: 0.8rem 1rem;
+        width: 100%;
+        height: auto;
+    }
+
+    .nav-link i,
+    .nav-link svg {
+        margin-right: 0.8rem;
+    }
+
+    .main-content,
+    .home-content {
+        margin-left: 0 !important;
+        padding: 5rem 1.2rem 2rem !important;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+    }
+
+    .portal-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        margin-top: 2rem;
+    }
+
+    .section-card {
+        padding: 1.5rem;
+    }
+
+    .portal-card {
+        padding: 1.8rem;
+    }
+}
+
+/* Fix for iframe scrolling on iOS */
+.content-wrapper {
+    -webkit-overflow-scrolling: touch;
+    overflow-y: auto;
 }

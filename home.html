@@ -11,6 +11,32 @@
         body {
             background: transparent !important;
         }
+
+        .category-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            background: rgba(99, 102, 241, 0.05);
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .category-info-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .category-header h2 {
+                font-size: 1.5rem !important;
+            }
+
+            .portal-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
     </style>
 </head>
 
@@ -28,8 +54,7 @@
                 <h2
                     style="font-size: 2rem; color: #6366f1; border-bottom: 2px solid rgba(99,102,241,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem;">
                     命術（めいじゅつ）</h2>
-                <div
-                    style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; background: rgba(99,102,241,0.05); padding: 1.5rem; border-radius: 0.5rem; font-size: 0.9rem; line-height: 1.6;">
+                <div class="category-info-grid">
                     <div>
                         <strong style="color: #6366f1; display: block; margin-bottom: 0.5rem;">● わかること</strong>
                         生まれ持った性格、才能、宿命、人生の大きなサイクル、時期の良し悪し。
@@ -109,8 +134,7 @@
                 <h2
                     style="font-size: 2rem; color: #6366f1; border-bottom: 2px solid rgba(99,102,241,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem;">
                     卜術（ぼくじゅつ）</h2>
-                <div
-                    style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; background: rgba(99,102,241,0.05); padding: 1.5rem; border-radius: 0.5rem; font-size: 0.9rem; line-height: 1.6;">
+                <div class="category-info-grid">
                     <div>
                         <strong style="color: #6366f1; display: block; margin-bottom: 0.5rem;">● わかること</strong>
                         対象者の今の気持ち、近未来の展開、二者択一の結末、問題の核心。
@@ -181,8 +205,7 @@
                 <h2
                     style="font-size: 2rem; color: #6366f1; border-bottom: 2px solid rgba(99,102,241,0.3); padding-bottom: 0.5rem; margin-bottom: 1rem;">
                     相術（そうじゅつ）</h2>
-                <div
-                    style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2rem; background: rgba(99,102,241,0.05); padding: 1.5rem; border-radius: 0.5rem; font-size: 0.9rem; line-height: 1.6;">
+                <div class="category-info-grid">
                     <div>
                         <strong style="color: #6366f1; display: block; margin-bottom: 0.5rem;">● わかること</strong>
                         現在の運気の状態、健康状態、性格の表れ、環境との調和度。

@@ -52,12 +52,35 @@
                 margin-left: 80px;
             }
         }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                margin-left: 0;
+            }
+
+            .sidebar.active {
+                transform: translateX(0);
+            }
+
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px !important;
+            }
+        }
     </style>
 </head>
 
 <body>
     <div class="app-container">
-        <aside class="sidebar">
+        <!-- Mobile Menu Toggle -->
+        <button class="mobile-menu-toggle" id="menuToggle" aria-label="メニューを開く">
+            <i data-lucide="menu"></i>
+        </button>
+
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+        <aside class="sidebar" id="sidebar">
 
 
 
@@ -165,7 +188,31 @@
             // Update document title based on link text
             const linkText = event.currentTarget.textContent.trim();
             document.title = linkText + ' - Triscope';
+
+            // Close sidebar on mobile after clicking a link
+            if (window.innerWidth <= 768) {
+                toggleSidebar(false);
+            }
         }
+
+        // Sidebar logic
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menuToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+        function toggleSidebar(show) {
+            const isActive = show !== undefined ? show : !sidebar.classList.contains('active');
+            sidebar.classList.toggle('active', isActive);
+            sidebarOverlay.classList.toggle('active', isActive);
+            menuToggle.innerHTML = isActive ? '<i data-lucide="x"></i>' : '<i data-lucide="menu"></i>';
+            lucide.createIcons();
+
+            // Prevent scrolling on body when sidebar is open
+            document.body.style.overflow = isActive ? 'hidden' : '';
+        }
+
+        menuToggle.addEventListener('click', () => toggleSidebar());
+        sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
 
         // Handle navigation from within iframe (when cards are clicked)
         window.addEventListener('message', function (event) {
