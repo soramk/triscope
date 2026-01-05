@@ -66,10 +66,20 @@
         }
 
         /* モバイルでtype="time"の幅を制限 */
-        input[type="time"] {
-            max-width: 100% !important;
-            width: 100% !important;
-            box-sizing: border-box !important;
+        @media (max-width: 639px) {
+            input[type="time"] {
+                max-width: 200px !important;
+                width: 200px !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        @media (min-width: 640px) {
+            input[type="time"] {
+                max-width: 100% !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+            }
         }
 
         input[type="time"]::-webkit-datetime-edit {
