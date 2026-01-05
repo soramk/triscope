@@ -174,7 +174,7 @@
             </div>
 
             <!-- Calculator Form -->
-            <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100/50 border border-indigo-50 fade-in"
+            <div class="bg-white p-6 md:p-8 rounded-[2.5rem] shadow-xl shadow-indigo-100/50 border border-indigo-50 fade-in"
                 style="animation-delay: 0.2s;">
                 <h2 class="text-xl font-bold mb-8 text-indigo-950 flex items-center">
                     <i data-lucide="compass" class="mr-3 w-6 h-6 text-indigo-600"></i>
@@ -184,17 +184,17 @@
                     <!-- Date Selectors -->
                     <div class="space-y-2">
                         <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
-                        <div class="grid grid-cols-3 gap-3">
+                        <div class="grid grid-cols-3 gap-2">
                             <select id="birth-year"
-                                class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                             <select id="birth-month"
-                                class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                             <select id="birth-day"
-                                class="bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div class="space-y-2">
                             <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">出生時間</label>
                             <input type="time" id="birth-time" value="12:00" required

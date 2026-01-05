@@ -236,24 +236,25 @@
 
                 <div class="flex flex-col gap-6">
                     <!-- Personal Info Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-4">
                         <!-- Birthdate -->
                         <div class="space-y-2">
-                            <label class="block text-sm font-bold text-indigo-900 ml-1">生年月日</label>
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
                             <div class="grid grid-cols-3 gap-2">
                                 <select id="birth-year"
-                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                    class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                                 <select id="birth-month"
-                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                    class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                                 <select id="birth-day"
-                                    class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-xs border-gray-300 rounded-md p-3 bg-white"></select>
+                                    class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 appearance-none"></select>
                             </div>
                         </div>
                         <!-- Name -->
                         <div class="space-y-2">
-                            <label class="block text-sm font-bold text-indigo-900 ml-1">氏名 (ローマ字)</label>
+                            <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">氏名
+                                (ローマ字)</label>
                             <input type="text" id="name-input" placeholder="例: TARO YAMADA"
-                                class="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full text-sm border-gray-300 rounded-md p-3 uppercase">
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition uppercase">
                             <p class="text-[10px] text-indigo-400 ml-1">※名前から社会的な使命や深層心理を読み解きます</p>
                         </div>
                     </div>
@@ -329,7 +330,8 @@
                                     <div
                                         class="text-[10px] uppercase tracking-widest text-indigo-400 font-bold bg-indigo-50 px-3 py-1 rounded-full mb-1">
                                         Analysis Complete</div>
-                                    <div id="user-lp-calc" class="font-mono text-[10px] text-indigo-300">
+                                    <div id="user-lp-calc"
+                                        class="font-mono text-[10px] text-indigo-300 break-words max-w-[150px] sm:max-w-none">
                                     </div>
                                 </div>
                             </div>

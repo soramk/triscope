@@ -265,23 +265,16 @@
                 </h2>
 
                 <div class="space-y-6">
-                    <div class="grid grid-cols-3 gap-4">
-                        <!-- Year -->
-                        <div>
-                            <label for="birth-year"
-                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Year</label>
+                    <div class="space-y-3">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
+                        <div class="grid grid-cols-3 gap-2">
                             <select id="birth-year"
-                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-jp-gold w-full appearance-none transition"
                                 onchange="updateDayOptions()"></select>
-                        </div>
-                        <!-- Month -->
-                        <div>
-                            <label for="birth-month"
-                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Month</label>
                             <select id="birth-month"
-                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-jp-gold w-full appearance-none transition"
                                 onchange="updateDayOptions()">
-                                <option value="1">1月</opti on>
+                                <option value="1">1月</option>
                                 <option value="2">2月</option>
                                 <option value="3">3月</option>
                                 <option value="4">4月</option>
@@ -294,13 +287,8 @@
                                 <option value="11">11月</option>
                                 <option value="12">12月</option>
                             </select>
-                        </div>
-                        <!-- Day -->
-                        <div>
-                            <label for="birth-day"
-                                class="block text-[10px] font-black text-stone-400 mb-2 uppercase tracking-widest">Day</label>
                             <select id="birth-day"
-                                class="w-full text-center text-lg font-bold py-3 px-4 rounded-xl border-2 border-stone-100 focus:border-jp-gold focus:outline-none bg-stone-50"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-jp-gold w-full appearance-none transition"></select>
                         </div>
                     </div>
 

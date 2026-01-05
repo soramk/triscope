@@ -289,38 +289,39 @@
                                     <h3 class="text-xl font-bold text-sanmei-dark">宿命の精密鑑定</h3>
                                 </div>
 
-                                <div class="grid grid-cols-3 gap-4">
-                                    <div class="space-y-2">
-                                        <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Year</label>
+                                <div class="space-y-3">
+                                    <label
+                                        class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
+                                    <div class="grid grid-cols-3 gap-2">
                                         <select id="birth-year" onchange="updateDayOptions()"
-                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all"></select>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Month</label>
+                                            class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-sanmei-accent w-full appearance-none transition"></select>
                                         <select id="birth-month" onchange="updateDayOptions()"
-                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all">
-                                            <option value="1">1月</option>
-                                            <option value="2">2月</option>
-                                            <option value="3">3月</option>
-                                            <option value="4">4月</option>
-                                            <option value="5">5月</option>
-                                            <option value="6">6月</option>
-                                            <option value="7">7月</option>
-                                            <option value="8">8月</option>
-                                            <option value="9">9月</option>
-                                            <option value="10">10月</option>
-                                            <option value="11">11月</option>
-                                            <option value="12">12月</option>
-                                        </select>
-                                    </div>
-                                    <div class="space-y-2">
-                                        <label
-                                            class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Day</label>
+                                            class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-sanmei-accent w-full appearance-none transition"></select>
                                         <select id="birth-day"
-                                            class="w-full bg-slate-50 border-2 border-slate-100 rounded-2xl py-3 px-4 font-bold text-lg focus:border-sanmei-accent focus:outline-none transition-all"></select>
+                                            class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-sanmei-accent w-full appearance-none transition"></select>
                                     </div>
+                                </div>
+
+                                <div class="space-y-3">
+                                    <label
+                                        class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">性別</label>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="gender" value="male" class="peer sr-only" checked>
+                                            <div
+                                                class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-bold text-center transition-all peer-checked:bg-white peer-checked:border-sanmei-accent peer-checked:text-sanmei-accent peer-checked:shadow-md h-full flex items-center justify-center gap-2">
+                                                <i data-lucide="user" class="w-4 h-4"></i> 男性
+                                            </div>
+                                        </label>
+                                        <label class="cursor-pointer">
+                                            <input type="radio" name="gender" value="female" class="peer sr-only">
+                                            <div
+                                                class="p-3 rounded-xl border border-slate-200 bg-slate-50 text-slate-500 font-bold text-center transition-all peer-checked:bg-white peer-checked:border-sanmei-secondary peer-checked:text-sanmei-secondary peer-checked:shadow-md h-full flex items-center justify-center gap-2">
+                                                <i data-lucide="user-plus" class="w-4 h-4"></i> 女性
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 ml-1">※大運（10年ごとの運気）の計算に必要です</p>
                                 </div>
 
                                 <button onclick="methodNextStep(2)"
@@ -1768,6 +1769,55 @@
             // Close mobile menu
             document.getElementById('mobile-nav').classList.add('translate-x-full');
         }
+        // --- Date Selectors Logic ---
+        function initSelectors() {
+            const yearSelect = document.getElementById('birth-year');
+            const monthSelect = document.getElementById('birth-month');
+
+            // Populate Years
+            const currentYear = new Date().getFullYear();
+            for (let y = 1940; y <= currentYear; y++) {
+                const opt = document.createElement('option');
+                opt.value = y;
+                opt.textContent = y + '年';
+                if (y === 1990) opt.selected = true;
+                yearSelect.appendChild(opt);
+            }
+
+            // Populate Months
+            for (let m = 1; m <= 12; m++) {
+                const opt = document.createElement('option');
+                opt.value = m;
+                opt.textContent = m + '月';
+                monthSelect.appendChild(opt);
+            }
+
+            // Initial Day Population
+            updateDayOptions();
+        }
+
+        function updateDayOptions() {
+            const year = parseInt(document.getElementById('birth-year').value) || 1990;
+            const month = parseInt(document.getElementById('birth-month').value) || 1;
+            const daySelect = document.getElementById('birth-day');
+            const currentDay = parseInt(daySelect.value) || 1;
+
+            // Get number of days in month
+            const daysInMonth = new Date(year, month, 0).getDate();
+
+            daySelect.innerHTML = '';
+            for (let d = 1; d <= daysInMonth; d++) {
+                const opt = document.createElement('option');
+                opt.value = d;
+                opt.textContent = d + '日';
+                if (d === currentDay) opt.selected = true;
+                daySelect.appendChild(opt);
+            }
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initSelectors);
+
         // --- Kanshi Library Logic ---
         function toggleKanshiGrid() {
             const container = document.getElementById('kanshi-grid-container');

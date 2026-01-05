@@ -247,21 +247,21 @@
 
                 <div class="space-y-6">
                     <div class="space-y-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
-                        <div class="grid grid-cols-3 gap-3">
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">生年月日</label>
+                        <div class="grid grid-cols-3 gap-2">
                             <select id="birth-year"
-                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full appearance-none transition"></select>
                             <select id="birth-month"
-                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full appearance-none transition"></select>
                             <select id="birth-day"
-                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all"></select>
+                                class="bg-slate-50 border border-slate-200 rounded-xl px-2 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 w-full appearance-none transition"></select>
                         </div>
                     </div>
                     <div class="space-y-3">
-                        <label class="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">出生時間</label>
+                        <label class="text-xs font-bold text-slate-400 uppercase tracking-widest ml-1">出生時間</label>
                         <div class="relative">
                             <select id="birth-hour"
-                                class="w-full p-4 bg-slate-50 rounded-2xl border border-slate-100 focus:ring-2 focus:ring-indigo-500 outline-none text-slate-700 font-bold appearance-none transition-all">
+                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-emerald-500 appearance-none transition">
                                 <option value="-1">不明 (Unknown)</option>
                                 <option value="0">00:00 - 子時</option>
                                 <option value="2">02:00 - 丑時</option>
@@ -1073,6 +1073,7 @@
             const currentYearLiChun = new Date(year, 1, 4); // Feb 4
             if (birthDate < currentYearLiChun) solarYear--;
 
+            let solarMonthIdx = -1; // Initialize variable
             for (let i = 0; i < 12; i++) {
                 const term = jieQiDates[i];
                 if (birthDate >= new Date(year, term.m - 1, term.d)) solarMonthIdx = i;
