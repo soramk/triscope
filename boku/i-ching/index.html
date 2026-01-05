@@ -397,21 +397,21 @@
 
             <!-- The Three Meanings (New Philosophy Section) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
-                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
-                    <h5 class="text-amber-500 font-bold mb-2 serif">変易 (Hen'eki)</h5>
-                    <p class="text-[11px] leading-relaxed">
+                <div class="bg-amber-50/50 text-stone-700 p-6 rounded-xl text-center border border-amber-100">
+                    <h5 class="text-amber-700 font-bold mb-2 serif text-lg text-lg">変易 (Hen'eki)</h5>
+                    <p class="text-sm leading-relaxed text-stone-600">
                         宇宙のあらゆるものは、常に変化し続けているという真理。現状に執着せず、変化の波を捉える重要性を説きます。
                     </p>
                 </div>
-                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
-                    <h5 class="text-amber-500 font-bold mb-2 serif">不易 (Fueki)</h5>
-                    <p class="text-[11px] leading-relaxed">
+                <div class="bg-amber-50/50 text-stone-700 p-6 rounded-xl text-center border border-amber-100">
+                    <h5 class="text-amber-700 font-bold mb-2 serif text-lg">不易 (Fueki)</h5>
+                    <p class="text-sm leading-relaxed text-stone-600">
                         万物は変化するが、その変化を支配する「法則」だけは永遠に変わらないということ。易はその不変のルールを読み解きます。
                     </p>
                 </div>
-                <div class="bg-stone-800 text-stone-200 p-6 rounded-lg text-center border border-stone-700">
-                    <h5 class="text-amber-500 font-bold mb-2 serif">簡易 (Kan'i)</h5>
-                    <p class="text-[11px] leading-relaxed">
+                <div class="bg-amber-50/50 text-stone-700 p-6 rounded-xl text-center border border-amber-100">
+                    <h5 class="text-amber-700 font-bold mb-2 serif text-lg">簡易 (Kan'i)</h5>
+                    <p class="text-sm leading-relaxed text-stone-600">
                         一見複雑に見える宇宙の現象も、突き詰めれば「陰」と「陽」という非常にシンプルな原理から成り立っているという考えです。
                     </p>
                 </div>
@@ -538,12 +538,18 @@
                         </div>
 
                         <div class="mt-8 pt-6 border-t border-stone-200 flex justify-center gap-3">
-                            <button onclick="updateChartData('yang')"
-                                class="text-[10px] font-bold bg-stone-800 text-white px-3 py-1.5 rounded hover:bg-stone-700 transition">陽優勢</button>
-                            <button onclick="updateChartData('balanced')"
-                                class="text-[10px] font-bold bg-white border border-stone-300 px-3 py-1.5 rounded hover:bg-stone-50 transition">調和</button>
-                            <button onclick="updateChartData('yin')"
-                                class="text-[10px] font-bold bg-white border border-stone-300 px-3 py-1.5 rounded hover:bg-stone-50 transition">陰優勢</button>
+                            <button id="btn-chart-yang" onclick="updateChartData('yang')"
+                                class="text-[10px] font-bold bg-white text-stone-600 border border-stone-300 px-4 py-2 rounded-full hover:bg-stone-50 transition flex items-center gap-2">
+                                <i data-lucide="sun" class="w-3 h-3"></i> 陽優勢
+                            </button>
+                            <button id="btn-chart-balanced" onclick="updateChartData('balanced')"
+                                class="text-[10px] font-bold bg-stone-800 text-white px-4 py-2 rounded-full hover:bg-stone-700 transition flex items-center gap-2">
+                                <i data-lucide="scale" class="w-3 h-3"></i> 調和
+                            </button>
+                            <button id="btn-chart-yin" onclick="updateChartData('yin')"
+                                class="text-[10px] font-bold bg-white text-stone-600 border border-stone-300 px-4 py-2 rounded-full hover:bg-stone-50 transition flex items-center gap-2">
+                                <i data-lucide="moon" class="w-3 h-3"></i> 陰優勢
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -636,14 +642,14 @@
                             </p>
                             <!-- Figure Cards Grid -->
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="bg-stone-800 p-4 rounded-lg text-left">
-                                    <h5 class="text-xs font-bold text-amber-500 truncate mb-1">高島嘉右衛門 (呑象)</h5>
-                                    <p class="text-[10px] text-stone-400 leading-tight">
+                                <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm text-left">
+                                    <h5 class="text-xs font-bold text-amber-700 truncate mb-1">高島嘉右衛門 (呑象)</h5>
+                                    <p class="text-[10px] text-stone-600 leading-tight">
                                         横浜の父。国家重大事に易断を下し、伊藤博文らの信頼を得た「明治の易聖」。</p>
                                 </div>
-                                <div class="bg-stone-800 p-4 rounded-lg text-left">
-                                    <h5 class="text-xs font-bold text-stone-200 truncate mb-1">根本通明</h5>
-                                    <p class="text-[10px] text-stone-400 leading-tight">
+                                <div class="bg-white p-4 rounded-xl border border-stone-200 shadow-sm text-left">
+                                    <h5 class="text-xs font-bold text-amber-700 truncate mb-1">根本通明</h5>
+                                    <p class="text-[10px] text-stone-600 leading-tight">
                                         最後の儒者。清国公使・何如璋との筆談論戦で「天下の大儒」と称賛された権威。</p>
                                 </div>
                             </div>
@@ -1271,6 +1277,19 @@
 
             yinYangChart.data.datasets[0].data = newData;
             yinYangChart.update();
+
+            // Update button styles
+            const btnTypes = ['yang', 'balanced', 'yin'];
+            btnTypes.forEach(t => {
+                const btn = document.getElementById(`btn-chart-${t}`);
+                if (t === type) {
+                    btn.classList.add('bg-stone-800', 'text-white');
+                    btn.classList.remove('bg-white', 'text-stone-600', 'border-stone-300');
+                } else {
+                    btn.classList.remove('bg-stone-800', 'text-white');
+                    btn.classList.add('bg-white', 'text-stone-600', 'border-stone-300');
+                }
+            });
         }
 
         // --- Simulation Logic (Virtual I Ching) ---
