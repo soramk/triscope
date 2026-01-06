@@ -146,9 +146,13 @@
                         class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
                         <i data-lucide="layers" class="w-4 h-4"></i> 数の意味
                     </button>
-                    <button onclick="scrollToSection('history')"
+                    <button onclick="scrollToSection('compatibility-guide')"
                         class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
-                        <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                        <i data-lucide="heart" class="w-4 h-4"></i> 相性
+                    </button>
+                    <button onclick="scrollToSection('master-numbers')"
+                        class="px-4 py-2 rounded-full text-gray-600 hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2">
+                        <i data-lucide="crown" class="w-4 h-4"></i> マスター数
                     </button>
                 </div>
                 <!-- Mobile Menu Button -->
@@ -173,9 +177,13 @@
                     class="flex items-center gap-3 w-full text-left px-4 py-3 text-gray-700 hover:bg-indigo-50 rounded-lg font-medium transition-colors">
                     <i data-lucide="layers" class="w-5 h-5"></i> 各数字の意味
                 </button>
-                <button onclick="scrollToSection('history')"
+                <button onclick="scrollToSection('compatibility-guide')"
+                    class="flex items-center gap-3 w-full text-left px-4 py-3 text-gray-700 hover:bg-indigo-50 rounded-lg font-medium transition-colors">
+                    <i data-lucide="heart" class="w-5 h-5"></i> 相性診断ロジック
+                </button>
+                <button onclick="scrollToSection('master-numbers')"
                     class="flex items-center gap-3 w-full text-left px-4 py-3 text-indigo-900 bg-indigo-50 hover:bg-indigo-100 rounded-lg font-bold transition-colors">
-                    <i data-lucide="history" class="w-5 h-5"></i> 歴史と起源
+                    <i data-lucide="crown" class="w-5 h-5"></i> マスターナンバー
                 </button>
             </div>
         </div>
@@ -742,33 +750,6 @@
         </div>
     </section>
 
-    <!-- Cycle Section (Line Chart) -->
-    <section class="bg-indigo-50 py-16">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center serif">運気の波（9年周期）</h2>
-            <p class="text-center text-gray-600 mb-8 max-w-2xl mx-auto">
-                数秘術では、人生を9年のサイクルで捉えます。1で種を蒔き、9で手放して土に還す。
-                自分が今どのサイクルにいるかを知ることで、行動の指針が得られます。
-            </p>
-            <div class="bg-white p-4 sm:p-8 rounded-xl shadow-sm chart-container mx-auto">
-                <div class="flex items-center justify-between mb-4">
-                    <h4 class="text-sm font-bold text-slate-700 flex items-center">
-                        <span class="mr-2 flex items-center justify-center"><i data-lucide="trending-up"
-                                class="w-4 h-4"></i></span> <span id="cycle-chart-title">運気の波（9年周期）</span>
-                    </h4>
-                    <div id="personal-year-calc"
-                        class="text-[10px] font-mono text-indigo-400 bg-indigo-50 px-2 py-0.5 rounded"></div>
-                </div>
-                <div class="h-48 relative">
-                    <canvas id="cycleChart"></canvas>
-                </div>
-                <p class="text-[10px] text-slate-400 mt-4 leading-relaxed">
-                    ※数秘術における「個人年」は、**年齢ではなく「西暦＋誕生月＋誕生日」**で算出されます。そのため、同じ40歳でも誕生日によって現在の位置は異なります。
-                </p>
-            </div>
-        </div>
-    </section>
-
     <!-- History Section -->
     <section id="history" class="py-16 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 class="text-3xl font-extrabold text-gray-900 serif text-center mb-12">数秘術の歴史と起源</h2>
@@ -806,25 +787,705 @@
         </div>
     </section>
 
+    <!-- Pythagorean Gematria Table Section -->
+    <section class="py-20 bg-white border-y border-slate-200">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-4 uppercase tracking-widest">
+                    <i data-lucide="table" class="w-3.5 h-3.5"></i> 変換表
+                </span>
+                <h2 class="text-3xl font-extrabold text-slate-900 serif">ピタゴラス式ゲマトリア表</h2>
+                <p class="mt-4 text-slate-600 max-w-2xl mx-auto">
+                    数秘術では、アルファベットをそれぞれ対応する数字に変換して計算します。ピタゴラス式では1から9を順番に割り当てます。
+                </p>
+            </div>
+
+            <div
+                class="bg-gradient-to-br from-indigo-50 to-purple-50 p-8 rounded-2xl border border-indigo-100 shadow-sm">
+                <div class="grid grid-cols-9 gap-2 md:gap-4 text-center font-bold">
+                    <!-- Header Row -->
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">1</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">2</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">3</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">4</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">5</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">6</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">7</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">8</div>
+                    <div class="bg-indigo-600 text-white rounded-lg py-3 text-lg">9</div>
+
+                    <!-- Row 1 -->
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">A</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">B</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">C</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">D</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">E</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">F</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">G</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">H</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">I</div>
+
+                    <!-- Row 2 -->
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">J</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">K</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">L</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">M</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">N</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">O</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">P</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">Q</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">R</div>
+
+                    <!-- Row 3 -->
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">S</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">T</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">U</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">V</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">W</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">X</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">Y</div>
+                    <div class="bg-white rounded-lg py-3 text-slate-800 shadow-sm border border-indigo-100">Z</div>
+                    <div class="bg-transparent rounded-lg py-3"></div>
+                </div>
+
+                <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-indigo-100">
+                        <h4 class="font-bold text-indigo-900 mb-2 flex items-center text-sm">
+                            <span
+                                class="w-6 h-6 bg-indigo-100 rounded-full flex items-center justify-center mr-2 text-xs">1</span>
+                            Expression 表現数
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            名前のすべての文字を数字に変換して合計し、一桁になるまで還元します。あなたの「社会的な役割」を示します。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-pink-100">
+                        <h4 class="font-bold text-pink-900 mb-2 flex items-center text-sm">
+                            <span
+                                class="w-6 h-6 bg-pink-100 rounded-full flex items-center justify-center mr-2 text-xs">2</span>
+                            Soul Urge 魂の衝動数
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">名前の<strong
+                                class="text-pink-700">母音（A,E,I,O,U）</strong>のみを合計。あなたの「魂が本当に望んでいるもの」を表します。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-teal-100">
+                        <h4 class="font-bold text-teal-900 mb-2 flex items-center text-sm">
+                            <span
+                                class="w-6 h-6 bg-teal-100 rounded-full flex items-center justify-center mr-2 text-xs">3</span>
+                            Personality 人格数
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">名前の<strong
+                                class="text-teal-700">子音</strong>のみを合計。「他者から見たあなた」、第一印象や社会的なペルソナを表します。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Personal Year Cycle Detail Section -->
+    <section class="py-20 bg-gradient-to-br from-slate-50 to-indigo-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-xs font-bold mb-4 uppercase tracking-widest">
+                    <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i> 9年周期
+                </span>
+                <h2 class="text-3xl font-extrabold text-slate-900 serif">パーソナルイヤー完全ガイド</h2>
+                <p class="mt-4 text-slate-600 max-w-3xl mx-auto">
+                    数秘術では人生を9年周期で捉えます。<strong>パーソナルイヤー</strong>は「誕生月 + 誕生日 + 対象年の西暦」を合計して算出され、その年のテーマや取るべき行動の指針を示します。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Personal Year 1 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-red-400 to-red-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            1</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">新しい始まり</h3>
+                            <span class="text-xs text-red-600 font-bold uppercase tracking-widest">The Year of New
+                                Beginnings</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        9年周期の最初の年。新しいプロジェクト、転職、引越しなど、何かを<strong>始める</strong>のに最適な時期です。</p>
+                    <div class="bg-red-50 p-3 rounded-lg">
+                        <p class="text-xs text-red-700"><strong>アドバイス：</strong>自分の意志で行動を起こし、種を蒔きましょう。恐れずに一歩踏み出す勇気が必要です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 2 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            2</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">協力と忍耐</h3>
+                            <span class="text-xs text-orange-600 font-bold uppercase tracking-widest">The Year of
+                                Cooperation</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        人間関係に焦点が当たる年。<strong>協調性</strong>と<strong>忍耐</strong>がテーマで、焦らず細部に気を配ることが重要です。</p>
+                    <div class="bg-orange-50 p-3 rounded-lg">
+                        <p class="text-xs text-orange-700">
+                            <strong>アドバイス：</strong>パートナーシップを大切に。目立つ行動より、裏方として支えることで結果が出ます。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 3 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            3</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">自己表現と創造</h3>
+                            <span class="text-xs text-yellow-600 font-bold uppercase tracking-widest">The Year of
+                                Expression</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        創造力と社交性が開花する年。<strong>自己表現</strong>、芸術活動、コミュニケーションが活発になります。</p>
+                    <div class="bg-yellow-50 p-3 rounded-lg">
+                        <p class="text-xs text-yellow-700">
+                            <strong>アドバイス：</strong>楽しむことを優先し、クリエイティブな活動に時間を使いましょう。人脈を広げるのに最適です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 4 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-green-500 to-green-700 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            4</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">基盤構築</h3>
+                            <span class="text-xs text-green-600 font-bold uppercase tracking-widest">The Year of
+                                Foundation</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>堅実な努力</strong>が求められる年。地道な作業、安定した生活基盤の構築がテーマです。
+                    </p>
+                    <div class="bg-green-50 p-3 rounded-lg">
+                        <p class="text-xs text-green-700">
+                            <strong>アドバイス：</strong>派手なことより実務を優先。計画を立て、一歩一歩着実に進めることで未来の成功を手に入れます。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 5 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-cyan-400 to-cyan-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            5</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">変化と自由</h3>
+                            <span class="text-xs text-cyan-600 font-bold uppercase tracking-widest">The Year of
+                                Change</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        ダイナミックな<strong>変化</strong>が起こる年。予期せぬ出来事、新しい経験、旅行、自由への渇望。</p>
+                    <div class="bg-cyan-50 p-3 rounded-lg">
+                        <p class="text-xs text-cyan-700">
+                            <strong>アドバイス：</strong>変化を恐れず、柔軟に対応しましょう。新しいことに挑戦し、経験を広げる絶好の時期です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 6 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            6</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">責任と愛</h3>
+                            <span class="text-xs text-blue-600 font-bold uppercase tracking-widest">The Year of
+                                Responsibility</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>家族</strong>、<strong>愛</strong>、<strong>責任</strong>がテーマ。結婚、家庭内の問題解決、コミュニティへの貢献が焦点に。
+                    </p>
+                    <div class="bg-blue-50 p-3 rounded-lg">
+                        <p class="text-xs text-blue-700">
+                            <strong>アドバイス：</strong>周囲の人々への奉仕を意識しましょう。自己犠牲になりすぎず、バランスを取ることが大切です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 7 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-purple-400 to-purple-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            7</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">内省と学び</h3>
+                            <span class="text-xs text-purple-600 font-bold uppercase tracking-widest">The Year of
+                                Reflection</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>精神的な成長</strong>と<strong>内省</strong>の年。一人の時間、学習、瞑想、自己分析が重要になります。
+                    </p>
+                    <div class="bg-purple-50 p-3 rounded-lg">
+                        <p class="text-xs text-purple-700">
+                            <strong>アドバイス：</strong>外の世界より内面を見つめましょう。学びや研究、スピリチュアルな探求に最適な年です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 8 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-amber-400 to-amber-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            8</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">収穫と成功</h3>
+                            <span class="text-xs text-amber-600 font-bold uppercase tracking-widest">The Year of
+                                Achievement</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        <strong>物質的な成功</strong>と<strong>達成</strong>の年。ビジネス、キャリア、財政面で大きな進展が期待できます。
+                    </p>
+                    <div class="bg-amber-50 p-3 rounded-lg">
+                        <p class="text-xs text-amber-700">
+                            <strong>アドバイス：</strong>これまでの努力が実を結ぶ時期。大きな決断や投資に適していますが、傲慢にならないように。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Personal Year 9 -->
+                <div
+                    class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 hover:shadow-lg hover:-translate-y-1 transition-all group">
+                    <div class="flex items-center mb-4">
+                        <div
+                            class="w-12 h-12 bg-gradient-to-br from-slate-400 to-slate-600 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-sm">
+                            9</div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-slate-900">完了と解放</h3>
+                            <span class="text-xs text-slate-600 font-bold uppercase tracking-widest">The Year of
+                                Completion</span>
+                        </div>
+                    </div>
+                    <p class="text-slate-600 text-sm leading-relaxed mb-3">
+                        9年周期の最終年。<strong>終わり</strong>と<strong>手放し</strong>のエネルギー。古いものを清算し、次のサイクルに備えます。</p>
+                    <div class="bg-slate-100 p-3 rounded-lg">
+                        <p class="text-xs text-slate-700">
+                            <strong>アドバイス：</strong>執着を手放し、不要なものを整理しましょう。新しいことを始めるより、完結させることに集中を。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 bg-white p-6 rounded-2xl border border-indigo-100 shadow-sm">
+                <h4 class="font-bold text-indigo-900 mb-4 flex items-center">
+                    <i data-lucide="calculator" class="w-5 h-5 mr-2"></i>
+                    パーソナルイヤーの計算方法
+                </h4>
+                <div class="bg-indigo-50 p-4 rounded-xl font-mono text-sm text-indigo-800">
+                    <p><strong>例：</strong>1985年10月24日生まれの人の2026年のパーソナルイヤー</p>
+                    <p class="mt-2">誕生月 + 誕生日 + 対象年 = 10 + 24 + 2026</p>
+                    <p class="mt-1">1 + 0 + 2 + 4 + 2 + 0 + 2 + 6 = <strong>17</strong> → 1 + 7 = <strong
+                            class="text-indigo-600 text-lg">8</strong></p>
+                    <p class="mt-2 text-indigo-600">→ この人の2026年は「パーソナルイヤー8：収穫と成功」のエネルギーです。</p>
+                </div>
+            </div>
+
+            <!-- Integrated Cycle Chart -->
+            <div class="mt-10 bg-white p-6 sm:p-8 rounded-2xl border border-indigo-100 shadow-lg">
+                <div class="flex items-center justify-between mb-4">
+                    <h4 class="text-lg font-bold text-slate-900 flex items-center">
+                        <span class="mr-2 flex items-center justify-center"><i data-lucide="trending-up"
+                                class="w-5 h-5 text-indigo-600"></i></span>
+                        <span id="cycle-chart-title">あなたの運気の波</span>
+                    </h4>
+                    <div id="personal-year-calc"
+                        class="text-xs font-mono text-indigo-600 bg-indigo-50 px-3 py-1 rounded-full"></div>
+                </div>
+                <div class="chart-container mx-auto">
+                    <div class="h-56 relative">
+                        <canvas id="cycleChart"></canvas>
+                    </div>
+                </div>
+                <p
+                    class="text-xs text-slate-500 mt-4 leading-relaxed bg-slate-50 p-3 rounded-lg flex items-start gap-2">
+                    <i data-lucide="lightbulb" class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i>
+                    <span>数秘術における「個人年」は、<strong>年齢ではなく「西暦＋誕生月＋誕生日」</strong>で算出されます。上の計算機で生年月日を入力すると、あなた専用のサイクルチャートが表示されます。</span>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Compatibility Logic Section -->
+    <section id="compatibility-guide" class="py-20 bg-gradient-to-br from-pink-50 to-purple-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-600 text-xs font-bold mb-4 uppercase tracking-widest">
+                    <i data-lucide="heart" class="w-3.5 h-3.5"></i> 相性の科学
+                </span>
+                <h2 class="text-3xl font-extrabold text-slate-900 serif">数秘術における相性診断ロジック</h2>
+                <p class="mt-4 text-slate-600 max-w-3xl mx-auto">
+                    二人のライフパスナンバーを比較することで、関係性の特性や課題を読み解くことができます。相性は単純な「良い・悪い」ではなく、<strong>関係性の質</strong>を理解するためのツールです。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Harmony Groups -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-pink-100">
+                    <h3 class="text-xl font-bold text-pink-900 mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-pink-100 rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="users" class="w-4 h-4 text-pink-600"></i>
+                        </span>
+                        相性のグループ分け
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl border border-red-100">
+                            <h4 class="font-bold text-red-800 mb-2 flex items-center"><i data-lucide="flame"
+                                    class="w-4 h-4 mr-1.5 text-red-500"></i> 行動派グループ (1, 5, 7)</h4>
+                            <p class="text-sm text-slate-600">独立心が強く、自分のペースを大切にするタイプ。自由を尊重し合える関係で輝きます。</p>
+                        </div>
+                        <div class="p-4 bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl border border-blue-100">
+                            <h4 class="font-bold text-blue-800 mb-2 flex items-center"><i data-lucide="droplet"
+                                    class="w-4 h-4 mr-1.5 text-blue-500"></i> 感情派グループ (2, 4, 8)</h4>
+                            <p class="text-sm text-slate-600">安定と調和を求めるタイプ。信頼と責任感を基盤とした関係で安心感を得られます。</p>
+                        </div>
+                        <div class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl border border-purple-100">
+                            <h4 class="font-bold text-purple-800 mb-2 flex items-center"><i data-lucide="sparkles"
+                                    class="w-4 h-4 mr-1.5 text-purple-500"></i> 創造派グループ (3, 6, 9)</h4>
+                            <p class="text-sm text-slate-600">表現力と愛にあふれるタイプ。感情的な絆と創造的な共有で深い関係を築けます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Compatibility Insights -->
+                <div class="bg-white p-8 rounded-2xl shadow-sm border border-purple-100">
+                    <h3 class="text-xl font-bold text-purple-900 mb-6 flex items-center">
+                        <span class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mr-3">
+                            <i data-lucide="sparkles" class="w-4 h-4 text-purple-600"></i>
+                        </span>
+                        相性のパターン
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start gap-4 p-4 bg-green-50 rounded-xl">
+                            <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-green-700 font-bold">◎</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-green-800 mb-1">同じ数字同士</h4>
+                                <p class="text-sm text-slate-600">価値観が似ているため理解し合いやすい反面、同じ弱点を持つため補い合えないことも。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-blue-50 rounded-xl">
+                            <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-blue-700 font-bold">○</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-blue-800 mb-1">同グループ内</h4>
+                                <p class="text-sm text-slate-600">基本的な価値観が近く、自然と波長が合う傾向があります。安定した関係を築きやすいです。</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-amber-50 rounded-xl">
+                            <div class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center shrink-0">
+                                <span class="text-amber-700 font-bold">△</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-amber-800 mb-1">異グループ間</h4>
+                                <p class="text-sm text-slate-600">お互いに持っていないものを補い合える反面、価値観の違いから衝突することも。成長の機会に。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Popular Combinations -->
+            <div class="mt-10">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 text-center">代表的な相性の組み合わせ</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center font-bold text-red-700">1</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-purple-100 rounded-full flex items-center justify-center font-bold text-purple-700">7</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">お互いの独立性を尊重し合える理想的なパートナー。知的な刺激を与え合います。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-orange-100 rounded-full flex items-center justify-center font-bold text-orange-700">2</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700">6</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">深い共感と愛情で結ばれる相性。家庭的で温かい関係を築けます。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center font-bold text-yellow-700">3</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-cyan-100 rounded-full flex items-center justify-center font-bold text-cyan-700">5</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">楽しさと冒険を共有する刺激的な関係。社交的で活発なカップルに。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center font-bold text-green-700">4</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center font-bold text-amber-700">8</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">目標達成に向けて共に歩むパートナー。ビジネスパートナーとしても最適です。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center font-bold text-blue-700">6</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-slate-100 rounded-full flex items-center justify-center font-bold text-slate-700">9</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">慈愛にあふれた深い絆。お互いに無償の愛を与え合える理想的な関係です。</p>
+                    </div>
+                    <div class="bg-white p-5 rounded-xl border border-slate-200 hover:shadow-lg transition-shadow">
+                        <div class="flex items-center justify-center gap-3 mb-3">
+                            <span
+                                class="w-10 h-10 bg-silver-100 rounded-full flex items-center justify-center font-bold text-indigo-700 text-sm border border-indigo-200">11</span>
+                            <span class="text-pink-400">×</span>
+                            <span
+                                class="w-10 h-10 bg-silver-100 rounded-full flex items-center justify-center font-bold text-indigo-700 text-sm border border-indigo-200">22</span>
+                        </div>
+                        <p class="text-sm text-slate-600 text-center">マスターナンバー同士。高い理想を共有し、社会に大きな影響を与えるペアに。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Master Number Deep Dive Section -->
+    <section id="master-numbers" class="py-20 bg-gradient-to-br from-amber-50 via-rose-50 to-purple-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-amber-100 to-rose-100 text-amber-700 text-xs font-bold mb-4 uppercase tracking-widest">
+                    <i data-lucide="crown" class="w-3.5 h-3.5"></i> 特別な数字
+                </span>
+                <h2 class="text-3xl md:text-4xl font-extrabold serif text-slate-900">マスターナンバー完全解説</h2>
+                <p class="mt-4 text-slate-600 max-w-3xl mx-auto">
+                    11、22、33は「マスターナンバー」と呼ばれ、通常の一桁の数字に還元せず特別な意味を持つ数字です。強いエネルギーと高い使命を持ち、人生に特別な輝きをもたらします。
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Master Number 11 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100 hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-indigo-400 to-indigo-600 rounded-2xl shadow-lg mb-4">
+                            <span class="text-4xl font-black text-white">11</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900">The Messenger</h3>
+                        <p class="text-indigo-600 text-sm uppercase tracking-widest font-bold">直感・霊感・啓示</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-indigo-700 font-bold text-sm uppercase mb-2">エネルギーの特性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                天と地を繋ぐ「アンテナ」のような存在。圧倒的な直感力と霊感を持ち、目に見えない世界からのメッセージを受け取ります。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-indigo-700 font-bold text-sm uppercase mb-2">二面性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                1の持つ「積極性・行動力」と2の持つ「謙虚さ・気配り」を併せ持ちます。大胆さと繊細さの間を行き来します。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-indigo-700 font-bold text-sm uppercase mb-2">使命</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                高次元の意識を人々に伝え、魂を揺さぶるメッセージを届けること。周囲にインスピレーションを与える先見者です。</p>
+                        </div>
+                        <div class="pt-4 border-t border-indigo-100">
+                            <h4 class="text-amber-600 font-bold text-sm uppercase mb-2 flex items-center"><i
+                                    data-lucide="lightbulb" class="w-4 h-4 mr-1.5"></i> ポイント</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                繊細さを強みに変え、周囲のエネルギーを上手にコントロールすることで、真の力を発揮できます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Master Number 22 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-lg border border-amber-100 hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-amber-400 to-orange-500 rounded-2xl shadow-lg mb-4">
+                            <span class="text-4xl font-black text-white">22</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900">The Master Builder</h3>
+                        <p class="text-amber-600 text-sm uppercase tracking-widest font-bold">大成・具現化・カリスマ</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-amber-700 font-bold text-sm uppercase mb-2">エネルギーの特性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                壮大なビジョンを現実化させる「宇宙規模の建設者」。不可能を可能にするエネルギーを持ち、社会に歴史的な足跡を残します。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-amber-700 font-bold text-sm uppercase mb-2">二面性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                2の「繊細さ・協調性」と4の「着実さ・実行力」を併せ持ちます。グローバルな視野と地に足のついた行動力。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-amber-700 font-bold text-sm uppercase mb-2">使命</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                世界平和や社会貢献など、地球規模で物事を変革すること。国際企業のトップや発明家に多い数字です。</p>
+                        </div>
+                        <div class="pt-4 border-t border-amber-100">
+                            <h4 class="text-amber-600 font-bold text-sm uppercase mb-2 flex items-center"><i
+                                    data-lucide="lightbulb" class="w-4 h-4 mr-1.5"></i> ポイント</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                大きな目標を持ちながらも、謙虚さを忘れずにチームで成し遂げることで、最大の成果を得られます。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Master Number 33 -->
+                <div
+                    class="bg-white p-8 rounded-2xl shadow-lg border border-pink-100 hover:shadow-xl transition-shadow">
+                    <div class="text-center mb-6">
+                        <div
+                            class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-pink-400 to-rose-500 rounded-2xl shadow-lg mb-4">
+                            <span class="text-4xl font-black text-white">33</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-slate-900">The Master Teacher</h3>
+                        <p class="text-pink-600 text-sm uppercase tracking-widest font-bold">無償の愛・宇宙・慈悲</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="text-pink-700 font-bold text-sm uppercase mb-2">エネルギーの特性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                人類愛の極致、菩薩のエネルギー。自らのすべてを無償の愛として捧げ、常識を超えたスケールで周囲を導き癒やします。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-pink-700 font-bold text-sm uppercase mb-2">二面性</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                3の「ムードメーカー気質」と6の「寛容で世話焼きな性質」を併せ持ちます。純粋で天真爛漫な魅力があります。</p>
+                        </div>
+                        <div>
+                            <h4 class="text-pink-700 font-bold text-sm uppercase mb-2">使命</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                全人類への愛を体現し、無償で奉仕すること。独自の感性と創造性で、他者を導き癒やす存在です。</p>
+                        </div>
+                        <div class="pt-4 border-t border-pink-100">
+                            <h4 class="text-amber-600 font-bold text-sm uppercase mb-2 flex items-center"><i
+                                    data-lucide="lightbulb" class="w-4 h-4 mr-1.5"></i> ポイント</h4>
+                            <p class="text-slate-600 text-sm leading-relaxed">
+                                自分自身を大切にしながら愛を注ぐことで、より多くの人を幸せにする力が生まれます。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Master Number Additional Info -->
+            <div class="mt-12 bg-white p-8 rounded-2xl shadow-lg border border-purple-100">
+                <h3 class="text-xl font-bold text-slate-900 mb-6 flex items-center justify-center">
+                    <i data-lucide="sparkles" class="w-5 h-5 mr-2 text-purple-600"></i>
+                    マスターナンバーを持つ人の共通点
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-indigo-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <i data-lucide="zap" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 mb-2">高い感受性</h4>
+                        <p class="text-sm text-slate-600">周囲のエネルギーや感情を敏感に感じ取る能力に長けています。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-amber-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <i data-lucide="target" class="w-6 h-6 text-amber-600"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 mb-2">大きな使命感</h4>
+                        <p class="text-sm text-slate-600">人生に特別な意味を見出し、社会に貢献する意欲に溢れています。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-pink-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <i data-lucide="flame" class="w-6 h-6 text-pink-600"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 mb-2">強いカリスマ性</h4>
+                        <p class="text-sm text-slate-600">周囲の人々を自然と引き寄せる、説明しがたい魅力を持っています。</p>
+                    </div>
+                    <div class="text-center">
+                        <div class="w-12 h-12 bg-teal-100 rounded-full mx-auto mb-3 flex items-center justify-center">
+                            <i data-lucide="star" class="w-6 h-6 text-teal-600"></i>
+                        </div>
+                        <h4 class="font-bold text-slate-800 mb-2">無限の可能性</h4>
+                        <p class="text-sm text-slate-600">高い理想を実現し、世界をより良くする力を秘めています。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Methodology Section (Static Guide) -->
-    <section class="bg-gray-800 text-gray-300 py-16">
+    <section class="bg-gradient-to-br from-slate-50 to-indigo-50 py-16">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-2xl font-bold text-white mb-6 serif">基本的な計算ロジック</h2>
-            <div class="bg-gray-700 p-8 rounded-lg shadow-inner inline-block text-left">
-                <h3 class="text-indigo-300 font-bold mb-4 border-b border-gray-600 pb-2">ライフ・パス・ナンバーの出し方</h3>
-                <ol class="list-decimal list-inside space-y-3">
+            <span
+                class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-100 text-indigo-700 text-xs font-bold mb-4 uppercase tracking-widest">
+                <i data-lucide="calculator" class="w-3.5 h-3.5"></i> 計算方法
+            </span>
+            <h2 class="text-2xl font-bold text-slate-900 mb-6 serif">基本的な計算ロジック</h2>
+            <div class="bg-white p-8 rounded-2xl shadow-lg border border-indigo-100 inline-block text-left">
+                <h3 class="text-indigo-700 font-bold mb-4 border-b border-indigo-100 pb-2 flex items-center">
+                    <i data-lucide="hash" class="w-5 h-5 mr-2"></i>
+                    ライフ・パス・ナンバーの出し方
+                </h3>
+                <ol class="list-decimal list-inside space-y-3 text-slate-700">
                     <li>生年月日を西暦で書き出す (例: 1985年10月24日)</li>
                     <li>すべての数字を1桁になるまで分解して足す <br>
-                        <span class="font-mono text-sm bg-gray-800 p-1 ml-5">1 + 9 + 8 + 5 + 1 + 0 + 2 + 4 = 30</span>
+                        <span
+                            class="font-mono text-sm bg-indigo-50 text-indigo-700 px-2 py-1 rounded ml-5 inline-block mt-1">1
+                            + 9 + 8 + 5 + 1 + 0 + 2 + 4 = 30</span>
                     </li>
                     <li>合計が2桁以上なら、さらに分解して足す <br>
-                        <span class="font-mono text-sm bg-gray-800 p-1 ml-5">3 + 0 = 3</span>
+                        <span
+                            class="font-mono text-sm bg-indigo-50 text-indigo-700 px-2 py-1 rounded ml-5 inline-block mt-1">3
+                            + 0 = 3</span>
                     </li>
-                    <li><strong class="text-white">例外ルール:</strong> 合計が <span class="text-yellow-400 font-bold">11, 22,
+                    <li><strong class="text-slate-900">例外ルール:</strong> 合計が <span
+                            class="text-amber-600 font-bold bg-amber-50 px-2 py-0.5 rounded">11, 22,
                             33</span> になった場合は、そこで計算を止める（マスターナンバー）。</li>
                 </ol>
-                <div class="mt-6 text-sm bg-gray-800 p-4 rounded text-gray-400">
-                    <p>※ 流派によって、年・月・日を別々に単数換算してから足す方法もありますが、現代数秘術では全桁加算が一般的です。</p>
+                <div class="mt-6 text-sm bg-slate-50 p-4 rounded-xl text-slate-600 border border-slate-100">
+                    <p class="flex items-start gap-2"><i data-lucide="lightbulb"
+                            class="w-4 h-4 text-amber-500 shrink-0 mt-0.5"></i><span>流派によって、年・月・日を別々に単数換算してから足す方法もありますが、現代数秘術では全桁加算が一般的です。</span>
+                    </p>
                 </div>
             </div>
         </div>
