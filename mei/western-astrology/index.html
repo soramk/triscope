@@ -125,7 +125,11 @@
                     </a>
                     <a href="#history"
                         class="px-4 py-2 rounded-full hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2 text-gray-600">
-                        <i data-lucide="history" class="w-4 h-4"></i> 歴史
+                        <i data-lucide="history" class="w-4 h-4"></i> 歴史と理論
+                    </a>
+                    <a href="#perspective"
+                        class="px-4 py-2 rounded-full hover:bg-indigo-50 hover:text-indigo-700 transition-all flex items-center gap-2 text-gray-600">
+                        <i data-lucide="microscope" class="w-4 h-4"></i> 科学的視座
                     </a>
                 </div>
 
@@ -156,7 +160,11 @@
                 </a>
                 <a href="#history" onclick="toggleMobileMenu()"
                     class="block px-4 py-3 rounded-xl hover:bg-indigo-50 text-slate-600 font-medium flex items-center gap-3">
-                    <i data-lucide="history" class="w-5 h-5 text-indigo-500"></i> 歴史
+                    <i data-lucide="history" class="w-5 h-5 text-indigo-500"></i> 歴史と理論
+                </a>
+                <a href="#perspective" onclick="toggleMobileMenu()"
+                    class="block px-4 py-3 rounded-xl hover:bg-indigo-50 text-slate-600 font-medium flex items-center gap-3">
+                    <i data-lucide="microscope" class="w-5 h-5 text-indigo-500"></i> 科学的視座
                 </a>
             </div>
         </div>
@@ -282,7 +290,7 @@
                             <i data-lucide="book-open" class="w-5 h-5 mr-2 text-indigo-500"></i>
                             本質的なあなたの質
                         </h3>
-                        <p id="res-desc" class="text-slate-600 leading-relaxed"></p>
+                        <div id="res-desc" class="text-slate-600 leading-relaxed"></div>
                     </div>
 
                     <!-- Planet List -->
@@ -357,45 +365,67 @@
                 </div>
             </div>
 
-            <!-- Radar Chart: Element Balance -->
+            <!-- The Theater of Cosmos (Updated to Bright Theme) -->
             <div
-                class="mt-16 bg-white p-8 md:p-12 rounded-[2.5rem] shadow-sm border border-slate-100 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="chart-container">
-                    <canvas id="elementsChart"></canvas>
+                class="mt-20 bg-gradient-to-br from-white via-indigo-50/50 to-purple-50 rounded-[3rem] p-8 md:p-16 border border-indigo-100 shadow-xl shadow-indigo-100/10 relative overflow-hidden group">
+                <!-- Decorative glowing elements -->
+                <div
+                    class="absolute top-0 right-0 w-96 h-96 bg-indigo-200/20 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
                 </div>
-                <div class="space-y-6">
-                    <h4 class="text-2xl font-bold text-indigo-950">個人の「気質」を分析する</h4>
-                    <p class="text-slate-600 leading-relaxed">
-                        例えば「火」のエレメントが強く、他が弱いチャートを持つ人は、非常に熱い情熱と行動力を持っていますが、具体的な計画性（地）や客観的な視点（風）が欠けやすい傾向があります。
-                    </p>
-                    <div class="grid grid-cols-2 gap-3 text-xs">
-                        <div class="bg-red-50 p-4 rounded-2xl border border-red-100">
-                            <span
-                                class="block font-black text-red-600 mb-1 flex items-center font-bold tracking-widest"><i
-                                    data-lucide="zap" class="w-3 h-3 mr-1"></i>火の星座</span>
-                            牡羊・獅子・射手<br>
-                            <span class="text-slate-400 font-medium">直感・情熱・創造性</span>
+                <div
+                    class="absolute bottom-0 left-0 w-64 h-64 bg-purple-200/20 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2">
+                </div>
+
+                <div class="relative z-10">
+                    <div class="flex flex-col md:flex-row gap-12 items-center">
+                        <div class="md:w-1/3">
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-600/10 text-indigo-700 text-[10px] font-bold uppercase tracking-widest mb-6">
+                                <i data-lucide="clapperboard" class="w-3.5 h-3.5"></i> The Cosmic Theater
+                            </div>
+                            <h3 class="text-3xl md:text-4xl font-extrabold serif mb-6 italic text-indigo-950">
+                                天空は、<br>壮大な「劇」の物語</h3>
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                占星術の解読は、演劇を観劇することに似ています。ホロスコープという一つの脚本の中で、様々な要素が重なり合い、あなただけの人生という舞台が構成されています。
+                            </p>
                         </div>
-                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
-                            <span
-                                class="block font-black text-emerald-600 mb-1 flex items-center font-bold tracking-widest"><i
-                                    data-lucide="mountain" class="w-3 h-3 mr-1"></i>地の星座</span>
-                            牡牛・乙女・山羊<br>
-                            <span class="text-slate-400 font-medium">感覚・現実・安定</span>
-                        </div>
-                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
-                            <span
-                                class="block font-black text-blue-600 mb-1 flex items-center font-bold tracking-widest"><i
-                                    data-lucide="wind" class="w-3 h-3 mr-1"></i>風の星座</span>
-                            双子・天秤・水瓶<br>
-                            <span class="text-slate-400 font-medium">知性・客観・交流</span>
-                        </div>
-                        <div class="bg-indigo-50 p-4 rounded-2xl border border-indigo-100">
-                            <span
-                                class="block font-black text-indigo-600 mb-1 flex items-center font-bold tracking-widest"><i
-                                    data-lucide="droplet" class="w-3 h-3 mr-1"></i>水の星座</span>
-                            蟹・蠍・魚<br>
-                            <span class="text-slate-400 font-medium">感情・共感・精神性</span>
+
+                        <div class="md:w-2/3 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div
+                                class="bg-white/80 border border-white p-8 rounded-4xl shadow-sm backdrop-blur-md group-hover:-translate-y-1 transition duration-500">
+                                <div
+                                    class="w-12 h-12 bg-indigo-600/10 rounded-xl flex items-center justify-center mb-6 text-indigo-600">
+                                    <i data-lucide="user" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-bold mb-3 text-lg text-indigo-950">惑星 = 役者</h4>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">
+                                    「何をしたいのか」という動機や意図を持つ、具体的な登場人物。太陽なら「主人公」、水星なら「知的な語り手」といった役割を担います。
+                                </p>
+                            </div>
+
+                            <div
+                                class="bg-white/80 border border-white p-8 rounded-4xl shadow-sm backdrop-blur-md group-hover:-translate-y-1 transition duration-500 delay-75">
+                                <div
+                                    class="w-12 h-12 bg-pink-600/10 rounded-xl flex items-center justify-center mb-6 text-pink-600">
+                                    <i data-lucide="shirt" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-bold mb-3 text-lg text-indigo-950">サイン = 衣装</h4>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">
+                                    「どのような性質で」演じるか。役者がまとう衣装や振る舞い。同じ太陽（役者）でも、サインによって情熱的な衣装か、冷静な衣装かが決まります。
+                                </p>
+                            </div>
+
+                            <div
+                                class="bg-white/80 border border-white p-8 rounded-4xl shadow-sm backdrop-blur-md group-hover:-translate-y-1 transition duration-500 delay-150">
+                                <div
+                                    class="w-12 h-12 bg-emerald-600/10 rounded-xl flex items-center justify-center mb-6 text-emerald-600">
+                                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                </div>
+                                <h4 class="font-bold mb-3 text-lg text-indigo-950">ハウス = 舞台</h4>
+                                <p class="text-[11px] text-slate-500 leading-relaxed">
+                                    「どこで」その劇が起きるか。家庭、職場、あるいは内面世界。惑星という役者が, サインという衣装を着て, 特定のハウスという現場で活動します。
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -406,212 +436,408 @@
     <!-- Mechanics Section -->
     <section id="mechanics" class="py-24 bg-slate-50 scroll-mt">
         <div class="max-w-7xl mx-auto px-4">
-            <h2 class="text-3xl md:text-5xl font-extrabold serif text-center text-indigo-950 mb-14">宇宙の「役者」と「衣装」</h2>
+            <h2 class="text-3xl md:text-5xl font-extrabold serif text-center text-indigo-950 mb-14">宇宙の「役者」と「衣装」と「舞台」
+            </h2>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                <!-- 10 Planets -->
+                <!-- 10 Planets (Redesigned like 12 Houses) -->
                 <div class="lg:col-span-12">
-                    <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100">
-                        <h3
-                            class="text-sm font-black text-indigo-400 uppercase tracking-[0.2em] mb-8 border-b border-slate-50 pb-4 flex items-center">
-                            <i data-lucide="orbit" class="w-4 h-4 mr-2"></i> 10 Planets
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-5 gap-6">
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('sun')">
-                                <div
-                                    class="w-16 h-16 bg-amber-50 rounded-2xl mx-auto flex items-center justify-center text-amber-600 mb-3 group-hover:scale-110 group-hover:bg-amber-100 transition shadow-sm shadow-amber-100/50">
-                                    <i data-lucide="sun" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">太陽</span>
-                                <span class="text-[10px] text-slate-400">生命の目的</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('moon')">
-                                <div
-                                    class="w-16 h-16 bg-purple-50 rounded-2xl mx-auto flex items-center justify-center text-purple-600 mb-3 group-hover:scale-110 group-hover:bg-purple-100 transition shadow-sm shadow-purple-100/50">
-                                    <i data-lucide="moon" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">月</span>
-                                <span class="text-[10px] text-slate-400">心・素顔</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('mercury')">
-                                <div
-                                    class="w-16 h-16 bg-blue-50 rounded-2xl mx-auto flex items-center justify-center text-blue-600 mb-3 group-hover:scale-110 group-hover:bg-blue-100 transition shadow-sm shadow-blue-100/50">
-                                    <i data-lucide="message-square" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">水星</span>
-                                <span class="text-[10px] text-slate-400">知性・伝達</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('venus')">
-                                <div
-                                    class="w-16 h-16 bg-pink-50 rounded-2xl mx-auto flex items-center justify-center text-pink-600 mb-3 group-hover:scale-110 group-hover:bg-pink-100 transition shadow-sm shadow-pink-100/50">
-                                    <i data-lucide="heart" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">金星</span>
-                                <span class="text-[10px] text-slate-400">愛・喜び</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('mars')">
-                                <div
-                                    class="w-16 h-16 bg-red-50 rounded-2xl mx-auto flex items-center justify-center text-red-600 mb-3 group-hover:scale-110 group-hover:bg-red-100 transition shadow-sm shadow-red-100/50">
-                                    <i data-lucide="swords" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">火星</span>
-                                <span class="text-[10px] text-slate-400">情熱・行動力</span>
-                            </div>
-                            <!-- Next Row -->
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('jupiter')">
-                                <div
-                                    class="w-16 h-16 bg-orange-50 rounded-2xl mx-auto flex items-center justify-center text-orange-600 mb-3 group-hover:scale-110 group-hover:bg-orange-100 transition shadow-sm shadow-orange-100/50">
-                                    <i data-lucide="trending-up" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">木星</span>
-                                <span class="text-[10px] text-slate-400">拡大・幸運</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('saturn')">
-                                <div
-                                    class="w-16 h-16 bg-slate-100 rounded-2xl mx-auto flex items-center justify-center text-slate-600 mb-3 group-hover:scale-110 group-hover:bg-slate-200 transition shadow-sm shadow-slate-200/50">
-                                    <i data-lucide="anchor" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">土星</span>
-                                <span class="text-[10px] text-slate-400">制限・課題</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('uranus')">
-                                <div
-                                    class="w-16 h-16 bg-cyan-50 rounded-2xl mx-auto flex items-center justify-center text-cyan-600 mb-3 group-hover:scale-110 group-hover:bg-cyan-100 transition shadow-sm shadow-cyan-100/50">
-                                    <i data-lucide="unplug" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">天王星</span>
-                                <span class="text-[10px] text-slate-400">独立・革新</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('neptune')">
-                                <div
-                                    class="w-16 h-16 bg-indigo-50 rounded-2xl mx-auto flex items-center justify-center text-indigo-400 mb-3 group-hover:scale-110 group-hover:bg-indigo-100 transition shadow-sm shadow-indigo-100/50">
-                                    <i data-lucide="cloud" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">海王星</span>
-                                <span class="text-[10px] text-slate-400">夢・無意識</span>
-                            </div>
-                            <div class="text-center group cursor-help transition" onclick="showPlanetDetail('pluto')">
-                                <div
-                                    class="w-16 h-16 bg-zinc-100 rounded-2xl mx-auto flex items-center justify-center text-zinc-900 mb-3 group-hover:scale-110 group-hover:bg-zinc-200 transition shadow-sm shadow-zinc-200/50">
-                                    <i data-lucide="skull" class="w-8 h-8"></i>
-                                </div>
-                                <span class="block font-bold text-slate-800">冥王星</span>
-                                <span class="text-[10px] text-slate-400">破壊と再生</span>
-                            </div>
+                    <div
+                        class="bg-white p-10 md:p-16 rounded-[4rem] shadow-sm border border-slate-100 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-64 h-64 bg-amber-50 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/2">
                         </div>
 
-                        <!-- Planet Detail Display (Dynamic) -->
-                        <div id="planet-detail-panel"
-                            class="mt-10 bg-indigo-50 p-8 rounded-3xl border border-indigo-100 hidden animate-fade-in shadow-inner">
-                            <div class="flex flex-col md:flex-row gap-8 items-center">
-                                <div id="planet-icon-large"
-                                    class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
-                                    <!-- Icon injected -->
+                        <div class="relative z-10">
+                            <div class="text-center mb-16">
+                                <h3
+                                    class="text-sm font-black text-amber-600 uppercase tracking-[0.2em] mb-4 flex items-center justify-center">
+                                    <i data-lucide="orbit" class="w-5 h-5 mr-3"></i> 10 Planets
+                                </h3>
+                                <h4 class="text-2xl font-bold text-indigo-950 mb-2 serif text-indigo-950">運命を動かす「役者」たち
+                                </h4>
+                                <p class="text-xs text-slate-400 italic">各惑星が持つ独自の「意図」と「エネルギー」</p>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('sun')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-amber-500">01</span>
+                                        <h5 class="font-bold text-indigo-950">太陽</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Sun / 生命の目的</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は在る」。人生の目的、意志、社会的な顔。</p>
                                 </div>
-                                <div>
-                                    <h4 id="planet-name-large" class="text-2xl font-bold text-indigo-950 mb-2"></h4>
-                                    <p id="planet-purpose"
-                                        class="text-indigo-600/70 font-bold mb-3 italic tracking-wide"></p>
-                                    <p id="planet-desc-large" class="text-slate-600 leading-relaxed"></p>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('moon')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-purple-500">02</span>
+                                        <h5 class="font-bold text-indigo-950">月</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Moon / 心・内面</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は感じる」。感情、無意識、リラックスした素顔。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('mercury')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-blue-500">03</span>
+                                        <h5 class="font-bold text-indigo-950">水星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Mercury / 思考・伝達</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は考える」。知性、言語、コミュニケーション。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('venus')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-pink-500">04</span>
+                                        <h5 class="font-bold text-indigo-950">金星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Venus / 愛・美</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は愛でる」。感性、美、喜び、人間関係。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('mars')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-red-500">05</span>
+                                        <h5 class="font-bold text-indigo-950">火星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Mars / 行動・情熱</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は行動する」。情熱、闘争。活力の向け先。</p>
+                                </div>
+                                <!-- Second Row -->
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('jupiter')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-orange-500">06</span>
+                                        <h5 class="font-bold text-indigo-950">木星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Jupiter / 拡大・幸運</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は広げる」。社会的な成功、発展、幸運、寛容。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('saturn')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-slate-500">07</span>
+                                        <h5 class="font-bold text-indigo-950">土星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Saturn / 規律・責任</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は耐える」。忍耐、努力、社会的な構築、試練。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('uranus')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-cyan-500">08</span>
+                                        <h5 class="font-bold text-indigo-950">天王星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Uranus / 革新・変化</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は変える」。改革、独創性、独立、電撃的な変化。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('neptune')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-indigo-400">09</span>
+                                        <h5 class="font-bold text-indigo-950">海王星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Neptune / 夢・直感</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は夢見る」。想像力、潜在意識、霊性、境界線の消失。</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showPlanetDetail('pluto')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-zinc-900">10</span>
+                                        <h5 class="font-bold text-indigo-950">冥王星</h5>
+                                    </div>
+                                    <p class="text-[10px] text-slate-400 font-bold mb-1">Pluto / 破壊・再生</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">「私は根源的である」。究極の変容、死と再生、圧倒的力。</p>
+                                </div>
+                            </div>
+
+                            <!-- Planet Detail Display (Dynamic: Now triggered by Hover) -->
+                            <div id="planet-detail-panel"
+                                class="mt-10 bg-indigo-50/50 p-8 rounded-4xl border border-indigo-100/50 hidden animate-fade-in shadow-inner backdrop-blur-sm">
+                                <div class="flex flex-col md:flex-row gap-8 items-center">
+                                    <div id="planet-icon-large"
+                                        class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
+                                        <!-- Icon injected -->
+                                    </div>
+                                    <div>
+                                        <h4 id="planet-name-large" class="text-2xl font-bold text-indigo-950 mb-2"></h4>
+                                        <p id="planet-purpose"
+                                            class="text-indigo-600/70 font-bold mb-3 italic tracking-wide"></p>
+                                        <p id="planet-desc-large" class="text-slate-600 leading-relaxed text-sm"></p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- 12 Signs Section -->
+                <!-- 12 Zodiac Signs (Redesigned like 12 Houses) -->
                 <div class="lg:col-span-12">
-                    <div class="bg-white p-10 rounded-[3rem] shadow-sm border border-slate-100">
-                        <h3
-                            class="text-sm font-black text-indigo-400 uppercase tracking-[0.2em] mb-10 text-center flex items-center justify-center">
-                            <i data-lucide="stars" class="w-5 h-5 mr-3"></i> 12 Zodiac Signs
-                        </h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                            <!-- Signs Grid (More readable colors) -->
-                            <div
-                                class="bg-indigo-50/50 border border-indigo-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-indigo-950 text-xl mb-1">牡羊座</span>
-                                <span
-                                    class="text-[10px] text-indigo-400 block mb-3 uppercase tracking-widest font-bold">Aries</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">開拓・勇気<br>「私は在る」</p>
+                    <div
+                        class="bg-white p-10 md:p-16 rounded-[4rem] shadow-sm border border-slate-100 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 left-0 w-64 h-64 bg-indigo-50 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="text-center mb-16">
+                                <h3
+                                    class="text-sm font-black text-indigo-400 uppercase tracking-[0.2em] mb-4 flex items-center justify-center">
+                                    <i data-lucide="stars" class="w-5 h-5 mr-3"></i> 12 Zodiac Signs
+                                </h3>
+                                <h4 class="text-2xl font-bold text-indigo-950 mb-2 serif">個性という「衣装」をまとう、12の領域</h4>
+                                <p class="text-xs text-slate-400 italic">役者たちがどのような「性質」で演じるかを示す舞台背景</p>
                             </div>
-                            <div
-                                class="bg-emerald-50/50 border border-emerald-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-emerald-950 text-xl mb-1">牡牛座</span>
-                                <span
-                                    class="text-[10px] text-emerald-400 block mb-3 uppercase tracking-widest font-bold">Taurus</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">安定・五感<br>「私は持つ」</p>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6 mb-12">
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('aries')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-indigo-400">01</span>
+                                        <h5 class="font-bold text-indigo-950">牡羊座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-indigo-600/60 mb-2">Style: Activity</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">開拓・勇気<br>「私は在る」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('taurus')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-400">02</span>
+                                        <h5 class="font-bold text-indigo-950">牡牛座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-emerald-600/60 mb-2">Style: Quality</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">安定・五感<br>「私は持つ」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('gemini')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-blue-400">03</span>
+                                        <h5 class="font-bold text-indigo-950">双子座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-blue-600/60 mb-2">Style: Intelligence</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">知性・交流<br>「私は考える」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('cancer')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-indigo-400">04</span>
+                                        <h5 class="font-bold text-indigo-950">蟹座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-indigo-600/60 mb-2">Style: Softness</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">母性・共感<br>「私は感じる」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('leo')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-amber-500">05</span>
+                                        <h5 class="font-bold text-indigo-950">獅子座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-amber-600/60 mb-2">Style: Gorgeous</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">創造・主役<br>「私は志す」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('virgo')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-slate-400">06</span>
+                                        <h5 class="font-bold text-indigo-950">乙女座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-slate-600/60 mb-2">Style: Neat</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">分析・奉仕<br>「私は分析する」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('libra')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-rose-400">07</span>
+                                        <h5 class="font-bold text-indigo-950">天秤座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-rose-600/60 mb-2">Style: Elegant</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">調和・美<br>「私は均衡をとる」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('scorpio')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-fuchsia-400">08</span>
+                                        <h5 class="font-bold text-indigo-950">蠍座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-fuchsia-600/60 mb-2">Style: Mystery</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">深淵・変容<br>「私は望む」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('sagittarius')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-purple-400">09</span>
+                                        <h5 class="font-bold text-indigo-950">射手座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-purple-600/60 mb-2">Style: Adventure</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">自由・理想<br>「私は理解する」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('capricorn')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-zinc-400">10</span>
+                                        <h5 class="font-bold text-indigo-950">山羊座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-zinc-600/60 mb-2">Style: Classic</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">達成・構築<br>「私は使役する」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('aquarius')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-cyan-400">11</span>
+                                        <h5 class="font-bold text-indigo-950">水瓶座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-cyan-600/60 mb-2">Style: Futuristic</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">革新・博愛<br>「私は知る」</p>
+                                </div>
+                                <div class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300 group cursor-help"
+                                    onmouseenter="showSignDetail('pisces')">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-indigo-400">12</span>
+                                        <h5 class="font-bold text-indigo-950">魚座</h5>
+                                    </div>
+                                    <p class="text-[9px] font-bold text-indigo-600/60 mb-2">Style: Romantic</p>
+                                    <p class="text-[11px] text-slate-500 leading-tight">慈愛・浄化<br>「私は信じる」</p>
+                                </div>
                             </div>
-                            <div
-                                class="bg-blue-50/50 border border-blue-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-blue-950 text-xl mb-1">双子座</span>
-                                <span
-                                    class="text-[10px] text-blue-400 block mb-3 uppercase tracking-widest font-bold">Gemini</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">知性・交流<br>「私は考える」</p>
+                            <!-- Sign Detail Display (Dynamic: Triggered by Hover) -->
+                            <div id="sign-detail-panel"
+                                class="mt-10 bg-indigo-50/50 p-8 rounded-4xl border border-indigo-100/50 hidden animate-fade-in shadow-inner backdrop-blur-sm">
+                                <div class="flex flex-col md:flex-row gap-8 items-center">
+                                    <div
+                                        class="w-24 h-24 bg-white rounded-3xl flex items-center justify-center text-indigo-600 shadow-sm border border-indigo-100">
+                                        <i data-lucide="sparkles" class="w-12 h-12"></i>
+                                    </div>
+                                    <div>
+                                        <h4 id="sign-name-large" class="text-2xl font-bold text-indigo-950 mb-2"></h4>
+                                        <p id="sign-style-large"
+                                            class="text-indigo-600/70 font-bold mb-3 italic tracking-wide"></p>
+                                        <p id="sign-desc-large" class="text-slate-600 leading-relaxed text-sm"></p>
+                                    </div>
+                                </div>
                             </div>
-                            <div
-                                class="bg-indigo-50/50 border border-indigo-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-indigo-950 text-xl mb-1">蟹座</span>
-                                <span
-                                    class="text-[10px] text-indigo-400 block mb-3 uppercase tracking-widest font-bold">Cancer</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">母性・共感<br>「私は感じる」</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 12 Houses (The Stage) - New Section -->
+                <div class="lg:col-span-12">
+                    <div
+                        class="bg-white p-10 md:p-16 rounded-[4rem] shadow-sm border border-slate-100 relative overflow-hidden">
+                        <div
+                            class="absolute top-0 left-0 w-64 h-64 bg-emerald-50 rounded-full blur-[80px] -translate-y-1/2 -translate-x-1/2">
+                        </div>
+
+                        <div class="relative z-10">
+                            <div class="text-center mb-16">
+                                <h3
+                                    class="text-sm font-black text-emerald-600 uppercase tracking-[0.2em] mb-4 flex items-center justify-center">
+                                    <i data-lucide="map-pin" class="w-5 h-5 mr-3"></i> 12 Houses
+                                </h3>
+                                <h4 class="text-2xl font-bold text-indigo-950 mb-2 serif">人生の12の「舞台」</h4>
+                                <p class="text-xs text-slate-400 italic">惑星という役者が活躍する、具体的な「現場」</p>
                             </div>
-                            <div
-                                class="bg-amber-50/50 border border-amber-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-amber-950 text-xl mb-1">獅子座</span>
-                                <span
-                                    class="text-[10px] text-amber-400 block mb-3 uppercase tracking-widest font-bold">Leo</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">創造・主役<br>「私は志す」</p>
-                            </div>
-                            <div
-                                class="bg-slate-50/50 border border-slate-200 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-slate-900 text-xl mb-1">乙女座</span>
-                                <span
-                                    class="text-[10px] text-slate-400 block mb-3 uppercase tracking-widest font-bold">Virgo</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">分析・奉仕<br>「私は分析する」</p>
-                            </div>
-                            <!-- Mid row -->
-                            <div
-                                class="bg-rose-50/50 border border-rose-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-rose-950 text-xl mb-1">天秤座</span>
-                                <span
-                                    class="text-[10px] text-rose-400 block mb-3 uppercase tracking-widest font-bold">Libra</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">調和・美<br>「私は均衡をとる」</p>
-                            </div>
-                            <div
-                                class="bg-fuchsia-50/50 border border-fuchsia-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-fuchsia-950 text-xl mb-1">蠍座</span>
-                                <span
-                                    class="text-[10px] text-fuchsia-400 block mb-3 uppercase tracking-widest font-bold">Scorpio</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">深淵・変容<br>「私は望む」</p>
-                            </div>
-                            <div
-                                class="bg-purple-50/50 border border-purple-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-purple-950 text-xl mb-1">射手座</span>
-                                <span
-                                    class="text-[10px] text-purple-400 block mb-3 uppercase tracking-widest font-bold">Sagittarius</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">自由・理想<br>「私は理解する」</p>
-                            </div>
-                            <div
-                                class="bg-zinc-100/50 border border-zinc-200 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-zinc-950 text-xl mb-1">山羊座</span>
-                                <span
-                                    class="text-[10px] text-zinc-400 block mb-3 uppercase tracking-widest font-bold">Capricorn</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">達成・構築<br>「私は使役する」</p>
-                            </div>
-                            <div
-                                class="bg-cyan-50/50 border border-cyan-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-cyan-950 text-xl mb-1">水瓶座</span>
-                                <span
-                                    class="text-[10px] text-cyan-400 block mb-3 uppercase tracking-widest font-bold">Aquarius</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">革新・博愛<br>「私は知る」</p>
-                            </div>
-                            <div
-                                class="bg-indigo-50/50 border border-indigo-100 p-6 rounded-3xl hover:bg-white hover:shadow-lg transition group text-center">
-                                <span class="block font-black text-indigo-950 text-xl mb-1">魚座</span>
-                                <span
-                                    class="text-[10px] text-indigo-400 block mb-3 uppercase tracking-widest font-bold">Pisces</span>
-                                <p class="text-[11px] text-slate-500 leading-tight">慈愛・浄化<br>「私は信じる」</p>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">1st</span>
+                                        <h5 class="font-bold text-indigo-950">自己と外見</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">あなたの第一印象、アイデンティティ、肉体。物語が世界へ現れ出る始まりのゲート。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">2nd</span>
+                                        <h5 class="font-bold text-indigo-950">価値観と財産</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">所有するもの、金運、才能。自ら稼ぎ出し、物心両面の豊かさを蓄える実り豊かな土壌。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">3rd</span>
+                                        <h5 class="font-bold text-indigo-950">知性と交流</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">学び、言葉、身近なネットワーク。世界と情報を交換し、知的な好奇心を羽ばたかせる窓口。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">4th</span>
+                                        <h5 class="font-bold text-indigo-950">家庭とルーツ</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">居場所、家族、心のルーツ。最もプライベートな安らぎと、自己を育む揺りかご。</p>
+                                </div>
+                                <!-- Second Row -->
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">5th</span>
+                                        <h5 class="font-bold text-indigo-950">創造と喜び</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">恋愛、趣味、自己表現。あなたが内なる純粋な喜びを解き放ち、人生を謳歌する遊び場。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">6th</span>
+                                        <h5 class="font-bold text-indigo-950">労働と健康</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">日々の実務、奉仕、健康。社会的なニーズに応え、心身を整えていくメンテナンスの場。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">7th</span>
+                                        <h5 class="font-bold text-indigo-950">対人関係</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">結婚、対等なパートナー。自分を映し出す鏡としての「他者」と向き合い、絆を学ぶ広場。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">8th</span>
+                                        <h5 class="font-bold text-indigo-950">共有と変容</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">深い情愛、継承、生死。他者と深く溶け合い、古い皮を脱いで根本的に変容していく聖域。</p>
+                                </div>
+                                <!-- Third Row -->
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">9th</span>
+                                        <h5 class="font-bold text-indigo-950">探求と哲学</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">旅、高等教育、哲学。日常を遠く離れ、高い視点から人生の真理を見通す精神的な高台。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">10th</span>
+                                        <h5 class="font-bold text-indigo-950">社会的到達</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">社会的な地位、キャリア、野心。人生においてあなたが登り詰め、果たすべき使命の頂。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">11th</span>
+                                        <h5 class="font-bold text-indigo-950">理想と仲間</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">友人、志を同じくするグループ。未来の希望を語り合い、自由な自己を拡張するサークル。</p>
+                                </div>
+                                <div
+                                    class="p-6 bg-slate-50 rounded-3xl border border-slate-100 hover:bg-white hover:shadow-lg transition duration-300">
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <span class="text-lg font-black text-emerald-600">12th</span>
+                                        <h5 class="font-bold text-indigo-950">潜在意識</h5>
+                                    </div>
+                                    <p class="text-[11px] text-slate-500">夢、神秘、見えない自己。境界が溶け合い、すべてが宇宙の調和へと還っていく魂の休息所。</p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -620,50 +846,327 @@
         </div>
     </section>
 
-    <!-- History Timeline -->
-    <section id="history" class="py-24 px-4 bg-white border-y border-slate-100 scroll-mt">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-3xl md:text-5xl font-extrabold serif text-center text-indigo-950 mb-16">紀元前から続く叡智の歴史</h2>
+    <!-- History & Theory Section -->
+    <section id="history" class="py-32 px-4 bg-white border-y border-slate-100 scroll-mt overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-indigo-50 text-indigo-600 text-[10px] font-bold mb-6 uppercase tracking-widest">
+                    <i data-lucide="history" class="w-3.5 h-3.5"></i> Chronology of Wisdom
+                </div>
+                <h2 class="text-4xl md:text-5xl font-extrabold serif text-indigo-950 mb-6 italic">叡智の変遷史</h2>
+                <p class="max-w-3xl mx-auto text-slate-500 leading-relaxed">
+                    バビロニアの予兆学から、ヘレニズム期の幾何学的統合、そして現代の心理学的解釈へ。
+                    数千年にわたる「天の科学」が辿った壮大な旅路を紐解きます。
+                </p>
+            </div>
 
-            <div class="relative border-l-4 border-indigo-100 ml-4 md:ml-10 space-y-16 py-8">
-                <!-- BC 2000 -->
-                <div class="relative pl-12 group">
-                    <div
-                        class="absolute -left-[2.15rem] top-0 w-7 h-7 bg-indigo-600 rounded-full border-4 border-white shadow-md flex items-center justify-center group-hover:scale-110 transition">
-                        <i data-lucide="landmark" class="w-3 h-3 text-white"></i>
+            <!-- Detailed Timeline -->
+            <div class="relative max-w-5xl mx-auto">
+                <!-- Vertical Line -->
+                <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-px bg-slate-200 hidden md:block"></div>
+
+                <div class="space-y-24 relative">
+                    <!-- Mesopotamia -->
+                    <div class="flex flex-col md:flex-row items-center gap-12 group">
+                        <div class="md:w-1/2 text-left md:text-right md:pr-16 order-2 md:order-1">
+                            <span class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-2 block">BC
+                                2000 - 紀元前5世紀</span>
+                            <h3 class="text-2xl font-bold text-indigo-950 mb-4">メソポタミア：神々の対話</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">
+                                天空は「天の書板」と見なされ、日食や惑星の動きは国家への予兆として記録されました。全70枚の粘土板『エヌーマ・アヌ・エンリル』は、数千年に及ぶ経験則のデータベースでした。紀元前5世紀には、数学的座標としての「黄道十二宮」が確立されます。
+                            </p>
+                        </div>
+                        <div
+                            class="absolute left-8 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-2xl shadow-xl border border-indigo-100 flex items-center justify-center z-10 group-hover:scale-110 transition duration-500">
+                            <i data-lucide="landmark" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div class="md:w-1/2 order-1 md:order-2">
+                            <div class="bg-indigo-50/50 p-2 rounded-[2rem] border border-indigo-100/50">
+                                <div class="bg-white p-6 rounded-[1.5rem] shadow-sm">
+                                    <h4 class="text-xs font-black text-indigo-400 mb-2 uppercase tracking-tighter">Key
+                                        Concept</h4>
+                                    <p class="text-xs font-bold text-indigo-900 border-l-2 border-indigo-500 pl-3">
+                                        「マンデン占星術（社会占星術）」の誕生。<br>王の生殺与奪は星々の配置に委ねられていた。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <span class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-1 block">BC
-                        2000頃</span>
-                    <h3 class="text-xl font-bold text-indigo-950 mb-2">バビロニア：国家の命運</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        当時は国家の命運や洪水の予測などのために天体観測が行われていました。ホロスコープの原型はここで生まれます。
-                    </p>
+
+                    <!-- Hellenistic -->
+                    <div class="flex flex-col md:flex-row items-center gap-12 group">
+                        <div class="md:w-1/2 order-1">
+                            <div class="bg-emerald-50/50 p-2 rounded-[2rem] border border-emerald-100/50 text-right">
+                                <div class="bg-white p-6 rounded-[1.5rem] shadow-sm text-left">
+                                    <h4 class="text-xs font-black text-emerald-400 mb-2 uppercase tracking-tighter">
+                                        Achievement</h4>
+                                    <p class="text-xs font-bold text-emerald-900 border-l-2 border-emerald-500 pl-3">
+                                        アセンダント（上昇点）の発明。<br>「個人の時間」に基づくホロスコープの完成。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute left-8 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-2xl shadow-xl border border-emerald-100 flex items-center justify-center z-10 group-hover:scale-110 transition duration-500">
+                            <i data-lucide="scroll" class="w-6 h-6 text-emerald-600"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16 order-2">
+                            <span class="text-xs font-black text-emerald-400 uppercase tracking-widest mb-2 block">BC
+                                3世紀 - AD 2世紀</span>
+                            <h3 class="text-2xl font-bold text-indigo-950 mb-4">ヘレニズム・ローマ：体系の統合</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">
+                                ギリシャの幾何学、エジプトの暦法が融合。ホロスコープ占星術の基本構造が確立されました。プトレマイオスの『テトラビブロス』は、占星術をアリストテレス的自然学に基づき合理化し、知的権威を与えました。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Arabic -->
+                    <div class="flex flex-col md:flex-row items-center gap-12 group">
+                        <div class="md:w-1/2 text-left md:text-right md:pr-16 order-2 md:order-1">
+                            <span class="text-xs font-black text-amber-400 uppercase tracking-widest mb-2 block">8世紀 -
+                                13世紀</span>
+                            <h3 class="text-2xl font-bold text-indigo-950 mb-4">イスラム黄金時代：知の継承</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">
+                                アラビアの学者たちはギリシャ語文献を翻訳、数学と天文学を駆使して技法を極限まで精緻化。アブー・マアシャルは歴史予測を、アル・キンディーは光線理論を展開しました。現在の多くの技法は、この「バグダッドの知恵」に端を発します。
+                            </p>
+                        </div>
+                        <div
+                            class="absolute left-8 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-2xl shadow-xl border border-amber-100 flex items-center justify-center z-10 group-hover:scale-110 transition duration-500">
+                            <i data-lucide="moon-star" class="w-6 h-6 text-amber-600"></i>
+                        </div>
+                        <div class="md:w-1/2 order-1 md:order-2">
+                            <div class="bg-amber-50/50 p-2 rounded-[2rem] border border-amber-100/50">
+                                <div class="bg-white p-6 rounded-[1.5rem] shadow-sm">
+                                    <h4 class="text-xs font-black text-amber-400 mb-2 uppercase tracking-tighter">Skill
+                                        Expansion</h4>
+                                    <p class="text-xs font-bold text-amber-900 border-l-2 border-amber-500 pl-3">
+                                        ホラリー占星術（質問占）の高度化。<br>数学的計算に基づいたハウス分割法の進歩。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Modern -->
+                    <div class="flex flex-col md:flex-row items-center gap-12 group">
+                        <div class="md:w-1/2 order-1">
+                            <div class="bg-indigo-50/50 p-2 rounded-[2rem] border border-indigo-100/50">
+                                <div class="bg-white p-6 rounded-[1.5rem] shadow-sm">
+                                    <h4 class="text-xs font-black text-indigo-400 mb-2 uppercase tracking-tighter">
+                                        Redefinition</h4>
+                                    <p class="text-xs font-bold text-indigo-900 border-l-2 border-indigo-500 pl-3">
+                                        ユング心理学との融合。<br>「運命」から「精神の成長サイクル」への転換。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="absolute left-8 md:left-1/2 -translate-x-1/2 w-12 h-12 bg-white rounded-2xl shadow-xl border border-indigo-100 flex items-center justify-center z-10 group-hover:scale-110 transition duration-500">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-indigo-600"></i>
+                        </div>
+                        <div class="md:w-1/2 md:pl-16 order-2">
+                            <span class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-2 block">20世紀 -
+                                現代</span>
+                            <h3 class="text-2xl font-bold text-indigo-950 mb-4">現代的復興：元型の言語へ</h3>
+                            <p class="text-slate-500 text-sm leading-relaxed">
+                                ユングの「共時性」理論により、星々は心理的元型の投影として再解釈されました。1990年代以降の「プロジェクト・ハインサイト」は、失われていた古代・中世の伝統的技法（タイムロード等）を復活させ、今、新旧の叡智が融合を遂げています。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Anatomy Section (Expanded Biology of Logic) -->
+    <section class="py-32 px-4 bg-slate-50 overflow-hidden">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                <div class="space-y-12">
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-100 text-indigo-700 text-[10px] font-bold uppercase tracking-wider">
+                        <i data-lucide="layout" class="w-3 h-3"></i> Structural Breakdown
+                    </div>
+                    <h2 class="text-4xl font-extrabold serif text-indigo-950 leading-tight">
+                        占星術を構築する<br><span class="text-indigo-600 italic">精緻な幾何学</span>
+                    </h2>
+
+                    <!-- Tech Grid -->
+                    <div class="grid grid-cols-1 gap-6">
+                        <div
+                            class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="compass" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-950 mb-2">黄道帯（ゾディアック）：トロピカル vs サイドリアル</h4>
+                                    <p class="text-xs text-slate-500 leading-relaxed">
+                                        現代西洋占星術は、春分点を基準とする「トロピカル方式」を採用します。これは「季節のサイクル」に基づく幾何学的なエネルギーの場です。対してインド占星術などで用いられる「サイドリアル方式」は、実際の恒星の位置に基づきます。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="grid-3x3" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-950 mb-2">ハウスシステム：空間の12分割</h4>
+                                    <p class="text-xs text-slate-500 leading-relaxed">
+                                        天球を「人生の現場」に分割する手法。時間分割のプラシーダス、空間等分のレギオモンタヌス、そして古代の標準であるホールサイン・ハウス。計算方式による解釈の揺らぎは、占星術における最大の探求テーマの一つです。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white p-8 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition">
+                            <div class="flex items-start gap-4">
+                                <div
+                                    class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0">
+                                    <i data-lucide="crown" class="w-6 h-6"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-indigo-950 mb-2">エッセンシャル・ディグニティ（本質的品位）</h4>
+                                    <p class="text-xs text-slate-500 leading-relaxed">
+                                        惑星がその場所でどれほど「本来の力」を発揮できるかの格付け。ドミサイル（本宅）、エグザルテーション（高揚）、トリプリシティ...。これらの階層を読み解くことで、惑星の影響力の質と強さを克明に判定します。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <!-- BC 2 -->
-                <div class="relative pl-12 group">
-                    <div
-                        class="absolute -left-[2.15rem] top-0 w-7 h-7 bg-indigo-400 rounded-full border-4 border-white shadow-md flex items-center justify-center group-hover:scale-110 transition">
-                        <i data-lucide="scroll" class="w-3 h-3 text-white"></i>
+                <!-- Abstract Visual -->
+                <div class="relative">
+                    <div class="absolute -top-20 -right-20 w-96 h-96 bg-indigo-200/20 rounded-full blur-[80px]"></div>
+                    <div class="relative bg-white p-12 rounded-[4rem] shadow-2xl border border-indigo-50">
+                        <div
+                            class="absolute inset-0 bg-gradient-to-br from-indigo-50/50 to-transparent rounded-[4rem] pointer-events-none">
+                        </div>
+                        <div class="space-y-8 relative z-10">
+                            <div class="flex justify-between items-end border-b border-slate-100 pb-4">
+                                <h5 class="text-sm font-black text-indigo-900 uppercase">Aspect Geometry</h5>
+                                <span
+                                    class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">惑星間の「視線」</span>
+                            </div>
+                            <!-- Simple SVG Visualization for Aspect -->
+                            <svg viewBox="0 0 400 400" class="w-full max-w-[300px] mx-auto opacity-70">
+                                <circle cx="200" cy="200" r="180" fill="none" stroke="#E2E8F0" stroke-width="1" />
+                                <circle cx="200" cy="200" r="140" fill="none" stroke="#E2E8F0" stroke-width="0.5"
+                                    stroke-dasharray="4 4" />
+
+                                <!-- Major Aspects -->
+                                <line x1="200" y1="20" x2="200" y2="380" stroke="#4F46E5" stroke-width="2"
+                                    opacity="0.4" /> <!-- Opposition -->
+                                <polygon points="200,20 44,290 356,290" fill="none" stroke="#4F46E5" stroke-width="1.5"
+                                    opacity="0.6" /> <!-- Trine -->
+                                <rect x="73" y="73" width="254" height="254" fill="none" stroke="#6366F1"
+                                    stroke-width="1.5" opacity="0.3" transform="rotate(45 200 200)" /> <!-- Square -->
+
+                                <!-- Planet Points -->
+                                <circle cx="200" cy="20" r="6" fill="#4F46E5" />
+                                <circle cx="44" cy="290" r="6" fill="#4F46E5" />
+                                <circle cx="356" cy="290" r="6" fill="#4F46E5" />
+                                <circle cx="200" cy="380" r="6" fill="#6366F1" />
+                            </svg>
+                            <div class="bg-indigo-50/30 p-6 rounded-2xl border border-indigo-100">
+                                <h6 class="text-xs font-black text-indigo-600 mb-2 uppercase">Aspect Theory</h6>
+                                <p class="text-[11px] text-slate-500 leading-relaxed italic">
+                                    アスペクト（語源：Aspicio
+                                    見る）は、惑星同士が特定の角度で形成する「会話」です。120度の調和（トライン）から、180度の緊張（オポジション）まで、空間の幾何学が心理的なダイナミクスを規定します。
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <span class="text-xs font-black text-indigo-300 uppercase tracking-widest mb-1 block">BC 2世紀</span>
-                    <h3 class="text-xl font-bold text-indigo-950 mb-2">ヘレニズム期：体系化</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        プトレマイオスが著書『テトラビブロス』で体系化。個人の生年月日に基づく占星術が確立されました。
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Scientific Perspective Section -->
+    <section id="perspective" class="py-32 px-4 bg-white scroll-mt overflow-hidden">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold mb-6 uppercase tracking-widest">
+                    <i data-lucide="microscope" class="w-3.5 h-3.5"></i> Critical Investigation
+                </div>
+                <h2 class="text-4xl font-extrabold serif text-indigo-950 mb-6">科学的検証と批判的視座</h2>
+                <div class="w-16 h-1 bg-indigo-600/30 mx-auto rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- Gauquelin -->
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-2xl transition duration-500">
+                    <div
+                        class="w-14 h-14 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mb-8 group-hover:scale-110 transition">
+                        <i data-lucide="bar-chart-3" class="w-8 h-8 text-indigo-600"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-indigo-950 mb-4">マーズ・エフェクト論争</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                        統計学者ミシェル・ゴークランは、数千人の出生データを分析し、「卓越した選手の火星配置」に統計的な有意性を見出したと発表しました。これは「科学的占星術」の可能性を示唆しましたが、後の検証ではデータの恣意性やバイアスが指摘され、現在も議論が続いています。
                     </p>
+                    <div class="text-[10px] font-bold text-indigo-400 uppercase tracking-widest">Statistical Debate
+                    </div>
                 </div>
 
-                <!-- Modern -->
-                <div class="relative pl-12 group">
+                <!-- Carlson -->
+                <div
+                    class="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-100 group hover:bg-white hover:shadow-2xl transition duration-500">
                     <div
-                        class="absolute -left-[2.15rem] top-0 w-7 h-7 bg-indigo-200 rounded-full border-4 border-white shadow-md flex items-center justify-center group-hover:scale-110 transition text-indigo-600">
-                        <i data-lucide="brain" class="w-3 h-3"></i>
+                        class="w-14 h-14 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mb-8 group-hover:scale-110 transition">
+                        <i data-lucide="binary" class="w-8 h-8 text-emerald-600"></i>
                     </div>
-                    <span class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-1 block">20世紀〜現代</span>
-                    <h3 class="text-xl font-bold text-indigo-950 mb-2">心理占星術：魂の分析</h3>
-                    <p class="text-slate-500 text-sm leading-relaxed">
-                        ユング心理学と融合し、自己実現を促す「自己分析ツール」へと進化しました。
+                    <h3 class="text-xl font-bold text-indigo-950 mb-4">カールソンの二重盲検テスト</h3>
+                    <p class="text-sm text-slate-500 leading-relaxed mb-6">
+                        1985年、物理学者ショーン・カールソンは『Nature』誌にて「ホロスコープによる性格判断」の的中率が偶然を上回らなかったと発表しました。この客観的妥当性の否定は大きな波紋を呼び、占星術の実効性が「心理的要因」か「客観的事実」かを問う重要な契機となりました。
                     </p>
+                    <div class="text-[10px] font-bold text-emerald-400 uppercase tracking-widest">Double-Blind Analysis
+                    </div>
+                </div>
+
+                <!-- Barnum Effect (Bright Theme) -->
+                <div
+                    class="md:col-span-2 bg-gradient-to-br from-indigo-50 via-purple-50 to-rose-50 p-12 rounded-[3.5rem] border border-indigo-100/50 shadow-xl shadow-indigo-100/10 relative overflow-hidden group">
+                    <div
+                        class="absolute top-0 right-0 w-96 h-96 bg-white/40 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2">
+                    </div>
+                    <div
+                        class="absolute bottom-0 left-0 w-64 h-64 bg-rose-200/20 rounded-full blur-[80px] translate-y-1/2 -translate-x-1/2">
+                    </div>
+
+                    <div class="relative z-10 grid grid-cols-1 lg:grid-cols-5 gap-10 items-center">
+                        <div class="lg:col-span-2">
+                            <div
+                                class="w-16 h-16 bg-white rounded-3xl shadow-sm border border-indigo-100 flex items-center justify-center mb-8 group-hover:rotate-6 transition duration-500">
+                                <i data-lucide="brain-circuit" class="w-10 h-10 text-indigo-500"></i>
+                            </div>
+                            <h3 class="text-3xl font-extrabold mb-4 serif text-indigo-950">バーナム効果と心理的受容</h3>
+                            <p class="text-slate-600 leading-relaxed text-sm">
+                                「誰にでも当てはまる記述を、自分だけの真実として受け取る」心の仕組み。占星術が心に響く背景には、この繊細な心理メカニズムがあります。それは単なる「誤解」ではなく、人間が物語の中に自分を見出し、意味を紡ごうとする創造的な共鳴プロセスでもあります。
+                            </p>
+                        </div>
+                        <div class="lg:col-span-3">
+                            <div class="bg-white/60 backdrop-blur-xl p-8 rounded-4xl border border-white shadow-sm">
+                                <h4
+                                    class="text-xs font-black text-indigo-400/80 uppercase tracking-widest mb-6 border-b border-indigo-50 pb-4 flex items-center">
+                                    <i data-lucide="sparkles" class="w-3.5 h-3.5 mr-2"></i> Philosophical Insight
+                                </h4>
+                                <p class="text-lg md:text-xl serif italic leading-relaxed text-indigo-900/80">
+                                    「占星術は、たとえ物理的な証明が手に入らずとも、現代を生きる私たちの心に深く寄り添い続けています。それは私たちが『星』という壮大な鏡を通じて、自分自身の内面や人生の物語（カイロス）を豊かに彩り、確かな意味を見出そうとする普遍的な願いの現れなのです。」
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -680,22 +1183,65 @@
             jupiter: 'trending-up', saturn: 'anchor', uranus: 'unplug', neptune: 'cloud', pluto: 'skull'
         };
         const planetDataInfo = {
-            sun: { name: '太陽 (Sun)', purpose: '人生の目的、意志力', desc: 'あなたが「こうなりたい」と願う本質的なエネルギー。人生の目的や社会的な役割を司ります。' },
-            moon: { name: '月 (Moon)', purpose: '無意識、感情、プライベート', desc: 'リラックスしている時の「素顔」や、感情の反応パターン。内面的な安定を司ります。' },
-            mercury: { name: '水星 (Mercury)', purpose: '知性、伝達、思考', desc: '情報の処理方法やコミュニケーションのスタイル。言語能力や論理的思考を司ります。' },
-            venus: { name: '金星 (Venus)', purpose: '愛、美、喜び', desc: '何に喜びを感じ、何を美しいと思うか。恋愛の傾向や感性を司ります。' },
-            mars: { name: '火星 (Mars)', purpose: '行動力、情熱、欲求', desc: 'エネルギーの出し方や、競争する時のスタイル。情熱のあり場を司ります。' },
-            jupiter: { name: '木星 (Jupiter)', purpose: '拡大、幸運、発展', desc: 'あなたがどこで、どのように発展し、チャンスを掴むか。社会的な成功を司ります。' },
-            saturn: { name: '土星 (Saturn)', purpose: '規律、制限、忍耐', desc: '時間をかけて克服すべき課題。努力の先にある確実な成功を司ります。' },
-            uranus: { name: '天王星 (Uranus)', purpose: '独創、革新、変化', desc: '既成概念を打ち破る独創性や、突然の変化を司ります。' },
-            neptune: { name: '海王星 (Neptune)', purpose: '夢、理想、芸術', desc: '想像力やサイキックな才能、目に見えない世界と共鳴する力を司ります。' },
-            pluto: { name: '冥王星 (Pluto)', purpose: '破壊と再生、極限', desc: '根本的な変容。徹底的に破壊し、新しく再生させる不可抗力的なパワーを司ります。' }
+            sun: { name: '太陽 (Sun)', purpose: '人生の目的、意志力', color: '#B45309', desc: 'あなたが「こうなりたい」と願う本質的なエネルギー。人生の目的や社会的な役割を司ります。演劇における「主人公」であり、その人の中心的なアイデンティティを象徴します。' },
+            moon: { name: '月 (Moon)', purpose: '無意識、感情、プライベート', color: '#7E22CE', desc: 'リラックスしている時の「素顔」や、感情の反応パターン。内面的な安定や、癒しのスタイルを司ります。衣装としては「肌に近い柔らかな質感」を象徴します。' },
+            mercury: { name: '水星 (Mercury)', purpose: '知性、伝達、思考', color: '#1D4ED8', desc: '情報の処理方法やコミュニケーションのスタイル。言語能力や論理的思考を司ります。劇中の「語り手」や「伝達者」であり、軽快な色彩と知的な動きを象徴します。' },
+            venus: { name: '金星 (Venus)', purpose: '愛、美、喜び', color: '#DB2777', desc: '何に喜びを感じ、何を美しいと思うか。恋愛の傾向や感性を司ります。「魅惑的な役どころ」を務め、華やかでエレガントな装飾を象徴します。' },
+            mars: { name: '火星 (Mars)', purpose: '行動力、情熱、欲求', color: '#DC2626', desc: 'エネルギーの出し方や、競争する時のスタイル。情熱のあり場を司ります。勇敢な「戦士」や「開拓者」を演じ、力強い色彩とシャープなデザインを象徴します。' },
+            jupiter: { name: '木星 (Jupiter)', purpose: '拡大、幸運、発展', color: '#C2410C', desc: 'あなたがどこで、どのように発展し、チャンスを掴むか。「寛大な指導者」の役割を担い、豊かさと可能性を広げるゆったりとしたシルエットを象徴します。' },
+            saturn: { name: '土星 (Saturn)', purpose: '規律、制限、忍耐', color: '#475569', desc: '時間をかけて克服すべき課題。努力の先にある確実な成功を司ります。厳格な「教師」や「時の管理者」を演じ、堅実でクラシックな仕立てを象徴します。' },
+            uranus: { name: '天王星 (Uranus)', purpose: '独創、革新、変化', color: '#0891B2', desc: '既成概念を打ち破る独創性や、突然の変化を司ります。型破りな「発明家」の役どころで、斬新な色使いやアシンメトリーなスタイルを象徴します。' },
+            neptune: { name: '海王星 (Neptune)', purpose: '夢、理想、芸術', color: '#6366F1', desc: '想像力やサイキックな才能、目に見えない世界と共鳴する力を司ります。神秘的な「夢想家」を演じ、幻想的な色合いと透け感のある素材を象徴します。' },
+            pluto: { name: '冥王星 (Pluto)', purpose: '破壊と再生、極限', color: '#18181B', desc: '根本的な変容。徹底的に破壊し、新しく再生させる不可抗力的なパワーを司ります。「影の支配者」の役割を持ち、深みのある重厚な存在感を象徴します。' }
+        };
+
+        const signDataInfo = {
+            aries: { name: '牡羊座 (Aries)', style: 'Activity (活動的・直接的)', desc: '「衣装」としての牡羊座は、動きやすく鮮やかな色合い、そして直感的なデザインを象徴します。役者に「即座の行動力」と「迷いのない自己主張」を与え、周囲を切り開くパイオニアとしての振る舞いを決定づけます。' },
+            taurus: { name: '牡牛座 (Taurus)', style: 'Quality (上質・安定)', desc: '「衣装」としての牡牛座は、高品質な天然素材や、手触りの良い質感、心地よい色彩を象徴します。役者に「確かな審美眼」と「持続する安定感」を与え、五感を通じて世界を深く味わう振る舞いを決定づけます。' },
+            gemini: { name: '双子座 (Gemini)', style: 'Intelligence (軽快・知性)', desc: '「衣装」としての双子座は、軽やかな素材感や、変化に富んだアシンメトリーなデザインを象徴します。役者に「素早い学習能力」と「変幻自在なコミュニケーション」を与え、情報を媒介する軽快な振る舞いを決定づけます。' },
+            cancer: { name: '蟹座 (Cancer)', style: 'Softness (包容力・情緒)', desc: '「衣装」としての蟹座は、柔らかく優美なドレープや、月明かりのような淡い色調を象徴します。役者に「深い共感力」と「仲間を守る慈愛」を与え、感情のゆらぎを大切にする情緒的な振る舞いを決定づけます。' },
+            leo: { name: '獅子座 (Leo)', style: 'Gorgeous (華彩・自信)', desc: '「衣装」としての獅子座は、ゴールドの装飾や、周囲を惹きつけるドラマチックなシルエットを象徴します。役者に「際立つ存在感」と「溢れ出す創造力」を与え、自分が物語の中心であるという誇り高い振る舞いを決定づけます。' },
+            virgo: { name: '乙女座 (Virgo)', style: 'Neat (清潔・緻密)', desc: '「衣装」としての乙女座は、整理整頓された機能美や、繊細なステッチ、控えめながら端正な美しさを象徴します。役者に「鋭い分析力」と「完成への献身」を与え、不純物を排し洗練を目指す慎み深い振る舞いを決定づけます。' },
+            libra: { name: '天秤座 (Libra)', style: 'Elegant (優雅・均衡)', desc: '「衣装」としての天秤座は、完璧なバランスと調和のとれたデザイン、エレガントな色彩を象徴します。役者に「洗練された社交性」と「公平な判断力」を与え、他者との関係を美しく整える平穏な振る舞いを決定づけます。' },
+            scorpio: { name: '蠍座 (Scorpio)', style: 'Mystery (神秘・情念)', desc: '「衣装」としての蠍座は、深みのある濃色のシルクや、秘密を隠し持つような重厚な質感を象徴します。役者に「不屈の精神」と「極限の集中力」を与え、表面的ではない本質的な真実に手を伸ばす情念的な振る舞いを決定づけます。' },
+            sagittarius: { name: '射手座 (Sagittarius)', style: 'Adventure (自由・理想)', desc: '「衣装」としての射手座は、野性的でありながら高潔なスタイル、活動を妨げない自由なカッティングを象徴します。役者に「果てしない好奇心」と「哲学的な視座」を与え、未知の領域へと跳躍する理想主義的な振る舞いを決定づけます。' },
+            capricorn: { name: '山羊座 (Capricorn)', style: 'Classic (伝統・格式)', desc: '「衣装」としての山羊座は、歴史が宿る正装や、時間の重みを象徴するクラシックな仕立てを象徴します。役者に「実直な責任感」と「野心的な構築力」を与え、現実の成果へ向かって地道に階段を登る格式高い振る舞いを決定づけます。' },
+            aquarius: { name: '水瓶座 (Aquarius)', style: 'Futuristic (革新・独創)', desc: '「衣装」としての水瓶座は、新素材や奇抜な配色、既存の枠に囚われないアヴァンギャルドなスタイルを象徴します。役者に「博愛的な理知」と「現状への変革心」を与え、一歩先を予測する独創的な振る舞いを決定づけます。' },
+            pisces: { name: '魚座 (Pisces)', style: 'Romantic (幻想・浄化)', desc: '「衣装」としての魚座は、水彩のようなグラデーションや、境界を曖昧にする透け感のある素材を象徴します。役者に「無限の想像力」と「全てを受け入れる慈悲」を与え、目に見えない世界と共鳴する幻想的な振る舞いを決定づけます。' }
+        };
+
+        const HOUSE_INFO = {
+            1: { name: '自己の確立', desc: 'アイデンティティや肉体、人生の出発点としての活動' },
+            2: { name: '価値観と豊かさ', desc: '才能や所有、自分の価値を現実化させる場' },
+            3: { name: '知性と交流', desc: '言葉や学び、知的なネットワークを広げる環境' },
+            4: { name: '心の基盤', desc: '家庭や深いつながり、安息を得るプライベートな領域' },
+            5: { name: '創造と喜び', desc: '自己表現や趣味、純粋な喜びを爆発させる創造の間' },
+            6: { name: '労働と健康', desc: '日々の実務や貢献、心身を整えるワークスペース' },
+            7: { name: '対人関係', desc: '結婚やパートナー、他者との出会いを通じて絆を育む場' },
+            8: { name: '共有と変容', desc: '深い絆や継承、古い自分を脱ぎ捨てる変容の聖域' },
+            9: { name: '探求と哲学', desc: '高い視点や真理、未知の領域を旅する精神的な高台' },
+            10: { name: '社会的到達', desc: 'キャリアや天職、この世界で登り詰めるべき人生の頂' },
+            11: { name: '理想と仲間', desc: '志を同じくする友人、未来の希望を分かち合うコミュニティ' },
+            12: { name: '潜在意識', desc: '不可視の世界や神秘、すべてが解けて調和に還る休息所' }
+        };
+
+        const ACTOR_ROLES = {
+            "太陽": "心の中に住む「主人公」",
+            "月": "心の中に住む「素顔」",
+            "水星": "知的な「語り手」",
+            "金星": "愛と美の「ヒロイン/ヒーロー」",
+            "火星": "情熱的な「戦士」",
+            "木星": "慈悲深い「指導者」",
+            "土星": "厳格な「教師」",
+            "天王星": "型破りな「発明家」",
+            "海王星": "感性豊かな「夢想家」",
+            "冥王星": "運命的な「支配者」",
+            "アセンダント": "人生の「案内人」"
         };
 
         document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             initSelectors();
-            renderElementsChart();
             setupForm();
         });
 
@@ -768,46 +1314,137 @@
         }
 
         function displayResults(data) {
-            document.getElementById('res-sun').textContent = data.planets[0].sign;
-            document.getElementById('res-moon').textContent = data.planets[1].sign;
-            document.getElementById('result-meta').textContent = `${data.dateTime} 生まれ | 出生地: ${data.location}`;
+            try {
+                if (!data || !data.planets || !data.ascendant) {
+                    console.error("Invalid horoscope data");
+                    return;
+                }
 
-            const sunSign = data.planets[0].sign;
-            const ascSign = data.ascendant.sign;
+                const sun = data.planets[0];
+                const moon = data.planets[1];
+                if (!sun || !moon) return;
 
-            // ASCと太陽星座を両方明示する
-            document.getElementById('res-desc').innerHTML = `
-                あなたのホロスコープでは、上昇宮（ASC）が<strong>「${ascSign}」</strong>、太陽星座が<strong>「${sunSign}」</strong>に位置しています。<br><br>
-                ${ascSign}の質はあなたの「第一印象や社会への向き向き方」を、${sunSign}の質は「あなたの本質的な人生の目的」を象徴します。<br><br>
-                <strong>${sunSign}の特性:</strong> ${getInterpretation(sunSign)}
-            `;
+                // 基本項目の表示
+                const resSunEl = document.getElementById('res-sun');
+                const resMoonEl = document.getElementById('res-moon');
+                const resMetaEl = document.getElementById('result-meta');
+                if (resSunEl) resSunEl.textContent = sun.sign || "--";
+                if (resMoonEl) resMoonEl.textContent = moon.sign || "--";
+                if (resMetaEl) resMetaEl.textContent = `${data.dateTime || ""} 生まれ | 出生地: ${data.location || ""}`;
 
-            // Render Planet Table (including ASC)
-            const container = document.getElementById('planet-list-container');
-            container.innerHTML = '';
+                // ハウス計算
+                const ascDeg = data.ascendant.degree || 0;
+                const getHouse = (planetDeg) => Math.floor(((planetDeg - ascDeg + 360) % 360) / 30) + 1;
 
-            // Add ASC to the list
-            const allItems = [data.ascendant, ...data.planets];
+                const sunHouse = getHouse(sun.degree);
+                const moonHouse = getHouse(moon.degree);
 
-            allItems.forEach(p => {
-                const row = document.createElement('div');
-                row.className = 'flex items-center justify-between p-3 bg-slate-50/50 rounded-xl border border-slate-100/50';
-                row.innerHTML = `
-                    <div class="flex items-center">
-                        <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3" style="background-color: ${p.color}20; color: ${p.color}">
-                           <i data-lucide="${lookupIcon(p.name)}" class="w-4 h-4"></i>
+                // 解説文の構築
+                const interpretation = (typeof getInterpretation === 'function') ? getInterpretation(sun.sign) : "";
+                let descriptionHTML = `
+                    あなたのホロスコープでは、上昇宮（ASC）が<strong>「${data.ascendant.sign || ""}」</strong>、太陽星座が<strong>「${sun.sign || ""}」</strong>に位置しています。<br><br>
+                    ${data.ascendant.sign || ""}の質はあなたの「第一印象や社会への向き合い方」を、${sun.sign || ""}の質は「あなたの本質的な人生の目的」を象徴します。<br><br>
+                    <strong>${sun.sign || ""}の特性:</strong> ${interpretation}
+                `;
+
+                // 演劇メタファー
+                const sunRole = (typeof ACTOR_ROLES !== 'undefined' && ACTOR_ROLES["太陽"]) ? ACTOR_ROLES["太陽"] : "主人公";
+                const moonRole = (typeof ACTOR_ROLES !== 'undefined' && ACTOR_ROLES["月"]) ? ACTOR_ROLES["月"] : "内面";
+                const sunStage = (typeof HOUSE_INFO !== 'undefined' && HOUSE_INFO[sunHouse]) ? HOUSE_INFO[sunHouse].name : `第${sunHouse}ハウス`;
+                const moonStage = (typeof HOUSE_INFO !== 'undefined' && HOUSE_INFO[moonHouse]) ? HOUSE_INFO[moonHouse].name : `第${moonHouse}ハウス`;
+                const sunStageDesc = (typeof HOUSE_INFO !== 'undefined' && HOUSE_INFO[sunHouse]) ? HOUSE_INFO[sunHouse].desc : "";
+                const moonStageDesc = (typeof HOUSE_INFO !== 'undefined' && HOUSE_INFO[moonHouse]) ? HOUSE_INFO[moonHouse].desc : "";
+
+                const theaterScriptHTML = `
+                    <div class="bg-indigo-50/50 p-6 rounded-[2rem] border border-indigo-100 mb-8 overflow-hidden relative">
+                        <div class="absolute top-0 right-0 p-4 opacity-10">
+                            <i data-lucide="clapperboard" class="w-20 h-20 text-indigo-900"></i>
                         </div>
-                        <span class="font-bold text-slate-700 text-sm">${p.name}</span>
-                    </div>
-                    <div class="text-right">
-                        <span class="text-xs font-black text-indigo-900">${Math.floor(p.degree % 30)}° ${p.sign}</span>
+                        <h4 class="text-xs font-black text-indigo-400 uppercase tracking-widest mb-6 flex items-center">
+                            <i data-lucide="clapperboard" class="w-4 h-4 mr-2"></i> あなただけの「人生の脚本」分析
+                        </h4>
+                        
+                        <div class="space-y-6 relative z-10">
+                            <div class="bg-white/80 p-5 rounded-2xl border border-white shadow-sm transition hover:shadow-md">
+                                <span class="text-[10px] font-black text-amber-500 uppercase mb-2 block tracking-tighter">Chapter 1:人生のメインテーマ</span>
+                                <p class="text-sm font-bold text-indigo-950 mb-3">
+                                    ${sunRole}であるあなたが、<br>
+                                    <span class="bg-amber-50 text-amber-700 px-2 rounded">「${sun.sign || ""}」の衣装</span> をまとい、<br>
+                                    <span class="bg-indigo-50 text-indigo-700 px-2 rounded">「${sunStage}」という舞台（第${sunHouse}ハウス）</span> で活躍します。
+                                </p>
+                                <p class="text-[11px] text-slate-500 leading-relaxed italic">
+                                    ＝ ${sun.sign || ""}的なスタイルで、${sunStageDesc}。
+                                </p>
+                            </div>
+
+                            <div class="bg-white/80 p-5 rounded-2xl border border-white shadow-sm transition hover:shadow-md">
+                                <span class="text-[10px] font-black text-purple-500 uppercase mb-2 block tracking-tighter">Chapter 2:心の安らぎと私生活</span>
+                                <p class="text-sm font-bold text-indigo-950 mb-3">
+                                    ${moonRole}であるあなたが、<br>
+                                    <span class="bg-purple-50 text-purple-700 px-2 rounded">「${moon.sign || ""}」の衣装</span> をまとい、<br>
+                                    <span class="bg-indigo-50 text-indigo-700 px-2 rounded">「${moonStage}」という舞台（第${moonHouse}ハウス）</span> で心地よさを得ます。
+                                </p>
+                                <p class="text-[11px] text-slate-500 leading-relaxed italic">
+                                    ＝ ${moon.sign || ""}的なスタイルで、${moonStageDesc}。
+                                </p>
+                            </div>
+                        </div>
                     </div>
                 `;
-                container.appendChild(row);
-            });
-            lucide.createIcons();
 
-            renderHoroscopeChart(data);
+                const resDescEl = document.getElementById('res-desc');
+                if (resDescEl) resDescEl.innerHTML = theaterScriptHTML + descriptionHTML;
+
+                // 天体リスト表の描画
+                const container = document.getElementById('planet-list-container');
+                if (container) {
+                    container.innerHTML = `
+                        <div class="grid grid-cols-12 gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest px-3 mb-2">
+                            <div class="col-span-4 text-left">Actor / Role</div>
+                            <div class="col-span-4 text-center">Style / Costume</div>
+                            <div class="col-span-4 text-right">Stage / Degree</div>
+                        </div>
+                    `;
+
+                    const allItems = [data.ascendant, ...data.planets];
+                    allItems.forEach(p => {
+                        const hNum = getHouse(p.degree);
+                        const row = document.createElement('div');
+                        row.className = 'grid grid-cols-12 gap-2 items-center p-3 bg-slate-50/50 rounded-xl border border-slate-100/50 hover:bg-white transition';
+
+                        const role = (typeof ACTOR_ROLES !== 'undefined') ? ACTOR_ROLES[p.name] : "";
+                        const icon = (typeof lookupIcon === 'function') ? lookupIcon(p.name) : "star";
+
+                        row.innerHTML = `
+                            <div class="col-span-4 flex items-center">
+                                <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-2 shrink-0" style="background-color: ${p.color || '#ddd'}20; color: ${p.color || '#888'}">
+                                   <i data-lucide="${icon}" class="w-4 h-4"></i>
+                                </div>
+                                <div class="min-w-0">
+                                    <span class="block font-bold text-slate-700 text-[11px] leading-tight">${p.name || ""}</span>
+                                    <span class="block text-[8px] text-slate-400 truncate">${role || ""}</span>
+                                </div>
+                            </div>
+                            <div class="col-span-4 text-center">
+                                <span class="inline-block px-1.5 py-0.5 rounded-full text-[10px] font-black" style="background-color: ${p.color || '#ddd'}10; color: ${p.color || '#888'}">${p.sign || ""}</span>
+                            </div>
+                            <div class="col-span-4 text-right">
+                                <span class="block text-[10px] font-black text-indigo-900">${hNum}th House</span>
+                                <span class="block text-[8px] text-slate-400 font-medium tracking-tight">${Math.floor((p.degree || 0) % 30)}° ${p.sign || ""}</span>
+                            </div>
+                        `;
+                        container.appendChild(row);
+                    });
+                }
+
+                // アイコンのリロードとチャート描画
+                if (typeof lucide !== 'undefined') lucide.createIcons();
+                if (typeof renderHoroscopeChart === 'function') {
+                    renderHoroscopeChart(data);
+                }
+            } catch (err) {
+                console.error("Error in displayResults:", err);
+            }
         }
 
         function lookupIcon(name) {
@@ -835,42 +1472,23 @@
             lucide.createIcons();
 
             panel.classList.remove('hidden');
-            panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         }
 
-        function renderElementsChart() {
-            const ctx = document.getElementById('elementsChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'radar',
-                data: {
-                    labels: ['火 (情熱)', '地 (現実)', '風 (思考)', '水 (感情)'],
-                    datasets: [{
-                        label: 'エレメント・バランス',
-                        data: [7, 5, 8, 4],
-                        backgroundColor: 'rgba(79, 70, 229, 0.15)',
-                        borderColor: '#4F46E5',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#4F46E5'
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        r: {
-                            beginAtZero: true,
-                            max: 10,
-                            ticks: { display: false },
-                            grid: { color: 'rgba(0,0,0,0.05)' },
-                            angleLines: { color: 'rgba(0,0,0,0.05)' }
-                        }
-                    },
-                    plugins: {
-                        legend: { display: false }
-                    }
-                }
-            });
+        function showSignDetail(id) {
+            const data = signDataInfo[id];
+            const panel = document.getElementById('sign-detail-panel');
+            const nameEl = document.getElementById('sign-name-large');
+            const styleEl = document.getElementById('sign-style-large');
+            const descEl = document.getElementById('sign-desc-large');
+
+            nameEl.textContent = data.name;
+            styleEl.textContent = data.style;
+            descEl.textContent = data.desc;
+
+            panel.classList.remove('hidden');
         }
+
+
 
         // --- Mobile Menu Logic ---
         function toggleMobileMenu() {
