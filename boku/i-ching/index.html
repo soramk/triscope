@@ -256,7 +256,11 @@
             <div class="hidden md:flex items-center gap-1">
                 <button onclick="scrollToSection('overview')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center gap-2">
-                    <i data-lucide="info" class="w-4 h-4"></i> 概要・特性
+                    <i data-lucide="info" class="w-4 h-4"></i> 概要
+                </button>
+                <button onclick="scrollToSection('structure')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center gap-2">
+                    <i data-lucide="layers" class="w-4 h-4"></i> 構造論
                 </button>
                 <button onclick="scrollToSection('logic')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center gap-2">
@@ -274,6 +278,10 @@
                     class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center gap-2">
                     <i data-lucide="grid" class="w-4 h-4"></i> 六十四卦
                 </button>
+                <button onclick="scrollToSection('tekisen-method')"
+                    class="px-4 py-2 rounded-full text-sm font-medium text-stone-600 hover:bg-stone-50 hover:text-stone-900 transition-all flex items-center gap-2">
+                    <i data-lucide="coins" class="w-4 h-4"></i> 擲銭法
+                </button>
                 <button onclick="scrollToSection('simulation')"
                     class="px-4 py-2 rounded-full text-sm font-medium text-white bg-red-700 hover:bg-red-800 transition-all flex items-center gap-2">
                     <i data-lucide="sparkles" class="w-4 h-4"></i> 体験
@@ -290,15 +298,19 @@
             class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-stone-100 animate-fade-in">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <button onclick="scrollToSection('overview'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">概要・特性</button>
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">概要</button>
+                <button onclick="scrollToSection('structure'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">構造論（爻・八卦）</button>
                 <button onclick="scrollToSection('logic'); toggleMobileMenu()"
-                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">理論と仕組み</button>
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">理論</button>
                 <button onclick="scrollToSection('history'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">歴史的変遷</button>
                 <button onclick="scrollToSection('capabilities'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">得意分野</button>
                 <button onclick="scrollToSection('gallery'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">六十四卦</button>
+                <button onclick="scrollToSection('tekisen-method'); toggleMobileMenu()"
+                    class="block w-full text-left px-3 py-2 text-stone-600 hover:bg-stone-50 rounded-md">擲銭法の理論</button>
                 <button onclick="scrollToSection('simulation'); toggleMobileMenu()"
                     class="block w-full text-left px-3 py-2 text-red-700 border border-red-100 rounded-md text-center">実践シミュレーション</button>
             </div>
@@ -460,6 +472,387 @@
                         <strong>「目に見える形」</strong>から現状や影響を読み解きます。
                         環境を変えたり（風水）、行動を変えることで運命を切り開く開運法として活用されます。
                     </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1.5 Structure Analysis - 爻と八卦の構造論的分析 -->
+        <section id="structure" class="py-24 bg-stone-50 scroll-mt-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span
+                        class="text-stone-500 font-bold tracking-widest uppercase text-xs border-b border-stone-400 pb-1">Structure
+                        Analysis</span>
+                    <h3 class="text-3xl md:text-4xl font-bold text-stone-800 mt-4 serif">六十四卦の構造論的分析</h3>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                        六十四卦を構成する「爻」と「八卦」の体系。<br>
+                        社会的象徴と自然界の法則を読み解く鍵がここにあります。
+                    </p>
+                </div>
+
+                <!-- 爻の位 -->
+                <div class="mb-16">
+                    <div class="bg-white rounded-3xl p-8 md:p-12 border border-stone-200 shadow-sm">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                                <i data-lucide="layers" class="w-5 h-5 text-red-700"></i>
+                            </span>
+                            爻（こう）と六つの位
+                        </h4>
+                        <p class="text-stone-600 leading-relaxed mb-8">
+                            六十四卦を構成する最小単位は「爻（こう）」です。陽爻は「九」、陰爻は「六」で表され、
+                            6つの爻それぞれに社会的・象徴的な意味が付与されています。
+                            易における時間と空間の流れは、植物が大地から成長するように<strong>下から上へ</strong>と進行します。
+                        </p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="border-b-2 border-stone-300">
+                                        <th class="py-3 px-2 text-stone-700 font-bold">位</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">陽爻の呼称</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">陰爻の呼称</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">社会的・象徴的意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-stone-600">
+                                    <tr class="border-b border-stone-100 bg-amber-50/30">
+                                        <td class="py-3 px-2 font-bold">第六位（最上部）</td>
+                                        <td class="py-3 px-2">上九（じょうきゅう）</td>
+                                        <td class="py-3 px-2">上六（じょうりく）</td>
+                                        <td class="py-3 px-2">引退した賢者、極地、廟堂の外、事象の終局</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 bg-red-50/40">
+                                        <td class="py-3 px-2 font-bold">第五位 <span class="text-red-600">★</span></td>
+                                        <td class="py-3 px-2">九五（きゅうご）</td>
+                                        <td class="py-3 px-2">六五（りくご）</td>
+                                        <td class="py-3 px-2"><strong class="text-red-700">君主、リーダー、組織の中心、中正の徳</strong>
+                                        </td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100">
+                                        <td class="py-3 px-2 font-bold">第四位</td>
+                                        <td class="py-3 px-2">九四（きゅうし）</td>
+                                        <td class="py-3 px-2">六四（りくし）</td>
+                                        <td class="py-3 px-2">大臣、側近、君主を補佐する実力者</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 bg-stone-100/50">
+                                        <td class="py-3 px-2 font-bold">第三位</td>
+                                        <td class="py-3 px-2">九三（きゅうさん）</td>
+                                        <td class="py-3 px-2">六三（りくさん）</td>
+                                        <td class="py-3 px-2 text-amber-700">地方の長、現場責任者、過渡期の危機（多懼）</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 bg-blue-50/30">
+                                        <td class="py-3 px-2 font-bold">第二位 <span class="text-blue-600">★</span></td>
+                                        <td class="py-3 px-2">九二（きゅうじ）</td>
+                                        <td class="py-3 px-2">六二（りくじ）</td>
+                                        <td class="py-3 px-2"><strong
+                                                class="text-blue-700">臣下、現場のリーダー、中正の徳、在野の賢人</strong></td>
+                                    </tr>
+                                    <tr class="bg-stone-50/50">
+                                        <td class="py-3 px-2 font-bold">第一位（最下部）</td>
+                                        <td class="py-3 px-2">初九（しょきゅう）</td>
+                                        <td class="py-3 px-2">初六（しょりく）</td>
+                                        <td class="py-3 px-2">一般大衆、事の始まり、潜伏期間</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-amber-50 rounded-xl border border-amber-100">
+                            <p class="text-sm text-stone-600 leading-relaxed">
+                                <i data-lucide="info" class="w-4 h-4 inline-block text-amber-600 mr-1"></i>
+                                <strong>中正の位:</strong> 第五位は「君主の位」、第二位は「臣下の位」とされ、
+                                ここにバランスの取れた爻が来ることが吉とされます。特に「九五」は最も理想的な状態を示すことが多いです。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 八卦の詳細 -->
+                <div class="mb-16" id="bagua">
+                    <div class="bg-white rounded-3xl p-8 md:p-12 border border-stone-200 shadow-sm">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="hexagon" class="w-5 h-5 text-amber-700"></i>
+                            </span>
+                            八卦（小成卦）の象徴体系
+                        </h4>
+                        <p class="text-stone-600 leading-relaxed mb-8">
+                            六十四卦（大成卦）は、三つの爻からなる「八卦」を上下に重ねることで生成されます。
+                            八卦は自然界の基本要素と人間関係（特に家族関係）を象徴する、六十四卦を読み解くための「アルファベット」です。
+                        </p>
+
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead>
+                                    <tr class="border-b-2 border-stone-300">
+                                        <th class="py-3 px-2 text-stone-700 font-bold">八卦</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">象徴</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">自然</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">性質</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold">家族</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold hidden md:table-cell">方位</th>
+                                        <th class="py-3 px-2 text-stone-700 font-bold hidden lg:table-cell">身体</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-stone-600">
+                                    <tr class="border-b border-stone-100 hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☰</span><strong>乾（けん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━━━<br>━━━<br>━━━</td>
+                                        <td class="py-3 px-2 font-bold text-amber-700">天</td>
+                                        <td class="py-3 px-2">健（すこやか）</td>
+                                        <td class="py-3 px-2">父</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">北西</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">首・頭</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☷</span><strong>坤（こん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━ ━<br>━ ━<br>━ ━</td>
+                                        <td class="py-3 px-2 font-bold text-stone-700">地</td>
+                                        <td class="py-3 px-2">順（したがう）</td>
+                                        <td class="py-3 px-2">母</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">南西</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">腹</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☳</span><strong>震（しん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━ ━<br>━ ━<br>━━━</td>
+                                        <td class="py-3 px-2 font-bold text-yellow-600">雷</td>
+                                        <td class="py-3 px-2">動（うごく）</td>
+                                        <td class="py-3 px-2">長男</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">東</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">足</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☴</span><strong>巽（そん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━━━<br>━━━<br>━ ━</td>
+                                        <td class="py-3 px-2 font-bold text-cyan-600">風</td>
+                                        <td class="py-3 px-2">入（いる）</td>
+                                        <td class="py-3 px-2">長女</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">南東</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">股</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-blue-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☵</span><strong>坎（かん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━ ━<br>━━━<br>━ ━</td>
+                                        <td class="py-3 px-2 font-bold text-blue-600">水</td>
+                                        <td class="py-3 px-2">陥（おちいる）</td>
+                                        <td class="py-3 px-2">中男</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">北</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">耳</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-red-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☲</span><strong>離（り）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━━━<br>━ ━<br>━━━</td>
+                                        <td class="py-3 px-2 font-bold text-red-600">火</td>
+                                        <td class="py-3 px-2">麗（つく）</td>
+                                        <td class="py-3 px-2">中女</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">南</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">目</td>
+                                    </tr>
+                                    <tr class="border-b border-stone-100 hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☶</span><strong>艮（ごん）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━━━<br>━ ━<br>━ ━</td>
+                                        <td class="py-3 px-2 font-bold text-emerald-700">山</td>
+                                        <td class="py-3 px-2">止（とどまる）</td>
+                                        <td class="py-3 px-2">少男</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">北東</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">手</td>
+                                    </tr>
+                                    <tr class="hover:bg-amber-50/30 transition-colors">
+                                        <td class="py-3 px-2"><span class="text-2xl mr-2">☱</span><strong>兌（だ）</strong>
+                                        </td>
+                                        <td class="py-3 px-2">━ ━<br>━━━<br>━━━</td>
+                                        <td class="py-3 px-2 font-bold text-teal-600">沢</td>
+                                        <td class="py-3 px-2">悦（よろこぶ）</td>
+                                        <td class="py-3 px-2">少女</td>
+                                        <td class="py-3 px-2 hidden md:table-cell">西</td>
+                                        <td class="py-3 px-2 hidden lg:table-cell">口</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-stone-50 rounded-xl border border-stone-200">
+                            <p class="text-sm text-stone-600 leading-relaxed">
+                                <i data-lucide="book-open" class="w-4 h-4 inline-block text-stone-500 mr-1"></i>
+                                <strong>陰陽卦の決定原則:</strong> 「物は稀なるを以て貴しと為す」——陽爻が1つで陰爻が2つの卦（震・坎・艮）は「陽卦（男）」、
+                                逆に陰爻が1つで陽爻が2つの卦（巽・離・兌）は「陰卦（女）」とされます。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 十翼 -->
+                <div class="mb-16">
+                    <div
+                        class="bg-gradient-to-br from-amber-50 to-stone-50 rounded-3xl p-8 md:p-12 border border-amber-100">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="book-marked" class="w-5 h-5 text-amber-700"></i>
+                            </span>
+                            十翼：易を哲学へと昇華させた注釈体系
+                        </h4>
+                        <p class="text-stone-600 leading-relaxed mb-8">
+                            易経は基本テキストだけでは抽象的で難解です。これを倫理的・哲学的テキストへと体系化したのが、
+                            伝統的に孔子とその学派の作とされる「十翼（じゅうよく）」です。
+                            易の本体を鳥の翼のように助けるという意味で名付けられた十編の注釈書群です。
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="bg-white/80 rounded-xl p-5 border border-amber-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xs font-bold">1</span>
+                                    彖伝（たんでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    卦辞（卦全体への判断）を解説。なぜその卦がそのような吉凶を持つのかを論理的に説明します。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-5 border border-amber-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-red-100 text-red-700 flex items-center justify-center text-xs font-bold">2</span>
+                                    象伝（しょうでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    「大象」は上下卦の組み合わせから君子の道徳的態度を説き、「小象」は各爻の意味を補足します。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-5 border border-red-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-red-700 text-white flex items-center justify-center text-xs font-bold">★</span>
+                                    繋辞伝（けいじでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    易の哲学と形而上学を包括的に論じた最重要文献。「一陰一陽之を道と謂う」などの名句を含みます。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-5 border border-amber-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">4</span>
+                                    文言伝（ぶんげんでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    乾・坤の二卦について特に詳細にその徳を解説。リーダーシップ論や臣下の道を説きます。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-5 border border-amber-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">5</span>
+                                    説卦伝（せっかでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    八卦の象徴（方位、季節、動物、身体部位など）を体系的に分類・解説したものです。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-5 border border-amber-100">
+                                <h5 class="font-bold text-stone-800 mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-6 h-6 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-xs font-bold">6</span>
+                                    序卦伝（じょかでん）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    六十四卦の配列順序の理由と因果関係を一つの連続した物語として説いたものです。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 四大難卦 -->
+                <div class="mb-8">
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-stone-50 rounded-3xl p-8 md:p-12 border border-blue-100">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i data-lucide="alert-triangle" class="w-5 h-5 text-blue-700"></i>
+                            </span>
+                            四大難卦：困難を乗り越える知恵
+                        </h4>
+                        <p class="text-stone-600 leading-relaxed mb-8">
+                            六十四卦の中でも特に困難な状況を示す「四大難卦」。注目すべきは、すべてに<strong class="text-blue-700">「坎（水）」</strong>が含まれていること。
+                            易において「水」は生命の源であると同時に、制御不能な危険や苦難のメタファーとして機能します。
+                        </p>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="bg-white/80 rounded-xl p-6 border border-blue-100">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-lg font-bold text-blue-800">
+                                        屯</div>
+                                    <div>
+                                        <h5 class="font-bold text-stone-800">水雷屯（すいらいちゅん）</h5>
+                                        <p class="text-xs text-blue-600">生みの苦しみ</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    万物が始生する際の混沌。動こうとしても動けない状態。草木が土を破って芽を出そうとする苦闘を象徴します。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-6 border border-blue-100">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-lg font-bold text-blue-800">
+                                        坎</div>
+                                    <div>
+                                        <h5 class="font-bold text-stone-800">坎為水（かんいすい）</h5>
+                                        <p class="text-xs text-blue-600">重なる苦難</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    上下ともに坎であり、八方塞がりな状況。しかしこの苦難を糧として智略を磨くことで突破口が開けます。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-6 border border-blue-100">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-lg font-bold text-blue-800">
+                                        蹇</div>
+                                    <div>
+                                        <h5 class="font-bold text-stone-800">水山蹇（すいざんけん）</h5>
+                                        <p class="text-xs text-blue-600">行き悩み</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    進めば険難、退けば山。足がすくんで進めない状態。このような時は止まって熟考し、賢明な回避が吉とされます。
+                                </p>
+                            </div>
+                            <div class="bg-white/80 rounded-xl p-6 border border-blue-100">
+                                <div class="flex items-center gap-3 mb-3">
+                                    <div
+                                        class="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-lg font-bold text-blue-800">
+                                        困</div>
+                                    <div>
+                                        <h5 class="font-bold text-stone-800">沢水困（たくすいこん）</h5>
+                                        <p class="text-xs text-blue-600">困窮</p>
+                                    </div>
+                                </div>
+                                <p class="text-sm text-stone-600 leading-relaxed">
+                                    水が沢の下に漏れて枯渇している状態。精神の鍛錬こそが求められ、この行き詰まりからの飛躍を示唆します。
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-white/60 rounded-xl border border-blue-200">
+                            <p class="text-sm text-stone-600 leading-relaxed">
+                                <i data-lucide="lightbulb" class="w-4 h-4 inline-block text-amber-600 mr-1"></i>
+                                <strong>四大難卦の教え:</strong> 単に不運を嘆くのではなく、その構造的要因を理解し、
+                                適切な処世術（待機、相談、内省など）を採用することが求められます。
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -976,7 +1369,7 @@
             </div>
         </section>
 
-        <!-- 5. 64 Hexagrams Gallery (New) -->
+        <!-- 5. 64 Hexagrams Gallery - 序卦伝の物語を含む -->
         <section id="gallery" class="py-24 bg-stone-100 scroll-mt-16">
             <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-16">
@@ -985,19 +1378,664 @@
                         64 Hexagrams</span>
                     <h3 class="text-3xl font-bold text-stone-800 mt-4 serif">六十四卦の宇宙</h3>
                     <p class="mt-4 text-stone-600 max-w-2xl mx-auto leading-relaxed text-sm">
-                        八卦が上下に重なることで生まれる64の物語。これらは人生のあらゆる局面、変化のあらゆるステージを網羅していると言われています。
+                        八卦が上下に重なることで生まれる64の物語。「序卦伝」によれば、この配列は無作為ではなく、<br>
+                        宇宙の創造から人間関係の機微まで、壮大な叙事詩として論理的な必然性を持って語られています。
                     </p>
                 </div>
 
-                <!-- Hexagram Grid -->
-                <div id="hex-grid" class="grid grid-cols-4 gap-2">
-                    <!-- Injected by JavaScript -->
+                <!-- 序卦伝の物語：上経・下経 -->
+                <div class="mb-16 grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- 上経 (1-30) -->
+                    <div
+                        class="bg-gradient-to-br from-amber-50 to-white rounded-3xl p-6 md:p-8 border border-amber-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="sun" class="w-6 h-6 text-amber-700"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xl font-bold text-stone-800 serif">上経（1〜30卦）</h4>
+                                <p class="text-xs text-amber-600 font-medium">宇宙・社会の理</p>
+                            </div>
+                        </div>
+
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            上経は<strong>天地創造から社会の盛衰</strong>までを描く30卦。宇宙論的な視点から始まり、国家や社会の形成プロセスを壮大なスケールで語ります。
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="bg-white/60 rounded-xl p-4 border border-amber-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-[10px] font-bold">1</span>
+                                    天地の創造と初期の混沌（1-4卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    <strong>乾（天）</strong>と<strong>坤（地）</strong>から始まり、万物が始生する<strong>屯</strong>（生みの苦しみ）、
+                                    幼く無知な<strong>蒙</strong>（啓蒙の可能性）へと続く。
+                                </p>
+                            </div>
+                            <div class="bg-white/60 rounded-xl p-4 border border-amber-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-[10px] font-bold">2</span>
+                                    社会の形成と闘争（5-8卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    成長には栄養が必要（<strong>需</strong>）、資源を求めて争い（<strong>訟</strong>）、
+                                    争いが集団化し戦争（<strong>師</strong>）、そして和解と親密（<strong>比</strong>）。
+                                </p>
+                            </div>
+                            <div class="bg-white/60 rounded-xl p-4 border border-amber-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center text-[10px] font-bold">3</span>
+                                    繁栄・腐敗・刷新のサイクル（9-30卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    泰平（<strong>泰</strong>）から閉塞（<strong>否</strong>）、腐敗（<strong>蠱</strong>）と刷新、
+                                    困難（<strong>坎</strong>）を乗り越え、知恵の火（<strong>離</strong>）で上経を結ぶ。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 下経 (31-64) -->
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-white rounded-3xl p-6 md:p-8 border border-blue-100 shadow-sm">
+                        <div class="flex items-center gap-3 mb-6">
+                            <span class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center">
+                                <i data-lucide="moon" class="w-6 h-6 text-blue-700"></i>
+                            </span>
+                            <div>
+                                <h4 class="text-xl font-bold text-stone-800 serif">下経（31〜64卦）</h4>
+                                <p class="text-xs text-blue-600 font-medium">倫理・感情の理</p>
+                            </div>
+                        </div>
+
+                        <p class="text-stone-600 text-sm leading-relaxed mb-6">
+                            下経は<strong>人間関係の機微と永遠の未完</strong>を描く34卦。男女の情愛から始まり、夫婦、親子、そして複雑な社会的人間関係の葛藤と調和を語ります。
+                        </p>
+
+                        <div class="space-y-4">
+                            <div class="bg-white/60 rounded-xl p-4 border border-blue-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-bold">1</span>
+                                    感応と恒久性（31-32卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    若い男女が心を通わせる<strong>咸</strong>（純粋な感応）から始まり、
+                                    恒久的な関係を維持する<strong>恒</strong>へ。天地（乾坤）に対応する構成。
+                                </p>
+                            </div>
+                            <div class="bg-white/60 rounded-xl p-4 border border-blue-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-bold">2</span>
+                                    人生の浮沈と変革（33-50卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    退くべき時（<strong>遯</strong>）と進む時（<strong>大壮</strong>）、家庭（<strong>家人</strong>）と反目（<strong>睽</strong>）、
+                                    損益のバランス、変革（<strong>革</strong>）と新体制（<strong>鼎</strong>）。
+                                </p>
+                            </div>
+                            <div class="bg-white/60 rounded-xl p-4 border border-blue-100">
+                                <h5 class="font-bold text-stone-700 text-sm mb-2 flex items-center gap-2">
+                                    <span
+                                        class="w-5 h-5 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center text-[10px] font-bold">3</span>
+                                    永遠の未完（51-64卦）
+                                </h5>
+                                <p class="text-xs text-stone-600 leading-relaxed">
+                                    動と静、進と退を経て、完成した<strong>既済</strong>に至るが、易は「完成=停滞」と考え、
+                                    あえて<strong class="text-blue-700">未済（いまだ成らず）</strong>で終わる。終わりは新たな始まり。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mt-12 text-center">
-                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Hover icons to see
-                        the binary
-                        essence</p>
+                <!-- 序卦伝の核心メッセージ -->
+                <div
+                    class="mb-12 bg-gradient-to-r from-red-50 to-amber-50 rounded-2xl p-6 md:p-8 border border-red-100">
+                    <div class="flex flex-col md:flex-row items-start gap-6">
+                        <div class="flex-shrink-0">
+                            <span class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+                                <i data-lucide="infinity" class="w-8 h-8 text-red-700"></i>
+                            </span>
+                        </div>
+                        <div>
+                            <h4 class="text-xl font-bold text-stone-800 serif mb-3">序卦伝が伝える核心：変易・不易・簡易</h4>
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                                <div class="bg-white/60 rounded-xl p-4">
+                                    <p class="font-bold text-red-700 mb-1">変易（へんえき）</p>
+                                    <p class="text-xs text-stone-600">森羅万象は常に変化し、一時として留まることはない。</p>
+                                </div>
+                                <div class="bg-white/60 rounded-xl p-4">
+                                    <p class="font-bold text-amber-700 mb-1">不易（ふえき）</p>
+                                    <p class="text-xs text-stone-600">変化の中にも、決して変わらない法則（変化の法則そのもの）が存在する。</p>
+                                </div>
+                                <div class="bg-white/60 rounded-xl p-4">
+                                    <p class="font-bold text-stone-700 mb-1">簡易（かんい）</p>
+                                    <p class="text-xs text-stone-600">その法則を悟れば、物事は極めてシンプルで平易なものとなる。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ギャラリータイトル -->
+                <div class="text-center mb-8">
+                    <h4 class="text-lg font-bold text-stone-700 serif">全六十四卦一覧</h4>
+                    <p class="text-xs text-stone-500 mt-1">各卦の上卦・下卦の構成を一望できます</p>
+                </div>
+
+                <!-- Hexagram Grid -->
+                <div id="hex-grid" class="grid grid-cols-4 sm:grid-cols-8 gap-2 md:gap-3">
+                    <!-- Injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 5.5 擲銭法の詳細解説セクション -->
+        <section id="tekisen-method" class="py-24 bg-white scroll-mt-16">
+            <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span
+                        class="text-amber-600 font-bold tracking-widest uppercase text-xs border-b border-amber-400 pb-1">Method
+                        Deep Dive</span>
+                    <h3 class="text-3xl md:text-4xl font-bold text-stone-800 mt-4 serif">擲銭法の理論と仕組み</h3>
+                    <p class="mt-4 text-stone-600 max-w-2xl mx-auto leading-relaxed">
+                        易占いの核心にある「太極から六十四卦へ」の展開と、擲銭法によるコイン占いの仕組みを詳しく解説します。
+                    </p>
+                </div>
+
+                <!-- 太極から八卦への展開 -->
+                <div class="mb-16">
+                    <div
+                        class="bg-gradient-to-r from-amber-50 to-stone-50 rounded-3xl p-8 md:p-12 border border-amber-100">
+                        <h4 class="text-2xl font-bold text-stone-800 serif mb-8 flex items-center gap-3">
+                            <span class="w-10 h-10 rounded-full bg-amber-100 flex items-center justify-center">
+                                <i data-lucide="circle-dot" class="w-5 h-5 text-amber-700"></i>
+                            </span>
+                            易の根本原理：太極から八卦への展開
+                        </h4>
+
+                        <div class="space-y-8">
+                            <!-- 太極 -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0 w-full md:w-32 text-center">
+                                    <div
+                                        class="w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-stone-800 to-stone-400 border-4 border-white shadow-lg flex items-center justify-center">
+                                        <span class="text-white text-2xl font-bold serif">☯</span>
+                                    </div>
+                                    <p class="mt-2 text-sm font-bold text-stone-700">太極</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Taiji</p>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-stone-600 leading-relaxed">
+                                        <strong
+                                            class="text-stone-800">すべての始まり</strong>——太極とは、宇宙が生まれる前の混沌とした状態、陰と陽が分かれる前の「根源」を意味します。
+                                        この無限の可能性を秘めた状態から、すべての変化が始まります。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 矢印 -->
+                            <div class="flex justify-center">
+                                <div class="flex items-center gap-2 text-amber-600">
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                    <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                </div>
+                            </div>
+
+                            <!-- 両儀 -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0 w-full md:w-32 text-center">
+                                    <div class="flex justify-center gap-4">
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-stone-900 border-4 border-white shadow-lg flex items-center justify-center">
+                                            <span class="text-white text-lg font-bold">陽</span>
+                                        </div>
+                                        <div
+                                            class="w-12 h-12 rounded-full bg-stone-200 border-4 border-white shadow-lg flex items-center justify-center">
+                                            <span class="text-stone-700 text-lg font-bold">陰</span>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm font-bold text-stone-700">両儀</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Liangyi</p>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-stone-600 leading-relaxed">
+                                        <strong class="text-stone-800">二つの対極</strong>——太極が分かれて「陽」と「陰」が生まれます。
+                                        陽は<span class="text-amber-700 font-bold">動・明・熱・男性的</span>なエネルギーを、
+                                        陰は<span class="text-blue-700 font-bold">静・暗・冷・女性的</span>なエネルギーを表します。
+                                        この二つが相互作用することで、万物の変化が生まれます。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 矢印 -->
+                            <div class="flex justify-center">
+                                <div class="flex items-center gap-2 text-amber-600">
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                    <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                </div>
+                            </div>
+
+                            <!-- 四象 -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0 w-full md:w-32 text-center">
+                                    <div class="grid grid-cols-2 gap-2 justify-center max-w-[100px] mx-auto">
+                                        <div class="h-10 rounded bg-stone-900 flex items-center justify-center shadow">
+                                            <span class="text-white text-[10px] font-bold">老陽</span>
+                                        </div>
+                                        <div class="h-10 rounded bg-stone-700 flex items-center justify-center shadow">
+                                            <span class="text-white text-[10px] font-bold">少陰</span>
+                                        </div>
+                                        <div class="h-10 rounded bg-stone-500 flex items-center justify-center shadow">
+                                            <span class="text-white text-[10px] font-bold">少陽</span>
+                                        </div>
+                                        <div class="h-10 rounded bg-stone-300 flex items-center justify-center shadow">
+                                            <span class="text-stone-700 text-[10px] font-bold">老陰</span>
+                                        </div>
+                                    </div>
+                                    <p class="mt-2 text-sm font-bold text-stone-700">四象</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Sixiang</p>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-stone-600 leading-relaxed">
+                                        <strong class="text-stone-800">四つの状態</strong>——両儀がさらに展開し、「老陽・少陰・少陽・老陰」の四象が生まれます。
+                                        「老」は成熟・変化の極点を、「少」は成長途上を意味します。これが擲銭法でコインを投げた結果と直接対応します。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 矢印 -->
+                            <div class="flex justify-center">
+                                <div class="flex items-center gap-2 text-amber-600">
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                    <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                </div>
+                            </div>
+
+                            <!-- 八卦 -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0 w-full md:w-32 text-center">
+                                    <div class="flex flex-wrap justify-center gap-1 max-w-[100px] mx-auto text-lg">
+                                        <span>☰</span><span>☱</span><span>☲</span><span>☳</span>
+                                        <span>☴</span><span>☵</span><span>☶</span><span>☷</span>
+                                    </div>
+                                    <p class="mt-2 text-sm font-bold text-stone-700">八卦</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">Bagua</p>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-stone-600 leading-relaxed">
+                                        <strong class="text-stone-800">八つの基本象</strong>——四象がさらに分化し、3本の線（爻）で構成される八卦が生まれます。
+                                        乾（天）・兌（沢）・離（火）・震（雷）・巽（風）・坎（水）・艮（山）・坤（地）の8つが、
+                                        自然と人間社会のあらゆる現象を象徴します。
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 矢印 -->
+                            <div class="flex justify-center">
+                                <div class="flex items-center gap-2 text-amber-600">
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                    <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                                    <div class="w-12 h-px bg-amber-300"></div>
+                                </div>
+                            </div>
+
+                            <!-- 六十四卦 -->
+                            <div class="flex flex-col md:flex-row gap-6 items-start">
+                                <div class="flex-shrink-0 w-full md:w-32 text-center">
+                                    <div
+                                        class="w-20 h-20 mx-auto rounded-lg bg-gradient-to-br from-red-700 to-amber-600 border-4 border-white shadow-lg flex items-center justify-center">
+                                        <span class="text-white text-2xl font-extrabold">64</span>
+                                    </div>
+                                    <p class="mt-2 text-sm font-bold text-stone-700">六十四卦</p>
+                                    <p class="text-[10px] text-stone-400 uppercase tracking-widest">64 Hexagrams</p>
+                                </div>
+                                <div class="flex-grow">
+                                    <p class="text-stone-600 leading-relaxed">
+                                        <strong class="text-stone-800">64通りの変化</strong>——八卦を上下に重ねることで、8×8=64の六十四卦が完成します。
+                                        これが易経の本体であり、人生のあらゆる局面・変化のパターンを網羅しています。
+                                        擲銭法では6回コインを投げて、この64卦のうちの1つを導き出します。
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 擲銭法の詳細 -->
+                <div class="mb-16">
+                    <h4 class="text-2xl font-bold text-stone-800 serif mb-8 text-center">擲銭法：コインによる易占い</h4>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- コインの仕組み -->
+                        <div class="bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
+                            <h5 class="text-lg font-bold text-stone-800 mb-6 flex items-center gap-2">
+                                <i data-lucide="coins" class="w-5 h-5 text-amber-600"></i>
+                                コインの表と裏
+                            </h5>
+                            <div class="space-y-4">
+                                <div class="flex items-center gap-4 p-4 bg-amber-50 rounded-xl border border-amber-100">
+                                    <div
+                                        class="w-14 h-14 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 shadow-lg flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-lg font-bold">表</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-stone-800">表（陽）= 3点</p>
+                                        <p class="text-sm text-stone-600">金色の面・積極的なエネルギー</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-4 p-4 bg-stone-50 rounded-xl border border-stone-200">
+                                    <div
+                                        class="w-14 h-14 rounded-full bg-gradient-to-br from-stone-400 to-stone-600 shadow-lg flex items-center justify-center flex-shrink-0">
+                                        <span class="text-white text-lg font-bold">裏</span>
+                                    </div>
+                                    <div>
+                                        <p class="font-bold text-stone-800">裏（陰）= 2点</p>
+                                        <p class="text-sm text-stone-600">銀色の面・受容的なエネルギー</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-6 text-sm text-stone-600 bg-stone-50 p-4 rounded-lg">
+                                3枚のコインを同時に投げ、その合計点（6〜9点）によって1本の爻（こう）が決まります。
+                                これを6回繰り返すことで、6本の爻からなる「卦」が完成します。
+                            </p>
+                        </div>
+
+                        <!-- 四象と結果の対応 -->
+                        <div class="bg-white rounded-2xl border border-stone-200 p-8 shadow-sm">
+                            <h5 class="text-lg font-bold text-stone-800 mb-6 flex items-center gap-2">
+                                <i data-lucide="layers" class="w-5 h-5 text-amber-600"></i>
+                                四象と投擲結果の対応
+                            </h5>
+                            <div class="space-y-3">
+                                <!-- 老陽 (9) -->
+                                <div class="flex items-center gap-4 p-4 bg-red-50 rounded-xl border border-red-100">
+                                    <div class="flex-shrink-0 text-center">
+                                        <div class="flex items-center gap-1">
+                                            <div class="w-8 h-3 bg-stone-900 rounded"></div>
+                                            <span class="text-red-600 text-xl font-bold">○</span>
+                                        </div>
+                                        <p class="text-[10px] text-stone-500 mt-1">陽爻（変）</p>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <p class="font-bold text-stone-800">老陽（ろうよう）</p>
+                                            <span
+                                                class="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full font-bold">9点</span>
+                                        </div>
+                                        <p class="text-xs text-stone-600 mt-1">表＋表＋表 = 3+3+3</p>
+                                        <p class="text-sm text-red-700 font-medium mt-1">⚡ 変爻：陽が極まり、陰へ変化しようとしている</p>
+                                    </div>
+                                </div>
+
+                                <!-- 少陽 (7) -->
+                                <div class="flex items-center gap-4 p-4 bg-amber-50 rounded-xl border border-amber-100">
+                                    <div class="flex-shrink-0 text-center">
+                                        <div class="w-8 h-3 bg-stone-900 rounded"></div>
+                                        <p class="text-[10px] text-stone-500 mt-1">陽爻（定）</p>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <p class="font-bold text-stone-800">少陽（しょうよう）</p>
+                                            <span
+                                                class="text-xs bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full font-bold">7点</span>
+                                        </div>
+                                        <p class="text-xs text-stone-600 mt-1">表＋裏＋裏 = 3+2+2</p>
+                                        <p class="text-sm text-amber-700 font-medium mt-1">安定した陽のエネルギー</p>
+                                    </div>
+                                </div>
+
+                                <!-- 少陰 (8) -->
+                                <div class="flex items-center gap-4 p-4 bg-blue-50 rounded-xl border border-blue-100">
+                                    <div class="flex-shrink-0 text-center">
+                                        <div class="flex gap-1">
+                                            <div class="w-3 h-3 bg-stone-900 rounded"></div>
+                                            <div class="w-2 h-3 bg-transparent"></div>
+                                            <div class="w-3 h-3 bg-stone-900 rounded"></div>
+                                        </div>
+                                        <p class="text-[10px] text-stone-500 mt-1">陰爻（定）</p>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <p class="font-bold text-stone-800">少陰（しょういん）</p>
+                                            <span
+                                                class="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full font-bold">8点</span>
+                                        </div>
+                                        <p class="text-xs text-stone-600 mt-1">表＋表＋裏 = 3+3+2</p>
+                                        <p class="text-sm text-blue-700 font-medium mt-1">安定した陰のエネルギー</p>
+                                    </div>
+                                </div>
+
+                                <!-- 老陰 (6) -->
+                                <div
+                                    class="flex items-center gap-4 p-4 bg-purple-50 rounded-xl border border-purple-100">
+                                    <div class="flex-shrink-0 text-center">
+                                        <div class="flex items-center gap-1">
+                                            <div class="w-3 h-3 bg-stone-900 rounded"></div>
+                                            <span class="text-red-600 text-lg font-bold">✕</span>
+                                            <div class="w-3 h-3 bg-stone-900 rounded"></div>
+                                        </div>
+                                        <p class="text-[10px] text-stone-500 mt-1">陰爻（変）</p>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="flex items-center justify-between">
+                                            <p class="font-bold text-stone-800">老陰（ろういん）</p>
+                                            <span
+                                                class="text-xs bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full font-bold">6点</span>
+                                        </div>
+                                        <p class="text-xs text-stone-600 mt-1">裏＋裏＋裏 = 2+2+2</p>
+                                        <p class="text-sm text-purple-700 font-medium mt-1">⚡ 変爻：陰が極まり、陽へ変化しようとしている</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- マーカーの意味 -->
+                <div class="bg-gradient-to-r from-red-50 to-amber-50 rounded-3xl p-8 md:p-12 border border-red-100">
+                    <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
+                            <i data-lucide="alert-circle" class="w-5 h-5 text-red-700"></i>
+                        </span>
+                        ○と✕のマーカーの意味
+                    </h4>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div class="bg-white/80 rounded-2xl p-6 border border-red-100">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-4xl font-bold text-red-600">○</span>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-lg">老陽のマーカー</p>
+                                    <p class="text-sm text-stone-500">コイン合計：9点</p>
+                                </div>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed">
+                                陽のエネルギーが<strong>極点に達した</strong>状態を示します。「満ちれば欠ける」の法則に従い、
+                                この陽爻は<span class="text-red-700 font-bold">陰へと変化しようとしている</span>ことを意味します。
+                                変化の兆しを秘めた「動的な陽」です。
+                            </p>
+                        </div>
+
+                        <div class="bg-white/80 rounded-2xl p-6 border border-purple-100">
+                            <div class="flex items-center gap-4 mb-4">
+                                <span class="text-4xl font-bold text-red-600">✕</span>
+                                <div>
+                                    <p class="font-bold text-stone-800 text-lg">老陰のマーカー</p>
+                                    <p class="text-sm text-stone-500">コイン合計：6点</p>
+                                </div>
+                            </div>
+                            <p class="text-stone-600 leading-relaxed">
+                                陰のエネルギーが<strong>極点に達した</strong>状態を示します。極まった陰は
+                                <span class="text-purple-700 font-bold">陽へと転じようとしている</span>ことを意味します。
+                                夜明け前の最も暗い時期、あるいは冬至のように、転換点にあることを示します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-white/60 rounded-2xl p-6 border border-amber-200">
+                        <h5 class="font-bold text-stone-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="book-open" class="w-5 h-5 text-amber-600"></i>
+                            変爻（へんこう）の読み解き方
+                        </h5>
+                        <p class="text-stone-600 leading-relaxed text-sm">
+                            変爻（○や✕がついた爻）がある場合、その卦は「動的」であり、変化の最中にあることを示します。
+                            変爻を反転させると「之卦（しけ）」と呼ばれる未来の卦が現れ、現在→未来への変化の方向性を読み解くことができます。
+                            変爻がない場合は「静的」な状態で、その卦が示す教訓をじっくり味わう時期です。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 確率論的比較 -->
+                <div class="mt-16 bg-white rounded-3xl p-8 md:p-12 border border-stone-200 shadow-sm">
+                    <h4 class="text-2xl font-bold text-stone-800 serif mb-6 flex items-center gap-3">
+                        <span class="w-10 h-10 rounded-full bg-stone-100 flex items-center justify-center">
+                            <i data-lucide="bar-chart-2" class="w-5 h-5 text-stone-700"></i>
+                        </span>
+                        確率論的視点：本筮法 vs 擲銭法
+                    </h4>
+                    <p class="text-stone-600 leading-relaxed mb-8">
+                        興味深いことに、古来の本筮法（50本の筮竹を使う正式な方法）と擲銭法（コイン3枚）では、
+                        各爻が出現する確率が異なります。この違いは易の数理的な深みを示しています。
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <!-- 本筮法 -->
+                        <div class="bg-amber-50/50 rounded-2xl p-6 border border-amber-100">
+                            <h5 class="font-bold text-stone-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="wheat" class="w-5 h-5 text-amber-600"></i>
+                                本筮法（筮竹50本）
+                            </h5>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">老陽（9）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 18.75%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">3/16</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">少陽（7）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-amber-500 rounded-full" style="width: 31.25%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">5/16</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">少陰（8）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-400 rounded-full" style="width: 43.75%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">7/16</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">老陰（6）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 6.25%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">1/16</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-xs text-stone-500 leading-relaxed">
+                                ※老陰（6）が出る確率は極めて低く、「陰が極まって陽に転じる」ことの困難さを数理的に反映しています。
+                            </p>
+                        </div>
+
+                        <!-- 擲銭法 -->
+                        <div class="bg-stone-50 rounded-2xl p-6 border border-stone-200">
+                            <h5 class="font-bold text-stone-800 mb-4 flex items-center gap-2">
+                                <i data-lucide="coins" class="w-5 h-5 text-stone-600"></i>
+                                擲銭法（コイン3枚）
+                            </h5>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">老陽（9）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-red-500 rounded-full" style="width: 12.5%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">1/8</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">少陽（7）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-amber-500 rounded-full" style="width: 37.5%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">3/8</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">少陰（8）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-blue-400 rounded-full" style="width: 37.5%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">3/8</span>
+                                    </div>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-stone-600">老陰（6）</span>
+                                    <div class="flex items-center gap-2">
+                                        <div class="w-24 h-3 bg-stone-200 rounded-full overflow-hidden">
+                                            <div class="h-full bg-purple-500 rounded-full" style="width: 12.5%;"></div>
+                                        </div>
+                                        <span class="text-xs font-bold text-stone-700 w-12 text-right">1/8</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mt-4 text-xs text-stone-500 leading-relaxed">
+                                ※本筮法に比べて「変爻（老陽・老陰）」が出現する確率が高く、動的な卦が出やすい特徴があります。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 朱子の解釈 -->
+                    <div
+                        class="mt-8 bg-gradient-to-r from-amber-50/50 to-stone-50/50 rounded-2xl p-6 border border-amber-100">
+                        <h5 class="font-bold text-stone-800 mb-3 flex items-center gap-2">
+                            <i data-lucide="graduation-cap" class="w-5 h-5 text-amber-600"></i>
+                            朱子（朱熹）の解釈：道徳的修養としての易
+                        </h5>
+                        <p class="text-stone-600 leading-relaxed text-sm mb-4">
+                            宋代の儒学者・朱子は、易を「占いの書」として再定義しつつ、
+                            それを自己の道徳的修養（修己）のツールとして位置づけました。
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                            <div class="bg-white/60 p-4 rounded-xl">
+                                <p class="font-bold text-stone-700 mb-1">変爻がある場合</p>
+                                <p class="text-stone-600 text-xs leading-relaxed">
+                                    その爻が変化の中心であり、現在の状況が移行しつつあることを示す。
+                                    変爻の爻辞と之卦を参考に、どのように行動を変えるべきかを判断します。
+                                </p>
+                            </div>
+                            <div class="bg-white/60 p-4 rounded-xl">
+                                <p class="font-bold text-stone-700 mb-1">変爻がない場合</p>
+                                <p class="text-stone-600 text-xs leading-relaxed">
+                                    状況は比較的安定的であり、卦全体の意味（彖辞）を中心に判断します。
+                                    焦らず、その卦が示す教訓を深く味わう時期です。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -1585,28 +2623,27 @@
             if (!grid) return;
 
             const trigramMap = {
-                "111": "乾（天）",
-                "000": "坤（地）",
-                "001": "震（雷）",
-                "110": "巽（風）",
-                "010": "坎（水）",
-                "101": "離（火）",
-                "011": "艮（山）",
-                "100": "兌（沢）"
+                "111": { name: "乾", nature: "天" },
+                "000": { name: "坤", nature: "地" },
+                "001": { name: "震", nature: "雷" },
+                "110": { name: "巽", nature: "風" },
+                "010": { name: "坎", nature: "水" },
+                "101": { name: "離", nature: "火" },
+                "011": { name: "艮", nature: "山" },
+                "100": { name: "兌", nature: "沢" }
             };
 
             // Generate 64 hexagrams based on binary 0-63
             for (let i = 0; i < 64; i++) {
                 const hexWrapper = document.createElement('div');
 
-                // Get Lower/Upper patterns for tooltip
+                // Get Lower/Upper patterns
                 const lowerPattern = ((i >> 0) & 1).toString() + ((i >> 1) & 1).toString() + ((i >> 2) & 1).toString();
                 const upperPattern = ((i >> 3) & 1).toString() + ((i >> 4) & 1).toString() + ((i >> 5) & 1).toString();
-                const lowerName = trigramMap[lowerPattern] || "?";
-                const upperName = trigramMap[upperPattern] || "?";
+                const lower = trigramMap[lowerPattern] || { name: "?", nature: "?" };
+                const upper = trigramMap[upperPattern] || { name: "?", nature: "?" };
 
-                hexWrapper.className = "bg-white p-2 border border-stone-200 rounded flex flex-col items-center justify-center hover:border-red-400 cursor-help transition-colors group";
-                hexWrapper.title = `上卦: ${upperName} / 下卦: ${lowerName}`;
+                hexWrapper.className = "bg-white p-2 sm:p-3 border border-stone-200 rounded-lg flex flex-col items-center justify-center hover:border-red-400 hover:shadow-md transition-all";
 
                 const hexLines = document.createElement('div');
                 hexLines.className = "flex flex-col-reverse gap-[2px] w-full";
@@ -1625,12 +2662,23 @@
                     hexLines.appendChild(lineDiv);
                 }
 
-                const label = document.createElement('span');
-                label.className = "text-[7px] text-stone-400 mt-1 font-mono group-hover:text-red-600 transition-colors";
-                label.innerText = i.toString(2).padStart(6, '0');
+                // 卦の名前を直接表示
+                const labelContainer = document.createElement('div');
+                labelContainer.className = "mt-2 text-center";
+
+                const hexName = document.createElement('p');
+                hexName.className = "text-[9px] sm:text-[10px] font-bold text-stone-700 leading-tight";
+                hexName.innerText = `${upper.nature}${lower.nature}`;
+
+                const trigramNames = document.createElement('p');
+                trigramNames.className = "text-[7px] sm:text-[8px] text-stone-400 leading-tight";
+                trigramNames.innerText = `${upper.name}/${lower.name}`;
+
+                labelContainer.appendChild(hexName);
+                labelContainer.appendChild(trigramNames);
 
                 hexWrapper.appendChild(hexLines);
-                hexWrapper.appendChild(label);
+                hexWrapper.appendChild(labelContainer);
                 grid.appendChild(hexWrapper);
             }
         }
